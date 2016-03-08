@@ -13,7 +13,13 @@ namespace SchoolManagementSystem.Controllers
 {
     public class StudentController : Controller
     {
+
         IStudent student = new StudentBLL();
+        IStudentAddress studentAddress = new StudentAddressBLL();
+        IGuardianDetail guardiainrepositry = new GuardianDetailBLL();
+        IGuardianContact gContactrepositry = new GuardianContactBLL();
+        IST_PreviousAcadmicRecord previousrepositry = new ST_PreviousAcadmicDetailBLL();
+        IAdmissionGranted aGrantedrepositry = new AdmissionGrantedBLL();
         // GET: Student
         public ActionResult Index()
         {
@@ -21,67 +27,209 @@ namespace SchoolManagementSystem.Controllers
         }
         public ActionResult StudentList()
         {
-            List<Student> list = new List<Student>();
-            list = student.GetAllStudents();
-            return View(list);
+            List<Student> getStudentList = student.GetALLStudents();
+            return View(getStudentList);
         }
         [HttpGet]
-        public ActionResult AddChangesStu(int id)
+        public ActionResult AddChangesStudent(int id)
         {
-            //id = 0;
-            //Student std;
-            var userloggedId = User.Identity.GetUserId();
+            //int id = 0;
+            Student std;
+
             if (id == 0)
             {
                 Student stu = new Student();
-                stu.CreatedById = userloggedId;
+
                 return View(stu);
             }
             else
-            {
-                Student std = new Student();
-                std.StudentId = id;
                 std = student.GetStudentById(id);
-                return View(std);
-            }
+            return View(std);
         }
         [HttpPost]
-        public ActionResult AddChangesStu(Student std)
+        public ActionResult AddChangesStudent(Student std, int AcadmicClassId, int ddlSibling, int ddlCurrentSibling)
         {
-            int getStudentValue = student.StudentAddChanges(std);
-            return View(getStudentValue);
+            var userloggedId = User.Identity.GetUserId();
+            if (std.StudentId > 0)
+            {
+                std.ModifiedById = userloggedId;
+                std.AcadmicClassId = AcadmicClassId;
+                std.NoOfSibling = ddlSibling;
+                std.NoOfSiblingCurrentSchool = ddlCurrentSibling;
+
+            }
+            else
+            {
+                std.CreatedById = userloggedId;
+                std.AcadmicClassId = AcadmicClassId;
+                std.NoOfSibling = ddlSibling;
+                std.NoOfSiblingCurrentSchool = ddlCurrentSibling;
+
+            }
+
+            TempData["getStudentValue"] = student.StudentAddChanges(std);
+            TempData.Keep("getStudentValue");
+
+            return RedirectToAction("AddChangesStudentAddress");
+
         }
         [HttpGet]
-        public ActionResult GardianDetail()
+        public ActionResult AddChangesStudentAddress()
+        {
+            StudentAddress objstdAddress;
+            int getStudentId = Convert.ToInt32(TempData["getStudentValue"].ToString());
+
+            objstdAddress = studentAddress.GetStudentAddressByStudentId(getStudentId);
+            if (objstdAddress.StudentAddressId == 0)
+            {
+                StudentAddress stdAdd = new StudentAddress();
+                stdAdd.StudentId = getStudentId;
+                return View(stdAdd);
+            }
+            else
+                return View(objstdAddress);
+
+
+
+        }
+        [HttpPost]
+        public ActionResult AddChangesStudentAddress(StudentAddress stdAddress, int StudentId, int CityId)
         {
 
-            GuardianDetail grdianDetail = new GuardianDetail();
-            return View(grdianDetail);
+            stdAddress.StudentId = StudentId;
+            stdAddress.CityId = CityId;
+            TempData["getStudentId"] = studentAddress.StudentAddressAddChanges(stdAddress);
+            TempData.Keep("getStudentId");
+            return RedirectToAction("AddChangesGuardianDetail");
         }
-        public ActionResult AdmissionGranted()
+        [HttpGet]
+        public ActionResult AddChangesGuardianDetail()
         {
-            AdmissionGranted admGrant = new AdmissionGranted();
-            //admGrant.AdmissionId = 0;
-            return View(admGrant);
-        }
+            GuardianDetail objguardian;
+            int getStudentId = Convert.ToInt32(TempData["getStudentId"].ToString());
+            objguardian = guardiainrepositry.GetGuardianInfoByStudentId(getStudentId);
+            if (objguardian.StudentGuardianId == 0)
+            {
+                GuardianDetail gDetail = new GuardianDetail();
+                gDetail.StudentId = getStudentId;
+                return View(gDetail);
+            }
+            else
+                return View(objguardian);
 
-        public ActionResult StudentContacts()
-        {
-            GuardianContacts contact = new GuardianContacts();
-            return View(contact);
         }
-        public ActionResult StudentAddress()
+        [HttpPost]
+        public ActionResult AddChangesGuardianDetail(GuardianDetail gDetails, int StudentId)
         {
-            StudentAddress stdAdd = new StudentAddress();
-            return View(stdAdd);
-        }
+            gDetails.StudentId = StudentId;
+            int Id = guardiainrepositry.GuardianContactAddChanges(gDetails);
+            TempData["getGuardianValue"] = Id;
+            return RedirectToAction("AddChangesGuardianContacts", new { studentid = StudentId });
 
-        public ActionResult PreviousAcadmicRecord()
+        }
+        [HttpGet]
+        public ActionResult AddChangesGuardianContacts(int studentid)
         {
+            ViewBag.StudentId = studentid;
+            int guardianId = Convert.ToInt32(TempData["getGuardianValue"]);
+            GuardianContacts gContact;
+            gContact = gContactrepositry.GetGuardianContactInfoByGuardianId(guardianId);
+            if (gContact.GuardianContactId == 0)
+            {
+                GuardianContacts contact = new GuardianContacts();
+                contact.GuardianId = guardianId;
+                return View(contact);
+
+            }
+            else
+                return View(gContact);
+
+        }
+        [HttpPost]
+        public ActionResult AddChangesGuardianContacts(GuardianContacts gContacts, int StudentId)
+        {
+            int guardianId = gContactrepositry.GuardianContactAddChanges(gContacts);
+            return RedirectToAction("AddChangesPreviousAcadmicRecord", new { studentid = StudentId });
+        }
+        [HttpGet]
+        public ActionResult AddChangesPreviousAcadmicRecord(int StudentId)
+        {
+            ST_PreviousAcadmicDetail previousDetail;
+            previousDetail = previousrepositry.GetPreviousAcadmicInfoByStudentId(StudentId);
+            if (previousDetail.PAcadmicId == 0)
+            {
+                ST_PreviousAcadmicDetail Stu_PreAcadmicReco = new ST_PreviousAcadmicDetail();
+                Stu_PreAcadmicReco.StudentId = StudentId;
+                return View(Stu_PreAcadmicReco);
+            }
+            else
+                return View(previousDetail);
+        }
+        [HttpPost]
+        public ActionResult AddChangesPreviousAcadmicRecord(ST_PreviousAcadmicDetail previousDetail, int StudentId, int AcadmicClassId)
+        {
+            previousDetail.StudentId = StudentId;
+            previousDetail.AcadmicClassId = AcadmicClassId;
+            int ReturnStudentId = previousrepositry.PreviousAcadmicDetailAddChanges(previousDetail);
             ST_PreviousAcadmicDetail Stu_PreAcadmicReco = new ST_PreviousAcadmicDetail();
-            return View(Stu_PreAcadmicReco);
+            return RedirectToAction("AddChangesAdmissionGranted", new { studentid = StudentId });
+        }
+        [HttpGet]
+        public ActionResult AddChangesAdmissionGranted(int studentid)
+        {
+            
+
+            AdmissionGranted admisionGranted;
+            admisionGranted = aGrantedrepositry.GetAdmissionGrantedInfoByStudentId(studentid);
+            if (admisionGranted.AdmissionId == 0)
+            {
+                AdmissionGranted admGrant = new AdmissionGranted();
+                admisionGranted.StudentId = studentid;
+               
+                return View(admGrant);
+
+            }
+            else
+                return View(admisionGranted);
+        }
+        [HttpPost]
+        public ActionResult AddChangesAdmissionGranted(AdmissionGranted agranted, int StudentId, string AcadmicClassId, int RollNumber)
+        {
+
+            var userloggedId = User.Identity.GetUserId();
+            // Update Student RollNumber
+            Student std = student.GetStudentById(StudentId);
+            std.RollNumber = RollNumber;
+            std.IsActive = agranted.IsGranted;
+            if (std.StudentId > 0)
+            {
+                int getStudent = student.StudentAddChanges(std);
+            }
+            if (agranted.AdmissionId == 0)
+            {
+                AdmissionGranted admGrant = new AdmissionGranted();
+                admGrant.StudentId = StudentId;
+                admGrant.CreatedById = userloggedId.ToString();
+                admGrant.AdmissionGrantedForClass = AcadmicClassId;
+                int finalValue = aGrantedrepositry.AdmissionAddChanges(admGrant);
+                return View(admGrant);
+            }
+            else
+            {
+                AdmissionGranted admGrant = new AdmissionGranted();
+                admGrant.StudentId = StudentId;
+                admGrant.ModifiedById = userloggedId.ToString();
+                admGrant.AdmissionGrantedForClass = AcadmicClassId;
+                int finalValue = aGrantedrepositry.AdmissionAddChanges(admGrant);
+                return View(admGrant);
+               
+            }
+            
         }
 
+
+
+        [HttpGet]
         public ActionResult StudentProfile()
         {
             StudentProfile studProfile = new StudentProfile();
