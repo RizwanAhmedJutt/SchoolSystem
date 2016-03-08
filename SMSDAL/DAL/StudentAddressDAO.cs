@@ -42,23 +42,23 @@ namespace SMSDAL.DAL
                 using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("sp_std_StudentAddressInsertUpdate"))
                 {
                     gObjDatabase.AddInParameter(objDbCommand, "@StudentAddressId", DbType.Int32, studentAddress.StudentAddressId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.String, studentAddress.StudentId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.Int32, studentAddress.StudentId);
                     gObjDatabase.AddInParameter(objDbCommand, "@PresentAddress", DbType.String, studentAddress.PresentAddress);
                     gObjDatabase.AddInParameter(objDbCommand, "@PermanentAddress", DbType.String, studentAddress.PermanentAddress);
-
+                    gObjDatabase.AddInParameter(objDbCommand, "@CityId", DbType.Int32, studentAddress.CityId);
+                    gObjDatabase.AddOutParameter(objDbCommand, "@StudentAddressNewId", DbType.Int32, 4);
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
-                    SqlParameter parm = new SqlParameter("@StudentAddressNewId", SqlDbType.Int);
-                    parm.Size = 4;
-                    parm.Direction = ParameterDirection.Output; // This is important!
-                    objDbCommand.Parameters.Add(parm);
+
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
                     objDbCommand.Parameters.Add(returnParameter);
-                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+                   
                     if (studentAddress.StudentAddressId == 0)
                     {
-                        var identity = parm.Value;
-                        return (int)identity;
+                        var identity = Convert.ToInt32(objDbCommand.Parameters["@StudentId"].Value);
+
+                        int getStudentId = Convert.ToInt32(objDbCommand.Parameters["@StudentId"].Value);
+                        return getStudentId;
                     }
                     else if (studentAddress.StudentAddressId > 0)
                     {

@@ -51,19 +51,18 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@TotalMark", DbType.Decimal, previousDetial.TotalMark);
                     gObjDatabase.AddInParameter(objDbCommand, "@Grade", DbType.String, previousDetial.Grade);
                     gObjDatabase.AddInParameter(objDbCommand, "@MediumOfInstruction", DbType.String, previousDetial.MediumOfInstruction);
+                    gObjDatabase.AddOutParameter(objDbCommand, "@PAcadmicNewID", DbType.Int32, 4);
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
-                    SqlParameter parm = new SqlParameter("@PAcadmicNewID", SqlDbType.Int);
-                    parm.Size = 4;
-                    parm.Direction = ParameterDirection.Output; // This is important!
-                    objDbCommand.Parameters.Add(parm);
+                   
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
                     objDbCommand.Parameters.Add(returnParameter);
-                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+                   
                     if (previousDetial.PAcadmicId == 0)
                     {
-                        var identity = parm.Value;
-                        return (int)identity;
+                        // identity will be return studentid 
+                        int getStudentId = Convert.ToInt32(objDbCommand.Parameters["@PAcadmicNewID"].Value);
+                        return getStudentId;
                     }
                     else if (previousDetial.PAcadmicId > 0)
                     {

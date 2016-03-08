@@ -51,19 +51,16 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@RelationWithGuardian", DbType.String, guardianDetail.RelationWithGuardian);
                     gObjDatabase.AddInParameter(objDbCommand, "@GuardianMonthlyIncome", DbType.Int32, guardianDetail.GuardianMontlyIncome);
                     gObjDatabase.AddInParameter(objDbCommand, "@GuardianQualification", DbType.String, guardianDetail.GuardianQualification);
-
+                    gObjDatabase.AddOutParameter(objDbCommand, "@GuardianNewId", DbType.Int32, 4);
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
-                    SqlParameter parm = new SqlParameter("@GuardianNewId", SqlDbType.Int);
-                    parm.Size = 4;
-                    parm.Direction = ParameterDirection.Output; // This is important!
-                    objDbCommand.Parameters.Add(parm);
+                    
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
                     objDbCommand.Parameters.Add(returnParameter);
-                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+                    
                     if (guardianDetail.StudentGuardianId == 0)
                     {
-                        var identity = parm.Value;
+                        var identity = Convert.ToInt32(objDbCommand.Parameters["@GuardianNewId"].Value);
                         return (int)identity;
                     }
                     else if (guardianDetail.StudentGuardianId > 0)
