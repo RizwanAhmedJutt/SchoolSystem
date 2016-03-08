@@ -9,7 +9,7 @@ namespace SMSBusiness.Repository.Abstract
 {
   public  interface IGuardianContact
     {
-       GuardianContacts GetAdmissionGrantedInfoByStudentId(int GuardianId);
+      GuardianContacts GetGuardianContactInfoByGuardianId(int GuardianId);
        int GuardianContactAddChanges(GuardianContacts gContact);
 
     }

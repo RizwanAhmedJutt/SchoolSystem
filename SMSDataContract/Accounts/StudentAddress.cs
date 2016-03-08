@@ -21,5 +21,6 @@ namespace SMSDataContract.Accounts
         public int StudentId { get; set; }
         public string PermanentAddress { get; set; }
         public string PresentAddress { get; set; }
+        public int CityId { get; set; }
     }
 }

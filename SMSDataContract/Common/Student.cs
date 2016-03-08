@@ -25,13 +25,16 @@ namespace SMSDataContract.Common
             CreatedById = string.Empty;
             ModifiedDate = null;
             ModifiedById = null;
+            
         }
         
 
         public int StudentId { get; set; }
+        [Required (ErrorMessage="Please Enter First Name")]
         public string FirstName { get; set; }
+        [Required (ErrorMessage="Enter Last Name")]
         public string LastName { get; set; }
-
+        public string ClassName { get; set; }
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DOB { get; set; }

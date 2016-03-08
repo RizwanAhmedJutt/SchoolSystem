@@ -19,7 +19,7 @@ namespace SMSDataContract.Accounts
             AdmissionGrantedForClass = string.Empty;
             AdmissionGrantedDate = DateTime.Now;
             Remarks = string.Empty;
-            CreatedById = 0;
+            CreatedById = string.Empty;
             CreatedDate = DateTime.Now;
             ModifiedById = null;
             ModifiedDate = null;
@@ -34,9 +34,9 @@ namespace SMSDataContract.Accounts
         public string AdmissionGrantedForClass { get; set; }
         public DateTime AdmissionGrantedDate { get; set; }
         public string Remarks { get; set; }
-        public int CreatedById { get; set; }
+        public string CreatedById { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int? ModifiedById { get; set; }
+        public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
     }

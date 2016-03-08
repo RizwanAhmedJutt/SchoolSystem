@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SMSDataContract.Accounts
 {
-    public class GuardianDetail
+    public class GuardianDetail 
     {
         public GuardianDetail()
         {

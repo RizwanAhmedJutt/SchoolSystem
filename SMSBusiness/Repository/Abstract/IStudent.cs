@@ -9,7 +9,7 @@ namespace SMSBusiness.Repository.Abstract
 {
     public interface IStudent
     {
-        List<Student> GetAllStudents();
+        List<Student> GetALLStudents();
         Student GetStudentById(int StudentId);
         int StudentAddChanges(Student student);
         int DeleteStudent(Student student);
