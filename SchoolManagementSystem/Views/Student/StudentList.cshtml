@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SMSDataContract.Common.Student>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8 col-sm-8">
+        <div class="row">
+            <h2 style="text-align:center;">List of Students</h2>
+            <a href="/Student/AddChangesStu?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Student</a>
+            <br />
+            <table class="table table-bordered table-striped table-responsive table-hover">
+                <tr class="action info">
+                    <th>
+                        @Html.DisplayNameFor(model => model.RollNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DOB)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CNIC)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Religion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AcadmicClassId)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RollNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DOB)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CNIC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Religion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AcadmicClassId)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        <a href="/Student/AddChangesStu?Id=@item.StudentId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-eye-open"></i></a>
+                        <a href="/Student/DeleteStd?Id=@item.StudentId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
+                    </td>
+                </tr>
+}
+
+            </table>
+        </div>
+    </div>
+</div>

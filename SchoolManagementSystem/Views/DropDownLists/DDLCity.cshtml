@@ -1,0 +1,12 @@
+﻿@*@using schoolmanagementsystem;*@
+@using SMSDataContract.Common;
+@using SMSBusiness.Repository.Concrete;
+@using SMSBusiness.Repository.Abstract;
+@{
+
+    ICityBLL repCity = new CityBLL();
+    List<City> ObjCity = new List<City>();
+    ObjCity = repCity.GetALLCities();
+}
+
+@Html.DropDownList("CityId", new SelectList(ObjCity.ToList(), "CityId", "CityName"), new { id = "ddlCity", @class = "form-control" })

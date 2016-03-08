@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{49CBB4AB-DCCD-4D3D-92C9-7833D6DB9B60}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SMSDataContract</RootNamespace>
+    <AssemblyName>SMSDataContract</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accounts\AdmissionGranted.cs" />
+    <Compile Include="Accounts\StudentMonthAssessment.cs" />
+    <Compile Include="Accounts\StudentSubjectProgressReport.cs" />
+    <Compile Include="Common\AcadmicClass.cs" />
+    <Compile Include="Common\Category.cs" />
+    <Compile Include="Common\City.cs" />
+    <Compile Include="Enums\MonthAssessmentType.cs" />
+    <Compile Include="Enums\ReportType.cs" />
+    <Compile Include="Accounts\TeacherReport.cs" />
+    <Compile Include="Common\Course.cs" />
+    <Compile Include="Accounts\GuardianContacts.cs" />
+    <Compile Include="Accounts\GuardianDetail.cs" />
+    <Compile Include="Accounts\Std_AssignedCouse.cs" />
+    <Compile Include="Accounts\StudentAddress.cs" />
+    <Compile Include="Accounts\StudentBasicExpenditure.cs" />
+    <Compile Include="Accounts\StudentExpenditure.cs" />
+    <Compile Include="Accounts\StudentProfile.cs" />
+    <Compile Include="Accounts\ST_PreviousAcadmicDetail.cs" />
+    <Compile Include="Accounts\TeacherAddress.cs" />
+    <Compile Include="Accounts\TeacherAssignedCourse.cs" />
+    <Compile Include="Accounts\TeacherContact.cs" />
+    <Compile Include="Accounts\TeacherProfile.cs" />
+    <Compile Include="Common\Student.cs" />
+    <Compile Include="Common\Teacher.cs" />
+    <Compile Include="Enums\StdClass.cs" />
+    <Compile Include="Enums\StudentSubjectEvaluation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+    <Folder Include="Menus\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

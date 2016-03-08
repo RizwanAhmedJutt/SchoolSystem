@@ -1,0 +1,13 @@
+﻿@using SchoolManagementSystem;
+@*@using SMSDataContract.Enums;*@
+@using SMSBusiness.Repository.Concrete;
+@using SMSBusiness.Repository.Abstract;
+@using SMSDataContract.Common;
+@{
+
+    ICategoryBLL repCategory = new CategoryBLL();
+    List<Category> ObjCategory = new List<Category>();
+    ObjCategory = repCategory.GetALLCategories();
+}
+
+@Html.DropDownList("CategoryId", new SelectList(ObjCategory.ToList(), "Id", "Name"), new { id = "ddlCategoryId", @class = "form-control" })

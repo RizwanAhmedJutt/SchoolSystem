@@ -1,0 +1,14 @@
+﻿@using SchoolManagementSystem;
+@using SMSBusiness.Repository.Abstract;
+@using SMSBusiness.Repository.Concrete;
+@using SMSDataContract.Common;
+@*@using System.Collections.Generic;*@
+@{
+
+    IAcadmicClassBLL repClass = new AcadmicClassBLL();
+    List<AcadmicClass> ObjClass = new List<AcadmicClass>();
+    ObjClass = repClass.GetALLAcadmicClassies();
+}
+
+@Html.DropDownList("AcadmicClassId", new SelectList(ObjClass.ToList(), "AcadmicClassId", "ClassName"), new { id = "ddlAcadmicClass", @class = "form-control" })
+

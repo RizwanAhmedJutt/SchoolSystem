@@ -1,0 +1,74 @@
+﻿@model SMSDataContract.Accounts.GuardianContacts
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-8 col-sm-8">
+            <div class="row well">
+                    @if (Model.GuardianContactId == 0)
+                    {
+                        <h2 class="text-center">Guardian Contacts</h2>
+
+                    }
+                    else
+                    {
+                        <h2 class="text-center">Update Guardian Contacts</h2>
+                    }
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.GuardianContactId)
+                        @Html.HiddenFor(model => model.GuardianId)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstContact, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                    @Html.EditorFor(model => model.FirstContact, new { htmlAttributes = new { @class = "form-control", id = "FirstContact", placeholder = "First Contact" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.FirstContact, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SecondContact, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                                    @Html.EditorFor(model => model.SecondContact, new { htmlAttributes = new { @class = "form-control", id = "SecondContact", placeholder = "Second Contact" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.SecondContact, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <br />
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @if (Model.GuardianContactId == 0)
+                                {
+                                    <input type="submit" value="Save Guardian Contact Detial >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                    <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                                }
+                                else
+                                {
+                                    <input type="submit" value="Update Guardian Contact Detial >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
+                                    <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                                }
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                    
+}
+
