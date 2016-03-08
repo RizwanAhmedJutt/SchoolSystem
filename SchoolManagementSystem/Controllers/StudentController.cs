@@ -15,7 +15,7 @@ namespace SchoolManagementSystem.Controllers
     {
 
         IStudent student = new StudentBLL();
-        IStudentAddress studentAddress = new StudentAddressBLL();
+        IStudentAddressBLL studentAddress = new StudentAddressBLL();
         IGuardianDetail guardiainrepositry = new GuardianDetailBLL();
         IGuardianContact gContactrepositry = new GuardianContactBLL();
         IST_PreviousAcadmicRecord previousrepositry = new ST_PreviousAcadmicDetailBLL();
@@ -27,7 +27,7 @@ namespace SchoolManagementSystem.Controllers
         }
         public ActionResult StudentList()
         {
-            List<Student> getStudentList = student.GetALLStudents();
+            List<Student> getStudentList = student.GetAllStudents();
             return View(getStudentList);
         }
         [HttpGet]
@@ -133,7 +133,8 @@ namespace SchoolManagementSystem.Controllers
             ViewBag.StudentId = studentid;
             int guardianId = Convert.ToInt32(TempData["getGuardianValue"]);
             GuardianContacts gContact;
-            gContact = gContactrepositry.GetGuardianContactInfoByGuardianId(guardianId);
+            gContact = gContactrepositry.GetAdmissionGrantedInfoByStudentId(guardianId);
+            //gContact = gContactrepositry.GetGuardianContactInfoByGuardianId(guardianId);
             if (gContact.GuardianContactId == 0)
             {
                 GuardianContacts contact = new GuardianContacts();
