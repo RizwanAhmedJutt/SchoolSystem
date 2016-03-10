@@ -1,4 +1,5 @@
 ﻿using SMSDataContract.Accounts;
+using SMSDataContract.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,16 @@ namespace SchoolManagementSystem.Controllers
     public class TeacherController : Controller
     {
         // GET: Teacher
-        public ActionResult StudentList()
+        public ActionResult TeacherList()
         {
             return View();
+        }
+
+        public ActionResult Teacher()
+        {
+            Teacher teacher = new Teacher();
+            teacher.TeacherId = 0;
+            return View(teacher);
         }
 
         public ActionResult TeacherAddress()

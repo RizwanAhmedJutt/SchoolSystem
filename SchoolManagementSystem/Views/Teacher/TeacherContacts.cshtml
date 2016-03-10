@@ -53,19 +53,16 @@
                     <br />
                     <hr />
                     <div class="form-group">
-                        <div class="col-md-12">
-                            @if (Model.TeacherContactId == 0)
-                            {
-                                <input type="submit" value="Save Teacher Contact >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
-                            }
-                            else
-                            {
-                                <input type="submit" value="Update Teacher Contact >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
-                            }
-
-                        </div>
+                        @if (Model.TeacherContactId == 0)
+                        {
+                            <input type="submit" value="Save Teacher Contact >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                            <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Update Teacher Contact >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
+                            <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                        }
                     </div>
                 </div>
             </div>
