@@ -74,20 +74,25 @@ namespace SchoolManagementSystem.Controllers
 
         }
         [HttpGet]
-        public ActionResult AddChangesStudentAddress()
+        public ActionResult AddChangesStudentAddress(int studentid)
         {
             StudentAddress objstdAddress;
-            int getStudentId = Convert.ToInt32(TempData["getStudentValue"].ToString());
-
-            objstdAddress = studentAddress.GetStudentAddressByStudentId(getStudentId);
-            if (objstdAddress.StudentAddressId == 0)
+         
+           
+            if (studentid == 0)
             {
                 StudentAddress stdAdd = new StudentAddress();
-                stdAdd.StudentId = getStudentId;
+                stdAdd.StudentId = studentid;
                 return View(stdAdd);
             }
             else
+            {
+               // int getStudentId = Convert.ToInt32(TempData["getStudentValue"].ToString());
+
+                objstdAddress = studentAddress.GetStudentAddressByStudentId(studentid);
+
                 return View(objstdAddress);
+            }
 
 
 

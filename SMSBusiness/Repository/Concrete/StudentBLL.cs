@@ -72,11 +72,11 @@ namespace SMSBusiness.Repository.Concrete
                     StdDetails.FirstName = dr.IsNull("FirstName") ? string.Empty : Convert.ToString(dr["FirstName"]);
                     StdDetails.LastName = dr.IsNull("LastName") ? string.Empty : Convert.ToString(dr["LastName"]);
                     StdDetails.CNIC = dr.IsNull("CNIC") ? string.Empty : Convert.ToString(dr["CNIC"]);
-                    StdDetails.DOB = dr.IsNull("DOB") ? DateTime.Now : Convert.ToDateTime(dr["DOB"]);
-                    StdDetails.AcadmicClassId = dr.IsNull("AcadmicClassId") ? 0 : Convert.ToInt32(dr["AcadmicClassId"]);
-                    StdDetails.NoOfSibling = dr.IsNull("NoOfSibling") ? 0 : Convert.ToInt32(dr["NoOfSibling"]);
-                    //CustDetails.Password = dr.IsNull("Password") ? string.Empty : Convert.ToString(dr["Password"]);
-                    StdDetails.NoOfSiblingCurrentSchool = dr.IsNull("NoOfSiblingCurrentSchool") ? 0 : Convert.ToInt32(dr["NoOfSiblingCurrentSchool"]);
+                    StdDetails.DOB = dr.IsNull("DateOfBirth") ? DateTime.Now : Convert.ToDateTime(dr["DateOfBirth"]);
+                   
+                    
+                    StdDetails.CreateDate = Convert.ToDateTime(dr["CreatedDate"]);
+                     StdDetails.ClassName = dr.IsNull("ClassName") ? string.Empty : dr["ClassName"].ToString();
                     StdDetails.Religion = dr.IsNull("Religion") ? string.Empty : Convert.ToString(dr["Religion"]);
                     StdDetails.RollNumber = dr.IsNull("RollNumber") ? 0 : Convert.ToInt32(dr["RollNumber"]);
                     StdDetails.IsActive = dr.IsNull("IsActive") ? true : Convert.ToBoolean(dr["IsActive"]);
