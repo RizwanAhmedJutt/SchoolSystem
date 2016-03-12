@@ -1,173 +1,159 @@
 ﻿@model SMSDataContract.Common.Student
 
 @{
-    ViewBag.Title = "AddChangesStu";
+    ViewBag.Title = "AddChangesStudent";
+
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<div id="stdBasicInfo">
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="row">
-        <div class="col-md-8 col-sm-8">
-            <div class="row well">
-                <div class="form-horizontal">
-                    @if (Model.StudentId == 0)
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-8 col-sm-8">
+                <div class="row well">
+                    <div class="form-horizontal">
+                        @if (Model.StudentId == 0)
                     {
-                        <h2 class="text-center">Add Student </h2>
+                    <h2 class="text-center">Add Student Info</h2>
 
                     }
                     else
                     {
-                        <h2 class="text-center">Update Student</h2>
+                    <h2 class="text-center">Update Student</h2>
                     }
 
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.StudentId)
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.StudentId)
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", id = "StuFirstName", placeholder = "First Name" } })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", id = "StuFirstName", placeholder = "First Name" } })
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                             </div>
-
-                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
 
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", id = "StuLastName", placeholder = "Last Name" } })
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", id = "StuLastName", placeholder = "Last Name" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", type = "datetime", id = "DateOfBirth", placeholder = "02/09/1992" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", type = "datetime", id = "DateOfBirth", placeholder = "02/09/1992" })
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
                             </div>
-
-                            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    @*<input type="datetime" />*@
+                        @*<input type="datetime" />*@
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Religion, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
-                                @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control", id = "StuReligion", placeholder = "Religion" } })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Religion, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+                                    @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control", id = "StuReligion", placeholder = "Religion" } })
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
                             </div>
-
-                            @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="form-group">
-
-                        @Html.LabelFor(model => model.AcadmicClassId, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                                @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                        <div class="form-group">
+                            <div class="col-md-3 control-label"><label> Acadmic Class</label> </div>
+                            @*@Html.LabelFor(model => model.AcadmicClassId, htmlAttributes: new { @class = "control-label col-md-3" })*@
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                    @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AcadmicClassId, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.AcadmicClassId, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="form-group">
+                        <div class="form-group">
 
-                        @Html.LabelFor(model => model.CNIC, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                                @Html.EditorFor(model => model.CNIC, new { htmlAttributes = new { @class = "form-control", id = "StuCNIC", placeholder = "CNIC Number" } })
+                            @Html.LabelFor(model => model.CNIC, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                    @Html.EditorFor(model => model.CNIC, new { htmlAttributes = new { @class = "form-control", id = "StuCNIC", placeholder = "CNIC Number" } })
+                                    @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
+                                </div>
+
+
                             </div>
-                            @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="col-md-3 control-label"><label>No.Sibling</label> </div>
 
-                        <label class="col-md-3 control-label">No.s of sibling</label>
-
-                        <div id="StuNoOfSibling" class="col-md-9">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                    @{Html.RenderPartial("../DropDownLists/DDLSibling");}
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AcadmicClassId, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.NoOfSibling, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <hr />
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            @if (Model.StudentId == 0)
+
+                        <div class="form-group">
+
+                            <label class="col-md-3 control-label">No.s of sibling Current School</label>
+
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                    @{Html.RenderPartial("../DropDownLists/DDLCurrentSibling");}
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @if (Model.StudentId == 0)
                             {
-                                @*<a href="~/Views/Student/AddChangesStudentAddress?Id=0" class="btn pull-right btnNext">Save Student >></a>*@
-                                <input id="btnNext" type="button" class="btn pull-right btnNext" value="Next"  />
+                            <input type="submit" value="Save Student >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
+
                             }
                             else
                             {
-                                <a href="~/Views/Student/AddChangesStudentAddress?Id=@(Model.StudentId)" class="pull-right btn btnNext">Update Student >></a>
+                            <input type="submit" value="Update Student >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
+
                             }
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
 
-@section Scripts {
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
-
-    <script type="text/javascript">
-        //$(function () {
-        //    $('#DateOfBirth').datetimepicker();
-
-        //});
-        $(document).ready(function () {
-
-            // $('#DateOfBirth').datetimepicker();
-            $("#btnNext").click(function () {
-               debugger;
-               var objStudent,studentid,firstname,lastname,dateOfBirth,Religion,AcadmicClass,CNIC,NoOfSibling;
-               studentid=$("#StudentId").val();
-               firstname = $("#StuFirstName").val();
-               lastname=$("#StuLastName").val();
-               dateOfBirth=$("#DateOfBirth").val();
-               Religion = $("#StuReligion").val();
-               AcadmicClass = $("#ddlAcadmicClass :selected").val();
-               CNIC = $("#StuCNIC").val();
-               NoOfSibling = $("#StuNoOfSibling :selected").val();
-               objStudent = new Array();
-               objStudent.push(studentid, firstname, lastname, dateOfBirth, Religion, AcadmicClass, CNIC, NoOfSibling);
-               localStorage.StudentObj = objStudent;
-               studentid=JSON.parse(studentid);
-               $.get('@Html.Raw(Url.Action("AddChangesStudentAddress", "Student"))',{studentid:studentid})
-           });
-
-
-        });
-      
-    </script>
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript">
+            $(function () {
+                $('#DateOfBirth').datetimepicker();
+            });
+        </script>
+    }
+</div>
 
