@@ -139,7 +139,8 @@ namespace SMSBusiness.Repository.Concrete
             int ReturnValue = 0;  // Value will be 99 in case of Update
             try
             {
-                ReturnValue = objStudentDao.InsertUpdateStudent(student);
+                
+                //ReturnValue = objStudentDao.InsertUpdateStudent(student);
             }
             catch (Exception)
             {

@@ -17,9 +17,9 @@ namespace SMSDataContract.Common
         public DateTime LeaveDate { get; set; }
         public string RefrenceName { get; set; }
         public string RefrenceContact { get; set; }
-        public int CreatedById { get; set; }
+        public string CreatedById { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int ModifiedById { get; set; }
+        public string ModifiedById { get; set; }
         public DateTime ModifiedDate { get; set; }
 
     }

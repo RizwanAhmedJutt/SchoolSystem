@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SMSDataContract.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace SMSBusiness.Repository.Abstract
 {
     public interface ITeacherRepositry
     {
+        List<Teacher> GetAllStudents();
     }
 }
