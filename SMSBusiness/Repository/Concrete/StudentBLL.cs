@@ -140,7 +140,7 @@ namespace SMSBusiness.Repository.Concrete
             try
             {
                 
-                //ReturnValue = objStudentDao.InsertUpdateStudent(student);
+                ReturnValue = objStudentDao.InsertUpdateStudent(student);
             }
             catch (Exception)
             {

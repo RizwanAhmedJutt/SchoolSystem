@@ -54,7 +54,58 @@ namespace SMSDAL
             }
             return dtStudentDetails;
         }
-        
+        public int InsertUpdateStudent(Student student)
+        {
+            try
+            {
+                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("sp_std_InsertUpdate"))
+                {
+                    gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.Int32, student.StudentId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@FirstName", DbType.String, student.FirstName);
+                    gObjDatabase.AddInParameter(objDbCommand, "@LastName", DbType.String, student.LastName);
+                    gObjDatabase.AddInParameter(objDbCommand, "@DateOfBirth", DbType.String, student.DOB);
+                    gObjDatabase.AddInParameter(objDbCommand, "@Religion", DbType.String, student.Religion);
+                    gObjDatabase.AddInParameter(objDbCommand, "@CNIC", DbType.String, student.CNIC);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ClassId", DbType.Int32, student.AcadmicClassId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@NoOfSibling", DbType.Int32, student.NoOfSibling);
+                    gObjDatabase.AddInParameter(objDbCommand, "@NoOfSIblingCurrentSchool", DbType.Int32, student.NoOfSiblingCurrentSchool);
+                    gObjDatabase.AddInParameter(objDbCommand, "@RollNumber", DbType.Int32, student.RollNumber);
+                    gObjDatabase.AddInParameter(objDbCommand, "@IsActive", DbType.Int32, student.IsActive);
+                    gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, student.CreateDate);
+                    gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, student.CreatedById);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedDate", DbType.DateTime, student.ModifiedDate == null ? DBNull.Value : (object)student.ModifiedDate);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, string.IsNullOrEmpty(student.ModifiedById) ? DBNull.Value : (object)student.ModifiedById);
+                    gObjDatabase.AddOutParameter(objDbCommand, "@StudentnewId", DbType.Int32, 4);
+
+                    SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
+                    returnParameter.Direction = ParameterDirection.ReturnValue;
+                    objDbCommand.Parameters.Add(returnParameter);
+                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+
+
+                    if (student.StudentId == 0)
+                    {
+                        var identity = Convert.ToInt32(objDbCommand.Parameters["@StudentnewId"].Value);
+                        return (int)identity;
+                    }
+                    else if (student.StudentId > 0)
+                    {
+                        if (Convert.ToInt32(returnParameter.Value) > 0)
+                            return Convert.ToInt32(returnParameter.Value);
+                        //var UpdateValue = returnParameter.Value;
+                        //return (int)UpdateValue;
+                    }
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return 0;  // show Error in inserting or Updating Record
+        }
+
 
         public int DeleteStudent(Student student)
         {
