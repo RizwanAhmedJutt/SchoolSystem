@@ -138,16 +138,16 @@ namespace SchoolManagementSystem.Controllers
             ViewBag.StudentId = studentid;
             int guardianId = Convert.ToInt32(TempData["getGuardianValue"]);
             GuardianContacts gContact;
-            gContact = gContactrepositry.GetAdmissionGrantedInfoByStudentId(guardianId);
-            //gContact = gContactrepositry.GetGuardianContactInfoByGuardianId(guardianId);
-            if (gContact.GuardianContactId == 0)
-            {
-                GuardianContacts contact = new GuardianContacts();
-                contact.GuardianId = guardianId;
-                return View(contact);
+            //gContact = gContactrepositry.GetAdmissionGrantedInfoByStudentId(guardianId);
+            gContact = gContactrepositry.GetGuardianContactInfoByGuardianId(guardianId);
+            //if (gContact.GuardianContactId == 0)
+            //{
+            //    GuardianContacts contact = new GuardianContacts();
+            //    contact.GuardianId = guardianId;
+            //    return View(contact);
 
-            }
-            else
+            //}
+            //else
                 return View(gContact);
 
         }

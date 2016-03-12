@@ -50,6 +50,7 @@
     <Compile Include="Repository\Abstract\IStudentAddressBLL.cs" />
     <Compile Include="Repository\Abstract\IStudentProfile.cs" />
     <Compile Include="Repository\Abstract\IST_PreviousAcadmicRecord.cs" />
+    <Compile Include="Repository\Abstract\ITeacherRepositry.cs" />
     <Compile Include="Repository\Concrete\AcadmicClassBLL.cs" />
     <Compile Include="Repository\Concrete\AdmissionGrantedBLL.cs" />
     <Compile Include="Repository\Concrete\CategoryBLL.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Repository\Concrete\StudentBLL.cs" />
     <Compile Include="Repository\Concrete\StudentProfileBLL.cs" />
     <Compile Include="Repository\Concrete\ST_PreviousAcadmicDetailBLL.cs" />
+    <Compile Include="Repository\Concrete\TeacherRepositry.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SMSDAL\SMSDAL.csproj">
