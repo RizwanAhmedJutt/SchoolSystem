@@ -47,12 +47,10 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@Contact1", DbType.String, guardianContact.FirstContact);
                     gObjDatabase.AddInParameter(objDbCommand, "@Contact2", DbType.String, guardianContact.SecondContact);
                     gObjDatabase.AddOutParameter(objDbCommand, "@GuardianNewContactId", DbType.Int32, 4);
-                    gObjDatabase.ExecuteNonQuery(objDbCommand);
-                   
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
                     objDbCommand.Parameters.Add(returnParameter);
-                   
+                    gObjDatabase.ExecuteNonQuery(objDbCommand);
                     if (guardianContact.GuardianContactId == 0)
                     {
                         var identity = Convert.ToInt32(objDbCommand.Parameters["@GuardianNewContactId"].Value);

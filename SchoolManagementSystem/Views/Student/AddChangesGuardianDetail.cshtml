@@ -113,13 +113,14 @@
                             @if (Model.StudentGuardianId == 0)
                             {
                                 <input type="submit" value="Save Guardian Detial >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Move Back" style="background-color:#fab625;color:white;" class="btn pull-left" />
+                               
                             }
                             else
                             {
                                 <input type="submit" value="Update Guardian Detial >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Move Back" style="background-color:#fab625;color:white;" class="btn pull-left" />
+                              
                             }
+                            <a href="/Student/AddChangesStudentAddress?studentId=@Model.StudentId" style="background-color:#fab625;color:white;" class="btn pull-left">Previous</a>
                         </div>
                     </div>
                 </div>

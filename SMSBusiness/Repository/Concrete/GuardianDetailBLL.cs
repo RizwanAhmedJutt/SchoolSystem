@@ -26,6 +26,7 @@ namespace SMSBusiness.Repository.Concrete
                 {
                     foreach (DataRow item in stdgDetail.Rows)
                     {
+                        gDetail.StudentGuardianId = Convert.ToInt32(item["GuardianId"].ToString());
                         gDetail.StudentId = Convert.ToInt32(item["StudentId"].ToString());
                         gDetail.FatherName = item["FatherName"].ToString();
                         gDetail.MotherName = item["MotherName"].ToString();

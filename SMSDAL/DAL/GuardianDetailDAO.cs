@@ -52,11 +52,12 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@GuardianMonthlyIncome", DbType.Int32, guardianDetail.GuardianMontlyIncome);
                     gObjDatabase.AddInParameter(objDbCommand, "@GuardianQualification", DbType.String, guardianDetail.GuardianQualification);
                     gObjDatabase.AddOutParameter(objDbCommand, "@GuardianNewId", DbType.Int32, 4);
-                    gObjDatabase.ExecuteNonQuery(objDbCommand);
-                    
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
                     objDbCommand.Parameters.Add(returnParameter);
+                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+                    
+                   
                     
                     if (guardianDetail.StudentGuardianId == 0)
                     {

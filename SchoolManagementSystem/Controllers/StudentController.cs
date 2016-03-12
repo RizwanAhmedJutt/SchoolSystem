@@ -108,7 +108,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddChangesGuardianDetail(int studentId)
         {
             GuardianDetail objguardian;
-            //int getStudentId = Convert.ToInt32(TempData["getStudentId"].ToString());
+           
             objguardian = guardiainrepositry.GetGuardianInfoByStudentId(studentId);
             if (objguardian.StudentGuardianId == 0)
             {

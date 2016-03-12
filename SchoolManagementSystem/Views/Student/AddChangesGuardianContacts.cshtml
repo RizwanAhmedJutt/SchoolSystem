@@ -55,13 +55,14 @@
                                 @if (Model.GuardianContactId == 0)
                                 {
                                     <input type="submit" value="Save Guardian Contact Detial >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                                    <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                                  
                                 }
                                 else
                                 {
                                     <input type="submit" value="Update Guardian Contact Detial >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                                    <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                                   
                                 }
+                                <a href="/Student/AddChangesGuardianDetail/studentId?@Model" style="background-color:#353899;color:white;" class="btn pull-left" />
                                 
                             </div>
                         </div>
