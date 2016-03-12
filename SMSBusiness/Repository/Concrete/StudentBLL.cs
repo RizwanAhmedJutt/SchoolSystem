@@ -105,9 +105,11 @@ namespace SMSBusiness.Repository.Concrete
                 {
                     foreach (DataRow item in stdDetail.Rows)
                     {
+                        std.StudentId = Convert.ToInt32(item["StudentId"]);
                         std.FirstName = item["FirstName"].ToString();
                         std.LastName = item["LastName"].ToString();
                         std.DOB = Convert.ToDateTime(item["DOB"].ToString());
+                        std.CNIC = item["CNIC"].ToString();
                         std.NoOfSibling = int.Parse(item["NoOfSibling"].ToString());
                         std.NoOfSiblingCurrentSchool = int.Parse(item["NoOfSiblingCurrentSchool"].ToString());
                         std.Religion = item["Religion"].ToString();

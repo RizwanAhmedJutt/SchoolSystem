@@ -13,7 +13,7 @@ namespace SMSBusiness.Repository.Concrete
 {
     public class GuardianContactBLL : IGuardianContact
     {
-        public GuardianContacts GetAdmissionGrantedInfoByStudentId(int GuardianId)
+        public GuardianContacts GetGuardianContactInfoByGuardianId(int GuardianId)
         {
             var objgConatactsDao = new GuardianContactDAO(new SqlDatabase());
             DataTable stdgContactDetail;

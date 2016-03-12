@@ -14,12 +14,13 @@ namespace SMSDataContract.Accounts
             GuardianId = 0;
             FirstContact = string.Empty;
             SecondContact = string.Empty;
-
+            StudentId = 0;
         }
 
         public int GuardianContactId { get; set; }
         public int GuardianId { get; set; }
         public string FirstContact { get; set; }
         public string SecondContact { get; set; }
+        public int StudentId { get; set; }
     }
 }

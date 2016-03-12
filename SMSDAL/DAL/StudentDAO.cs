@@ -76,10 +76,12 @@ namespace SMSDAL
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedDate", DbType.DateTime,student.ModifiedDate==null?DBNull.Value:(object) student.ModifiedDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, string.IsNullOrEmpty(student.ModifiedById)?DBNull.Value:(object) student.ModifiedById);
                     gObjDatabase.AddOutParameter(objDbCommand, "@StudentnewId", DbType.Int32, 4);
-                    gObjDatabase.ExecuteNonQuery(objDbCommand);
-                    SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
+                
+                   SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
                     objDbCommand.Parameters.Add(returnParameter);
+                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+                   
                   
                     if (student.StudentId == 0)
                     {
@@ -88,8 +90,10 @@ namespace SMSDAL
                     }
                     else if (student.StudentId > 0)
                     {
-                        var UpdateValue = returnParameter.Value;
-                        return (int)UpdateValue;
+                        if (Convert.ToInt32(returnParameter.Value) > 0)
+                            return Convert.ToInt32(returnParameter.Value);
+                        //var UpdateValue = returnParameter.Value;
+                        //return (int)UpdateValue;
                     }
 
                 }

@@ -47,11 +47,12 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@PermanentAddress", DbType.String, studentAddress.PermanentAddress);
                     gObjDatabase.AddInParameter(objDbCommand, "@CityId", DbType.Int32, studentAddress.CityId);
                     gObjDatabase.AddOutParameter(objDbCommand, "@StudentAddressNewId", DbType.Int32, 4);
-                    gObjDatabase.ExecuteNonQuery(objDbCommand);
-
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
                     objDbCommand.Parameters.Add(returnParameter);
+                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+
+                  
                    
                     if (studentAddress.StudentAddressId == 0)
                     {
