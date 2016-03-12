@@ -33,7 +33,8 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult AddChangesStudent(int id)
         {
-            //int id = 0;
+         
+           
             Student std;
 
             if (id == 0)
@@ -42,9 +43,12 @@ namespace SchoolManagementSystem.Controllers
 
                 return View(stu);
             }
-            else
+            else 
+            {
+               
                 std = student.GetStudentById(id);
-            return View(std);
+                return View(std);
+            }
         }
         [HttpPost]
         public ActionResult AddChangesStudent(Student std, int AcadmicClassId, int ddlSibling, int ddlCurrentSibling)
@@ -70,29 +74,22 @@ namespace SchoolManagementSystem.Controllers
             TempData["getStudentValue"] = student.StudentAddChanges(std);
             TempData.Keep("getStudentValue");
 
-            return RedirectToAction("AddChangesStudentAddress");
+            return RedirectToAction("AddChangesStudentAddress", new { studentId = TempData["getStudentValue"] });
 
         }
         [HttpGet]
-        public ActionResult AddChangesStudentAddress(int studentid)
+        public ActionResult AddChangesStudentAddress(int studentId)
         {
             StudentAddress objstdAddress;
-         
-           
-            if (studentid == 0)
+            objstdAddress = studentAddress.GetStudentAddressByStudentId(studentId);
+            if (objstdAddress.StudentAddressId == 0)
             {
                 StudentAddress stdAdd = new StudentAddress();
-                stdAdd.StudentId = studentid;
+                stdAdd.StudentId = studentId;
                 return View(stdAdd);
             }
             else
-            {
-               // int getStudentId = Convert.ToInt32(TempData["getStudentValue"].ToString());
-
-                objstdAddress = studentAddress.GetStudentAddressByStudentId(studentid);
-
                 return View(objstdAddress);
-            }
 
 
 
@@ -105,18 +102,18 @@ namespace SchoolManagementSystem.Controllers
             stdAddress.CityId = CityId;
             TempData["getStudentId"] = studentAddress.StudentAddressAddChanges(stdAddress);
             TempData.Keep("getStudentId");
-            return RedirectToAction("AddChangesGuardianDetail");
+            return RedirectToAction("AddChangesGuardianDetail", new { studentId=Convert.ToInt32(TempData["getStudentId"].ToString()) });
         }
         [HttpGet]
-        public ActionResult AddChangesGuardianDetail()
+        public ActionResult AddChangesGuardianDetail(int studentId)
         {
             GuardianDetail objguardian;
-            int getStudentId = Convert.ToInt32(TempData["getStudentId"].ToString());
-            objguardian = guardiainrepositry.GetGuardianInfoByStudentId(getStudentId);
+            //int getStudentId = Convert.ToInt32(TempData["getStudentId"].ToString());
+            objguardian = guardiainrepositry.GetGuardianInfoByStudentId(studentId);
             if (objguardian.StudentGuardianId == 0)
             {
                 GuardianDetail gDetail = new GuardianDetail();
-                gDetail.StudentId = getStudentId;
+                gDetail.StudentId = studentId;
                 return View(gDetail);
             }
             else
@@ -138,16 +135,15 @@ namespace SchoolManagementSystem.Controllers
             ViewBag.StudentId = studentid;
             int guardianId = Convert.ToInt32(TempData["getGuardianValue"]);
             GuardianContacts gContact;
-            //gContact = gContactrepositry.GetAdmissionGrantedInfoByStudentId(guardianId);
             gContact = gContactrepositry.GetGuardianContactInfoByGuardianId(guardianId);
-            //if (gContact.GuardianContactId == 0)
-            //{
-            //    GuardianContacts contact = new GuardianContacts();
-            //    contact.GuardianId = guardianId;
-            //    return View(contact);
+            if (gContact.GuardianContactId == 0)
+            {
+                GuardianContacts contact = new GuardianContacts();
+                contact.GuardianId = guardianId;
+                return View(contact);
 
-            //}
-            //else
+            }
+            else
                 return View(gContact);
 
         }
