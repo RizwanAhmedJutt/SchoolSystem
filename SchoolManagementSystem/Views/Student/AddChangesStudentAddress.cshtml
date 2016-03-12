@@ -3,16 +3,17 @@
 @{
     ViewBag.Title = "StudentAddress";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="row">
-        <div class="col-md-8 col-sm-8">
-            <div class="row well">
-                <div class="form-horizontal">
-                    @if (Model.StudentAddressId == 0)
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-8 col-sm-8">
+                <div class="row well">
+                    <div class="form-horizontal">
+                        @if (Model.StudentAddressId == 0)
                     {
                         <h2 class="text-center">Add Student Address</h2>
 
@@ -21,53 +22,61 @@
                     {
                         <h2 class="text-center">Update Student Address</h2>
                     }
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.StudentAddressId)
-                    @Html.HiddenFor(model => model.StudentId)
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.StudentAddressId)
+                        @Html.HiddenFor(model => model.StudentId)
+                        <div class="form-group">
+                            @Html.Label("City", new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
 
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.PermanentAddress, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                @Html.TextAreaFor(model => model.PermanentAddress, new { @class = "form-control", id = "PermanentAddress", placeholder = "Permanent Address" })
+                                @{Html.RenderPartial("../DropDownLists/DDLCity");}
                             </div>
-                            @Html.ValidationMessageFor(model => model.PermanentAddress, "", new { @class = "text-danger" })
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.PresentAddress, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                @Html.TextAreaFor(model => model.PresentAddress, new { @class = "form-control", id = "PresentAddress", placeholder = "Present Address" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PermanentAddress, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                    @Html.TextAreaFor(model => model.PermanentAddress, new { @class = "form-control", id = "PermanentAddress", placeholder = "Permanent Address" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.PermanentAddress, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.PresentAddress, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <hr />
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            @if (Model.StudentAddressId == 0)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PresentAddress, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                    @Html.TextAreaFor(model => model.PresentAddress, new { @class = "form-control", id = "PresentAddress", placeholder = "Present Address" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.PresentAddress, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @if (Model.StudentAddressId == 0)
                               {
                                 <input type="submit" value="Save Address Detial >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+
                               }
                               else
                               {
                                 <input type="submit" value="Update Address Detial >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
-                              }
-                        </div>
 
+                              }
+                               
+                                <a href="/Student/AddChangesStudent?id=@Model.StudentId" class="btn pull-left" style="background-color: #353899; color: white;">Previous</a></div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-         </div>
-     </div>
-    
- }
+        </div>
+
+    }
+   
 
