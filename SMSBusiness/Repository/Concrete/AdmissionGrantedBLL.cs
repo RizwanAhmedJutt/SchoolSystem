@@ -26,12 +26,17 @@ namespace SMSBusiness.Repository.Concrete
                 {
                     foreach (DataRow item in stdAdmissionDetail.Rows)
                     {
+                        aGranted.AdmissionId = Convert.ToInt32(item["AdmissionId"]);
+                        aGranted.StudentId = Convert.ToInt32(item["StudentId"]);
                         aGranted.AssessmentResult = item["AssessmentResult"].ToString();
-                        aGranted.CategoryId = Convert.ToInt32(item["CategoryId"].ToString());
                         aGranted.IsGranted = Convert.ToBoolean(item["IsGranted"].ToString());
                         aGranted.AdmissionGrantedForClass = item["AdmissionGrantedForClass"].ToString();
                         aGranted.AdmissionGrantedDate = Convert.ToDateTime(item["AdmissionGrantedDate"].ToString());
+                        aGranted.Remarks = item["Remarks"].ToString();
+                        aGranted.CreatedById = item["CreatedById"].ToString();
                         aGranted.CreatedDate = Convert.ToDateTime(item["CreatedDate"].ToString());
+                        aGranted.ModifiedById = item["ModifiedById"].ToString();
+                        aGranted.ModifiedDate = Convert.ToDateTime(item["ModifiedDate"].ToString());
 
 
                     }
