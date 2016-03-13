@@ -25,6 +25,7 @@ namespace SMSBusiness.Repository.Concrete
                 {
                     foreach (DataRow item in stdgContactDetail.Rows)
                     {
+                        gContact.GuardianContactId = int.Parse(item["GuardianContactId"].ToString());
                         gContact.GuardianId = int.Parse(item["GuardianId"].ToString());
                         gContact.FirstContact = item["Contact1"].ToString();
                         gContact.SecondContact = item["Contact2"].ToString();

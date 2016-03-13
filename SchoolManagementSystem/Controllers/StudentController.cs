@@ -126,35 +126,37 @@ namespace SchoolManagementSystem.Controllers
             gDetails.StudentId = StudentId;
             int Id = guardiainrepositry.GuardianContactAddChanges(gDetails);
             TempData["getGuardianValue"] = Id;
-            return RedirectToAction("AddChangesGuardianContacts", new { studentid = StudentId });
+            return RedirectToAction("AddChangesGuardianContacts", new { studentid = StudentId, guardianId = Convert.ToInt32(TempData["getGuardianValue"]) });
 
         }
         [HttpGet]
-        public ActionResult AddChangesGuardianContacts(int studentid)
+        public ActionResult AddChangesGuardianContacts(int studentid, int guardianId)
         {
-            ViewBag.StudentId = studentid;
-            int guardianId = Convert.ToInt32(TempData["getGuardianValue"]);
+           
             GuardianContacts gContact;
             gContact = gContactrepositry.GetGuardianContactInfoByGuardianId(guardianId);
             if (gContact.GuardianContactId == 0)
             {
                 GuardianContacts contact = new GuardianContacts();
                 contact.GuardianId = guardianId;
+                contact.StudentId = studentid;
                 return View(contact);
 
             }
             else
-                return View(gContact);
+            {
+                gContact.StudentId = studentid;
+                return View(gContact); }
 
         }
         [HttpPost]
         public ActionResult AddChangesGuardianContacts(GuardianContacts gContacts, int StudentId)
         {
             int guardianId = gContactrepositry.GuardianContactAddChanges(gContacts);
-            return RedirectToAction("AddChangesPreviousAcadmicRecord", new { studentid = StudentId });
+            return RedirectToAction("AddChangesPreviousAcadmicRecord", new { studentid = StudentId, GuardianId = guardianId });
         }
         [HttpGet]
-        public ActionResult AddChangesPreviousAcadmicRecord(int StudentId)
+        public ActionResult AddChangesPreviousAcadmicRecord(int StudentId, int GuardianId)
         {
             ST_PreviousAcadmicDetail previousDetail;
             previousDetail = previousrepositry.GetPreviousAcadmicInfoByStudentId(StudentId);
@@ -162,10 +164,14 @@ namespace SchoolManagementSystem.Controllers
             {
                 ST_PreviousAcadmicDetail Stu_PreAcadmicReco = new ST_PreviousAcadmicDetail();
                 Stu_PreAcadmicReco.StudentId = StudentId;
+                Stu_PreAcadmicReco.GuardianId = GuardianId;
                 return View(Stu_PreAcadmicReco);
             }
             else
+            {
+                previousDetail.GuardianId = GuardianId;
                 return View(previousDetail);
+            }
         }
         [HttpPost]
         public ActionResult AddChangesPreviousAcadmicRecord(ST_PreviousAcadmicDetail previousDetail, int StudentId, int AcadmicClassId)

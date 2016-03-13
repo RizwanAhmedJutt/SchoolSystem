@@ -33,6 +33,8 @@ namespace SMSDataContract.Accounts
         public decimal TotalMark { get; set; }
         public char? Grade { get; set; }
         public string MediumOfInstruction { get; set; }
+        //this is only to use as query string
+        public int GuardianId { get; set; }
 
     }
 }

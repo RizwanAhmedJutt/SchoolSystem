@@ -25,6 +25,7 @@ namespace SMSBusiness.Repository.Concrete
                 {
                     foreach (DataRow item in stdacadmicDetail.Rows)
                     {
+                        PAcadmicDetail.PAcadmicId = Convert.ToInt32(item["PAcadmicID"].ToString());
                         PAcadmicDetail.StudentId = Convert.ToInt32(item["StudentId"].ToString());
                         PAcadmicDetail.SchoolName = item["SchoolName"].ToString();
                         PAcadmicDetail.AcadmicClassId = Convert.ToInt32(item["AcadmicClassId"]);

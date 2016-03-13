@@ -18,14 +18,14 @@ namespace SMSDAL.DAL
             gObjDatabase = database;
         }
 
-        public DataTable GetGuardianInfoByStudentId(int GuardianId)
+        public DataTable GetGuardianInfoByStudentId(int StudentId)
         {
             DataTable dtGuardianDetails;
             try
             {
-                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_std_GetGuardianDetailByGuardianId"))
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_std_GetGuardianDetailByStudentId"))
                 {
-                    gObjDatabase.AddInParameter(objCommand, "@GuardianId", DbType.Int32, GuardianId);
+                    gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
                     dtGuardianDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }

@@ -71,6 +71,17 @@
                             @Html.ValidationMessageFor(model => model.MotherTongue, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OccupationOfGuardian, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-registration-mark"></i></span>
+                                @Html.EditorFor(model => model.OccupationOfGuardian, new { htmlAttributes = new { @class = "form-control", id = "RelationWithGuardian", placeholder = "Relation With Guardian" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.OccupationOfGuardian, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
                     
                     <div class="form-group">

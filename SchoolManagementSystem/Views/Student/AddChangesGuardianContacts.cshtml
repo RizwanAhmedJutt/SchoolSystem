@@ -26,6 +26,8 @@
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.GuardianContactId)
                         @Html.HiddenFor(model => model.GuardianId)
+                        @Html.HiddenFor(model => model.StudentId)
+
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.FirstContact, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -62,7 +64,7 @@
                                     <input type="submit" value="Update Guardian Contact Detial >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
                                    
                                 }
-                                <a href="/Student/AddChangesGuardianDetail/studentId?@Model" style="background-color:#353899;color:white;" class="btn pull-left" />
+                                <a href="/Student/AddChangesGuardianDetail?studentId=@Model.StudentId" style="background-color:#353899;color:white;" class="btn pull-left">Previous</a>
                                 
                             </div>
                         </div>
