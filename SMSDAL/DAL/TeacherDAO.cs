@@ -426,7 +426,7 @@ namespace SMSDAL.DAL
         #endregion
 
 
-        #region Teacher Contacts Create, Update, Delete Data access Layer
+        #region Teacher Profile Create, Update, Delete Data access Layer
 
         /// <summary>
         /// Get All Teacher Profile
@@ -457,40 +457,40 @@ namespace SMSDAL.DAL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public DataTable GetTContactsById(int TContactsId)
+        public DataTable GetTProfileById(int TProfileId)
         {
-            DataTable dtTContactsDetails;
+            DataTable dtTProfileDetails;
             try
             {
-                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("USP_GetTeacherContactById"))
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("USP_GetTeacherProfileById"))
                 {
-                    gObjDatabase.AddInParameter(objCommand, "@TeacherContactId", DbType.Int32, TContactsId);
-                    dtTContactsDetails = gObjDatabase.GetDataTable(objCommand);
+                    gObjDatabase.AddInParameter(objCommand, "@TProfileId", DbType.Int32, TProfileId);
+                    dtTProfileDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }
             catch
             {
                 throw;
             }
-            return dtTContactsDetails;
+            return dtTProfileDetails;
         }
 
         /// <summary>
-        /// Insert Update Teacher Contact
+        /// Insert Update Teacher Profile
         /// </summary>
         /// <param name="tAddress"></param>
         /// <returns></returns>
-        public int InsertUpdateTContact(TeacherContact tContact)
+        public int InsertUpdateTProfile(TeacherProfile tProfile)
         {
             try
             {
-                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("USP_InsertUpdateTeacherContacts"))
+                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("USP_InsertUpdateTeacherProfile"))
                 {
-                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32, tContact.TeacherId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@Contact1", DbType.String, tContact.ContactFrist);
-                    gObjDatabase.AddInParameter(objDbCommand, "@Contact2", DbType.String, tContact.ContactSecond);
+                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32, tProfile.TeacherId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ImagePath", DbType.String, tProfile.ImagePath);
+                    //gObjDatabase.AddInParameter(objDbCommand, "@Contact2", DbType.String, tProfile.ContactSecond);
 
-                    gObjDatabase.AddOutParameter(objDbCommand, "@TeacherContactNewId", DbType.Int32, 4);
+                    gObjDatabase.AddOutParameter(objDbCommand, "@TeacherProfileNewId", DbType.Int32, 4);
 
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
@@ -498,12 +498,12 @@ namespace SMSDAL.DAL
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
 
 
-                    if (tContact.TeacherContactId == 0)
+                    if (tProfile.TProfileId == 0)
                     {
-                        var identity = Convert.ToInt32(objDbCommand.Parameters["@TeacherContactNewId"].Value);
+                        var identity = Convert.ToInt32(objDbCommand.Parameters["@TeacherProfileNewId"].Value);
                         return (int)identity;
                     }
-                    else if (tContact.TeacherContactId > 0)
+                    else if (tProfile.TProfileId > 0)
                     {
                         if (Convert.ToInt32(returnParameter.Value) > 0)
                             return Convert.ToInt32(returnParameter.Value);
@@ -524,15 +524,15 @@ namespace SMSDAL.DAL
         /// </summary>
         /// <param name="tAddress"></param>
         /// <returns></returns>
-        public int DeleteTContact(TeacherContact tContact)
+        public int DeleteTContact(TeacherProfile tProfile)
         {
             try
             {
-                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("USP_DeleteTeacherContactRecord"))
+                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("USP_DeleteTeacherProfileRecord"))
                 {
-                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32, tContact.TeacherId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@Contact1", DbType.DateTime, tContact.ContactFrist);
-                    gObjDatabase.AddInParameter(objDbCommand, "@Contact2", DbType.Int32, tContact.ContactSecond);
+                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32, tProfile.TeacherId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ImagePath", DbType.DateTime, tProfile.ImagePath);
+                    //gObjDatabase.AddInParameter(objDbCommand, "@Contact2", DbType.Int32, tProfile.ContactSecond);
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
