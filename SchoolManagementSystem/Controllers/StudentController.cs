@@ -180,25 +180,31 @@ namespace SchoolManagementSystem.Controllers
             previousDetail.AcadmicClassId = AcadmicClassId;
             int ReturnStudentId = previousrepositry.PreviousAcadmicDetailAddChanges(previousDetail);
             ST_PreviousAcadmicDetail Stu_PreAcadmicReco = new ST_PreviousAcadmicDetail();
-            return RedirectToAction("AddChangesAdmissionGranted", new { studentid = StudentId });
+            return RedirectToAction("AddChangesAdmissionGranted", new { studentid = StudentId, GuardianId =previousDetail.GuardianId});
         }
         [HttpGet]
-        public ActionResult AddChangesAdmissionGranted(int studentid)
+        public ActionResult AddChangesAdmissionGranted(int studentid, int GuardianId)
         {
             
 
             AdmissionGranted admisionGranted;
             admisionGranted = aGrantedrepositry.GetAdmissionGrantedInfoByStudentId(studentid);
+           
             if (admisionGranted.AdmissionId == 0)
             {
                 AdmissionGranted admGrant = new AdmissionGranted();
-                admisionGranted.StudentId = studentid;
-               
+                admGrant.StudentId = studentid;
+                admGrant.GuardianId = GuardianId;
+                
                 return View(admGrant);
 
             }
             else
+            {
+                admisionGranted.StudentId = studentid;
+                admisionGranted.GuardianId = GuardianId;
                 return View(admisionGranted);
+            }
         }
         [HttpPost]
         public ActionResult AddChangesAdmissionGranted(AdmissionGranted agranted, int StudentId, string AcadmicClassId, int RollNumber)

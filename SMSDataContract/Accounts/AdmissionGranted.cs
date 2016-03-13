@@ -14,7 +14,7 @@ namespace SMSDataContract.Accounts
             AdmissionId = 0;
             StudentId = 0;
             AssessmentResult = string.Empty;
-            CategoryId = 0;
+            GuardianId = 0;
             IsGranted = false;
             AdmissionGrantedForClass = string.Empty;
             AdmissionGrantedDate = DateTime.Now;
@@ -29,7 +29,7 @@ namespace SMSDataContract.Accounts
         public int AdmissionId { get; set; }
         public int StudentId { get; set; }
         public string AssessmentResult { get; set; }
-        public int CategoryId { get; set; }
+        public int GuardianId { get; set; }
         public bool IsGranted { get; set; }
         public string AdmissionGrantedForClass { get; set; }
         public DateTime AdmissionGrantedDate { get; set; }

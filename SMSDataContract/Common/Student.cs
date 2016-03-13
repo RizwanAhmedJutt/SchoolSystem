@@ -38,11 +38,13 @@ namespace SMSDataContract.Common
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DOB { get; set; }
+        [Required( ErrorMessage= "Please Enter Religion")]
         public string Religion { get; set; }
         public int AcadmicClassId { get; set; }
         public int NoOfSibling { get; set; }
         public int NoOfSiblingCurrentSchool { get; set; }
         public int RollNumber { get; set; }
+         [Required (ErrorMessage="Please Enter CNIC")]
         public string CNIC { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateDate { get; set; }

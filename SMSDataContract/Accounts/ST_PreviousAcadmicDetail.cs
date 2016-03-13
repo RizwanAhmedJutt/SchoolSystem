@@ -31,7 +31,7 @@ namespace SMSDataContract.Accounts
         public string Session { get; set; }
         public decimal MarksObtained { get; set; }
         public decimal TotalMark { get; set; }
-        public char? Grade { get; set; }
+        public string Grade { get; set; }
         public string MediumOfInstruction { get; set; }
         //this is only to use as query string
         public int GuardianId { get; set; }

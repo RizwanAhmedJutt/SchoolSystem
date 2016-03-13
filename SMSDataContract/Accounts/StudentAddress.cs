@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,9 @@ namespace SMSDataContract.Accounts
 
         public int StudentAddressId { get; set; }
         public int StudentId { get; set; }
+        [Required(ErrorMessage = "Enter Permanent Address")]
         public string PermanentAddress { get; set; }
+        [Required(ErrorMessage = "Enter Present Address")]
         public string PresentAddress { get; set; }
         public int CityId { get; set; }
     }

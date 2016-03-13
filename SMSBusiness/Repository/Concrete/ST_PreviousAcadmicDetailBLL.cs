@@ -33,7 +33,7 @@ namespace SMSBusiness.Repository.Concrete
                         PAcadmicDetail.Session = item["Session"].ToString();
                         PAcadmicDetail.MarksObtained = Convert.ToDecimal(item["MarksObtained".ToString()]);
                         PAcadmicDetail.TotalMark = Convert.ToDecimal(item["TotalMark"].ToString());
-                        PAcadmicDetail.Grade = Convert.ToChar(item["Grade"]);
+                        PAcadmicDetail.Grade = item["Grade"].ToString();
                         PAcadmicDetail.MediumOfInstruction = item["MediumOfInstruction"].ToString();
                     }
                 }

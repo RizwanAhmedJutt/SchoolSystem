@@ -14,6 +14,7 @@
                 <div class="form-horizontal">
                     @Html.HiddenFor(model => model.PAcadmicId)
                     @Html.HiddenFor(model => model.StudentId)
+                    @Html.HiddenFor(model => model.GuardianId)
                     @if (Model.PAcadmicId == 0)
                     {
                         <h2 class="text-center">Previous Acadmic Record</h2>
@@ -121,13 +122,14 @@
                             @if (Model.PAcadmicId == 0)
                             {
                                 <input type="submit" value="Save Previous Acadmic Record >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                               
                             }
                             else
                             {
                                 <input type="submit" value="Update Previous Acadmic Record >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                               
                             }
+                            <a href="/Student/AddChangesGuardianContacts?studentid=@Model.StudentId&guardianId=@Model.GuardianId" style="background-color:#353899;color:white;" class="btn pull-left">Previous</a>
                         </div>
                     </div>
                 </div>
