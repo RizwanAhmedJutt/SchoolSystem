@@ -16,7 +16,7 @@
                     <div class="form-horizontal">
                         @if (Model.StudentId == 0)
                     {
-                    <h2 class="text-center">Add Student Info</h2>
+                    <h2 class="text-center">Add Student </h2>
 
                     }
                     else
@@ -53,7 +53,8 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @*@Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-3" })*@
+                            @Html.Label("Date of Birth", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -114,7 +115,7 @@
 
                         <div class="form-group">
 
-                            <label class="col-md-3 control-label">No.s of sibling Current School</label>
+                            <label class="col-md-3 control-label"> Current School sibling</label>
 
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -153,6 +154,7 @@
             $(function () {
                 $('#DateOfBirth').datetimepicker();
             });
+           
         </script>
     }
 </div>
