@@ -5,96 +5,78 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>TeacherList</h2>
+<div class="row">
+    <div class="col-md-9 col-sm-9">
+        <a href="~/Teacher/Teacher?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Teacher</a>
+        <div class="row well">
+            <h2 style="text-align:center;">Teacher List</h2>
+            <table class="table table-bordered table-hover table-striped">
+                <tr class="action info">
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CNIC)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastQualification)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.JoinDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LeaveDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RefrenceName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RefrenceContact)
+                    </th>
+                   
+                    <th></th>
+                </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CNIC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastQualification)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.JoinDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LeaveDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RefrenceName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RefrenceContact)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.CreatedById)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedById)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </th>*@
-        <th></th>
-    </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CNIC)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastQualification)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.JoinDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RefrenceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RefrenceContact)
+                        </td>
+                       
+                        <td>
+                            <a href="/Teacher/Teacher?Id=@item.TeacherId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="/Teacher/DeleteTeacher?Id=@item.TeacherId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
+                        </td>
+                    </tr>
+                }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CNIC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastQualification)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JoinDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LeaveDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RefrenceName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RefrenceContact)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.CreatedById)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedById)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedDate)
-        </td>*@
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TeacherId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TeacherId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TeacherId })
-        </td>
-    </tr>
-}
+            </table>
 
-</table>
+        </div>
+    </div>
+</div>
