@@ -44,23 +44,27 @@
     <Compile Include="Repository\Abstract\IAdmissionGranted.cs" />
     <Compile Include="Repository\Abstract\ICategoryBLL.cs" />
     <Compile Include="Repository\Abstract\ICityBLL.cs" />
+    <Compile Include="Repository\Abstract\ICourse.cs" />
     <Compile Include="Repository\Abstract\IGuardianContact.cs" />
     <Compile Include="Repository\Abstract\IGuardianDetail.cs" />
     <Compile Include="Repository\Abstract\IStudent.cs" />
     <Compile Include="Repository\Abstract\IStudentAddressBLL.cs" />
     <Compile Include="Repository\Abstract\IStudentProfile.cs" />
     <Compile Include="Repository\Abstract\IST_PreviousAcadmicRecord.cs" />
+    <Compile Include="Repository\Abstract\ITeacherAssignedCourse.cs" />
     <Compile Include="Repository\Abstract\ITeacherRepositry.cs" />
     <Compile Include="Repository\Concrete\AcadmicClassBLL.cs" />
     <Compile Include="Repository\Concrete\AdmissionGrantedBLL.cs" />
     <Compile Include="Repository\Concrete\CategoryBLL.cs" />
     <Compile Include="Repository\Concrete\CityBLL.cs" />
+    <Compile Include="Repository\Concrete\CourseBLL.cs" />
     <Compile Include="Repository\Concrete\GuardianContactBLL.cs" />
     <Compile Include="Repository\Concrete\GuardianDetailBLL.cs" />
     <Compile Include="Repository\Concrete\StudentAddressBLL.cs" />
     <Compile Include="Repository\Concrete\StudentBLL.cs" />
     <Compile Include="Repository\Concrete\StudentProfileBLL.cs" />
     <Compile Include="Repository\Concrete\ST_PreviousAcadmicDetailBLL.cs" />
+    <Compile Include="Repository\Concrete\TeacherAssignCourseBLL.cs" />
     <Compile Include="Repository\Concrete\TeacherRepositry.cs" />
   </ItemGroup>
   <ItemGroup>

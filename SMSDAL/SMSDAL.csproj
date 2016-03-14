@@ -51,11 +51,13 @@
     <Compile Include="DAL\AdmissionGrantedDAO.cs" />
     <Compile Include="DAL\CategoryDAO.cs" />
     <Compile Include="DAL\CityDAO.cs" />
+    <Compile Include="DAL\CourseDAO.cs" />
     <Compile Include="DAL\GuardianContactDAO.cs" />
     <Compile Include="DAL\GuardianDetailDAO.cs" />
     <Compile Include="DAL\StudentAddressDAO.cs" />
     <Compile Include="DAL\StudentProfileDAO.cs" />
     <Compile Include="DAL\ST_PreviousAcadmicDetailDAO.cs" />
+    <Compile Include="DAL\TeacherAssignedCouresDAO.cs" />
     <Compile Include="DAL\TeacherDAO.cs" />
     <Compile Include="DbReturnValues.cs" />
     <Compile Include="DBUtility.cs" />
