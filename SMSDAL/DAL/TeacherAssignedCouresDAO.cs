@@ -22,7 +22,7 @@ namespace SMSDAL.DAL
             DataTable dtTeacherDetail;
             try
             {
-                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand(""))
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("GetAssignedCourseByTeacherId"))
                 {
                     gObjDatabase.AddInParameter(objCommand, "@TeacherId", DbType.Int32, TeacherId);
                     dtTeacherDetail = gObjDatabase.GetDataTable(objCommand);
