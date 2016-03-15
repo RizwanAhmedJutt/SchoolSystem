@@ -115,7 +115,7 @@ namespace SMSDAL.DAL
             }
             catch(SqlException ex)
             {
-                throw;
+                throw ex;
             }
 
             return 0; 
@@ -126,7 +126,7 @@ namespace SMSDAL.DAL
         /// </summary>
         /// <param name="student"></param>
         /// <returns></returns>
-        public int DeleteStudent(Teacher teacher)
+        public int DeleteTeacher(Teacher teacher)
         {
             try
             {
@@ -249,7 +249,7 @@ namespace SMSDAL.DAL
             }
             catch (SqlException ex)
             {
-                throw;
+                throw ex;
             }
 
             return 0;
@@ -381,7 +381,7 @@ namespace SMSDAL.DAL
             }
             catch (SqlException ex)
             {
-                throw;
+                throw ex;
             }
 
             return 0;
@@ -513,7 +513,7 @@ namespace SMSDAL.DAL
             }
             catch (SqlException ex)
             {
-                throw;
+                throw ex;
             }
 
             return 0;
@@ -524,7 +524,7 @@ namespace SMSDAL.DAL
         /// </summary>
         /// <param name="tAddress"></param>
         /// <returns></returns>
-        public int DeleteTContact(TeacherProfile tProfile)
+        public int DeleteTProfile(TeacherProfile tProfile)
         {
             try
             {

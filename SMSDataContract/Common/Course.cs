@@ -25,7 +25,7 @@ namespace SMSDataContract.Common
         public string ClassName { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreatedDate { get; set; }
-        public string? ModifiedById { get; set; }
+        public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
     }

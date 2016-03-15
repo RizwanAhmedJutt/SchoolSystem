@@ -41,7 +41,7 @@ namespace SMSBusiness.Repository.Concrete
 
                 throw;
             }
-            return course;
+            return Assigncourse;
 
 
 

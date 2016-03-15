@@ -25,7 +25,7 @@ namespace SMSDAL.DAL
             {
                 using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Course_GetCourseDetailByCourseId"))
                 {
-                    gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.Int32, StudentId);
+                    gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.Int32, CourseId);
                     dtCourseDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }

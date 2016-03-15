@@ -18,7 +18,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult TeacherList()
         {
             List<Teacher> list = new List<Teacher>();
-           list =  repoTeacher.GetAllStudents();
+           list =  repoTeacher.GetAllTeachers();
            return View(list);
         }
 
