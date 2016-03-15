@@ -60,7 +60,7 @@
     <Compile Include="Common\Course.cs" />
     <Compile Include="Accounts\GuardianContacts.cs" />
     <Compile Include="Accounts\GuardianDetail.cs" />
-    <Compile Include="Accounts\Std_AssignedCouse.cs" />
+    <Compile Include="Accounts\StudentAssignedCourse.cs" />
     <Compile Include="Accounts\StudentAddress.cs" />
     <Compile Include="Accounts\StudentBasicExpenditure.cs" />
     <Compile Include="Accounts\StudentExpenditure.cs" />

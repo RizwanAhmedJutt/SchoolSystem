@@ -49,6 +49,7 @@
     <Compile Include="Repository\Abstract\IGuardianDetail.cs" />
     <Compile Include="Repository\Abstract\IStudent.cs" />
     <Compile Include="Repository\Abstract\IStudentAddressBLL.cs" />
+    <Compile Include="Repository\Abstract\IStudentAssignCourse.cs" />
     <Compile Include="Repository\Abstract\IStudentProfile.cs" />
     <Compile Include="Repository\Abstract\IST_PreviousAcadmicRecord.cs" />
     <Compile Include="Repository\Abstract\ITeacherAssignedCourse.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Repository\Concrete\GuardianContactBLL.cs" />
     <Compile Include="Repository\Concrete\GuardianDetailBLL.cs" />
     <Compile Include="Repository\Concrete\StudentAddressBLL.cs" />
+    <Compile Include="Repository\Concrete\StudentAssignCourseBLL.cs" />
     <Compile Include="Repository\Concrete\StudentBLL.cs" />
     <Compile Include="Repository\Concrete\StudentProfileBLL.cs" />
     <Compile Include="Repository\Concrete\ST_PreviousAcadmicDetailBLL.cs" />

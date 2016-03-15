@@ -55,6 +55,7 @@
     <Compile Include="DAL\GuardianContactDAO.cs" />
     <Compile Include="DAL\GuardianDetailDAO.cs" />
     <Compile Include="DAL\StudentAddressDAO.cs" />
+    <Compile Include="DAL\StudentAssignCourseDAO.cs" />
     <Compile Include="DAL\StudentProfileDAO.cs" />
     <Compile Include="DAL\ST_PreviousAcadmicDetailDAO.cs" />
     <Compile Include="DAL\TeacherAssignedCouresDAO.cs" />
