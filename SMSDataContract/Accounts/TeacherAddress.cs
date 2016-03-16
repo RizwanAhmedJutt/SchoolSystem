@@ -8,6 +8,13 @@ namespace SMSDataContract.Accounts
 {
     public class TeacherAddress
     {
+        public TeacherAddress()
+        {
+            TAddressId = 0;
+            TeacherId = 0;
+            PermanentAddress = string.Empty;
+            PresentAddress = string.Empty;
+        }
         public int TAddressId { get; set; }
         public int TeacherId { get; set; }
         public string PermanentAddress { get; set; }

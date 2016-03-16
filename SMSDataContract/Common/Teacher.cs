@@ -8,6 +8,22 @@ namespace SMSDataContract.Common
 {
     public class Teacher
     {
+        public Teacher()
+        {
+            TeacherId = 0;
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            LastQualification = string.Empty;
+            CNIC = string.Empty;
+            JoinDate = DateTime.Now;
+            LeaveDate = DateTime.Now;
+            RefrenceName = string.Empty;
+            RefrenceContact = string.Empty;
+            ModifiedById = string.Empty;
+            CreatedById = string.Empty;
+            CreatedDate = DateTime.Now;
+            ModifiedDate = DateTime.Now;
+        }
         public int TeacherId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

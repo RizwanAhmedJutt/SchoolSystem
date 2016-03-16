@@ -14,12 +14,12 @@
             <div class="row well">
                 @if (Model.TAddressId == 0)
                 {
-                <h2 class="text-center">Add Teacher Address</h2>
+                    <h2 class="text-center">Add Teacher Address</h2>
 
                 }
                 else
                 {
-                <h2 class="text-center">Update Teacher Address</h2>
+                    <h2 class="text-center">Update Teacher Address</h2>
                 }
                 <div class="form-horizontal">
                     <hr />
@@ -32,7 +32,7 @@
                         <div class="col-md-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                @Html.EditorFor(model => model.PresentAddress, new { htmlAttributes = new { @class = "form-control", id = "PresentAddress", placeholder = "Present Address" } })
+                                @Html.TextAreaFor(model => model.PresentAddress, new { @class = "form-control", row = "3", id = "PresentAddress", placeholder = "Present Address" })
                             </div>
                             @Html.ValidationMessageFor(model => model.PresentAddress, "", new { @class = "text-danger" })
                         </div>
@@ -43,7 +43,7 @@
                         <div class="col-md-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                @Html.EditorFor(model => model.PermanentAddress, new { htmlAttributes = new { @class = "form-control", id = "PermanentAddress", placeholder = "Permanent Address" } })
+                                @Html.TextAreaFor(model => model.PermanentAddress, new { @class = "form-control", row = "3", id = "PermanentAddress", placeholder = "Permanent Address" })
                             </div>
                             @Html.ValidationMessageFor(model => model.PermanentAddress, "", new { @class = "text-danger" })
                         </div>
@@ -55,15 +55,12 @@
                         <div class="col-md-12">
                             @if (Model.TAddressId == 0)
                             {
-                                <input type="submit" value="Save Teacher Address >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                                <input type="submit" value="Next >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                <input type="button" value="<< Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                                @*<a href="/Student/AddChangesStu?Id=@Model.TeacherId" class="btn pull-right" style="background-color:#fab625;color:white;">Next<i class="glyphicon glyphicon-arrow-right"></i></a>
+                                <a href="/Student/DeleteStd?Id=@Model.TeacherId" class="btn pull-left" style="background-color:#353899;color:white;"><i class="glyphicon glyphicon-arrow-left"></i>Back</a>*@
+                           
                             }
-                            else
-                            {
-                                <input type="submit" value="Update Teacher Address >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
-                            }
-
                         </div>
                     </div>
                 </div>

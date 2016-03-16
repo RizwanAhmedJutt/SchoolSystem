@@ -163,7 +163,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -388,11 +387,10 @@
     <Content Include="Views\Teacher\TeacherProfile.cshtml" />
     <Content Include="Views\Teacher\TeacherList.cshtml" />
     <Content Include="Views\Teacher\Teacher.cshtml" />
-    <Content Include="Views\Course\GetALLCourse.cshtml" />
-    <Content Include="Views\Course\AddChangesCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="FilesUpload\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

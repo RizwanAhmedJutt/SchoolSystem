@@ -220,13 +220,13 @@ namespace SMSDAL.DAL
         {
             try
             {
-                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("USP_InsertUpdateTeacher"))
+                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("USP_InsertUpdateTeacherAddress"))
                 {
+                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherAddressId", DbType.Int32, tAddress.TAddressId);
                     gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32, tAddress.TeacherId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@FirstName", DbType.String, tAddress.PresentAddress);
-                    gObjDatabase.AddInParameter(objDbCommand, "@LastName", DbType.String, tAddress.PermanentAddress);
-                    
-                    gObjDatabase.AddOutParameter(objDbCommand, "@TAddressnewId", DbType.Int32, 4);
+                    gObjDatabase.AddInParameter(objDbCommand, "@PresentAddress", DbType.String, tAddress.PresentAddress);
+                    gObjDatabase.AddInParameter(objDbCommand, "@PermanentAddress", DbType.String, tAddress.PermanentAddress);
+                    gObjDatabase.AddOutParameter(objDbCommand, "@TeacherAddressNewId", DbType.Int32, 4);
 
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
@@ -236,7 +236,7 @@ namespace SMSDAL.DAL
 
                     if (tAddress.TAddressId == 0)
                     {
-                        var identity = Convert.ToInt32(objDbCommand.Parameters["@TAddressnewId"].Value);
+                        var identity = Convert.ToInt32(objDbCommand.Parameters["@TeacherId"].Value);
                         return (int)identity;
                     }
                     else if (tAddress.TAddressId > 0)
@@ -352,8 +352,9 @@ namespace SMSDAL.DAL
         {
             try
             {
-                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("USP_InsertUpdateTeacher"))
+                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("USP_InsertUpdateTeacherContacts"))
                 {
+                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherContactId", DbType.Int32, tContact.TeacherContactId);
                     gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32, tContact.TeacherId);
                     gObjDatabase.AddInParameter(objDbCommand, "@Contact1", DbType.String, tContact.ContactFrist);
                     gObjDatabase.AddInParameter(objDbCommand, "@Contact2", DbType.String, tContact.ContactSecond);
