@@ -1,0 +1,86 @@
+﻿@model SMSDataContract.Common.Course
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-8 col-sm-8">
+            <div class="row well">
+                <div class="form-horizontal">
+                    @if (Model.CourseId == 0)
+                    {
+                        <h2 class="text-center">Add Student </h2>
+
+                    }
+                    else
+                    {
+                        <h2 class="text-center">Update Student</h2>
+                    }
+
+                    <hr />
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CourseCode, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CourseCode)
+                            @Html.ValidationMessageFor(model => model.CourseCode)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CourseName, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CourseName)
+                            @Html.ValidationMessageFor(model => model.CourseName)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3 control-label"><label> Acadmic Class</label> </div>
+
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsActive, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.IsActive)
+                            @Html.ValidationMessageFor(model => model.IsActive)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @if (Model.CourseId == 0)
+                            {
+                                <input type="submit" value="Save Course >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
+
+                            }
+                            else
+                            {
+                                <input type="submit" value="Update Course >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+          }
+
+       
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

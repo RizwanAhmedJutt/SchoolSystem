@@ -13,7 +13,39 @@ namespace SMSBusiness.Repository.Concrete
 {
     public class CourseBLL : ICourse
     {
+        public List<Course> GetALLCourse()
+        {
+            var objCourseDao = new CourseDAO(new SqlDatabase());
+            DataTable tblCourse;
+            tblCourse = objCourseDao.GetALLCourse();
+            List<Course> objCourseList = new List<Course>();
+            try
+            {
 
+                foreach (DataRow dr in tblCourse.Rows)
+                {
+                    Course course = new Course();
+                    course.CourseId = Convert.ToInt32(dr["CourseId"]);
+                    course.CourseCode = dr["CourseCode"].ToString();
+                    course.CourseName = dr["CourseName"].ToString();
+                    course.ClassName = dr["ClassName"].ToString();
+                    course.IsActive = Convert.ToBoolean(dr["active"]);
+                    course.CreatedDate = Convert.ToDateTime(dr["CreatedDate"]);
+
+                    objCourseList.Add(course);
+                }
+
+                return objCourseList;
+
+            }
+            catch
+            {
+
+                throw;
+            }
+
+
+        }
         public Course GetCourseDetailByCourseId(int CourseId)
         {
             var objCourseDao = new CourseDAO(new SqlDatabase());
@@ -28,13 +60,13 @@ namespace SMSBusiness.Repository.Concrete
                     {
                         course.CourseId = Convert.ToInt32(item[""]);
                         course.CourseName = item["CourseName"].ToString();
-                        course.CourseCode=item["CourseCode"].ToString();
-                        course.ClassId=Convert.ToInt32(item["ClassId"]);
-                        course.ClassName=item["ClassName"].ToString();
+                        course.CourseCode = item["CourseCode"].ToString();
+                        course.ClassId = Convert.ToInt32(item["ClassId"]);
+                        course.ClassName = item["ClassName"].ToString();
                         course.CreatedById = item["CreatedById"].ToString();
                         course.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
                         course.ModifiedById = item["ModifiedById"].ToString();
-                       // course.ModifiedDate =string.IsNullOrEmpty(item["ModifiedDate"].ToString())? null: Convert.ToDateTime(item["ModifiedDate"]);
+                        // course.ModifiedDate =string.IsNullOrEmpty(item["ModifiedDate"].ToString())? null: Convert.ToDateTime(item["ModifiedDate"]);
                     }
                 }
 

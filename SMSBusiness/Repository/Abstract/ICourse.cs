@@ -9,6 +9,7 @@ namespace SMSBusiness.Repository.Abstract
 {
   public  interface ICourse
     {
+      List<Course> GetALLCourse();
       Course GetCourseDetailByCourseId(int CourseId);
       int CourseAddChanges(Course courese);
 

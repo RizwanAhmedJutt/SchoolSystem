@@ -18,6 +18,24 @@ namespace SMSDAL.DAL
         {
             gObjDatabase = database;
         }
+        public DataTable GetALLCourse()
+        {
+
+            DataTable dtCourseDetails;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Course_GetALLCourse"))
+                {
+                    
+                    dtCourseDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtCourseDetails;
+        }
         public DataTable GetCourseDetailByCourseId(int CourseId)
         {
             DataTable dtCourseDetails;
@@ -45,6 +63,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@CourseCode", DbType.String, course.CourseCode);
                     gObjDatabase.AddInParameter(objDbCommand, "@CourseName", DbType.String, course.CourseName);
                     gObjDatabase.AddInParameter(objDbCommand, "@ClassId", DbType.Int32, course.ClassId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@Active", DbType.Int32, course.IsActive);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, course.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, course.CreatedDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, course.ModifiedById == null ? DBNull.Value : (object)course.ModifiedById);
@@ -79,7 +98,7 @@ namespace SMSDAL.DAL
 
             return 0;  // show Error in inserting or Updating Record
         }
-
+      
 
     }
 }
