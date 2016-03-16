@@ -159,6 +159,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
@@ -387,6 +388,8 @@
     <Content Include="Views\Teacher\TeacherProfile.cshtml" />
     <Content Include="Views\Teacher\TeacherList.cshtml" />
     <Content Include="Views\Teacher\Teacher.cshtml" />
+    <Content Include="Views\Course\AddChangesCourse.cshtml" />
+    <Content Include="Views\Course\GetALLCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
