@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SchoolManagementSystem.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class CourseController : Controller
     {
         ICourse courserepositry = new CourseBLL();
