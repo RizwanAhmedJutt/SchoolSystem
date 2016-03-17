@@ -487,6 +487,7 @@ namespace SMSDAL.DAL
             {
                 using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("USP_InsertUpdateTeacherProfile"))
                 {
+                    gObjDatabase.AddInParameter(objDbCommand, "@TProfileId", DbType.Int32, tProfile.TProfileId);
                     gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32, tProfile.TeacherId);
                     gObjDatabase.AddInParameter(objDbCommand, "@ImagePath", DbType.String, tProfile.ImagePath);
                     //gObjDatabase.AddInParameter(objDbCommand, "@Contact2", DbType.String, tProfile.ContactSecond);

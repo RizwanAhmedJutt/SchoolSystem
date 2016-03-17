@@ -100,6 +100,7 @@ namespace SchoolManagementSystem.Controllers
             return View(tProfile);
         }
 
+        [HttpPost]
         public ActionResult TeacherProfile(TeacherProfile tProfile, HttpPostedFileBase AddVideo)
         {
 
@@ -112,7 +113,7 @@ namespace SchoolManagementSystem.Controllers
             }
             int teachId;
             teachId = repoTeacher.InsertUpdateTProfile(tProfile);
-            return RedirectToAction("TeacherProfile", "Teacher", new { Id = teachId });
+            return RedirectToAction("TeacherList", "Teacher");
         }
 
     }
