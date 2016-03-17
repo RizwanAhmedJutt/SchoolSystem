@@ -70,11 +70,6 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("TeacherContacts", "Teacher", new { Id = teachId });
         }
 
-
-        public ActionResult TeacherAssignCourse()
-        {
-            return View();
-        }
         public ActionResult TeacherContacts(int Id)
         {
             TeacherContact contacts = new TeacherContact();
