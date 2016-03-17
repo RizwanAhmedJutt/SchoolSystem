@@ -5,14 +5,17 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>TeacherContacts</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="row">
         <div class="col-md-8 col-sm-8">
+            <ol class="breadcrumb">
+                <li><a href="/Teacher/Teacher?Id=@Model.TeacherId">Teacher</a></li>
+                <li><a href="/Teacher/TeacherAddress?Id=@Model.TeacherId">Teacher Address</a></li>
+                <li class="active">Teacher Contacts</li>
+            </ol>
             <div class="row well">
                 @if (Model.TeacherContactId == 0)
                 {
