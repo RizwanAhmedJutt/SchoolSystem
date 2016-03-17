@@ -1,0 +1,11 @@
+﻿@using SMSDataContract.Common;
+@using SMSBusiness.Repository.Concrete;
+@using SMSBusiness.Repository.Abstract;
+@{
+
+    ICourse repCourse = new CourseBLL();
+    List<Course> ObjCourse = new List<Course>();
+    ObjCourse = repCourse.GetALLCourse();
+}
+
+@Html.DropDownList("CourseId", new SelectList(ObjCourse.ToList(), "CourseId", "CourseName"), new { id = "ddlCourse", @class = "form-control" })

@@ -390,6 +390,9 @@
     <Content Include="Views\Teacher\Teacher.cshtml" />
     <Content Include="Views\Course\AddChangesCourse.cshtml" />
     <Content Include="Views\Course\GetALLCourse.cshtml" />
+    <Content Include="Views\Course\AddChangesStudentAssignCourse.cshtml" />
+    <Content Include="Views\DropDownLists\DDLCourse.cshtml" />
+    <Content Include="Views\DropDownLists\DDLStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

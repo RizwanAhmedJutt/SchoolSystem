@@ -1,0 +1,12 @@
+﻿@using SMSDataContract.Common;
+@using SMSBusiness.Repository.Concrete;
+@using SMSBusiness.Repository.Abstract;
+@{
+
+    IStudent repStudent = new StudentBLL();
+    List<Student> ObjStudent = new List<Student>();
+    ObjStudent = repStudent.GetAllStudentByName();
+}
+
+@Html.DropDownList("StudentId", new SelectList(ObjStudent.ToList(), "StudentId", "StudentName"), new { id = "ddlStudent", @class = "form-control" })
+

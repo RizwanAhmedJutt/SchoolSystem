@@ -14,6 +14,7 @@ namespace SchoolManagementSystem.Controllers
     public class CourseController : Controller
     {
         ICourse courserepositry = new CourseBLL();
+        IStudentAssignCourse stdAssignCourserepo = new StudentAssignCourseBLL();
         [HttpGet]
         public ActionResult GetALLCourse()
         {
@@ -63,10 +64,35 @@ namespace SchoolManagementSystem.Controllers
             int courseId = courserepositry.CourseAddChanges(c);
 
 
-            return View();
+            return RedirectToAction("GetALLCourse", "Course");
 
         }
-         
+        [HttpGet]
+        public ActionResult AddChangesStudentAssignCourse(int id)
+        {
+            var userloggedId = User.Identity.GetUserId();
+            StudentAssignedCourse stdAssignCourse;
+            stdAssignCourse = stdAssignCourserepo.GetAssignedCourseByStudentId(id);
+            if (id == 0)
+            {
+                StudentAssignedCourse stdAssigncourse = new StudentAssignedCourse();
+                stdAssignCourse.CreatedById = userloggedId;
 
+                return View(stdAssigncourse);
+            }
+            {
+                stdAssignCourse.ModifiedById = userloggedId;
+                stdAssignCourse.ModifiedDate = DateTime.Now;
+                return View(stdAssignCourse); 
+            }
+        }
+        [HttpPost]
+        public ActionResult AddChangesStudentAssignCourse(StudentAssignedCourse stdCourse,int CourseId,int StudentId)
+        {
+            stdCourse.CourseId = CourseId;
+            stdCourse.StudentId = StudentId;
+            int getReturnValue = stdAssignCourserepo.InsertUpdateAssignedCourseAddChanges(stdCourse);
+            return View();
+        }
     }
 }

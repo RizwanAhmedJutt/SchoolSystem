@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SMSBusiness.Repository.Concrete
 {
-    class StudentAssignCourseBLL : IStudentAssignCourse
+public    class StudentAssignCourseBLL : IStudentAssignCourse
     {
 
         public StudentAssignedCourse GetAssignedCourseByStudentId(int StudentId)

@@ -16,6 +16,7 @@ namespace SMSDataContract.Common
             LastName = string.Empty;
             DOB = DateTime.Now;
             Religion= string.Empty;
+            StudentName = string.Empty;
             AcadmicClassId = 0;
             NoOfSibling = 0;
             NoOfSiblingCurrentSchool = 0;
@@ -46,6 +47,7 @@ namespace SMSDataContract.Common
         public int RollNumber { get; set; }
          [Required (ErrorMessage="Please Enter CNIC")]
         public string CNIC { get; set; }
+         public string StudentName { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateDate { get; set; }
         public string CreatedById { get; set; }
