@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SchoolManagementSystem.Controllers
 {
-    [Authorize]
+    
     public class TeacherController : Controller
     {
         ITeacherRepositry repoTeacher = new TeacherRepositry();
