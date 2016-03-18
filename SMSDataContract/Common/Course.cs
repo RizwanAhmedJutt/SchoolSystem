@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,14 +21,27 @@ namespace SMSDataContract.Common
             ModifiedDate = null;
         }
         public int CourseId { get; set; }
+        [Display(Name="Course Code")]
+        [Required(ErrorMessage="Enter Course Code")]
         public string CourseCode { get; set; }
+
+        [Display(Name="Course Name")]
+        [Required(ErrorMessage="Enter Course Name")]
         public string CourseName { get; set; }
+        [Display(Name="Class")]
+        [Required(ErrorMessage="Select a class")]
         public int ClassId { get; set; }
+        [Display(Name="Is Active")]
         public bool IsActive { get; set; }
+        [Display(Name="Class Name")]
         public string ClassName { get; set; }
+        [Display(Name="Created By Id")]
         public string CreatedById { get; set; }
+        [Display(Name="Created Date")]
         public DateTime CreatedDate { get; set; }
+        [Display(Name="Updated By Id")]
         public string ModifiedById { get; set; }
+        [Display(Name="Updated Date")]
         public DateTime? ModifiedDate { get; set; }
 
     }
