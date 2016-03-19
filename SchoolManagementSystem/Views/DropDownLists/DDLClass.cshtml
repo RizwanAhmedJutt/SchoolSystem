@@ -10,5 +10,5 @@
     ObjClass = repClass.GetALLAcadmicClassies();
 }
 
-@Html.DropDownList("AcadmicClassId", new SelectList(ObjClass.ToList(), "AcadmicClassId", "ClassName"), new { id = "ddlAcadmicClass", @class = "form-control" })
+@Html.DropDownList("AcadmicClassId", new SelectList(ObjClass.ToList(), "AcadmicClassId", "ClassName"),"Select Class" ,new { id = "ddlAcadmicClass", @class = "form-control" })
 

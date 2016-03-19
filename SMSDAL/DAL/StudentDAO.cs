@@ -81,7 +81,7 @@ namespace SMSDAL
                     gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.Int32, student.StudentId);
                     gObjDatabase.AddInParameter(objDbCommand, "@FirstName", DbType.String, student.FirstName);
                     gObjDatabase.AddInParameter(objDbCommand, "@LastName", DbType.String, student.LastName);
-                    gObjDatabase.AddInParameter(objDbCommand, "@DateOfBirth", DbType.String, student.DOB);
+                    gObjDatabase.AddInParameter(objDbCommand, "@DateOfBirth", DbType.DateTime, student.DOB);
                     gObjDatabase.AddInParameter(objDbCommand, "@Religion", DbType.String, student.Religion);
                     gObjDatabase.AddInParameter(objDbCommand, "@CNIC", DbType.String, student.CNIC);
                     gObjDatabase.AddInParameter(objDbCommand, "@ClassId", DbType.Int32, student.AcadmicClassId);

@@ -48,10 +48,13 @@ namespace SMSDataContract.Common
        
         public string Religion { get; set; }
         [Display(Name = "Acadmic Class")]
+        [Required(ErrorMessage="Please Select Acadmic Class")]
         public int AcadmicClassId { get; set; }
         [Display(Name = "NO. Sibling")]
+        [Required(ErrorMessage="Please Select Sibling")]
         public int NoOfSibling { get; set; }
         [Display(Name = "Sibling in Current School")]
+        [Required(ErrorMessage = "Please Select Sibling")]
         public int NoOfSiblingCurrentSchool { get; set; }
         [Display(Name = "Roll No.")]
         public int RollNumber { get; set; }

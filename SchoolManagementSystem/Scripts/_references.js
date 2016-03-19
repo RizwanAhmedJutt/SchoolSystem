@@ -8,7 +8,6 @@
 /// <reference path="jquery-ui-1.11.4.min.js" />
 /// <reference path="bootstrap-datetimepicker.js" />
 /// <reference path="custom.js" />
-/// <reference path="jquery-1.10.2.js" />
 /// <reference path="moment-with-locales.min.js" />
 /// <reference path="moment.min.js" />
 /// <reference path="jquery-2.2.1.js" />
