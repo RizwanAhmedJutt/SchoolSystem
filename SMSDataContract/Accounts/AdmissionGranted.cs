@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,11 +29,17 @@ namespace SMSDataContract.Accounts
 
         public int AdmissionId { get; set; }
         public int StudentId { get; set; }
+        [Display(Name="Assessment Result")]
+        
         public string AssessmentResult { get; set; }
         public int GuardianId { get; set; }
+        
         public bool IsGranted { get; set; }
+        [Display(Name="Admission For Class")]
+
         public string AdmissionGrantedForClass { get; set; }
         public DateTime AdmissionGrantedDate { get; set; }
+        [Required(ErrorMessage="Enter Remarks")]
         public string Remarks { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreatedDate { get; set; }
