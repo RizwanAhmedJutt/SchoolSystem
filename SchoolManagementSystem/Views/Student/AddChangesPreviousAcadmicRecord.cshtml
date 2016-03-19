@@ -10,6 +10,13 @@
     @Html.AntiForgeryToken()
     <div class="row">
         <div class="col-md-8 col-sm-8">
+            <ol class="breadcrumb">
+                <li><a href="/Student/AddChangesStudent?id=@Model.StudentId">Student</a></li>
+                <li><a href="/Student/AddChangesStudentAddress?studentId=@Model.StudentId">Student Address</a></li>
+                <li><a href="/Student/AddChangesGuardianDetail?studentId=@Model.StudentId">Guardian Details</a></li>
+                <li><a href="/Student/AddChangesGuardianContacts?studentId=@Model.StudentId&guardianId=@Model.GuardianId">Guardian Contacts</a></li>
+                <li class="active">Previous Acadmic Record</li>
+            </ol>
             <div class="row well">
                 <div class="form-horizontal">
                     @Html.HiddenFor(model => model.PAcadmicId)
@@ -26,7 +33,7 @@
                     }
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                 
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.SchoolName, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
@@ -121,13 +128,13 @@
                         <div class="col-md-12">
                             @if (Model.PAcadmicId == 0)
                             {
-                                <input type="submit" value="Save Previous Acadmic Record >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                               
+                                <input type="submit" value="Next" style="background-color:#fab625;color:white;" class="btn pull-right" />
+
                             }
                             else
                             {
-                                <input type="submit" value="Update Previous Acadmic Record >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                               
+                                <input type="submit" value="Next" style="background-color:#fab625; color:white;" class="btn pull-right" />
+
                             }
                             <a href="/Student/AddChangesGuardianContacts?studentid=@Model.StudentId&guardianId=@Model.GuardianId" style="background-color:#353899;color:white;" class="btn pull-left">Previous</a>
                         </div>
@@ -135,7 +142,10 @@
                 </div>
             </div>
         </div>
-   </div>
+    </div>
 }
+@section Scripts {
 
-              
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+}

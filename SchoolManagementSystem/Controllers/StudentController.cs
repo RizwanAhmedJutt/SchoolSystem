@@ -227,7 +227,8 @@ namespace SchoolManagementSystem.Controllers
                 admGrant.CreatedById = userloggedId.ToString();
                 admGrant.AdmissionGrantedForClass = AcadmicClassId;
                 int finalValue = aGrantedrepositry.AdmissionAddChanges(admGrant);
-                return View(admGrant);
+
+                return RedirectToAction("StudentList", "Student");
             }
             else
             {
@@ -236,7 +237,7 @@ namespace SchoolManagementSystem.Controllers
                 admGrant.ModifiedById = userloggedId.ToString();
                 admGrant.AdmissionGrantedForClass = AcadmicClassId;
                 int finalValue = aGrantedrepositry.AdmissionAddChanges(admGrant);
-                return View(admGrant);
+                return RedirectToAction("StudentList", "Student");
                
             }
             

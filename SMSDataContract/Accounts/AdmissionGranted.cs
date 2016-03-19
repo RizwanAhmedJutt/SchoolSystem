@@ -30,16 +30,18 @@ namespace SMSDataContract.Accounts
         public int AdmissionId { get; set; }
         public int StudentId { get; set; }
         [Display(Name="Assessment Result")]
-        
+        [Required(ErrorMessage="Enter assessment Result")]
         public string AssessmentResult { get; set; }
         public int GuardianId { get; set; }
         
         public bool IsGranted { get; set; }
         [Display(Name="Admission For Class")]
-
+        [Required(ErrorMessage="Enter Addmission Granted for class")]
         public string AdmissionGrantedForClass { get; set; }
+        [Display(Name="Enter Admission Granted Date")]
         public DateTime AdmissionGrantedDate { get; set; }
         [Required(ErrorMessage="Enter Remarks")]
+        [Display(Name="Penal Remarks")]
         public string Remarks { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreatedDate { get; set; }

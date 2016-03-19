@@ -9,9 +9,17 @@
     @Html.AntiForgeryToken()
     <div class="row">
         <div class="col-md-8 col-sm-8">
+            <ol class="breadcrumb">
+                <li><a href="/Student/AddChangesStudent?id=@Model.StudentId">Student</a></li>
+                <li><a href="/Student/AddChangesStudentAddress?studentId=@Model.StudentId">Student Address</a></li>
+                <li><a href="/Student/AddChangesGuardianDetail?studentId=@Model.StudentId">Guardian Details</a></li>
+                <li><a href="/Student/AddChangesGuardianContacts?studentId=@Model.StudentId&guardianId=@Model.GuardianId">Guardian Contacts</a></li>
+                <li><a href="/Student/AddChangesPreviousAcadmicRecord?StudentId=@Model.StudentId&GuardianId=@Model.GuardianId">Previous Acadmic Record</a></li>
+                <li class="active">Admission Granted</li>
+            </ol>
             <div class="row well">
                 <div class="form-horizontal">
-                  
+
                     @Html.HiddenFor(model => model.StudentId)
                     @Html.HiddenFor(model => model.GuardianId)
                     @if (Model.AdmissionId == 0)
@@ -36,7 +44,7 @@
                         </div>
                     </div>
 
-                 
+
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.IsGranted, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -63,10 +71,9 @@
                         <div class="col-md-3 col-md-offset-1 control-label"><label>Roll Number</label></div>
                         <div class="col-md-7">
                             <div class="input-group">
-                                <input type="text" name="RollNumber" class="form-control" />
-
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                <input type="text" id="RollGrantedRollNo" name="RollNumber" placeholder="Roll Number" class="form-control" />
                             </div>
-
                         </div>
 
                     </div>
@@ -89,7 +96,7 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-leaf"></i></span>
                                 @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control", id = "Remarks", placeholder = "Remarks" })
                             </div>
-                            
+
                             @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -98,20 +105,56 @@
                         <div class="col-md-12">
                             @if (Model.AdmissionId == 0)
                             {
-                                <input type="submit" value="Save Admission Detial >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                                
+                                <input type="submit" id="SaveAdmissionGranted" value="Save" style="background-color:#fab625;color:white;" class="btn pull-right" />
+
                             }
                             else
                             {
-                                <input type="submit" value="Update Admission Detial >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                               
+                                <input type="submit" id="UpdateAdmissionGranted" value="Update" style="background-color:#fab625; color:white;" class="btn pull-right" />
+
                             }
                             <a href="/Student/AddChangesPreviousAcadmicRecord?studentid=@Model.StudentId&guardianId=@Model.GuardianId" style="background-color:#353899;color:white;" class="btn pull-left">Previous</a>
                         </div>
                     </div>
                 </div>
-             </div>
-         </div>
+            </div>
+        </div>
     </div>
 }
+@section Scripts {
 
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('#AdmissionGrantedDate').datetimepicker();
+            });
+            $("#SaveAdmissionGranted").click(function (e) {
+                if ($("#RollGrantedRollNo").val() == '') {
+                    alert("Please enter Roll Number");
+                   
+                    return;
+                }
+                if ($('#ddlAcadmicClass').val() == '') {
+                    alert("Please select Acadmic Class");
+                    e.preventDefault();
+                    return;
+                }
+            });
+            $("#UpdateAdmissionGranted").click(function (e) {
+                if ($("#RollGrantedRollNo").val() == '') {
+                    alert("Please enter Roll Number");
+                    e.preventDefault();
+                    return;
+                }
+                if ($('#ddlAcadmicClass').val() == '') {
+                    alert("Please select Acadmic Class");
+                    e.preventDefault();
+                    return;
+                }
+            }); 
+        });
+        
+    </script>
+}

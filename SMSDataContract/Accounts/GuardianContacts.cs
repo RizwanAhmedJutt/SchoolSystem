@@ -21,8 +21,10 @@ namespace SMSDataContract.Accounts
         public int GuardianContactId { get; set; }
         public int GuardianId { get; set; }
         [Required( ErrorMessage="Enter Contact")]
+        [Display(Name="First Contact")]
         public string FirstContact { get; set; }
         [Required(ErrorMessage ="Enter Contact")]
+        [Display(Name = "Second Contact")]
         public string SecondContact { get; set; }
         public int StudentId { get; set; }
     }

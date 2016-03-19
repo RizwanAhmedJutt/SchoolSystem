@@ -10,6 +10,11 @@
     @Html.AntiForgeryToken()
     <div class="row">
         <div class="col-md-8 col-sm-8">
+            <ol class="breadcrumb">
+                <li><a href="/Student/AddChangesStudent?id=@Model.StudentId">Student</a></li>
+                <li><a href="/Student/AddChangesStudentAddress?studentId=@Model.StudentId">Student Address</a></li>
+                <li class="active">Guardian Details</li>
+            </ol>
             <div class="row well">
                 <div class="form-horizontal">
                     @Html.HiddenFor(model=>model.StudentId)
@@ -70,14 +75,14 @@
                             
                             @Html.ValidationMessageFor(model => model.MotherTongue, "", new { @class = "text-danger" })
                         </div>
-                    </div>
+                    </div>s
                     <div class="form-group">
                         @Html.LabelFor(model => model.OccupationOfGuardian, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
 
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-registration-mark"></i></span>
-                                @Html.EditorFor(model => model.OccupationOfGuardian, new { htmlAttributes = new { @class = "form-control", id = "RelationWithGuardian", placeholder = "Relation With Guardian" } })
+                                @Html.EditorFor(model => model.OccupationOfGuardian, new { htmlAttributes = new { @class = "form-control", id = "OccupationOfGuardian", placeholder = "Occupation of Guardian" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.OccupationOfGuardian, "", new { @class = "text-danger" })
                         </div>
@@ -123,12 +128,12 @@
                         <div class="col-md-12">
                             @if (Model.StudentGuardianId == 0)
                             {
-                                <input type="submit" value="Save Guardian Detial >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                <input type="submit" value="Next" style="background-color:#fab625;color:white;" class="btn pull-right" />
                                
                             }
                             else
                             {
-                                <input type="submit" value="Update Guardian Detial >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
+                                <input type="submit" value="Next" style="background-color:#fab625; color:white;" class="btn pull-right" />
                               
                             }
                             <a href="/Student/AddChangesStudentAddress?studentId=@Model.StudentId" style="background-color:#fab625;color:white;" class="btn pull-left">Previous</a>
@@ -140,4 +145,8 @@
      </div>
                 }
 
-         
+         @section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+}
