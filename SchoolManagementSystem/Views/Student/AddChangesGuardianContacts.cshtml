@@ -20,12 +20,12 @@
             <div class="row well">
                     @if (Model.GuardianContactId == 0)
                     {
-                        <h2 class="text-center">Guardian Contacts</h2>
+                        <span class="HeadingStyle">Guardian Contacts</span>
 
                     }
                     else
                     {
-                        <h2 class="text-center">Update Guardian Contacts</h2>
+                        <span class="HeadingStyle">Update Guardian Contacts</span>
                     }
                     <div class="form-horizontal">
                         <hr />
@@ -60,17 +60,20 @@
                         <hr />
                         <div class="form-group">
                             <div class="col-md-12">
-                                @if (Model.GuardianContactId == 0)
-                                {
-                                    <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                                  
-                                }
-                                else
-                                {
-                                    <input type="submit" value="Update" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                                   
-                                }
-                             
+                                <div class="row"> 
+                                    <div class="col-md-9">
+                                        @if (Model.GuardianContactId == 0)
+                                        {
+                                            <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
+
+                                        }
+                                        else
+                                        {
+                                            <input type="submit" value="Update" style="background-color:#fab625; color:white;" class="btn pull-right" />
+
+                                        }
+                                    </div>
+                                </div>
                                 
                             </div>
                         </div>

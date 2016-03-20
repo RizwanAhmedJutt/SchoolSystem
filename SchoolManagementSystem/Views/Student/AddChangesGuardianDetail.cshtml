@@ -17,20 +17,20 @@
             </ol>
             <div class="row well">
                 <div class="form-horizontal">
-                    @Html.HiddenFor(model=>model.StudentId)
+                    @Html.HiddenFor(model => model.StudentId)
                     @Html.HiddenFor(model => model.StudentGuardianId)
                     @if (Model.StudentGuardianId == 0)
                     {
-                        <h2 class="text-center">Add Guardian Details</h2>
+                        <span class="HeadingStyle">Add Guardian Details</span>
 
                     }
                     else
                     {
-                        <h2 class="text-center">Update Guardian Details</h2>
+                        <span class="HeadingStyle">Update Guardian Details</span>
                     }
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                   
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.FatherName, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
@@ -38,7 +38,7 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control", id = "StuFatherName", placeholder = "Father Name" } })
                             </div>
-                            
+
                             @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-ice-lolly"></i></span>
                                 @Html.EditorFor(model => model.MotherTongue, new { htmlAttributes = new { @class = "form-control", id = "GuardianMotherTongue", placeholder = "Mother Tongue" } })
                             </div>
-                            
+
                             @Html.ValidationMessageFor(model => model.MotherTongue, "", new { @class = "text-danger" })
                         </div>
                     </div>s
@@ -88,11 +88,11 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.RelationWithGuardian, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-                             
+
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-registration-mark"></i></span>
                                 @Html.EditorFor(model => model.RelationWithGuardian, new { htmlAttributes = new { @class = "form-control", id = "RelationWithGuardian", placeholder = "Relation With Guardian" } })
@@ -108,7 +108,7 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
                                 @Html.EditorFor(model => model.GuardianMontlyIncome, new { htmlAttributes = new { @class = "form-control", id = "GuardianMontlyIncome", placeholder = "Guardian Montly Income" } })
                             </div>
-                         @Html.ValidationMessageFor(model => model.GuardianMontlyIncome, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.GuardianMontlyIncome, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -119,33 +119,36 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
                                 @Html.EditorFor(model => model.GuardianQualification, new { htmlAttributes = new { @class = "form-control", id = "GuardianQualification", placeholder = "Guardian Qualification" } })
                             </div>
-                            
+
                             @Html.ValidationMessageFor(model => model.GuardianQualification, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <hr />
                     <div class="form-group">
                         <div class="col-md-12">
-                            @if (Model.StudentGuardianId == 0)
-                            {
-                                <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                               
-                            }
-                            else
-                            {
-                                <input type="submit" value="Update" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                              
-                            }
-                         
+                            <div class="row">
+                                <div class="col-md-9">
+                                    @if (Model.StudentGuardianId == 0)
+                                    {
+                                        <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
+
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="Update" style="background-color:#fab625; color:white;" class="btn pull-right" />
+
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-         </div>
-     </div>
-                }
+        </div>
+    </div>
+}
 
-         @section Scripts {
+@section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")

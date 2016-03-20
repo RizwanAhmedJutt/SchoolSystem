@@ -24,12 +24,12 @@
                     @Html.HiddenFor(model => model.GuardianId)
                     @if (Model.PAcadmicId == 0)
                     {
-                        <h2 class="text-center">Previous Acadmic Record</h2>
+                        <span class="HeadingStyle">Previous Acadmic Record</span>
 
                     }
                     else
                     {
-                        <h2 class="text-center">Update Previous Acadmic Record</h2>
+                        <span class="HeadingStyle">Update Previous Acadmic Record</span>
                     }
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -126,17 +126,21 @@
                     <hr />
                     <div class="form-group">
                         <div class="col-md-12">
-                            @if (Model.PAcadmicId == 0)
-                            {
-                                <input type="submit" value="Add" id="AddPreviousDetail" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                            <div class="row">
+                                <div class="col-md-9">
+                                    @if (Model.PAcadmicId == 0)
+                                    {
+                                        <input type="submit" value="Add" id="AddPreviousDetail" style="background-color:#fab625;color:white;" class="btn pull-right" />
 
-                            }
-                            else
-                            {
-                                <input type="submit" value="Update" id="UpdatePreviousDetail" style="background-color:#fab625; color:white;" class="btn pull-right" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="Update" id="UpdatePreviousDetail" style="background-color:#fab625; color:white;" class="btn pull-right" />
 
-                            }
+                                    }
 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

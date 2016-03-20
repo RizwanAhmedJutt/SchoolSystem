@@ -20,12 +20,12 @@
                     <div class="form-horizontal">
                         @if (Model.StudentId == 0)
                         {
-                            <h2 class="text-center">Add Student </h2>
+                            <span class="HeadingStyle">Add Student </span>
 
                         }
                         else
                         {
-                            <h2 class="text-center">Update Student</h2>
+                            <span class="HeadingStyle">Update Student</span>
                         }
 
                         <hr />
@@ -131,7 +131,7 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-9">
                                         @if (Model.StudentId == 0)
                                         {
                                             <input type="submit" value="Add" id="AddStudent" style="background-color:#fab625;color:white;" class="btn pull-right" />

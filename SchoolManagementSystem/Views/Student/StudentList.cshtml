@@ -7,9 +7,10 @@
 <div class="row">
     <div class="col-md-8 col-sm-8">
         <div class="row">
-            <h2 style="text-align:center;">List of Students</h2>
             <a href="/Student/AddChangesStudent?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Student</a>
             <br />
+            <br />
+            <span class="HeadingStyle">List of Students</span>
             <table class="table table-bordered table-striped table-responsive table-hover">
                 <tr class="action info">
                     <th>
@@ -38,7 +39,7 @@
                         @Html.DisplayNameFor(model => model.IsActive)
                     </th>
 
-                    <th></th>
+                    <th style="width:90px;"><b>ACTION</b></th>
                 </tr>
 
                 @foreach (var item in Model) {

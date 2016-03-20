@@ -27,7 +27,8 @@ namespace SMSDataContract.Common
         public string CourseCode { get; set; }
 
         [Display(Name="Course Name")]
-       // [Required(ErrorMessage="Enter Course Name")]
+    
+        [Required(ErrorMessage="Enter Course Name")]
         public string CourseName { get; set; }
         [Display(Name="Class")]
         [Required(ErrorMessage="Select a class")]

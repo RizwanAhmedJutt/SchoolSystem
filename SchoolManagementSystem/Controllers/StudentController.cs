@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SchoolManagementSystem.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class StudentController : Controller
     {
 
@@ -251,6 +251,15 @@ namespace SchoolManagementSystem.Controllers
             StudentProfile studProfile = new StudentProfile();
 
             return View(studProfile);
+        }
+        
+
+            [HttpPost]
+        public ActionResult StudentProfile(StudentProfile studentProfile, HttpPostedFileBase upLoadStudentImg)
+        {
+            StudentProfile studProfile = new StudentProfile();
+
+            return View();
         }
         public ActionResult DeleteStudent()
         {
