@@ -58,7 +58,7 @@ namespace SMSBusiness.Repository.Concrete
                 {
                     foreach (DataRow item in tblCourse.Rows)
                     {
-                        course.CourseId = Convert.ToInt32(item[""]);
+                        course.CourseId = Convert.ToInt32(item["CourseId"]);
                         course.CourseName = item["CourseName"].ToString();
                         course.CourseCode = item["CourseCode"].ToString();
                         course.ClassId = Convert.ToInt32(item["ClassId"]);

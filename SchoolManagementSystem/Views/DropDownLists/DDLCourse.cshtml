@@ -8,4 +8,4 @@
     ObjCourse = repCourse.GetALLCourse();
 }
 
-@Html.DropDownList("CourseId", new SelectList(ObjCourse.ToList(), "CourseId", "CourseName"), new { id = "ddlCourse", @class = "form-control" })
+@Html.DropDownList("CourseId", new SelectList(ObjCourse.ToList(), "CourseId", "CourseName"), "Select Course",new { id = "ddlCourse", @class = "form-control" })

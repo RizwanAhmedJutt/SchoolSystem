@@ -15,7 +15,8 @@ select,
 textarea {
     max-width: 280px;
 }
-.HeadingStyle{
+
+.HeadingStyle {
     background-color: blue;
     background-image: linear-gradient(to bottom, #fab625, #fab625);
     color: #F5F5F5;
@@ -25,24 +26,54 @@ textarea {
     padding: 10px;
     margin-left: 0px;
 }
-.sideManu{
-    background-color:#353899;
-    border-radius:1px;
-}
-.btnNext{
-    background-color:#fab625;
-    color:white;
-}
-.btnPre{
-    background-color:#353899;
-    color:white;
-}
-.btnlogin{
-    width:400px !important;
+
+.msgSpan {
+    padding: 8px 35px 8px 14px;
+    background: none repeat scroll 0 0 #C22439;
+    border: 0 none;
+    border-radius: 0 0 0 0;
+    color: #FFFFFF;
+    text-shadow: none;
+    font-weight: bold;
 }
 
-.uperNav{
-    background-color:#353899;
+.error {
+    position: relative;
+    margin-left: 8px;
+    padding: 4px 10px;
+    width: 150px;
+    -moz-border-radius: 6px 6px 6px 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background: none repeat scroll 0 0 #D53F26;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 9px 9px 7px rgba(0, 0, 0, 0.3);
+}
+
+.sideManu {
+    background-color: #353899;
+    border-radius: 1px;
+}
+
+.btnNext {
+    background-color: #fab625;
+    color: white;
+}
+
+.btnPre {
+    background-color: #353899;
+    color: white;
+}
+
+.btnlogin {
+    width: 400px !important;
+}
+
+.uperNav {
+    background-color: #353899;
 }
 
 /* styles for validation helpers */

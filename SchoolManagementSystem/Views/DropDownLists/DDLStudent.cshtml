@@ -8,5 +8,5 @@
     ObjStudent = repStudent.GetAllStudentByName();
 }
 
-@Html.DropDownList("StudentId", new SelectList(ObjStudent.ToList(), "StudentId", "StudentName"), new { id = "ddlStudent", @class = "form-control" })
+@Html.DropDownList("StudentId", new SelectList(ObjStudent.ToList(), "StudentId", "StudentName"), "Select Student" ,new { id = "ddlStudent", @class = "form-control" })
 

@@ -5,7 +5,7 @@
 }
 <div class="row">
     <div class="col-md-8 col-sm-8">
-        <a href="/Course/AddChangesCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Student</a>
+        <a href="/Course/AddChangesCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Course</a>
         <br />
         <div class="row">
             <span class="HeadingStyle">List of Course</span>
@@ -28,7 +28,7 @@
                         @Html.DisplayNameFor(model => model.CreatedDate)
                     </th>
 
-
+                    <th style="width:90px;"><b>ACTION</b></th>
 
                 </tr>
 
@@ -51,11 +51,8 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.CreatedDate)
                         </td>
-
-
                         <td>
-                        <td>
-                            <a href="/Student/AddChangesStu?Id=@item.CourseId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="/Course/AddChangesCourse?Id=@item.CourseId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
                             <a href="/Student/DeleteStd?Id=@item.CourseId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
                         </td>
 

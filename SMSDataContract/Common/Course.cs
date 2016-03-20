@@ -33,7 +33,7 @@ namespace SMSDataContract.Common
         [Display(Name="Class")]
         [Required(ErrorMessage="Select a class")]
         public int ClassId { get; set; }
-        [Display(Name="Is Active")]
+        [Display(Name="Active")]
         public bool IsActive { get; set; }
         [Display(Name="Class Name")]
         public string ClassName { get; set; }
