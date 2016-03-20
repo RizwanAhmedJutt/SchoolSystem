@@ -393,6 +393,8 @@
     <Content Include="Views\DropDownLists\DDLStudent.cshtml" />
     <Content Include="Views\DropDownLists\DDLCurrentSibling.cshtml" />
     <Content Include="Views\DropDownLists\DDLSibling.cshtml" />
+    <Content Include="Views\Course\AddChangesTeacherAssignCourse.cshtml" />
+    <Content Include="Views\DropDownLists\DDLTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

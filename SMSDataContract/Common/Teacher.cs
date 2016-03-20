@@ -48,6 +48,7 @@ namespace SMSDataContract.Common
         public string RefrenceName { get; set; }
         [Display(Name="Refrence Contact")]
         public string RefrenceContact { get; set; }
+        public string TeacherName { get; set; }
         public bool Active { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreatedDate { get; set; }

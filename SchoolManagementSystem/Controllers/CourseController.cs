@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SchoolManagementSystem.Controllers
 {
-    [Authorize(Roles="Admin")]
+   [Authorize(Roles="Admin")]
     public class CourseController : Controller
     {
         ICourse courserepositry = new CourseBLL();
@@ -93,7 +93,22 @@ namespace SchoolManagementSystem.Controllers
             stdCourse.CourseId = CourseId;
             stdCourse.StudentId = StudentId;
             int getReturnValue = stdAssignCourserepo.InsertUpdateAssignedCourseAddChanges(stdCourse);
-            return View();
+            return RedirectToAction("GetALLCourse", "Course");
         }
+        [HttpGet]
+        public ActionResult AddChangesTeacherAssignCourse(int Id)
+        {
+            TeacherAssignedCourse tassignCourse = new TeacherAssignedCourse();
+            return View(tassignCourse);
+        }
+        [HttpPost]
+        public ActionResult AddChangesTeacherAssignCourse(TeacherAssignedCourse tAssignCourse)
+        {
+           
+            return View();
+
+        }
+
+
     }
 }

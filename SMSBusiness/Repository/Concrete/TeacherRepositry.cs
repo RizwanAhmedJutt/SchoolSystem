@@ -413,6 +413,35 @@ namespace SMSBusiness.Repository.Concrete
 
         }
 
+        public List<Teacher> GetALLTeacherByName()
+        {
+            var objTeacherDao = new TeacherDAO(new SqlDatabase());
+            var dtTeachers = new DataTable();
+            dtTeachers = objTeacherDao.GetALLTeacherByName();
+            List<Teacher> objTeacherList = new List<Teacher>();
+            try
+            {
+                if (dtTeachers.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dtTeachers.Rows)
+                    {
+                        Teacher teacher = new Teacher();
+                        teacher.TeacherName = item["TeacherName"].ToString();
+                        teacher.TeacherId = Convert.ToInt32(item["TeacherId"]);
+                        objTeacherList.Add(teacher); 
+
+                    }
+                    return objTeacherList;
+                }
+
+            }
+            catch (Exception )
+            {
+                
+                throw;
+            }
+            return objTeacherList;
+        }
 
         public int InsertUpdateTProfile(TeacherProfile tProfile)
         {

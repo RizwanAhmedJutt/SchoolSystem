@@ -558,7 +558,17 @@ namespace SMSDAL.DAL
             return 0;  // show Error in inserting or Updating Record
 
         }
+        public DataTable GetALLTeacherByName()
+        {
+            DataTable dtAllTeacher;
+            var query = "Select t.TeacherId, t.FirstName +''+ t.LastName TeacherName from Teacher t";
+            using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+            {
+                dtAllTeacher = gObjDatabase.GetDataTable(objCommand);
+            }
 
+            return dtAllTeacher;
+        }
         #endregion
     }
 }
