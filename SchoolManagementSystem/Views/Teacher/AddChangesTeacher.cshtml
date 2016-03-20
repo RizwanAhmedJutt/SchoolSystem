@@ -119,20 +119,22 @@
 
 
                     <div class="form-group">
-                        @if (Model.TeacherId == 0)
-                        {
-                            <div>
-                                <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                               
-                            </div>
-                        }
-                        else
-                        {
-                            <div>
-                                <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                               
-                            </div>
-                        }
+                        <div class="col-md-10">
+                            @if (Model.TeacherId == 0)
+                            {
+                                <div>
+                                    <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
+
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

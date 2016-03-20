@@ -52,11 +52,9 @@
                             @Html.ValidationMessageFor(model => model.PermanentAddress, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <br />
-                    <hr />
-
+                  
                     <div class="form-group">
-                        <div class="col-md-12">
+                        <div class="col-md-10">
                             @if (Model.TAddressId == 0)
                             {
                                 <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
@@ -66,7 +64,7 @@
                             {
                                   <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
                             }
-                            <a href="/Teacher/AddChangesTeacher?Id=@Model.TeacherId" class="btn pull-left" style="background-color:#fab625;color:white;">Previous<i class="glyphicon glyphicon-arrow-left"></i></a>
+                           
                             
                         </div>
                     </div>
