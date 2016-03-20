@@ -134,12 +134,12 @@
                                     <div class="col-md-8">
                                         @if (Model.StudentId == 0)
                                         {
-                                            <input type="submit" value="Next" id="AddStudent" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                            <input type="submit" value="Add" id="AddStudent" style="background-color:#fab625;color:white;" class="btn pull-right" />
 
                                         }
                                         else
                                         {
-                                            <input type="submit" value="Next" id="UpdateStudent" style="background-color:#fab625; color:white;" class="btn pull-right" />
+                                            <input type="submit" value="Update" id="UpdateStudent" style="background-color:#fab625; color:white;" class="btn pull-right" />
 
                                         }
                                     </div>
@@ -176,18 +176,19 @@
                     }
                     
                 });
-                $("#UpdateStudent").click(function(){
+                $("#UpdateStudent").click(function(e){
                     if($('#ddlSibling').val() == '')
                     {
                         alert("Please select sibling");
                         e.preventDefault();
-                        return ;
+                        return false;
+                       
                     }
                     if($('#ddlCurrentSibling').val() == '')
                     {
                         alert("Please select sibling in current school");
                         e.preventDefault();
-                        return ;
+                        return false;
                     }
                 });
                 // set dropdown selected value
@@ -195,11 +196,13 @@
                 {
                     $('#AcadmicClassId option[value="@Model.AcadmicClassId"]').attr("selected",true);
                     $('#ddlSibling option[value="@Model.NoOfSibling"]').attr("selected",true);
+                    $('#ddlCurrentSibling option[value="@Model.NoOfSiblingCurrentSchool"]').attr("selected",true);
                 }
                 else
                 {
                     $('#AcadmicClassId option[value=""]').attr("selected",true);
                     $('#ddlSibling option[value=""]').attr("selected",true);
+                    $('#ddlCurrentSibling option[value=""]').attr("selected",true);
                 }
             });
 

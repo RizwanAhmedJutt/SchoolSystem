@@ -26,6 +26,7 @@ namespace SMSBusiness.Repository.Concrete
                     foreach (DataRow item in stdAddress.Rows)
                     {
                         gStdAdd.StudentId = Convert.ToInt32(item["StudentId"]);
+                        gStdAdd.CityId = Convert.ToInt32(item["CityId"]);
                         gStdAdd.StudentAddressId = Convert.ToInt32(item["StudentAddressId"]);
                         gStdAdd.PermanentAddress = item["PermanentAddress"].ToString();
                         gStdAdd.PresentAddress = item["PresentAddress"].ToString();

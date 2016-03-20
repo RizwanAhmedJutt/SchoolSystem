@@ -36,7 +36,7 @@ namespace SMSBusiness.Repository.Concrete
                         aGranted.CreatedById = item["CreatedById"].ToString();
                         aGranted.CreatedDate = Convert.ToDateTime(item["CreatedDate"].ToString());
                         aGranted.ModifiedById = item["ModifiedById"].ToString();
-                        aGranted.ModifiedDate = Convert.ToDateTime(item["ModifiedDate"].ToString());
+                       // aGranted.ModifiedDate = Convert.ToDateTime(item["ModifiedDate"].ToString());
 
 
                     }

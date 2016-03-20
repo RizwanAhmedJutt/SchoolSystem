@@ -9,4 +9,4 @@
     ObjCity = repCity.GetALLCities();
 }
 
-@Html.DropDownList("CityId", new SelectList(ObjCity.ToList(), "CityId", "CityName"), new { id = "ddlCity", @class = "form-control" })
+@Html.DropDownList("CityId", new SelectList(ObjCity.ToList(), "CityId", "CityName"),"Select City" ,new { id = "ddlCity", @class = "form-control" })

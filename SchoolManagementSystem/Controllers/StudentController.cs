@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SchoolManagementSystem.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class StudentController : Controller
     {
 

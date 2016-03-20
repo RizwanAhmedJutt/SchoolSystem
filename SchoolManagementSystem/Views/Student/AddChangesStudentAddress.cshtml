@@ -6,18 +6,18 @@
 
 }
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="row">
-            <div class="col-md-8 col-sm-8">
-                <ol class="breadcrumb">
-                    <li><a href="/Student/AddChangesStudent?id=@Model.StudentId">Student</a></li>
-                    <li class="active">Student Address</li>
-                </ol>
-                <div class="row well">
-                    <div class="form-horizontal">
-                        @if (Model.StudentAddressId == 0)
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-8 col-sm-8">
+            <ol class="breadcrumb">
+                <li><a href="/Student/AddChangesStudent?id=@Model.StudentId">Student</a></li>
+                <li class="active">Student Address</li>
+            </ol>
+            <div class="row well">
+                <div class="form-horizontal">
+                    @if (Model.StudentAddressId == 0)
                     {
                         <h2 class="text-center">Add Student Address</h2>
 
@@ -26,68 +26,103 @@
                     {
                         <h2 class="text-center">Update Student Address</h2>
                     }
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.StudentAddressId)
-                        @Html.HiddenFor(model => model.StudentId)
-                        <div class="form-group">
-                            @Html.Label("City", new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.StudentAddressId)
+                    @Html.HiddenFor(model => model.StudentId)
+                    <div class="form-group">
+                        @Html.Label("City", new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
 
-                                @{Html.RenderPartial("../DropDownLists/DDLCity");}
+                            @{Html.RenderPartial("../DropDownLists/DDLCity");}
+                        </div>
+                        @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PermanentAddress, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                @Html.TextAreaFor(model => model.PermanentAddress, new { @class = "form-control", id = "PermanentAddress", placeholder = "Permanent Address" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.PermanentAddress, "", new { @class = "text-danger" })
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.PermanentAddress, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                    @Html.TextAreaFor(model => model.PermanentAddress, new { @class = "form-control", id = "PermanentAddress", placeholder = "Permanent Address" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.PermanentAddress, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PresentAddress, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                                @Html.TextAreaFor(model => model.PresentAddress, new { @class = "form-control", id = "PresentAddress", placeholder = "Present Address" })
                             </div>
+                            @Html.ValidationMessageFor(model => model.PresentAddress, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            @if (Model.StudentAddressId == 0)
+                            {
+
+                                <input type="submit" value="Add" id="AddAdress" style="background-color:#fab625;color:white;" />
+                            }
+                            else
+                            {
+                                <input type="submit" id="UpdateAdress" value="Update" style="background-color:#fab625; color:white;" class="btn pull-right" />
+
+                            }
+
+
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.PresentAddress, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                                    @Html.TextAreaFor(model => model.PresentAddress, new { @class = "form-control", id = "PresentAddress", placeholder = "Present Address" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.PresentAddress, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                @if (Model.StudentAddressId == 0)
-                              {
-                                <input type="submit" value="Next" style="background-color:#fab625;color:white;" class="btn pull-right" />
-
-                              }
-                              else
-                              {
-                                <input type="submit" value="Next" style="background-color:#fab625; color:white;" class="btn pull-right" />
-
-                              }
-                               
-                                <a href="/Student/AddChangesStudent?id=@Model.StudentId" class="btn pull-left" style="background-color: #353899; color: white;">Previous</a></div>
-
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-    }
+}
 
 @section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            if(@Model.StudentAddressId>0)
+            {
+                $('#ddlCity option[value="@Model.CityId"]').attr("selected",true);
+
+            }
+            else
+            {
+                $('#ddlCity option[value=""]').attr("selected",true);
+
+            }
+            $("#AddAdress").click(function(e){
+                if($('#ddlCity').val() == '')
+                {
+                    alert("Please select City");
+                    e.preventDefault();
+                    return false;
+                       
+                }
+            });
+            $("#UpdateAdress").click(function(e){
+                if($('#ddlCity').val() == '')
+                {
+                    alert("Please select City");
+                    e.preventDefault();
+                    return false;
+                       
+                }
+            
+            });
+        });
+    </script>
 }
-   
+
 
