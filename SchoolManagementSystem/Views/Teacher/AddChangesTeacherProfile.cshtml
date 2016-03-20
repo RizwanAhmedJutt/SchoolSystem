@@ -25,7 +25,7 @@
     }
 </script>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("AddChangesTeacherProfile", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="row">
         <div class="col-md-8 col-sm-8">
@@ -39,12 +39,12 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h2 style="text-align:center;">Teacher Profile</h2>
+                    <span class="HeadingStyle">Teacher Profile</span>
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.TeacherId)
                     @Html.HiddenFor(model => model.TProfileId)
-                   
+
                     <div class="row form-group">
 
                         <div class="row">
@@ -57,7 +57,7 @@
                         <br />
                         <div class="row">
                             <div class="col-sm-12 ">
-                                <input type="file" id="upVideo" name="AddVideo" style="width:220px;" onchange="readURL(this);" accept="image/*" class="upload btn btn-info center-block" />
+                                <input type="file" id="ulTeacherImage" name="ulTeacherImage" style="width:220px;" onchange="readURL(this);" accept="image/*" class="upload btn btn-info center-block" />
                                 @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
                                 @*<input type="file" id="VideoUploadFile">*@
                                 <p class="help-block"></p>

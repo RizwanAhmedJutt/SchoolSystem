@@ -392,6 +392,7 @@ namespace SMSBusiness.Repository.Concrete
                     foreach (DataRow item in tProfileDetail.Rows)
                     {
                        // tProfile.TProfileId=item.IsNull()
+                        tProfile.TProfileId = item.IsNull("TProfileId") ? 0 : Convert.ToInt32(item["TProfileId"]);
                         tProfile.TeacherId = item.IsNull("TeacherId") ? 0 : Convert.ToInt32(item["TeacherId"]);
                         tProfile.ImagePath = item.IsNull("ImagePath") ? string.Empty : item["ImagePath"].ToString();
                         //tProfile.ContactSecond = item.IsNull("Contact1") ? string.Empty : item["Contact1"].ToString();

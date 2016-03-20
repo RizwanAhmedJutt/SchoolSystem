@@ -459,14 +459,15 @@ namespace SMSDAL.DAL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public DataTable GetTProfileById(int TeacherId)
+        public DataTable GetTProfileById(int TProfileId)
         {
             DataTable dtTProfileDetails;
             try
-            {
-                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("USP_GetTeacherProfileByTeacherId"))
+            {//USP_GetTeacherProfileByTeacherId
+                //USP_GetTeacherProfileById
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("USP_GetTeacherProfileById"))
                 {
-                    gObjDatabase.AddInParameter(objCommand, "@TeacherId", DbType.Int32, TeacherId);
+                    gObjDatabase.AddInParameter(objCommand, "@TProfileId", DbType.Int32, TProfileId);
                     dtTProfileDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }

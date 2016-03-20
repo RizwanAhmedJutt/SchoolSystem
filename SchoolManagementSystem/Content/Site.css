@@ -15,6 +15,16 @@ select,
 textarea {
     max-width: 280px;
 }
+.HeadingStyle{
+    background-color: blue;
+    background-image: linear-gradient(to bottom, #0A3E5A, #412A9C);
+    color: #F5F5F5;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px;
+    margin-left: 0px;
+}
 .sideManu{
     background-color:#353899;
     border-radius:1px;

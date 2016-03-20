@@ -131,14 +131,14 @@ namespace SchoolManagementSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddChangesTeacherProfile(TeacherProfile tProfile, HttpPostedFileBase AddVideo)
+        public ActionResult AddChangesTeacherProfile(TeacherProfile tProfile, HttpPostedFileBase ulTeacherImage, FormCollection collection)
         {
 
-            if (AddVideo != null)
+            if (ulTeacherImage != null)
             {
-                string filename = System.IO.Path.GetFileName(AddVideo.FileName);
+                string filename = System.IO.Path.GetFileName(ulTeacherImage.FileName);
                 /*Saving the file in server folder*/
-                AddVideo.SaveAs(Server.MapPath("~/FilesUpload/Images/" + filename));
+                ulTeacherImage.SaveAs(Server.MapPath("~/FilesUpload/Images/" + filename));
                 tProfile.ImagePath = "/FilesUpload/Images/" + filename;
             }
             int teachId;
