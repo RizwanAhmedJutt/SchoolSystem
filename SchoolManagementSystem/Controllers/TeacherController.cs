@@ -16,30 +16,37 @@ namespace SchoolManagementSystem.Controllers
     {
         ITeacherRepositry repoTeacher = new TeacherRepositry();
 
-        
+
         // GET: Teacher
         public ActionResult TeacherList()
         {
             List<Teacher> list = new List<Teacher>();
-           list =  repoTeacher.GetAllTeachers();
-           return View(list);
+            list = repoTeacher.GetAllTeachers();
+            return View(list);
         }
 
-        public ActionResult Teacher(int Id)
+        public ActionResult AddChangesTeacher(int Id)
         {
-            Teacher teacher = new Teacher();
-            return View(teacher);
+            Teacher teacherdetail;
+            if (Id == 0)
+            {
+                Teacher teacher = new Teacher();
+                return View(teacher);
+            }
+            else
+            {
+                teacherdetail = repoTeacher.GetTeacherById(Id);
+                return View(teacherdetail);
+            }
         }
 
         [HttpPost]
-        public ActionResult Teacher(Teacher teach, int Id)
+        public ActionResult AddChangesTeacher(Teacher teach)
         {
             int teachId;
             var userIdentityId = User.Identity.GetUserId();
             if (teach.TeacherId > 0)
             {
-                teach.CreatedById = userIdentityId;
-                teach.CreatedDate = DateTime.Now;
                 teach.ModifiedById = userIdentityId;
                 teach.ModifiedDate = DateTime.Now;
                 teachId = repoTeacher.InsertUpdateTeacher(teach);
@@ -47,56 +54,84 @@ namespace SchoolManagementSystem.Controllers
             else
             {
                 teach.CreatedById = userIdentityId;
-                teach.CreatedDate = DateTime.Now;
-                teach.ModifiedDate = DateTime.Now;
                 teachId = repoTeacher.InsertUpdateTeacher(teach);
             }
-            return RedirectToAction("TeacherAddress", "Teacher", new { Id = teachId });
+            return RedirectToAction("AddChangesAddress", "Teacher", new { Id = teachId });
         }
-
-        public ActionResult TeacherAddress(int Id)
+        [HttpGet]
+        public ActionResult AddChangesAddress(int Id)
         {
-            TeacherAddress teacherAdd = new TeacherAddress();
-            teacherAdd.TeacherId = Id;
-            return View(teacherAdd);
+            TeacherAddress teacherAddres;
+            teacherAddres = repoTeacher.GetTeacherAddressByTeacherId(Id);
+            if (teacherAddres.TAddressId == 0)
+            {
+                TeacherAddress teacherAdd = new TeacherAddress();
+                teacherAdd.TeacherId = Id;
+                return View(teacherAdd);
+            }
+            else
+            {
+
+                return View(teacherAddres);
+            }
         }
 
         [HttpPost]
-        public ActionResult TeacherAddress(TeacherAddress teachAdd)
+        public ActionResult AddChangesAddress(TeacherAddress teachAdd)
         {
             int teachId;
-            TeacherAddress teacherAdd = new TeacherAddress();
+         
             teachId = repoTeacher.InsertUpdateTAddress(teachAdd);
-            return RedirectToAction("TeacherContacts", "Teacher", new { Id = teachId });
+            return RedirectToAction("AddChangesTeacherContacts", "Teacher", new { Id = teachId });
         }
-
-        public ActionResult TeacherContacts(int Id)
+        [HttpGet]
+        public ActionResult AddChangesTeacherContacts(int Id)
         {
-            TeacherContact contacts = new TeacherContact();
-            contacts.TeacherId = Id;
-            return View(contacts);
+            TeacherContact teacherContact;
+            teacherContact = repoTeacher.GetTContactsById(Id);
+            if (teacherContact.TeacherContactId == 0)
+            {
+                TeacherContact contacts = new TeacherContact();
+                contacts.TeacherId = Id;
+                return View(contacts);
+            }
+            else
+            {
+                return View(teacherContact);
+            }
 
         }
 
         [HttpPost]
-        public ActionResult TeacherContacts(TeacherContact TContact)
+        public ActionResult AddChangesTeacherContacts(TeacherContact TContact)
         {
             int teachId;
-            TeacherContact contacts = new TeacherContact();
-             teachId = repoTeacher.InsertUpdateTContact(TContact);
+            
+            teachId = repoTeacher.InsertUpdateTContact(TContact);
 
-             return RedirectToAction("TeacherProfile", "Teacher", new { Id = teachId });
+            return RedirectToAction("AddChangesTeacherProfile", "Teacher", new { Id = teachId });
 
         }
-        public ActionResult TeacherProfile(int Id)
+        [HttpGet]
+        public ActionResult AddChangesTeacherProfile(int Id)
         {
+            TeacherProfile teacherProfile;
+            teacherProfile = repoTeacher.GetTProfileById(Id);
+            if(teacherProfile.TProfileId==0)
+            { 
             TeacherProfile tProfile = new TeacherProfile();
             tProfile.TeacherId = Id;
+               
             return View(tProfile);
+            }
+            else
+            {
+                return View(teacherProfile);
+            }
         }
 
         [HttpPost]
-        public ActionResult TeacherProfile(TeacherProfile tProfile, HttpPostedFileBase AddVideo)
+        public ActionResult AddChangesTeacherProfile(TeacherProfile tProfile, HttpPostedFileBase AddVideo)
         {
 
             if (AddVideo != null)
@@ -108,6 +143,14 @@ namespace SchoolManagementSystem.Controllers
             }
             int teachId;
             teachId = repoTeacher.InsertUpdateTProfile(tProfile);
+            return RedirectToAction("TeacherList", "Teacher");
+        }
+        public ActionResult DeleteTeacher(int Id)
+        {
+            Teacher teacher = repoTeacher.GetTeacherById(Id);
+            teacher.Active = false;
+            int getStatus = repoTeacher.DeleteTeacher(teacher);
+
             return RedirectToAction("TeacherList", "Teacher");
         }
 

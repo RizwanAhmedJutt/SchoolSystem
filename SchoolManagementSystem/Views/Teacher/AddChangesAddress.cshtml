@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-8 col-sm-8">
             <ol class="breadcrumb">
-                <li><a href="/Teacher/Teacher?Id=@Model.TeacherId">Teacher</a></li>
+                <li><a href="/Teacher/AddChangesTeacher?Id=@Model.TeacherId">Teacher</a></li>
                 <li class="active">Teacher Address</li>
             </ol>
             <div class="row well">
@@ -59,12 +59,15 @@
                         <div class="col-md-12">
                             @if (Model.TAddressId == 0)
                             {
-                                <input type="submit" value="Next >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                                <input type="button" value="<< Back" style="background-color:#353899;color:white;" class="btn pull-left" />
-                                @*<a href="/Student/AddChangesStu?Id=@Model.TeacherId" class="btn pull-right" style="background-color:#fab625;color:white;">Next<i class="glyphicon glyphicon-arrow-right"></i></a>
-                                <a href="/Student/DeleteStd?Id=@Model.TeacherId" class="btn pull-left" style="background-color:#353899;color:white;"><i class="glyphicon glyphicon-arrow-left"></i>Back</a>*@
-                           
+                                <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                              
                             }
+                            else
+                            {
+                                  <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                            }
+                            <a href="/Teacher/AddChangesTeacher?Id=@Model.TeacherId" class="btn pull-left" style="background-color:#fab625;color:white;">Previous<i class="glyphicon glyphicon-arrow-left"></i></a>
+                            
                         </div>
                     </div>
                 </div>

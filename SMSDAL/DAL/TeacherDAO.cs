@@ -133,6 +133,7 @@ namespace SMSDAL.DAL
                 using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("USP_DeleteTeacherRecord"))
                 {
                     gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32, teacher.TeacherId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@Active",DbType.Boolean, teacher.Active);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedDate", DbType.DateTime, teacher.ModifiedDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.Int32, teacher.ModifiedById);
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
@@ -193,14 +194,14 @@ namespace SMSDAL.DAL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public DataTable GetTAddressById(int TAddressId)
+        public DataTable GetTeacherAddressByTeacherId(int TeacherId)
         {
             DataTable dtTAddressDetails;
             try
             {
-                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("USP_GetTeacherAddressById"))
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("USP_GetTeacherAddressByTeacherId"))
                 {
-                    gObjDatabase.AddInParameter(objCommand, "@TAddressId", DbType.Int32, TAddressId);
+                    gObjDatabase.AddInParameter(objCommand, "@TeacherId", DbType.Int32, TeacherId);
                     dtTAddressDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }
@@ -325,14 +326,14 @@ namespace SMSDAL.DAL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public DataTable GetTContactsById(int TContactsId)
+        public DataTable GetTContactsById(int TeacherId)
         {
             DataTable dtTContactsDetails;
             try
             {
-                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("USP_GetTeacherContactById"))
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("USP_GetTeacherContactByTeacherId"))
                 {
-                    gObjDatabase.AddInParameter(objCommand, "@TeacherContactId", DbType.Int32, TContactsId);
+                    gObjDatabase.AddInParameter(objCommand, "@TeacherId", DbType.Int32, TeacherId);
                     dtTContactsDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }
@@ -458,14 +459,14 @@ namespace SMSDAL.DAL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public DataTable GetTProfileById(int TProfileId)
+        public DataTable GetTProfileById(int TeacherId)
         {
             DataTable dtTProfileDetails;
             try
             {
-                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("USP_GetTeacherProfileById"))
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("USP_GetTeacherProfileByTeacherId"))
                 {
-                    gObjDatabase.AddInParameter(objCommand, "@TProfileId", DbType.Int32, TProfileId);
+                    gObjDatabase.AddInParameter(objCommand, "@TeacherId", DbType.Int32, TeacherId);
                     dtTProfileDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }

@@ -19,12 +19,12 @@
             <div class="row well">
                 @if (Model.TeacherContactId == 0)
                 {
-                    <h2 class="text-center">Guardian Contacts</h2>
+                    <h2 class="text-center">Teacher Contacts</h2>
 
                 }
                 else
                 {
-                    <h2 class="text-center">Update Guardian Contacts</h2>
+                    <h2 class="text-center">Update Teacher Contacts</h2>
                 }
                 <div class="form-horizontal">
                     <hr />
@@ -59,13 +59,14 @@
                         @if (Model.TeacherContactId == 0)
                         {
                             <input type="submit" value="Save Teacher Contact >>" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                            <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                            
                         }
                         else
                         {
                             <input type="submit" value="Update Teacher Contact >>" style="background-color:#fab625; color:white;" class="btn pull-right" />
-                            <input type="button" value="<< Move Back" style="background-color:#353899;color:white;" class="btn pull-left" />
+                            
                         }
+                        <a href="/Teacher/AddChangesAddress?Id=@Model.TeacherId" class="btn pull-left" style="background-color:#fab625;color:white;">Previous<i class="glyphicon glyphicon-arrow-left"></i></a>
                     </div>
                 </div>
             </div>

@@ -20,10 +20,11 @@ namespace SMSDataContract.Common
             LeaveDate = DateTime.Now;
             RefrenceName = string.Empty;
             RefrenceContact = string.Empty;
-            ModifiedById = string.Empty;
+            Active = false;
+            ModifiedById =null;
             CreatedById = string.Empty;
             CreatedDate = DateTime.Now;
-            ModifiedDate = DateTime.Now;
+            ModifiedDate =null ;
         }
         public int TeacherId { get; set; }
         [Display(Name="First Name")]
@@ -47,10 +48,11 @@ namespace SMSDataContract.Common
         public string RefrenceName { get; set; }
         [Display(Name="Refrence Contact")]
         public string RefrenceContact { get; set; }
+        public bool Active { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ModifiedById { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
     }
 }

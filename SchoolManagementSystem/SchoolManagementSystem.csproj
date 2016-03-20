@@ -381,11 +381,11 @@
     <Content Include="Views\Account\DisplayEmail.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Home\Demo.cshtml" />
-    <Content Include="Views\Teacher\TeacherAddress.cshtml" />
-    <Content Include="Views\Teacher\TeacherContacts.cshtml" />
-    <Content Include="Views\Teacher\TeacherProfile.cshtml" />
+    <Content Include="Views\Teacher\AddChangesAddress.cshtml" />
+    <Content Include="Views\Teacher\AddChangesTeacherContacts.cshtml" />
+    <Content Include="Views\Teacher\AddChangesTeacherProfile.cshtml" />
     <Content Include="Views\Teacher\TeacherList.cshtml" />
-    <Content Include="Views\Teacher\Teacher.cshtml" />
+    <Content Include="Views\Teacher\AddChangesTeacher.cshtml" />
     <Content Include="Views\Course\AddChangesCourse.cshtml" />
     <Content Include="Views\Course\GetALLCourse.cshtml" />
     <Content Include="Views\Course\AddChangesStudentAssignCourse.cshtml" />

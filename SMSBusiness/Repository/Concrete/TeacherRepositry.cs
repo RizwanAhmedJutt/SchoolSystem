@@ -168,18 +168,19 @@ namespace SMSBusiness.Repository.Concrete
             }
         }
 
-        public TeacherAddress GetTAddressById(int TAddressId)
+        public TeacherAddress GetTeacherAddressByTeacherId(int TeacherId)
         {
             var objTAddressDao = new TeacherDAO(new SqlDatabase());
             DataTable tAddressDetail;
             TeacherAddress tAddress = new TeacherAddress();
             try
             {
-                tAddressDetail = objTAddressDao.GetTAddressById(TAddressId);
+                tAddressDetail = objTAddressDao.GetTeacherAddressByTeacherId(TeacherId);
                 if (tAddressDetail.Rows.Count > 0)
                 {
                     foreach (DataRow item in tAddressDetail.Rows)
                     {
+                        tAddress.TAddressId = item.IsNull("TAddressId") ? 0 : Convert.ToInt32(item["TAddressId"]);
                         tAddress.TeacherId = item.IsNull("TeacherId") ? 0 : Convert.ToInt32(item["TeacherId"]);
                         tAddress.PresentAddress = item.IsNull("PresentAddress") ? string.Empty : item["PresentAddress"].ToString();
                         tAddress.PermanentAddress = item.IsNull("PermanentAddress") ? string.Empty : item["PermanentAddress"].ToString();
@@ -273,18 +274,19 @@ namespace SMSBusiness.Repository.Concrete
             }
         }
 
-        public TeacherContact GetTContactById(int TContactId)
+        public TeacherContact GetTContactsById(int TeacherId)
         {
             var objTContactDao = new TeacherDAO(new SqlDatabase());
             DataTable tContactDetail;
             TeacherContact tContact = new TeacherContact();
             try
             {
-                tContactDetail = objTContactDao.GetTContactsById(TContactId);
+                tContactDetail = objTContactDao.GetTContactsById( TeacherId);
                 if (tContactDetail.Rows.Count > 0)
                 {
                     foreach (DataRow item in tContactDetail.Rows)
                     {
+                        tContact.TeacherContactId = item.IsNull("TeacherContactId") ? 0 : Convert.ToInt32(item["TeacherContactId"]);
                         tContact.TeacherId = item.IsNull("TeacherId") ? 0 : Convert.ToInt32(item["TeacherId"]);
                         tContact.ContactFrist = item.IsNull("Contact1") ? string.Empty : item["Contact1"].ToString();
                         tContact.ContactSecond = item.IsNull("Contact1") ? string.Empty : item["Contact1"].ToString();
@@ -377,18 +379,19 @@ namespace SMSBusiness.Repository.Concrete
             }
         }
 
-        public TeacherProfile GetTProfileById(int TProfileId)
+        public TeacherProfile GetTProfileById(int TeacherId)
         {
             var objTProfileDao = new TeacherDAO(new SqlDatabase());
             DataTable tProfileDetail;
             TeacherProfile tProfile = new TeacherProfile();
             try
             {
-                tProfileDetail = objTProfileDao.GetTProfileById(TProfileId);
+                tProfileDetail = objTProfileDao.GetTProfileById(TeacherId);
                 if (tProfileDetail.Rows.Count > 0)
                 {
                     foreach (DataRow item in tProfileDetail.Rows)
                     {
+                       // tProfile.TProfileId=item.IsNull()
                         tProfile.TeacherId = item.IsNull("TeacherId") ? 0 : Convert.ToInt32(item["TeacherId"]);
                         tProfile.ImagePath = item.IsNull("ImagePath") ? string.Empty : item["ImagePath"].ToString();
                         //tProfile.ContactSecond = item.IsNull("Contact1") ? string.Empty : item["Contact1"].ToString();

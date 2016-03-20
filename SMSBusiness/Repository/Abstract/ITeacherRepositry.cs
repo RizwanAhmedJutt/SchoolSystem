@@ -19,7 +19,7 @@ namespace SMSBusiness.Repository.Abstract
         /// </summary>
         /// <returns></returns>
         List<TeacherAddress> GetAllTeacherAddress();
-        TeacherAddress GetTAddressById(int TAddressId);
+        TeacherAddress GetTeacherAddressByTeacherId(int TeacherId);
         int InsertUpdateTAddress(TeacherAddress tAddress);
         int DeleteTeacher(TeacherAddress tAddress);
 
@@ -28,7 +28,7 @@ namespace SMSBusiness.Repository.Abstract
         /// </summary>
         /// <returns></returns>
         List<TeacherContact> GetAllTeacherContact();
-        TeacherContact GetTContactById(int TContactId);
+        TeacherContact GetTContactsById(int TeacherId);
         int InsertUpdateTContact(TeacherContact tContact);
         int DeleteContact(TeacherContact tContact);
 
@@ -37,7 +37,7 @@ namespace SMSBusiness.Repository.Abstract
         /// </summary>
         /// <returns></returns>
         List<TeacherProfile> GetAllTeacherProfile();
-        TeacherProfile GetTProfileById(int TProfileId);
+        TeacherProfile GetTProfileById(int TeacherId);
         int InsertUpdateTProfile(TeacherProfile tProfile);
         int DeleteProfile(TeacherProfile tProfile);
     }
