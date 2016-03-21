@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace SchoolManagementSystem.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class TeacherController : Controller
     {
         ITeacherRepositry repoTeacher = new TeacherRepositry();
