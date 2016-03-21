@@ -8,6 +8,6 @@
     ObjTeacheer = repTeacher.GetALLTeacherByName();
 }
 
-@Html.DropDownList("TeacherId", new SelectList(ObjStudent.ToList(), "TeacherId", "TeacherName"), "Select Teacher", new { id = "ddlTeacher", @class = "form-control" })
+@Html.DropDownList("TeacherId", new SelectList(ObjTeacheer.ToList(), "TeacherId", "TeacherName"), "Select Teacher", new { id = "ddlTeacher", @class = "form-control" })
 
 
