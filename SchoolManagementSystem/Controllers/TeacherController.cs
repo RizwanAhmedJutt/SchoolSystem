@@ -8,10 +8,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.IO;
+using System.Web.UI.WebControls;
 
 namespace SchoolManagementSystem.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class TeacherController : Controller
     {
         ITeacherRepositry repoTeacher = new TeacherRepositry();
@@ -126,6 +128,18 @@ namespace SchoolManagementSystem.Controllers
             }
             else
             {
+                string[] filePaths = Directory.GetFiles(Server.MapPath("~/FilesUpload/Images/"));
+                List<ListItem> files = new List<ListItem>();
+                foreach (string filePath in filePaths)
+                {
+                    string fileName = Path.GetFileName(filePath);
+                    if(fileName==teacherProfile.ImagePath)
+                    {
+                        files.Add(new ListItem(filePath));
+                    }
+                    
+                }
+
                 return View(teacherProfile);
             }
         }

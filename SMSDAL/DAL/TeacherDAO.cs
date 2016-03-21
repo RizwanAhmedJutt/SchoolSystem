@@ -135,7 +135,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32, teacher.TeacherId);
                     gObjDatabase.AddInParameter(objDbCommand, "@Active",DbType.Boolean, teacher.Active);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedDate", DbType.DateTime, teacher.ModifiedDate);
-                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.Int32, teacher.ModifiedById);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, teacher.ModifiedById);
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
