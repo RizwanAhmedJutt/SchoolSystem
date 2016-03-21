@@ -16,6 +16,7 @@ namespace SchoolManagementSystem.Controllers
     {
         ICourse courserepositry = new CourseBLL();
         IStudentAssignCourse stdAssignCourserepo = new StudentAssignCourseBLL();
+        ITeacherAssignedCourse teacherrepo = new TeacherAssignCourseBLL();
         [HttpGet]
         public ActionResult GetALLCourse()
         {
@@ -102,11 +103,27 @@ namespace SchoolManagementSystem.Controllers
             return View(tassignCourse);
         }
         [HttpPost]
-        public ActionResult AddChangesTeacherAssignCourse(TeacherAssignedCourse tAssignCourse)
+        public ActionResult AddChangesTeacherAssignCourse(TeacherAssignedCourse tAssignCourse, int CourseId, int TeacherId)
         {
-           
-            return View();
+            var userloggedId = User.Identity.GetUserId();
+            tAssignCourse.TeacherId = TeacherId;
+            tAssignCourse.CourseId = CourseId;
+            tAssignCourse.CreatedById = userloggedId;
+            int getStatus = teacherrepo.InsertUpdateAssignedCourseAddChanges(tAssignCourse);
 
+            return RedirectToAction("GetALLCourse", "Course");
+
+        }
+
+        public ActionResult DeleteCourse(int CourseId)
+        {
+             var userloggedId = User.Identity.GetUserId();
+            Course c = courserepositry.GetCourseDetailByCourseId(CourseId);
+            c.IsActive = false;
+            c.ModifiedById = userloggedId;
+            c.ModifiedDate = DateTime.Now;
+            int getStatus = courserepositry.DeleteCourse(c);
+            return RedirectToAction("GetALLCourse", "Course");
         }
 
 

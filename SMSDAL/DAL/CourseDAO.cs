@@ -98,7 +98,37 @@ namespace SMSDAL.DAL
 
             return 0;  // show Error in inserting or Updating Record
         }
-      
 
+        public int DeleteCourse(Course course)
+        {
+            try
+            {
+                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("sp_Course_DeleteCourse"))
+                {
+                    gObjDatabase.AddInParameter(objDbCommand, "@CourseId", DbType.Int32, course.CourseId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@Active", DbType.Boolean, course.IsActive);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedDate", DbType.DateTime, course.ModifiedDate);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, course.ModifiedById);
+                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+                    SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
+                    returnParameter.Direction = ParameterDirection.ReturnValue;
+                    objDbCommand.Parameters.Add(returnParameter);
+                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+                    var returnValues = returnParameter.Value;
+                    if ((int)returnValues == 1)
+                    {
+                        return 1;  // Successfully Deleted/DeActive
+                    }
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            return 0;  // show Error in inserting or Updating Record
+
+        }
     }
 }

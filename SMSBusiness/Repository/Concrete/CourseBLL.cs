@@ -100,7 +100,25 @@ namespace SMSBusiness.Repository.Concrete
             return ReturnValue;
         }
 
-       
+        public int DeleteCourse(Course c)
+        {
+            var objcourseDao = new CourseDAO(new SqlDatabase());
+            int ReturnValue = 0;
+            try
+            {
+                ReturnValue = objcourseDao.DeleteCourse(c);
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+            return ReturnValue;
+        }
 
 
     }

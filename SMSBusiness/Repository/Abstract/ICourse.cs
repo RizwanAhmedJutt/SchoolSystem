@@ -12,6 +12,7 @@ namespace SMSBusiness.Repository.Abstract
       List<Course> GetALLCourse();
       Course GetCourseDetailByCourseId(int CourseId);
       int CourseAddChanges(Course courese);
+      int DeleteCourse(Course c);
 
 
 
