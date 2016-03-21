@@ -132,9 +132,9 @@ namespace SMSDAL
                 using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("sp_std_DeleteStudentRecord"))
                 {
                     gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.Int32, student.StudentId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@IsActive", DbType.Int32, student.IsActive);
+                    gObjDatabase.AddInParameter(objDbCommand, "@IsActive", DbType.Boolean, student.IsActive);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedDate", DbType.DateTime, student.ModifiedDate);
-                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.Int32, student.ModifiedById);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, student.ModifiedById);
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;

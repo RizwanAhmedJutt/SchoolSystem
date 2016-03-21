@@ -34,8 +34,8 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult AddChangesStudent(int id)
         {
-         
-           
+
+
             Student std;
 
             if (id == 0)
@@ -44,9 +44,9 @@ namespace SchoolManagementSystem.Controllers
 
                 return View(stu);
             }
-            else 
+            else
             {
-               
+
                 std = student.GetStudentById(id);
                 return View(std);
             }
@@ -103,13 +103,13 @@ namespace SchoolManagementSystem.Controllers
             stdAddress.CityId = CityId;
             TempData["getStudentId"] = studentAddress.StudentAddressAddChanges(stdAddress);
             TempData.Keep("getStudentId");
-            return RedirectToAction("AddChangesGuardianDetail", new { studentId=Convert.ToInt32(TempData["getStudentId"].ToString()) });
+            return RedirectToAction("AddChangesGuardianDetail", new { studentId = Convert.ToInt32(TempData["getStudentId"].ToString()) });
         }
         [HttpGet]
         public ActionResult AddChangesGuardianDetail(int studentId)
         {
             GuardianDetail objguardian;
-           
+
             objguardian = guardiainrepositry.GetGuardianInfoByStudentId(studentId);
             if (objguardian.StudentGuardianId == 0)
             {
@@ -133,7 +133,7 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult AddChangesGuardianContacts(int studentid, int guardianId)
         {
-           
+
             GuardianContacts gContact;
             gContact = gContactrepositry.GetGuardianContactInfoByGuardianId(guardianId);
             if (gContact.GuardianContactId == 0)
@@ -147,7 +147,8 @@ namespace SchoolManagementSystem.Controllers
             else
             {
                 gContact.StudentId = studentid;
-                return View(gContact); }
+                return View(gContact);
+            }
 
         }
         [HttpPost]
@@ -181,29 +182,32 @@ namespace SchoolManagementSystem.Controllers
             previousDetail.AcadmicClassId = AcadmicClassId;
             int ReturnStudentId = previousrepositry.PreviousAcadmicDetailAddChanges(previousDetail);
             ST_PreviousAcadmicDetail Stu_PreAcadmicReco = new ST_PreviousAcadmicDetail();
-            return RedirectToAction("AddChangesAdmissionGranted", new { studentid = StudentId, GuardianId =previousDetail.GuardianId});
+            return RedirectToAction("AddChangesAdmissionGranted", new { studentid = StudentId, GuardianId = previousDetail.GuardianId });
         }
         [HttpGet]
         public ActionResult AddChangesAdmissionGranted(int studentid, int GuardianId)
         {
-            
+
 
             AdmissionGranted admisionGranted;
             admisionGranted = aGrantedrepositry.GetAdmissionGrantedInfoByStudentId(studentid);
-           
+
             if (admisionGranted.AdmissionId == 0)
             {
                 AdmissionGranted admGrant = new AdmissionGranted();
                 admGrant.StudentId = studentid;
                 admGrant.GuardianId = GuardianId;
-                
+
                 return View(admGrant);
 
             }
             else
             {
+
                 admisionGranted.StudentId = studentid;
                 admisionGranted.GuardianId = GuardianId;
+                Student std = student.GetStudentById(studentid);
+              ViewBag.RollNumber= std.RollNumber;
                 return View(admisionGranted);
             }
         }
@@ -220,27 +224,16 @@ namespace SchoolManagementSystem.Controllers
             {
                 int getStudent = student.StudentAddChanges(std);
             }
-            if (agranted.AdmissionId == 0)
-            {
-                AdmissionGranted admGrant = new AdmissionGranted();
-                admGrant.StudentId = StudentId;
-                admGrant.CreatedById = userloggedId.ToString();
-                admGrant.AdmissionGrantedForClass = AcadmicClassId;
-                int finalValue = aGrantedrepositry.AdmissionAddChanges(admGrant);
 
-                return RedirectToAction("StudentList", "Student");
-            }
-            else
-            {
-                AdmissionGranted admGrant = new AdmissionGranted();
-                admGrant.StudentId = StudentId;
-                admGrant.ModifiedById = userloggedId.ToString();
-                admGrant.AdmissionGrantedForClass = AcadmicClassId;
-                int finalValue = aGrantedrepositry.AdmissionAddChanges(admGrant);
-                return RedirectToAction("StudentList", "Student");
-               
-            }
-            
+
+            agranted.StudentId = StudentId;
+            agranted.CreatedById = userloggedId.ToString();
+            agranted.AdmissionGrantedForClass = AcadmicClassId;
+            int finalValue = aGrantedrepositry.AdmissionAddChanges(agranted);
+
+            return RedirectToAction("StudentList", "Student");
+
+
         }
 
 
@@ -252,18 +245,26 @@ namespace SchoolManagementSystem.Controllers
 
             return View(studProfile);
         }
-        
 
-            [HttpPost]
+
+        [HttpPost]
         public ActionResult StudentProfile(StudentProfile studentProfile, HttpPostedFileBase upLoadStudentImg)
         {
             StudentProfile studProfile = new StudentProfile();
 
             return View();
         }
-        public ActionResult DeleteStudent()
+        [HttpGet]
+        public ActionResult DeleteStudent(int StudentId)
         {
-            return View();
+          var userloggedId = User.Identity.GetUserId();
+            Student std = student.GetStudentById(StudentId);
+            std.IsActive = false;
+            std.ModifiedById = userloggedId;
+            std.ModifiedDate = DateTime.Now;
+            int getStatus = student.DeleteStudent(std);
+            return RedirectToAction("StudentList", "Student");
+
         }
     }
 }

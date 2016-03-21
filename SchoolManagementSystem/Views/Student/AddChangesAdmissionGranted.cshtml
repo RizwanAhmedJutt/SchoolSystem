@@ -69,6 +69,7 @@
                             @Html.ValidationMessageFor(model => model.AdmissionGrantedForClass, "", new { @class = "text-danger" })
                         </div>
                     </div>
+
                     <div id="dvrollNo" style="text-align: center; margin-top: 10px; margin-left:60%;">
                         <span id="rollNoMsg" class="error" style="display:none;"></span>
                     </div>
@@ -77,7 +78,18 @@
                         <div class="col-md-7">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                @if (ViewBag.RollNumber!=null)
+                                {<text> <input type="text" id="GrantedRollNo" name="RollNumber" value="@ViewBag.RollNumber" placeholder="Roll Number" class="form-control" />
+                                </text>
+                                }
+                                else
+                                {
+                                 <text>
+                                
                                 <input type="text" id="GrantedRollNo" name="RollNumber" placeholder="Roll Number" class="form-control" />
+                                </text>
+                                       
+                                }
                             </div>
                         </div>
 
@@ -136,8 +148,15 @@
             $(function () {
                 $('#AdmissionGrantedDate').datetimepicker();
             });
+            if ('@Model.AdmissionId' > 0) {
+                $('#ddlAcadmicClass option[value="@Model.AdmissionGrantedForClass"]').attr("selected", true);
+            }
+            else
+            {
+                $('#ddlAcadmicClass option[value=""]').attr("selected", true);
+            }
             $("#SaveAdmissionGranted").click(function (e) {
-                debugger;
+               
                 var enteredRollNumber = $("#GrantedRollNo").val();
                 if ($('#ddlAcadmicClass').val() == '') {
 
@@ -158,6 +177,7 @@
             $("#UpdateAdmissionGranted").click(function (e) {
                 debugger;
                 var enteredRollNumber = $("#GrantedRollNo").val();
+                var selectedClass = $('#ddlAcadmicClass').val();
                 if ($('#ddlAcadmicClass').val() == '') {
 
                     $("#AcadmicClassMsg").show();
