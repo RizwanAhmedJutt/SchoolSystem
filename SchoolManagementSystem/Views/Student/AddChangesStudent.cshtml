@@ -81,6 +81,7 @@
                                 @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="col-md-3 control-label"><label> Acadmic Class</label> </div>
 
@@ -103,6 +104,9 @@
                                 @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div id="dvSibling" style="text-align: center; margin-top: 10px; margin-left:42%;">
+                            <span id="siblinMsg" class="error" style="display:none;"></span>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-3 control-label"><label>No.Sibling</label> </div>
 
@@ -114,7 +118,9 @@
                                 @Html.ValidationMessageFor(model => model.NoOfSibling, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
+                        <div id="dvCSibling" style="text-align: center; margin-top: 10px; margin-left:42%;">
+                            <span id="CsiblinMsg" class="error" style="display:none;"></span>
+                        </div>
                         <div class="form-group">
 
                             <label class="col-md-3 control-label"> Current School sibling</label>
@@ -157,52 +163,72 @@
         @Scripts.Render("~/bundles/jqueryval")
         @Scripts.Render("~/bundles/bootstrap")
         <script type="text/javascript">
-            $(document).ready(function(){
+            $(document).ready(function () {
                 $(function () {
                     $('#DateOfBirth').datetimepicker();
                 });
-                $("#AddStudent").click(function(e){
-                    if($('#ddlSibling').val() == '')
-                    {
-                        alert("Please select sibling");
+                $("#AddStudent").click(function (e) {
+                    debugger;
+                    if ($('#ddlSibling').val() == '') {
+
+
+                        $("#siblinMsg").show();
+                        $("#siblinMsg").text("Please Select Sibling");
                         e.preventDefault();
-                        return ;
+                        return;
                     }
-                    if($('#ddlCurrentSibling').val() == '')
-                    {
-                        alert("Please select sibling in current school");
+                    if ($('#ddlCurrentSibling').val() == '') {
+                        $("#CsiblinMsg").show();
+                        $("#CsiblinMsg").text("Please Select Sibling");
                         e.preventDefault();
-                        return ;
+                        return;
                     }
+
+                });
+                $("#UpdateStudent").click(function (e) {
                     
-                });
-                $("#UpdateStudent").click(function(e){
-                    if($('#ddlSibling').val() == '')
-                    {
-                        alert("Please select sibling");
+                    if ($('#ddlSibling').val() == '') {
+                        $("#siblinMsg").show();
+                        $("#siblinMsg").text("Please Select Sibling");
                         e.preventDefault();
                         return false;
-                       
+
                     }
-                    if($('#ddlCurrentSibling').val() == '')
-                    {
-                        alert("Please select sibling in current school");
+                    if ($('#ddlCurrentSibling').val() == '') {
+
+                        $("#CsiblinMsg").show();
+                        $("#CsiblinMsg").text("Please Select Sibling");
                         e.preventDefault();
                         return false;
                     }
                 });
+                $("#ddlSibling").change(function () {
+                    
+                    var selectedSibling = $("#ddlSibling").val();
+                    if (selectedSibling != '') {
+                        $("#siblinMsg").hide();
+                    }
+
+                });
+                $("#ddlCurrentSibling").change(function () {
+                   
+                    var selectedSibling = $("#ddlCurrentSibling").val();
+                    if (selectedSibling != '') {
+                        $("#CsiblinMsg").hide();
+                    }
+
+                });
+
                 // set dropdown selected value
-                if('@Model.StudentId'>0)
-                {
-                    $('#AcadmicClassId option[value="@Model.AcadmicClassId"]').attr("selected",true);
-                    $('#ddlSibling option[value="@Model.NoOfSibling"]').attr("selected",true);
-                    $('#ddlCurrentSibling option[value="@Model.NoOfSiblingCurrentSchool"]').attr("selected",true);
+                if ('@Model.StudentId' > 0) {
+                    $('#AcadmicClassId option[value="@Model.AcadmicClassId"]').attr("selected", true);
+                    $('#ddlSibling option[value="@Model.NoOfSibling"]').attr("selected", true);
+                    $('#ddlCurrentSibling option[value="@Model.NoOfSiblingCurrentSchool"]').attr("selected", true);
                 }
-                else
-                {
-                    $('#AcadmicClassId option[value=""]').attr("selected",true);
-                    $('#ddlSibling option[value=""]').attr("selected",true);
-                    $('#ddlCurrentSibling option[value=""]').attr("selected",true);
+                else {
+                    $('#AcadmicClassId option[value=""]').attr("selected", true);
+                    $('#ddlSibling option[value=""]').attr("selected", true);
+                    $('#ddlCurrentSibling option[value=""]').attr("selected", true);
                 }
             });
 

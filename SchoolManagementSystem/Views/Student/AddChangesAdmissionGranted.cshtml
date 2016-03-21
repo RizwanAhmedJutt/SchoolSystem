@@ -55,7 +55,9 @@
                             </div>
                         </div>
                     </div>
-
+                    <div id="dvAcadmicClass" style="text-align: center; margin-top: 10px; margin-left:60%;">
+                        <span id="AcadmicClassMsg" class="error" style="display:none;"></span>
+                    </div>
                     <div class="form-group">
                         <div class="col-md-3 col-md-offset-1 control-label"><label> Acadmic Class</label> </div>
 
@@ -67,12 +69,15 @@
                             @Html.ValidationMessageFor(model => model.AdmissionGrantedForClass, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    <div id="dvrollNo" style="text-align: center; margin-top: 10px; margin-left:60%;">
+                        <span id="rollNoMsg" class="error" style="display:none;"></span>
+                    </div>
                     <div class="form-group">
                         <div class="col-md-3 col-md-offset-1 control-label"><label>Roll Number</label></div>
                         <div class="col-md-7">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
-                                <input type="text" id="RollGrantedRollNo" name="RollNumber" placeholder="Roll Number" class="form-control" />
+                                <input type="text" id="GrantedRollNo" name="RollNumber" placeholder="Roll Number" class="form-control" />
                             </div>
                         </div>
 
@@ -132,29 +137,61 @@
                 $('#AdmissionGrantedDate').datetimepicker();
             });
             $("#SaveAdmissionGranted").click(function (e) {
-                if ($("#RollGrantedRollNo").val() == '') {
-                    alert("Please enter Roll Number");
+                debugger;
+                var enteredRollNumber = $("#GrantedRollNo").val();
+                if ($('#ddlAcadmicClass').val() == '') {
+
+                    $("#AcadmicClassMsg").show();
+                    $("#AcadmicClassMsg").text("Select Acadmic Class");
+                    e.preventDefault();
+                    return;
+                }
+                if ( enteredRollNumber = '') {
+                   
+                    $("#rollNoMsg").show();
+                    $("#rollNoMsg").text("Please Enter Roll Number");
                    
                     return;
                 }
-                if ($('#ddlAcadmicClass').val() == '') {
-                    alert("Please select Acadmic Class");
-                    e.preventDefault();
-                    return;
-                }
+                
             });
             $("#UpdateAdmissionGranted").click(function (e) {
-                if ($("#RollGrantedRollNo").val() == '') {
-                    alert("Please enter Roll Number");
-                    e.preventDefault();
-                    return;
-                }
+                debugger;
+                var enteredRollNumber = $("#GrantedRollNo").val();
                 if ($('#ddlAcadmicClass').val() == '') {
-                    alert("Please select Acadmic Class");
+
+                    $("#AcadmicClassMsg").show();
+                    $("#AcadmicClassMsg").text("Select Acadmic Class");
                     e.preventDefault();
                     return;
                 }
-            }); 
+                if ( enteredRollNumber = '') {
+                  
+                    $("#rollNoMsg").show();
+                    $("#rollNoMsg").text("Please Enter Roll Number");
+                    e.preventDefault();
+                    return;
+                }
+              
+            });
+            $("#ddlAcadmicClass").change(function () {
+                var selectedClass = $("#ddlAcadmicClass").val();
+                if(selectedClass!='')
+                {
+                    $("#AcadmicClassMsg").hide();
+                }
+
+            });
+            $("#GrantedRollNo").change(function () {
+                debugger;
+                var enterRollNumber = $("#GrantedRollNo").val();
+                if ( enterRollNumber != "undefined")
+                {
+                    $("#rollNoMsg").hide();
+                }
+
+
+            });
         });
         
     </script>

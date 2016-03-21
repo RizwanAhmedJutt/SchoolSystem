@@ -68,7 +68,7 @@
                                     @if (Model.StudentAddressId == 0)
                                     {
 
-                                        <input type="submit" value="Add" id="AddAdress" style="background-color:#fab625;color:white;" />
+                                        <input type="submit" value="Add" id="AddAdress" style="background-color:#fab625;color:white;" class="btn pull-right" />
                                     }
                                     else
                                     {
@@ -94,28 +94,24 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            if(@Model.StudentAddressId>0)
-            {
-                $('#ddlCity option[value="@Model.CityId"]').attr("selected",true);
+            if ('@Model.StudentAddressId' > 0) {
+                $('#ddlCity option[value="@Model.CityId"]').attr("selected", true);
 
             }
-            else
-            {
-                $('#ddlCity option[value=""]').attr("selected",true);
+            else {
+                $('#ddlCity option[value=""]').attr("selected", true);
 
             }
-            $("#AddAdress").click(function(e){
-                if($('#ddlCity').val() == '')
-                {
+            $("#AddAdress").click(function (e) {
+                if ($('#ddlCity').val() == '') {
                     alert("Please select City");
                     e.preventDefault();
                     return false;
 
                 }
             });
-            $("#UpdateAdress").click(function(e){
-                if($('#ddlCity').val() == '')
-                {
+            $("#UpdateAdress").click(function (e) {
+                if ($('#ddlCity').val() == '') {
                     alert("Please select City");
                     e.preventDefault();
                     return false;

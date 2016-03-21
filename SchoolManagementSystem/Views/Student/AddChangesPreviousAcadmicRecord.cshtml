@@ -59,8 +59,8 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.PreviousExamPassed, htmlAttributes: new { @class = "control-label col-md-5" })
-                        <div class="col-md-7">
+                        @Html.LabelFor(model => model.PreviousExamPassed, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-4 col-md-offset-1" >
                             <div class="checkbox">
                                 @Html.EditorFor(model => model.PreviousExamPassed)
                                 @Html.ValidationMessageFor(model => model.PreviousExamPassed, "", new { @class = "text-danger" })

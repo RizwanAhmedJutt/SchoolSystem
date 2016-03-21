@@ -29,7 +29,7 @@ namespace SMSDataContract.Accounts
         [Display(Name="School Name")]
         [Required(ErrorMessage="Enter School Name")]
         public string SchoolName { get; set; }
-        
+        [Display(Name="Acadmic Class")]
         public int AcadmicClassId { get; set; }
         [Display(Name="Previous Exam Passed")]
         [Required(ErrorMessage = "Enter Previous Exam pass?")]
