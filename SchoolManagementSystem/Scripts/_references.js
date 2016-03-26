@@ -10,3 +10,4 @@
 /// <reference path="moment-with-locales.js" />
 /// <reference path="moment.js" />
 /// <reference path="respond.js" />
+/// <reference path="jquery.bootpag.js" />
