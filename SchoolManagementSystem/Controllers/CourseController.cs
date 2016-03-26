@@ -70,6 +70,12 @@ namespace SchoolManagementSystem.Controllers
 
         }
         [HttpGet]
+        public ActionResult GetALLStudentAssignCourse()
+        {
+            List<StudentAssignedCourse> stdassignCourse = stdAssignCourserepo.GetStudentAssignedCourse();
+            return View(stdassignCourse);
+        }
+        [HttpGet]
         public ActionResult AddChangesStudentAssignCourse(int id)
         {
             var userloggedId = User.Identity.GetUserId();
@@ -95,6 +101,12 @@ namespace SchoolManagementSystem.Controllers
             stdCourse.StudentId = StudentId;
             int getReturnValue = stdAssignCourserepo.InsertUpdateAssignedCourseAddChanges(stdCourse);
             return RedirectToAction("GetALLCourse", "Course");
+        } 
+        [HttpGet]
+        public ActionResult GetALLTeacherAssignCourse()
+        {
+            List<TeacherAssignedCourse> objTeacherAssignCourse = teacherrepo.GetTeacherAssignedCourse();
+            return View(objTeacherAssignCourse);
         }
         [HttpGet]
         public ActionResult AddChangesTeacherAssignCourse(int Id)

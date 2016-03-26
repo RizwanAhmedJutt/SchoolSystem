@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SMSDataContract.Accounts.TeacherAssignedCourse>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedById)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedById)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedById)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedById)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TeacherAssignedCourseId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TeacherAssignedCourseId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TeacherAssignedCourseId })
+        </td>
+    </tr>
+}
+
+</table>

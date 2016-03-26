@@ -17,6 +17,23 @@ namespace SMSDAL.DAL
         {
             gObjDatabase = database;
         }
+        public DataTable GetTeacherAssignedCourse()
+        {
+            DataTable dtTeacherDetail;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Course_GetALLTeacherAssignCourse"))
+                {
+                    
+                    dtTeacherDetail = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtTeacherDetail;
+        }
         public DataTable GetAssignedCourseByTeacherId(int TeacherId)
         {
             DataTable dtTeacherDetail;

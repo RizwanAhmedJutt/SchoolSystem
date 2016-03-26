@@ -1,0 +1,62 @@
+﻿@model IEnumerable<smsdatacontract.accounts.studentassignedcourse>
+    @{
+
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    <div class="row">
+        <div class="col-md-8 col-sm-8">
+            <span class="HeadingStyle">List of Course</span>
+            <table class="table  table-bordered table-striped table-responsive table-hover">
+                <tr class="action info">
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.AssignCourseId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CourseId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StudentId)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.CourseName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClassName)
+                    </th>
+                  
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedDate)
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClassName)
+                        </td>
+                 
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                       
+                        <td>
+                            <a href="/Course/AddChangesCourse?Id=@item.StudentId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>

@@ -62,6 +62,7 @@ namespace SMSBusiness.Repository.Concrete
                         course.CourseName = item["CourseName"].ToString();
                         course.CourseCode = item["CourseCode"].ToString();
                         course.ClassId = Convert.ToInt32(item["ClassId"]);
+                        course.IsActive = Convert.ToBoolean(item["Active"]);
                         course.ClassName = item["ClassName"].ToString();
                         course.CreatedById = item["CreatedById"].ToString();
                         course.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);

@@ -14,22 +14,26 @@ namespace SMSBusiness.Repository.Concrete
   public  class TeacherAssignCourseBLL:ITeacherAssignedCourse
     {
 
-      public TeacherAssignedCourse GetAssignedCourseByTeacherId(int TeacherId)
+      public List<TeacherAssignedCourse> GetTeacherAssignedCourse()
         {
-            var objAssignCourseDao = new TeacherAssignedCouresDAO(new SqlDatabase());
+            var objAssignTeacherDao = new TeacherAssignedCouresDAO(new SqlDatabase());
             DataTable tblCourse;
-            TeacherAssignedCourse Assigncourse = new TeacherAssignedCourse();
+            List<TeacherAssignedCourse> objTeacherAssign = new List<TeacherAssignedCourse>();
             try
             {
-                tblCourse = objAssignCourseDao.GetAssignedCourseByTeacherId(TeacherId);
+                tblCourse = objAssignTeacherDao.GetTeacherAssignedCourse();
                 if (tblCourse.Rows.Count > 0)
                 {
                     foreach (DataRow item in tblCourse.Rows)
                     {
+                        TeacherAssignedCourse Assigncourse = new TeacherAssignedCourse();
                         Assigncourse.TeacherAssignedCourseId= Convert.ToInt32(item["TeacherAssignedCourseID"]);
                         Assigncourse.CourseName = item["CourseName"].ToString();
                         Assigncourse.TeacherName = item["TeacherName"].ToString();
-                        
+                        Assigncourse.ClassName = item["ClassName"].ToString();
+                        Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
+                       
+                        objTeacherAssign.Add(Assigncourse);
                       
                     }
                 }
@@ -41,11 +45,43 @@ namespace SMSBusiness.Repository.Concrete
 
                 throw ex;
             }
-            return Assigncourse;
+            return objTeacherAssign;
 
 
 
         }
+      public TeacherAssignedCourse GetAssignedCourseByTeacherId(int TeacherId)
+      {
+          var objAssignCourseDao = new TeacherAssignedCouresDAO(new SqlDatabase());
+          DataTable tblCourse;
+          TeacherAssignedCourse Assigncourse = new TeacherAssignedCourse();
+          try
+          {
+              tblCourse = objAssignCourseDao.GetAssignedCourseByTeacherId(TeacherId);
+              if (tblCourse.Rows.Count > 0)
+              {
+                  foreach (DataRow item in tblCourse.Rows)
+                  {
+                      Assigncourse.TeacherAssignedCourseId = Convert.ToInt32(item["TeacherAssignedCourseID"]);
+                      Assigncourse.CourseName = item["CourseName"].ToString();
+                      Assigncourse.TeacherName = item["TeacherName"].ToString();
+
+
+                  }
+              }
+
+
+          }
+          catch (Exception ex)
+          {
+
+              throw ex;
+          }
+          return Assigncourse;
+
+
+
+      }
 
       public int InsertUpdateAssignedCourseAddChanges(TeacherAssignedCourse teacherAssigncourese)
         {

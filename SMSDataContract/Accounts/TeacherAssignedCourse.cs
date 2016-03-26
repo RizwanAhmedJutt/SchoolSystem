@@ -25,6 +25,7 @@ namespace SMSDataContract.Accounts
         public int CourseId { get; set; }
         public int TeacherId { get; set; }
         public string CourseName { get; set; }
+        public string ClassName { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ModifiedById { get; set; }

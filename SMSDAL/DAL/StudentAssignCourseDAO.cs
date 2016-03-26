@@ -18,6 +18,23 @@ namespace SMSDAL.DAL
         {
             gObjDatabase = database;
         }
+       public DataTable GetStudentAssignedCourse()
+       {
+           DataTable dtCStudentDetail;
+           try
+           {
+               using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Course_GetALLStudentAssignCourse"))
+               {
+                 
+                   dtCStudentDetail = gObjDatabase.GetDataTable(objCommand);
+               }
+           }
+           catch
+           {
+               throw;
+           }
+           return dtCStudentDetail;
+       }
         public DataTable GetAssignedCourseByStudentId(int StudentId)
         {
             DataTable dtStudentDetail;
@@ -79,6 +96,6 @@ namespace SMSDAL.DAL
             return 0;  // show Error in inserting or Updating Record
         }
 
-
+      
     }
 }

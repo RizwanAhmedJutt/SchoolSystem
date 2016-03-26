@@ -9,6 +9,7 @@ namespace SMSBusiness.Repository.Abstract
 {
   public  interface ITeacherAssignedCourse
     {
+      List<TeacherAssignedCourse> GetTeacherAssignedCourse();
       TeacherAssignedCourse GetAssignedCourseByTeacherId(int TeacherId);
       int InsertUpdateAssignedCourseAddChanges(TeacherAssignedCourse teacherAssigncourese);
 
