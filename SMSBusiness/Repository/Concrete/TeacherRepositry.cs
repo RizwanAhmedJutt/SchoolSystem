@@ -37,6 +37,7 @@ namespace SMSBusiness.Repository.Concrete
                     TeacherDetails.LeaveDate = dr.IsNull("LeaveDate") ? DateTime.Now : Convert.ToDateTime(dr["LeaveDate"]);
                     TeacherDetails.RefrenceName = dr.IsNull("RefrenceName") ? string.Empty : Convert.ToString(dr["RefrenceName"]);
                     TeacherDetails.RefrenceContact = dr.IsNull("RefrenceContact") ? string.Empty : Convert.ToString(dr["RefrenceContact"]);
+                    TeacherDetails.Active = Convert.ToBoolean(dr["Active"]);
                     //TeacherDetails.CreatedById = dr.IsNull("CreatedById") ? string.Empty : Convert.ToString(dr["CreatedById"]);
                     //TeacherDetails.CreatedDate = dr.IsNull("CreatedDate") ? DateTime.Now : Convert.ToDateTime(dr["CreatedDate"]);
                     //TeacherDetails.ModifiedById = dr.IsNull("ModifiedById") ? string.Empty : Convert.ToString(dr["ModifiedById"]);

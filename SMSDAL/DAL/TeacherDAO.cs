@@ -88,6 +88,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@LeaveDate", DbType.DateTime, teacher.LeaveDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@RefrenceName", DbType.String, teacher.RefrenceName);
                     gObjDatabase.AddInParameter(objDbCommand, "@RefrenceContact", DbType.String, teacher.RefrenceContact);
+                    gObjDatabase.AddInParameter(objDbCommand, "@Active", DbType.Boolean, teacher.Active);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, teacher.CreatedDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, teacher.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedDate", DbType.DateTime, teacher.ModifiedDate);
