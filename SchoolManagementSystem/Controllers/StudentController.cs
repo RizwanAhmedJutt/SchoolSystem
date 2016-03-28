@@ -8,7 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-
+using PagedList;
+using PagedList.Mvc;
 namespace SchoolManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -26,10 +27,11 @@ namespace SchoolManagementSystem.Controllers
         {
             return View();
         }
-        public ActionResult StudentList()
+        public ActionResult StudentList(int? page )
         {
-            List<Student> getStudentList = student.GetAllStudents();
-            return View(getStudentList);
+
+                
+            return View(student.GetAllStudents().ToList().ToPagedList(page ?? 1, 5));
         }
         [HttpGet]
         public ActionResult AddChangesStudent(int id)
