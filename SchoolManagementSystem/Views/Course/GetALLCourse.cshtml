@@ -1,4 +1,6 @@
-﻿@model IEnumerable<SMSDataContract.Common.Course>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SMSDataContract.Common.Course>
 @{
 
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -20,20 +22,20 @@
             <table class="table  table-bordered table-striped table-responsive table-hover">
                 <tr class="action info">
                     <th>
-                        @Html.DisplayNameFor(model => model.CourseCode)
+                        @Html.DisplayNameFor(model => model.First().CourseCode)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CourseName)
+                        @Html.DisplayNameFor(model => model.First().CourseName)
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.ClassName)
+                        @Html.DisplayNameFor(model => model.First().ClassName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.IsActive)
+                        @Html.DisplayNameFor(model => model.First().IsActive)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CreatedDate)
+                        @Html.DisplayNameFor(model => model.First().CreatedDate)
                     </th>
 
                     <th style="width:90px;"><b>ACTION</b></th>
@@ -68,6 +70,9 @@
                 }
 
             </table>
+            <div class="col-md-10 col-md-offset-4">
+                @Html.PagedListPager(Model, page => Url.Action("GetALLCourse", new { page }))
+            </div>
         </div>
     </div>
 </div>

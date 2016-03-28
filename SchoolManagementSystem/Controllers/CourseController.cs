@@ -8,6 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using PagedList;
+using PagedList.Mvc;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -18,10 +20,10 @@ namespace SchoolManagementSystem.Controllers
         IStudentAssignCourse stdAssignCourserepo = new StudentAssignCourseBLL();
         ITeacherAssignedCourse teacherrepo = new TeacherAssignCourseBLL();
         [HttpGet]
-        public ActionResult GetALLCourse()
+        public ActionResult GetALLCourse(int? page)
         {
-            List<Course> getCourses = courserepositry.GetALLCourse();
-            return View(getCourses);
+            
+            return View(courserepositry.GetALLCourse().ToPagedList(page??1,10));
         }
         [HttpGet]
         public ActionResult AddChangesCourse(int Id)
