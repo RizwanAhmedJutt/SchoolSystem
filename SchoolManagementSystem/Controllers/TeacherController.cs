@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.IO;
 using System.Web.UI.WebControls;
+using PagedList;
+using PagedList.Mvc;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -20,11 +22,11 @@ namespace SchoolManagementSystem.Controllers
 
 
         // GET: Teacher
-        public ActionResult TeacherList()
+        public ActionResult TeacherList(int? page)
         {
-            List<Teacher> list = new List<Teacher>();
-            list = repoTeacher.GetAllTeachers();
-            return View(list);
+          
+            
+            return View( repoTeacher.GetAllTeachers().ToList().ToPagedList(page??1,10));
         }
 
         public ActionResult AddChangesTeacher(int Id)

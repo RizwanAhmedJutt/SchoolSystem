@@ -31,7 +31,7 @@ namespace SchoolManagementSystem.Controllers
         {
 
                 
-            return View(student.GetAllStudents().ToList().ToPagedList(page ?? 1, 5));
+            return View(student.GetAllStudents().ToList().ToPagedList(page ?? 1, 10));
         }
         [HttpGet]
         public ActionResult AddChangesStudent(int id)

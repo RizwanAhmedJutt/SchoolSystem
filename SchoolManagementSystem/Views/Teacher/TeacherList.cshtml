@@ -1,4 +1,6 @@
-﻿@model IEnumerable<SMSDataContract.Common.Teacher>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SMSDataContract.Common.Teacher>
 
 @{
     ViewBag.Title = "TeacherList";
@@ -13,31 +15,31 @@
             <table class="table table-bordered table-hover table-striped">
                 <tr class="action info">
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstName)
+                        @Html.DisplayNameFor(model => model.First().FirstName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.LastName)
+                        @Html.DisplayNameFor(model => model.First().LastName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CNIC)
+                        @Html.DisplayNameFor(model => model.First().CNIC)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.LastQualification)
+                        @Html.DisplayNameFor(model => model.First().LastQualification)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.JoinDate)
+                        @Html.DisplayNameFor(model => model.First().JoinDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.LeaveDate)
+                        @Html.DisplayNameFor(model => model.First().LeaveDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RefrenceName)
+                        @Html.DisplayNameFor(model => model.First().RefrenceName)
                     </th>
                     <th >
-                        @Html.DisplayNameFor(model => model.RefrenceContact)
+                        @Html.DisplayNameFor(model => model.First().RefrenceContact)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Active)
+                        @Html.DisplayNameFor(model => model.First().Active)
                     </th>
                    
                     <th style="width:90px;"><h5>ACTION</h5></th>
@@ -82,6 +84,10 @@
                 }
 
             </table>
+            <div class="col-md-10 col-md-offset-4">
+
+                @Html.PagedListPager(Model, page => Url.Action("TeacherList", new { page }))
+            </div>
 
         </div>
     </div>
