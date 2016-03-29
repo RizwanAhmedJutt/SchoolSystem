@@ -88,7 +88,7 @@
                         </td>
                         <td>
                             <a href="/Student/AddChangesStudent?Id=@item.StudentId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="/Student/DeleteStudent?StudentId=@item.StudentId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
+                            <a id="btnDelete" href="/Student/DeleteStudent?StudentId=@item.StudentId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
                         </td>
                     </tr>
                 }
@@ -107,7 +107,15 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#btnDelete").click(function () {
 
+                
+                if (confirm("Are You Sure you want to delete Student?"))
+                    return true;
+                else
+                    return false;
+
+            });
         });
 
     </script>
