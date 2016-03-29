@@ -3,75 +3,78 @@
 @model IPagedList<SMSDataContract.Common.Course>
 @{
 
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
 <div class="row">
-    <div class="col-md-8 col-sm-8">
-        <div class="row">
-            <div class="pull-left">
-                <a href="/Course/AddChangesCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Course</a>
+    <div class="col-md-12 col-sm-12">
+        <div class="well">
+            <div class="row">
+                <div class="pull-left">
+                    <a href="/Course/AddChangesCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Course</a>
+                </div>
+                @*<div class="pull-right">
+                    <a href="/Course/AddChangesTeacherAssignCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Assign Course To Teacher</a>
+                    <a href="/Course/AddChangesStudentAssignCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Assign Course To Student</a>
+                </div>*@
             </div>
-            <div class="pull-right">
-                <a href="/Course/AddChangesTeacherAssignCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Assign Course To Teacher</a>
-                <a href="/Course/AddChangesStudentAssignCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Assign Course To Student</a>
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <span class="HeadingStyle">List of Course</span>
-            <table class="table  table-bordered table-striped table-responsive table-hover">
-                <tr class="action info">
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().CourseCode)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().CourseName)
-                    </th>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().ClassName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().IsActive)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().CreatedDate)
-                    </th>
+            <br />
+            <div class="row">
+                <span class="HeadingStyle">List of Course</span>
+                <table class="table  table-bordered table-striped table-responsive table-hover">
+                    <tr class="action info">
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().CourseCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().CourseName)
+                        </th>
 
-                    <th style="width:90px;"><b>ACTION</b></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().ClassName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().IsActive)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().CreatedDate)
+                        </th>
 
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CourseCode)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CourseName)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ClassName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IsActive)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            <a href="/Course/AddChangesCourse?Id=@item.CourseId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="/Course/DeleteCourse?CourseId=@item.CourseId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
-                        </td>
+                        <th style="width:90px;"><b>ACTION</b></th>
 
                     </tr>
+
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClassName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                            <td>
+                                <a href="/Course/AddChangesCourse?Id=@item.CourseId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a href="/Course/DeleteCourse?CourseId=@item.CourseId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
+                            </td>
+
+                        </tr>
                 }
 
-            </table>
-            <div class="col-md-10 col-md-offset-4">
-                @Html.PagedListPager(Model, page => Url.Action("GetALLCourse", new { page }))
+                </table>
+                <div class="col-md-10 col-md-offset-4">
+                    @Html.PagedListPager(Model, page => Url.Action("GetALLCourse", new { page }))
+                </div>
             </div>
         </div>
     </div>

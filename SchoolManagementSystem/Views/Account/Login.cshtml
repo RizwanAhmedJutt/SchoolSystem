@@ -1,7 +1,11 @@
 ﻿@model IdentitySample.Models.LoginViewModel
-
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<!-- styles -->
+<link href="~/Content/styles.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
 @{
     //Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "";
 
 }
 <div class="row center-block">
@@ -60,4 +64,5 @@
     </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
 }

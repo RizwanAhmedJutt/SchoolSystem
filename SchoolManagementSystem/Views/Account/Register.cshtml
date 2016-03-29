@@ -1,53 +1,62 @@
 ﻿@model IdentitySample.Models.RegisterViewModel
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<!-- styles -->
+<link href="~/Content/styles.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
 @{
-    ViewBag.Title = "Register";
+    Layout = "";
 }
-
-
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     <div class="col-md-4 col-sm-4"></div>
     <div class="col-md-4 col-sm-4" style="margin-top:50px;">
         <div class="well">
-            @Html.AntiForgeryToken()
-            <h2 style="text-align:center;">REGISTER A USER</h2>
-            <hr />
-            @Html.ValidationSummary("", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "col-md-12 control-label", style = "text-align: left;" })
-                <div class="col-md-12">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            
+                @Html.AntiForgeryToken()
+                <h2 style="text-align:center;">REGISTER USER</h2>
+                <hr />
+            <center>
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-12 control-label", style = "text-align: left;" })
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Password, new { @class = "col-md-12 control-label", style = "text-align: left;" })
-                <div class="col-md-12">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-12 control-label", style = "text-align: left;" })
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "password" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-12 control-label", style = "text-align: left;" })
-                <div class="col-md-12">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-12 control-label", style = "text-align: left;" })
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", type = "password" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                     </div>
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </center>
             <hr />
             <div class="form-group">
                 <center class="col-md-12">
                     <input type="submit" class="btn btn-success btnlogin" value="Register" />
                 </center>
+                <br />
+                <p style="text-align:center;">
+                    @Html.ActionLink("Registered User Click Here", "Login")
+                </p>
             </div>
         </div>
     </div>
@@ -55,4 +64,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
 }
