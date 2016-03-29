@@ -10,6 +10,7 @@ namespace SMSBusiness.Repository.Abstract
   public  interface ICourse
     {
       List<Course> GetALLCourse();
+      List<Course> GetALLCourseByAcadmicClassId(int AcadmicClassId);
       Course GetCourseDetailByCourseId(int CourseId);
       int CourseAddChanges(Course courese);
       int DeleteCourse(Course c);
