@@ -35,6 +35,26 @@ namespace SMSDAL.DAL
                 throw;
             }
             return dtCourseDetails;
+        } 
+
+        public DataTable GetALLCourseByAcadmicClassId(int AcadmicClassId)
+        {
+            DataTable dtCourseDetails;
+            try
+            {
+                var query = "Select c.CourseId,c.CourseName from Courses c  Where c.ClassId=" + AcadmicClassId;
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+
+                    dtCourseDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtCourseDetails;
+
         }
         public DataTable GetCourseDetailByCourseId(int CourseId)
         {
@@ -129,6 +149,8 @@ namespace SMSDAL.DAL
 
             return 0;  // show Error in inserting or Updating Record
 
-        }
+        }  
+         
+       
     }
 }
