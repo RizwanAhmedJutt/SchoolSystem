@@ -33,6 +33,7 @@ public    class StudentAssignCourseBLL : IStudentAssignCourse
                     Assigncourse.StudentName = item["StudentName"].ToString();
                     Assigncourse.ClassName = item["ClassName"].ToString();
                     Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
+                    Assigncourse.StudentId = Convert.ToInt32(item["StudentId"]);
                     objstdAssignCourse.Add(Assigncourse);
                 }
             }
