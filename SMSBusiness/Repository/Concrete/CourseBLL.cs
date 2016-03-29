@@ -46,6 +46,34 @@ namespace SMSBusiness.Repository.Concrete
 
 
         }
+        public List<Course> GetALLCourseByAcadmicClassId(int AcadmicClassId)
+        {
+            var objCourseDao = new CourseDAO(new SqlDatabase());
+            DataTable tblCourse;
+            tblCourse = objCourseDao.GetALLCourseByAcadmicClassId(AcadmicClassId);
+            List<Course> objCourseList = new List<Course>();
+            try
+            {
+
+                foreach (DataRow dr in tblCourse.Rows)
+                {
+                    Course course = new Course();
+                    course.CourseId = Convert.ToInt32(dr["CourseId"]);
+                    course.CourseName = dr["CourseName"].ToString();
+                    objCourseList.Add(course);
+                }
+
+                return objCourseList;
+
+            }
+            catch
+            {
+
+                throw;
+            }
+
+
+        }
         public Course GetCourseDetailByCourseId(int CourseId)
         {
             var objCourseDao = new CourseDAO(new SqlDatabase());
