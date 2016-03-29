@@ -23,7 +23,7 @@ namespace SMSDAL
             DataTable stdNames;
             try
             {
-                var query = "Select StudentId, std.FirstName+''+std.LastName as StudentName  from student std";
+                var query = "Select StudentId,std.FirstName,std.LastName ,std.FirstName+''+std.LastName as StudentName  from student std Where std.IsActive=1";
                 using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                     stdNames = gObjDatabase.GetDataTable(objCommand);
@@ -36,6 +36,7 @@ namespace SMSDAL
             }
             return stdNames;
         }
+
         public DataTable GetALLStudents()
         {
             DataTable dtStudents;
@@ -44,6 +45,25 @@ namespace SMSDAL
                 using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_std_GetALLStudents"))
                 {
                     
+                    dtStudents = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtStudents;
+
+
+        }
+        public DataTable GetALLDisActiveStudents()
+        {
+            DataTable dtStudents;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_std_GetALLDisactiveStudent"))
+                {
+
                     dtStudents = gObjDatabase.GetDataTable(objCommand);
                 }
             }

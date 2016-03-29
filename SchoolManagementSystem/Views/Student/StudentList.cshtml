@@ -10,6 +10,20 @@
     <div class="col-md-8 col-sm-8">
         <div class="row">
             <a href="/Student/AddChangesStudent?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Student</a>
+            <div class="col-md-10 col-md-offset-4">
+                @using (Html.BeginForm("StudentList", "Student", FormMethod.Get))
+                {
+                    <b>Search By:</b>
+                    @Html.RadioButton("SearchBy", "FirstName", true)
+                    <text>First Name</text>
+                    @Html.RadioButton("SearchBy", "NotActiv")
+
+                    <text>Not Active</text>
+                    <br />
+                    @Html.TextBox("search")<input type="submit" value="Search" />
+                }
+            </div>
+            <div style="clear:left"></div>
             <br />
             <br />
             <span class="HeadingStyle">List of Students</span>
@@ -81,7 +95,7 @@
 
             </table>
             <div class="col-md-10 col-md-offset-4">
-                @Html.PagedListPager(Model, page => Url.Action("StudentList", new { page }))
+                @Html.PagedListPager(Model, page => Url.Action("StudentList", new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))
             </div>
         </div>
     </div>
@@ -90,10 +104,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
-   
+
     <script type="text/javascript">
         $(document).ready(function () {
-           
+
         });
 
     </script>

@@ -92,6 +92,43 @@ namespace SMSBusiness.Repository.Concrete
                 throw;
             }
         }
+        public List<Student> GetALLDisActiveStudents()
+        {
+            var objStudDao = new StudentDAO(new SqlDatabase());
+            var dtStudents = new DataTable();
+            dtStudents = objStudDao.GetALLDisActiveStudents();
+            List<Student> objStdList = new List<Student>();
+
+            try
+            {
+
+                foreach (DataRow dr in dtStudents.Rows)
+                {
+                    var StdDetails = new Student();
+                    StdDetails.StudentId = dr.IsNull("StudentId") ? 0 : Convert.ToInt32(dr["StudentId"]);
+                    StdDetails.FirstName = dr.IsNull("FirstName") ? string.Empty : Convert.ToString(dr["FirstName"]);
+                    StdDetails.LastName = dr.IsNull("LastName") ? string.Empty : Convert.ToString(dr["LastName"]);
+                    StdDetails.CNIC = dr.IsNull("CNIC") ? string.Empty : Convert.ToString(dr["CNIC"]);
+                    StdDetails.DOB = dr.IsNull("DateOfBirth") ? DateTime.Now : Convert.ToDateTime(dr["DateOfBirth"]);
+
+
+                    StdDetails.CreateDate = Convert.ToDateTime(dr["CreatedDate"]);
+                    StdDetails.ClassName = dr.IsNull("ClassName") ? string.Empty : dr["ClassName"].ToString();
+                    StdDetails.Religion = dr.IsNull("Religion") ? string.Empty : Convert.ToString(dr["Religion"]);
+                    StdDetails.RollNumber = dr.IsNull("RollNumber") ? 0 : Convert.ToInt32(dr["RollNumber"]);
+                    StdDetails.IsActive = dr.IsNull("IsActive") ? true : Convert.ToBoolean(dr["IsActive"]);
+                    objStdList.Add(StdDetails);
+                }
+
+                return objStdList;
+
+            }
+            catch
+            {
+
+                throw;
+            }
+        }
 
         public List<Student> GetAllStudentByName()
         {
@@ -107,6 +144,8 @@ namespace SMSBusiness.Repository.Concrete
                 {
                     var StdDetails = new Student();
                     StdDetails.StudentId = dr.IsNull("StudentId") ? 0 : Convert.ToInt32(dr["StudentId"]);
+                    StdDetails.FirstName = dr.IsNull("FirstName") ? string.Empty : Convert.ToString(dr["FirstName"]);
+                    StdDetails.LastName = dr.IsNull("LastName") ? string.Empty : Convert.ToString(dr["LastName"]);
                     StdDetails.StudentName = dr.IsNull("StudentName") ? string.Empty : Convert.ToString(dr["StudentName"]);
                     objStdList.Add(StdDetails);
                 }

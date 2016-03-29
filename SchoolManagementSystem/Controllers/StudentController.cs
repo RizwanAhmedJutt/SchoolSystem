@@ -27,10 +27,34 @@ namespace SchoolManagementSystem.Controllers
         {
             return View();
         }
-        public ActionResult StudentList(int? page )
+        public ActionResult StudentList(string SearchBy, string search, int? page)
         {
+            if (SearchBy == "FirstName" && search == "")
+            {
+                List<Student> stdByName = student.GetAllStudents().ToList();
 
-                
+                return View(stdByName.ToList().ToPagedList(page ?? 1, 10));
+            }
+            if (SearchBy == "FirstName")
+            {
+                List<Student> stdByName = student.GetAllStudents().Where(x => x.FirstName == search || search == null).ToList();
+
+                return View(stdByName.ToList().ToPagedList(page ?? 1, 10));
+            }
+            if (SearchBy == "NotActiv" && search == "")
+            {
+                List<Student> stdByName = student.GetALLDisActiveStudents().ToList();
+
+                return View(stdByName.ToList().ToPagedList(page ?? 1, 10));
+            }
+           
+            if (SearchBy == "NotActiv")
+            {
+                List<Student> stdByName = student.GetALLDisActiveStudents().Where(x => x.FirstName == search || search == null).ToList();
+
+                return View(stdByName.ToList().ToPagedList(page ?? 1, 10));
+            }
+          
             return View(student.GetAllStudents().ToList().ToPagedList(page ?? 1, 10));
         }
         [HttpGet]
@@ -209,7 +233,7 @@ namespace SchoolManagementSystem.Controllers
                 admisionGranted.StudentId = studentid;
                 admisionGranted.GuardianId = GuardianId;
                 Student std = student.GetStudentById(studentid);
-              ViewBag.RollNumber= std.RollNumber;
+                ViewBag.RollNumber = std.RollNumber;
                 return View(admisionGranted);
             }
         }
@@ -259,7 +283,7 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult DeleteStudent(int StudentId)
         {
-          var userloggedId = User.Identity.GetUserId();
+            var userloggedId = User.Identity.GetUserId();
             Student std = student.GetStudentById(StudentId);
             std.IsActive = false;
             std.ModifiedById = userloggedId;
