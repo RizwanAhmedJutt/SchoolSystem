@@ -1,11 +1,11 @@
-﻿@model IEnumerable<smsdatacontract.accounts.studentassignedcourse>
+﻿@model IEnumerable<SMSDataContract.Accounts.StudentAssignedCourse>
     @{
 
         Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     }
     <div class="row">
         <div class="col-md-8 col-sm-8">
-            <span class="HeadingStyle">List of Course</span>
+            <span class="HeadingStyle">Student Assign Course</span>
             <table class="table  table-bordered table-striped table-responsive table-hover">
                 <tr class="action info">
                     @*<th>
@@ -31,7 +31,7 @@
                         @Html.DisplayNameFor(model => model.CreatedDate)
                     </th>
 
-                    <th></th>
+                    <th>Action</th>
                 </tr>
 
                 @foreach (var item in Model)
@@ -52,7 +52,7 @@
                         </td>
                        
                         <td>
-                            <a href="/Course/AddChangesCourse?Id=@item.StudentId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="/Course/AddChangesStudentAssignCourse?Id=@item.StudentId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
                         </td>
                     </tr>
                 }
