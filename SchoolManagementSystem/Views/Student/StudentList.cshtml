@@ -3,99 +3,107 @@
 @model IPagedList<SMSDataContract.Common.Student>
 
 @{
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
 
 <div class="row">
-    <div class="col-md-8 col-sm-8">
-        <div class="row">
-            <a href="/Student/AddChangesStudent?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Student</a>
-            <div class="col-md-10 col-md-offset-4">
-                @using (Html.BeginForm("StudentList", "Student", FormMethod.Get))
-                {
-                    <b>Search By:</b>
-                    @Html.RadioButton("SearchBy", "FirstName", true)
-                    <text>First Name</text>
-                    @Html.RadioButton("SearchBy", "NotActiv")
+    <div class="col-md-12 col-sm-12">
+        <div class="well">
+            <div class="row">
 
-                    <text>Not Active</text>
-                    <br />
-                    @Html.TextBox("search")<input type="submit" value="Search" />
-                }
-            </div>
-            <div style="clear:left"></div>
-            <br />
-            <br />
-            <span class="HeadingStyle">List of Students</span>
-            <table class="table table-bordered table-striped table-responsive table-hover">
-                <tr class="action info">
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().RollNumber)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().FirstName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().LastName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().DOB)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().CNIC)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().Religion)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().AcadmicClassId)
-                    </th>
+                <div class="col-md-7 col-md-offset-3">
+                    @using (Html.BeginForm("StudentList", "Student", FormMethod.Get))
+                    {  <div class="input-group col-md-8">
+                        <b>Search By:</b>
+                        @Html.RadioButton("SearchBy", "FirstName", true)
+                        <text> Name</text>
+                        @Html.RadioButton("SearchBy", "NotActiv")
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().IsActive)
-                    </th>
+                        <text>Not Active</text>
+                        <br />
 
-                    <th style="width:90px;"><b>ACTION</b></th>
-                </tr>
 
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RollNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LastName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DOB)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CNIC)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Religion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AcadmicClassId)
-                        </td>
+                        @Html.TextBox("search", null, new { @class = "form-control" })
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IsActive)
-                        </td>
-                        <td>
-                            <a href="/Student/AddChangesStudent?Id=@item.StudentId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a id="btnDelete" href="/Student/DeleteStudent?StudentId=@item.StudentId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
-                        </td>
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                    }
+                </div>
+                <div style="clear:left"></div>
+
+                <a href="/Student/AddChangesStudent?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Student</a>
+                <br /> <br />
+                <span class="HeadingStyle">List of Students</span>
+                <table class="table table-bordered table-striped table-responsive table-hover">
+                    <tr class="action info">
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().RollNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().DOB)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().CNIC)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Religion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().AcadmicClassId)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().IsActive)
+                        </th>
+
+                        <th style="width:90px;"><b>ACTION</b></th>
                     </tr>
-                }
 
-            </table>
-            <div class="col-md-10 col-md-offset-4">
-                @Html.PagedListPager(Model, page => Url.Action("StudentList", new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RollNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DOB)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CNIC)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Religion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AcadmicClassId)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
+                            <td>
+                                <a href="/Student/AddChangesStudent?Id=@item.StudentId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a id="btnDelete" href="/Student/DeleteStudent?StudentId=@item.StudentId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                <div class="col-md-10 col-md-offset-4">
+                    @Html.PagedListPager(Model, page => Url.Action("StudentList", new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))
+                </div>
             </div>
         </div>
     </div>
@@ -109,7 +117,7 @@
         $(document).ready(function () {
             $("#btnDelete").click(function () {
 
-                
+
                 if (confirm("Are You Sure you want to delete Student?"))
                     return true;
                 else

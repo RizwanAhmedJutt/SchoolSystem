@@ -2,14 +2,14 @@
 
 @{
     ViewBag.Title = "GardianDetail";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="row">
-        <div class="col-md-8 col-sm-8">
+        <div class="col-md-12 col-sm-12">
             <ol class="breadcrumb">
                 <li><a href="/Student/AddChangesStudent?id=@Model.StudentId">Student</a></li>
                 <li><a href="/Student/AddChangesStudentAddress?studentId=@Model.StudentId">Student Address</a></li>

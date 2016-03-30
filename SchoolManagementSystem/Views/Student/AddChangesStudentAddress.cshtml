@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "StudentAddress";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
 
 }
 
@@ -10,7 +10,7 @@
 {
     @Html.AntiForgeryToken()
     <div class="row">
-        <div class="col-md-8 col-sm-8">
+        <div class="col-md-12 col-sm-12">
             <ol class="breadcrumb">
                 <li><a href="/Student/AddChangesStudent?id=@Model.StudentId">Student</a></li>
                 <li class="active">Student Address</li>
