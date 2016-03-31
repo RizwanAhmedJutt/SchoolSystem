@@ -13,7 +13,7 @@ using PagedList.Mvc;
 
 namespace SchoolManagementSystem.Controllers
 {
-   [Authorize(Roles="Admin")]
+     [Authorize(Roles="Admin")]
     public class CourseController : Controller
     {
         ICourse courserepositry = new CourseBLL();
@@ -22,8 +22,8 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetALLCourse(int? page)
         {
-            
-            return View(courserepositry.GetALLCourse().ToPagedList(page??1,10));
+
+            return View(courserepositry.GetALLCourse().ToPagedList(page ?? 1, 10));
         }
         [HttpGet]
         public ActionResult AddChangesCourse(int Id)
@@ -45,7 +45,7 @@ namespace SchoolManagementSystem.Controllers
 
 
 
-        } 
+        }
         [HttpPost]
         public ActionResult AddChangesCourse(Course c, int AcadmicClassId)
         {
@@ -55,13 +55,13 @@ namespace SchoolManagementSystem.Controllers
                 c.ModifiedById = userloggedId;
                 c.ClassId = AcadmicClassId;
                 c.ModifiedDate = DateTime.Now;
-                
+
             }
             else
             {
                 c.CreatedById = userloggedId;
                 c.ClassId = AcadmicClassId;
-             
+
 
             }
 
@@ -93,17 +93,17 @@ namespace SchoolManagementSystem.Controllers
             {
                 stdAssignCourse.ModifiedById = userloggedId;
                 stdAssignCourse.ModifiedDate = DateTime.Now;
-                return View(stdAssignCourse); 
+                return View(stdAssignCourse);
             }
         }
         [HttpPost]
-        public ActionResult AddChangesStudentAssignCourse(StudentAssignedCourse stdCourse,int CourseId,int StudentId)
+        public ActionResult AddChangesStudentAssignCourse(StudentAssignedCourse stdCourse, int CourseId, int StudentId)
         {
             stdCourse.CourseId = CourseId;
             stdCourse.StudentId = StudentId;
             int getReturnValue = stdAssignCourserepo.InsertUpdateAssignedCourseAddChanges(stdCourse);
             return RedirectToAction("GetALLCourse", "Course");
-        } 
+        }
         [HttpGet]
         public ActionResult GetALLTeacherAssignCourse()
         {
@@ -131,7 +131,7 @@ namespace SchoolManagementSystem.Controllers
 
         public ActionResult DeleteCourse(int CourseId)
         {
-             var userloggedId = User.Identity.GetUserId();
+            var userloggedId = User.Identity.GetUserId();
             Course c = courserepositry.GetCourseDetailByCourseId(CourseId);
             c.IsActive = false;
             c.ModifiedById = userloggedId;
@@ -140,6 +140,28 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("GetALLCourse", "Course");
         }
 
+        public ActionResult DDLCourse(int AcadmicClassId)
+        {
+            try
+            {
+                if (AcadmicClassId > 0)
+                {
+                    ViewData["DDLCourse"] = new SelectList(courserepositry.GetALLCourseByAcadmicClassId(AcadmicClassId).OrderBy(c => c.CourseId).ToList(), "CourseId", "CourseName");
+                    return View("../DropDownLists/DDLCourse");
+                }
+                else
+                {
+                    ViewData["DDLCourse"] = new SelectList(courserepositry.GetALLCourse().OrderBy(c => c.CourseId).ToList(), "CourseId", "CourseName");
+                    return View("../DropDownLists/DDLCourse");
+                }
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+            
+
+        }
     }
 }

@@ -407,12 +407,10 @@
     <Content Include="Views\Teacher\AddChangesTeacher.cshtml" />
     <Content Include="Views\Course\AddChangesCourse.cshtml" />
     <Content Include="Views\Course\GetALLCourse.cshtml" />
-    <Content Include="Views\Course\AddChangesStudentAssignCourse.cshtml" />
     <Content Include="Views\DropDownLists\DDLCourse.cshtml" />
     <Content Include="Views\DropDownLists\DDLStudent.cshtml" />
     <Content Include="Views\DropDownLists\DDLCurrentSibling.cshtml" />
     <Content Include="Views\DropDownLists\DDLSibling.cshtml" />
-    <Content Include="Views\Course\AddChangesTeacherAssignCourse.cshtml" />
     <Content Include="Views\DropDownLists\DDLTeacher.cshtml" />
     <Content Include="Views\Course\GetALLStudentAssignCourse.cshtml" />
     <Content Include="Views\Course\GetALLTeacherAssignCourse.cshtml" />

@@ -1,11 +1,6 @@
 ﻿@using SMSDataContract.Common;
 @using SMSBusiness.Repository.Concrete;
 @using SMSBusiness.Repository.Abstract;
-@{
 
-    ICourse repCourse = new CourseBLL();
-    List<Course> ObjCourse = new List<Course>();
-    ObjCourse = repCourse.GetALLCourse();
-}
-
-@Html.DropDownList("CourseId", new SelectList(ObjCourse.ToList(), "CourseId", "CourseName"), "Select Course",new { id = "ddlCourse", @class = "form-control" })
+@Html.DropDownList("CourseId", (SelectList)ViewData["DDLCourse"], "Select Course", new { id = "ddlCourse", @class = "form-control" })
+@*@Html.DropDownList("CourseId", new SelectList(ObjCourse.ToList(), "CourseId", "CourseName"), "Select Course",new { id = "ddlCourse", @class = "form-control" })*@
