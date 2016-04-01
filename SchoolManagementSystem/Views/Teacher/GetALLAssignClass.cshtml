@@ -1,6 +1,6 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
-@model IPagedList<SMSDataContract.Common.Teacher>
+@model IPagedList<SMSDataContract.Accounts.TeacherAssignClass>
 
 @{
     ViewBag.Title = "TeacherList";
@@ -15,32 +15,12 @@
             <table class="table table-bordered table-hover table-striped">
                 <tr class="action info">
                     <th>
-                        @Html.DisplayNameFor(model => model.First().FirstName)
+                        @Html.DisplayNameFor(model => model.First().ClassName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.First().LastName)
+                        @Html.DisplayNameFor(model => model.First().TeacherName)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().CNIC)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().LastQualification)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().JoinDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().LeaveDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().RefrenceName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().RefrenceContact)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.First().Active)
-                    </th>
+                   
 
                     <th style="width:90px;"><h5>ACTION</h5></th>
                 </tr>
@@ -49,36 +29,16 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
+                            @Html.DisplayFor(modelItem => item.ClassName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.LastName)
+                            @Html.DisplayFor(modelItem => item.TeacherName)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CNIC)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LastQualification)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.JoinDate, "{0:dd/MM/yyyy}")
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LeaveDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RefrenceName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RefrenceContact)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Active)
-                        </td>
+                     
 
                         <td>
-                            <a href="/Teacher/AddChangesTeacher?Id=@item.TeacherId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="/Teacher/DeleteTeacher?Id=@item.TeacherId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
+                            <a href="/Teacher/AddChangesTeacherAssignedClass?Id=@item.TeacherAssignId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                          
                         </td>
                     </tr>
                 }
@@ -86,7 +46,7 @@
             </table>
             <div class="col-md-10 col-md-offset-4">
 
-                @Html.PagedListPager(Model, page => Url.Action("TeacherList", new { page }))
+                @Html.PagedListPager(Model, page => Url.Action("GetALLAssignClass", new { page }))
             </div>
 
         </div>

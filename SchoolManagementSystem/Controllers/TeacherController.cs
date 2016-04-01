@@ -161,10 +161,11 @@ namespace SchoolManagementSystem.Controllers
             teachId = repoTeacher.InsertUpdateTProfile(tProfile);
             return RedirectToAction("TeacherList", "Teacher");
         }
-       
-        public ActionResult GetALLAssignClass()
+
+        public ActionResult GetALLAssignClass(int? page)
         {
-            return View();
+
+            return View(repoTeacher.GetAllTeacherAssignClass().ToList().ToPagedList(page ?? 1, 10));
         }
 
         [HttpGet]

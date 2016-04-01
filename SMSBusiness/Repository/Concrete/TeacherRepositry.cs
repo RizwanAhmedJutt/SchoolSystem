@@ -544,7 +544,7 @@ namespace SMSBusiness.Repository.Concrete
                 foreach (DataRow dr in dtTeachers.Rows)
                 {
                     var TeacherDetails = new TeacherAssignClass();
-                    TeacherDetails.TeacherId = dr.IsNull("TeacherId") ? 0 : Convert.ToInt32(dr["TeacherId"]);
+                    TeacherDetails.TeacherAssignId = dr.IsNull("TeacherAssignId") ? 0 : Convert.ToInt32(dr["TeacherAssignId"]);
                     TeacherDetails.TeacherName = dr.IsNull("TeacherName") ? string.Empty : Convert.ToString(dr["TeacherName"]);
                     TeacherDetails.ClassName = dr.IsNull("ClassName") ? string.Empty : Convert.ToString(dr["ClassName"]);
                     objTeacherList.Add(TeacherDetails);
@@ -573,7 +573,7 @@ namespace SMSBusiness.Repository.Concrete
                 {
                     foreach (DataRow item in dtTeachers.Rows)
                     {
-                        teacher.AcadmicClassId = Convert.ToInt32(item["TeacherAssignId"]);
+                        teacher.TeacherAssignId = Convert.ToInt32(item["TeacherAssignId"]);
                         teacher.TeacherName = item["TeacherName"].ToString();
                         teacher.ClassName = item["ClassName"].ToString();
                         
