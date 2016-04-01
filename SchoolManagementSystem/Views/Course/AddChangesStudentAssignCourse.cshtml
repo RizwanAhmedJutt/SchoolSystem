@@ -3,7 +3,20 @@
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
 
-
+<div id="Loading" class="modal-sm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Loading.....</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress progress-bar-striped action">
+                    <div class="progress-bar" style="width:100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @using (Html.BeginForm())
 {
     <div class="row">
@@ -103,6 +116,7 @@
     <script type="text/javascript">
         {
             $(document).ready(function () {
+                $("#Loading").hide();
                 if ('@Model.AssignCourseId' > 0) {
                     LoadDDLCourseANDStudent();
 
@@ -114,11 +128,12 @@
                 }
                 // change event of ddlAcadmicClass
                 $("#ddlAcadmicClass").change(function () {
-
-                    
+                    debugger;
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     if (getClass != '') {
+                        $("#Loading").show();
                         LoadDDLCourseANDStudent();
+                        $("#Loading").hide();
                         $("#AcadmicclassMsg").hide();
                         $("#CourseMsg").hide();
                         $("#StudentMsg").hide();
