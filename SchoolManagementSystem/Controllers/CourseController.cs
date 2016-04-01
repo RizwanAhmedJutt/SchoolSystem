@@ -114,15 +114,24 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult AddChangesTeacherAssignCourse(int Id)
         {
-            TeacherAssignedCourse tassignCourse = new TeacherAssignedCourse();
-            return View(tassignCourse);
+            TeacherAssignedCourse assignCourse=teacherrepo.GetAssignedCourseByTeacherId(Id);
+            if (assignCourse.TeacherAssignedCourseId == 0)
+            {
+                TeacherAssignedCourse tassignCourse = new TeacherAssignedCourse();
+                return View(tassignCourse);
+            }
+            else
+            {
+                return View(assignCourse);
+            }
         }
         [HttpPost]
-        public ActionResult AddChangesTeacherAssignCourse(TeacherAssignedCourse tAssignCourse, int CourseId, int TeacherId)
+        public ActionResult AddChangesTeacherAssignCourse(TeacherAssignedCourse tAssignCourse, int CourseId, int TeacherId, int AcadmicClassId)
         {
             var userloggedId = User.Identity.GetUserId();
             tAssignCourse.TeacherId = TeacherId;
             tAssignCourse.CourseId = CourseId;
+            tAssignCourse.ClassId = AcadmicClassId;
             tAssignCourse.CreatedById = userloggedId;
             int getStatus = teacherrepo.InsertUpdateAssignedCourseAddChanges(tAssignCourse);
 
