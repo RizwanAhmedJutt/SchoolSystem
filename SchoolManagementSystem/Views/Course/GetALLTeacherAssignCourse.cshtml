@@ -1,27 +1,19 @@
-﻿@model IEnumerable<SMSDataContract.Accounts.StudentAssignedCourse>
+﻿@model IEnumerable<SMSDataContract.Accounts.TeacherAssignedCourse>
 @{
 
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
 <div class="row">
     <div class="col-md-8 col-sm-8">
-        <span class="HeadingStyle">Student Assign Course</span>
+        <span class="HeadingStyle">Teacher Assign Course</span>
         <table class="table  table-bordered table-striped table-responsive table-hover">
             <tr class="action info">
-                @*<th>
-                        @Html.DisplayNameFor(model => model.AssignCourseId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CourseId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.StudentId)
-                    </th>*@
+               
                 <th>
                     @Html.DisplayNameFor(model => model.CourseName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.StudentName)
+                    @Html.DisplayNameFor(model => model.TeacherName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ClassName)
@@ -41,7 +33,7 @@
                         @Html.DisplayFor(modelItem => item.CourseName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.StudentName)
+                        @Html.DisplayFor(modelItem => item.TeacherName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ClassName)
@@ -52,7 +44,7 @@
                     </td>
 
                     <td>
-                        <a href="/Course/AddChangesStudentAssignCourse?Id=@item.StudentId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a href="/Course/AddChangesTeacherAssignCourse?Id=@item.TeacherId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
                     </td>
                 </tr>
             }
