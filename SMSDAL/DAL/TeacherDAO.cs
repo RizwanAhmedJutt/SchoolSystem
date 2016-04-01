@@ -579,16 +579,16 @@ namespace SMSDAL.DAL
                 using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("usp_Teacher_InsertUpdateAssignClass"))
                 {
                     gObjDatabase.AddInParameter(objDbCommand, "@TeacherAssignId", DbType.Int32, tclassAssign.TeacherAssignId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@ClassId", DbType.String, tclassAssign.AcadmicClassId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.String,tclassAssign.TeacherId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ClassId", DbType.Int32, tclassAssign.AcadmicClassId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32,tclassAssign.TeacherId);
                     gObjDatabase.AddOutParameter(objDbCommand, "@TeacherAssignnewId", DbType.Int32, 4);
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
                     objDbCommand.Parameters.Add(returnParameter);
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
-                    if (tclassAssign.TeacherId == 0)
+                    if (tclassAssign.TeacherAssignId == 0)
                     {
-                        var identity = Convert.ToInt32(objDbCommand.Parameters["@TeachernewId"].Value);
+                        var identity = Convert.ToInt32(objDbCommand.Parameters["@TeacherAssignnewId"].Value);
                         return (int)identity;
                     }
                     else if (tclassAssign.TeacherAssignId > 0)
@@ -605,7 +605,7 @@ namespace SMSDAL.DAL
             }
 
             return 0; 
-        }
+        }  
         public DataTable GetTeacherByClass(int AcadmicClassId)
         {
             DataTable dtTeachers;
@@ -623,6 +623,26 @@ namespace SMSDAL.DAL
                 throw;
             }
             return dtTeachers;
+
+        }
+
+        public DataTable GetTeacherAssignClassById(int AssignId)
+        {
+
+            DataTable dtTeacherDetails;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("usp_Teacher_GetTeacherAssignById"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@TeacherAssignId", DbType.Int32, AssignId);
+                    dtTeacherDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtTeacherDetails;
 
         }
     }

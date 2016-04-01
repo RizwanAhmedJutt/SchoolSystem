@@ -165,19 +165,20 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult AddChangesTeacherAssignedClass(int id)
         {
-            TeacherAssignClass teacherAssignClass;
-            if(id==0)
+            TeacherAssignClass teacherAssignClass=repoTeacher.GetTeacherAssignClassById(id);
+            if (teacherAssignClass.TeacherAssignId== 0)
             {
                 TeacherAssignClass tassignClass = new TeacherAssignClass();
                 return View(tassignClass);
             }
             else
-            return View();
+                return View(teacherAssignClass);
         }
         [HttpPost]
-        public ActionResult AddChangesTeacher(TeacherAssignClass tassignClass)
+        public ActionResult AddChangesTeacherAssignedClass(TeacherAssignClass tassignClass)
         {
-            return View();
+            int getStatus = repoTeacher.InsertUpdateTeacherAssignClass(tassignClass);
+            return RedirectToAction("TeacherList");
         }
         public ActionResult DeleteTeacher(int Id)
         {
@@ -188,7 +189,7 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("TeacherList", "Teacher");
         }
 
-        [HttpGet]
+       
         public ActionResult DDLTeacher(int AcadmicClassId)
         {
             try
@@ -196,12 +197,12 @@ namespace SchoolManagementSystem.Controllers
                 if (AcadmicClassId > 0)
                 {
                     ViewData["DDLTeacher"] = new SelectList(repoTeacher.GetTeacherByClass(AcadmicClassId).OrderBy(c => c.TeacherId).ToList(), "TeacherId", "TeacherName");
-                    return View("../DropDownLists/DDLCourse");
+                    return View("../DropDownLists/DDLTeacher");
                 }
                 else
                 {
                     ViewData["DDLTeacher"] = new SelectList(repoTeacher.GetALLTeacherByName().OrderBy(c => c.TeacherId).ToList(), "TeacherId", "TeacherName");
-                    return View("../DropDownLists/DDLCourse");
+                    return View("../DropDownLists/DDLTeacher");
                 }
             }
             catch (Exception)

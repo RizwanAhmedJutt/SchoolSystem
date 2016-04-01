@@ -531,5 +531,34 @@ namespace SMSBusiness.Repository.Concrete
 
 
         }
+        public TeacherAssignClass GetTeacherAssignClassById(int AssignId)
+        {
+            var objTeacherDao = new TeacherDAO(new SqlDatabase());
+            var dtTeachers = new DataTable();
+            dtTeachers = objTeacherDao.GetTeacherAssignClassById(AssignId);
+            TeacherAssignClass teacher = new TeacherAssignClass();
+            try
+            {
+                if (dtTeachers.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dtTeachers.Rows)
+                    {
+                        teacher.AcadmicClassId = Convert.ToInt32(item["TeacherAssignId"]);
+                        teacher.TeacherName = item["TeacherName"].ToString();
+                        teacher.ClassName = item["ClassName"].ToString();
+                        
+
+                    }
+                    return teacher;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return teacher;
+        }
     }
 }

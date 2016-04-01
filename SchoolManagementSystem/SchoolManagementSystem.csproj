@@ -416,6 +416,7 @@
     <Content Include="Views\Course\GetALLTeacherAssignCourse.cshtml" />
     <Content Include="Views\Shared\_NewLayout.cshtml" />
     <Content Include="Views\Course\AddChangesStudentAssignCourse.cshtml" />
+    <Content Include="Views\Teacher\AddChangesTeacherAssignedClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
