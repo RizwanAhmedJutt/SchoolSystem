@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-12 col-sm-12">
-        <div class="well">
+        <div>
             <div id="stdBasicInfo">
 
                 @using (Html.BeginForm())
@@ -91,7 +91,7 @@
 
                                     <div class="col-md-9">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-certificate"></i></span>
                                             @{Html.RenderPartial("../DropDownLists/DDLClass");}
                                         </div>
                                         @Html.ValidationMessageFor(model => model.AcadmicClassId, "", new { @class = "text-danger" })
@@ -116,7 +116,7 @@
 
                                     <div class="col-md-9">
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                             @{Html.RenderPartial("../DropDownLists/DDLSibling");}
                                         </div>
                                         @Html.ValidationMessageFor(model => model.NoOfSibling, "", new { @class = "text-danger" })

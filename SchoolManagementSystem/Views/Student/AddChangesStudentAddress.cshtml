@@ -33,8 +33,10 @@
                     <div class="form-group">
                         @Html.Label("City", new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
-
-                            @{Html.RenderPartial("../DropDownLists/DDLCity");}
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                               @{Html.RenderPartial("../DropDownLists/DDLCity");}
+                            </div>
                         </div>
                         @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
                     </div>
