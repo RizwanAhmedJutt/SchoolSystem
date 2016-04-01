@@ -482,6 +482,54 @@ namespace SMSBusiness.Repository.Concrete
             return ReturnValue;
         }
 
-        #endregion
+        #endregion 
+        public int InsertUpdateTeacherAssignClass(TeacherAssignClass tclassAssign)
+        {
+            var objTProfileDao = new TeacherDAO(new SqlDatabase());
+            int ReturnValue = 0;
+            try
+            {
+                ReturnValue = objTProfileDao.InsertUpdateTeacherAssignClass(tclassAssign);
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+            return ReturnValue;
+        }
+        public List<Teacher>  GetTeacherByClass(int AcadmicClassId)
+        {
+            var objTeacherDao = new TeacherDAO(new SqlDatabase());
+            var dtTeachers = new DataTable();
+            dtTeachers = objTeacherDao.GetTeacherByClass(AcadmicClassId);
+            List<Teacher> objTeacherList = new List<Teacher>();
+
+            try
+            {
+
+                foreach (DataRow dr in dtTeachers.Rows)
+                {
+                    var TeacherDetails = new Teacher();
+                    TeacherDetails.TeacherId = dr.IsNull("TeacherId") ? 0 : Convert.ToInt32(dr["TeacherId"]);
+                    TeacherDetails.TeacherName = dr.IsNull("TeacherName") ? string.Empty : Convert.ToString(dr["TeacherName"]);
+                    objTeacherList.Add(TeacherDetails);
+                }
+
+                return objTeacherList;
+
+            }
+            catch
+            {
+
+                throw;
+            }
+
+
+        }
     }
 }

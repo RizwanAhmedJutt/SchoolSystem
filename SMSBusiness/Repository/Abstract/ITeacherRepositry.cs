@@ -11,6 +11,7 @@ namespace SMSBusiness.Repository.Abstract
     public interface ITeacherRepositry
     {
         List<Teacher> GetAllTeachers();
+        List<Teacher> GetTeacherByClass(int AcadmicClassId);
         Teacher GetTeacherById(int TeacherId);
         int InsertUpdateTeacher(Teacher teacher);
         int DeleteTeacher(Teacher teacher);
@@ -41,5 +42,7 @@ namespace SMSBusiness.Repository.Abstract
         int InsertUpdateTProfile(TeacherProfile tProfile);
         int DeleteProfile(TeacherProfile tProfile);
         List<Teacher> GetALLTeacherByName();
+        int InsertUpdateTeacherAssignClass(TeacherAssignClass tclassAssign);
+      
     }
 }

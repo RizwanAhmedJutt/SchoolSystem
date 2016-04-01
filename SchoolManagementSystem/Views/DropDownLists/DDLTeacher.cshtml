@@ -2,12 +2,17 @@
 @using SMSBusiness.Repository.Concrete;
 @using SMSBusiness.Repository.Abstract;
 @{
+    Layout = null;
+}
+@*@{
 
     ITeacherRepositry repTeacher = new TeacherRepositry();
     List<Teacher> ObjTeacheer = new List<Teacher>();
     ObjTeacheer = repTeacher.GetALLTeacherByName();
 }
 
-@Html.DropDownList("TeacherId", new SelectList(ObjTeacheer.ToList(), "TeacherId", "TeacherName"), "Select Teacher", new { id = "ddlTeacher", @class = "form-control" })
+@Html.DropDownList("TeacherId", new SelectList(ObjTeacheer.ToList(), "TeacherId", "TeacherName"), "Select Teacher", new { id = "ddlTeacher", @class = "form-control" })*@
+
+@Html.DropDownList("CourseId", (SelectList)ViewData["DDLCourse"], "Select Course", new { id = "ddlCourse", @class = "form-control" })
 
 

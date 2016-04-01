@@ -570,6 +570,60 @@ namespace SMSDAL.DAL
 
             return dtAllTeacher;
         }
-        #endregion
+        #endregion  
+
+        public int InsertUpdateTeacherAssignClass(TeacherAssignClass tclassAssign)
+        {
+            try
+            {
+                using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("usp_Teacher_InsertUpdateAssignClass"))
+                {
+                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherAssignId", DbType.Int32, tclassAssign.TeacherAssignId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ClassId", DbType.String, tclassAssign.AcadmicClassId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.String,tclassAssign.TeacherId);
+                    gObjDatabase.AddOutParameter(objDbCommand, "@TeacherAssignnewId", DbType.Int32, 4);
+                    SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
+                    returnParameter.Direction = ParameterDirection.ReturnValue;
+                    objDbCommand.Parameters.Add(returnParameter);
+                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+                    if (tclassAssign.TeacherId == 0)
+                    {
+                        var identity = Convert.ToInt32(objDbCommand.Parameters["@TeachernewId"].Value);
+                        return (int)identity;
+                    }
+                    else if (tclassAssign.TeacherAssignId > 0)
+                    {
+                        if (Convert.ToInt32(returnParameter.Value) > 0)
+                            return Convert.ToInt32(returnParameter.Value);
+                    }
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
+            return 0; 
+        }
+        public DataTable GetTeacherByClass(int AcadmicClassId)
+        {
+            DataTable dtTeachers;
+            try
+            {
+                var query = "Select t.TeacherId,t.FirstName +''+t.LastName as TeacherName from Teacher t Left Join TeacherAssignedClass tClass on tClass.TeacherId=t.TeacherId Where tClass.ClassId=" + AcadmicClassId;
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+
+                    dtTeachers = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtTeachers;
+
+        }
     }
 }

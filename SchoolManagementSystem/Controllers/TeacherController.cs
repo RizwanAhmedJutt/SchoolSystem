@@ -161,6 +161,24 @@ namespace SchoolManagementSystem.Controllers
             teachId = repoTeacher.InsertUpdateTProfile(tProfile);
             return RedirectToAction("TeacherList", "Teacher");
         }
+       
+        [HttpGet]
+        public ActionResult AddChangesTeacherAssignedClass(int id)
+        {
+            TeacherAssignClass teacherAssignClass;
+            if(id==0)
+            {
+                TeacherAssignClass tassignClass = new TeacherAssignClass();
+                return View(tassignClass);
+            }
+            else
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddChangesTeacher(TeacherAssignClass tassignClass)
+        {
+            return View();
+        }
         public ActionResult DeleteTeacher(int Id)
         {
             Teacher teacher = repoTeacher.GetTeacherById(Id);
@@ -168,6 +186,30 @@ namespace SchoolManagementSystem.Controllers
             int getStatus = repoTeacher.DeleteTeacher(teacher);
 
             return RedirectToAction("TeacherList", "Teacher");
+        }
+
+        [HttpGet]
+        public ActionResult DDLTeacher(int AcadmicClassId)
+        {
+            try
+            {
+                if (AcadmicClassId > 0)
+                {
+                    ViewData["DDLTeacher"] = new SelectList(repoTeacher.GetTeacherByClass(AcadmicClassId).OrderBy(c => c.TeacherId).ToList(), "TeacherId", "TeacherName");
+                    return View("../DropDownLists/DDLCourse");
+                }
+                else
+                {
+                    ViewData["DDLTeacher"] = new SelectList(repoTeacher.GetALLTeacherByName().OrderBy(c => c.TeacherId).ToList(), "TeacherId", "TeacherName");
+                    return View("../DropDownLists/DDLCourse");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
     }
