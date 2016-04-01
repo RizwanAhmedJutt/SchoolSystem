@@ -26,6 +26,8 @@ namespace SMSDataContract.Accounts
         public int CourseId { get; set; }
         [Display(Name="Student")]
         public int StudentId { get; set; }
+        [Display(Name="Acadmic Class")]
+        public int AcadmicClassId { get; set; }
         public string CourseName { get; set; }
         public string StudentName { get; set; }
         public string ClassName { get; set; }

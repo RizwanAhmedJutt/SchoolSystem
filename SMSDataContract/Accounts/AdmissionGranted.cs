@@ -38,7 +38,7 @@ namespace SMSDataContract.Accounts
         [Display(Name="Admission For Class")]
         [Required(ErrorMessage="Enter Addmission Granted for class")]
         public string AdmissionGrantedForClass { get; set; }
-        [Display(Name="Enter Admission Granted Date")]
+        [Display(Name="Admission Granted Date")]
         public DateTime AdmissionGrantedDate { get; set; }
         [Required(ErrorMessage="Enter Remarks")]
         [Display(Name="Penal Remarks")]

@@ -160,6 +160,33 @@ namespace SMSBusiness.Repository.Concrete
             }
             
 
+        }  
+        public List<Student> GetALLStudentByClass(int AcadmicClassId)
+        {
+            var objStudDao = new StudentDAO(new SqlDatabase());
+            var dtStudents = new DataTable();
+            dtStudents = objStudDao.GetALLStudentByClass(AcadmicClassId);
+            List<Student> objStdList = new List<Student>();
+
+            try
+            {
+
+                foreach (DataRow dr in dtStudents.Rows)
+                {
+                    var StdDetails = new Student();
+                    StdDetails.StudentId = dr.IsNull("StudentId") ? 0 : Convert.ToInt32(dr["StudentId"]);
+                    StdDetails.StudentName = dr.IsNull("StudentName") ? string.Empty : Convert.ToString(dr["StudentName"]);
+                    objStdList.Add(StdDetails);
+                }
+
+                return objStdList;
+
+            }
+            catch
+            {
+
+                throw;
+            }
         }
         public Student GetStudentById(int StudentId)
         {

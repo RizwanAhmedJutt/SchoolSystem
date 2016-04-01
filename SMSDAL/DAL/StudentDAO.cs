@@ -75,6 +75,26 @@ namespace SMSDAL
 
 
         }
+        public DataTable GetALLStudentByClass(int AcadmicClassId)
+        {
+            DataTable dtStudents;
+            try
+            {
+                var query = "Select std.StudentId, std.FirstName+''+std.LastName as StudentName from Student std Where std.AcadmicClassId=" + AcadmicClassId
+                    + "AND std.IsActive=1"
+                    ;
+                using (DbCommand objCommand= gObjDatabase.GetSqlStringCommand(query))
+                {
+                    dtStudents = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+            return dtStudents;
+        }
         public DataTable GetStudentInfoByStudentId(int StudentId)
         {
             DataTable dtStudentDetails;

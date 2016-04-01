@@ -12,6 +12,7 @@ namespace SMSBusiness.Repository.Abstract
         List<Student> GetAllStudents();
         List<Student> GetALLDisActiveStudents();
         List<Student> GetAllStudentByName();
+        List<Student> GetALLStudentByClass(int AcadmicClassId);
         Student GetStudentById(int StudentId);
         int StudentAddChanges(Student student);
         int DeleteStudent(Student student);

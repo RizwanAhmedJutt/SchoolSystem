@@ -13,7 +13,7 @@ using PagedList.Mvc;
 
 namespace SchoolManagementSystem.Controllers
 {
-     [Authorize(Roles="Admin")]
+    [Authorize(Roles="Admin")]
     public class CourseController : Controller
     {
         ICourse courserepositry = new CourseBLL();
@@ -97,10 +97,11 @@ namespace SchoolManagementSystem.Controllers
             }
         }
         [HttpPost]
-        public ActionResult AddChangesStudentAssignCourse(StudentAssignedCourse stdCourse, int CourseId, int StudentId)
+        public ActionResult AddChangesStudentAssignCourse(StudentAssignedCourse stdCourse, int CourseId, int StudentId, int AcadmicClassId)
         {
             stdCourse.CourseId = CourseId;
             stdCourse.StudentId = StudentId;
+            stdCourse.AcadmicClassId = AcadmicClassId;
             int getReturnValue = stdAssignCourserepo.InsertUpdateAssignedCourseAddChanges(stdCourse);
             return RedirectToAction("GetALLCourse", "Course");
         }
@@ -161,6 +162,22 @@ namespace SchoolManagementSystem.Controllers
                 throw;
             }
             
+
+        }
+        public ActionResult DDLStudent(int AcadmicClassId)
+        {
+            if (AcadmicClassId > 0)
+            {
+                IStudent std = new StudentBLL();
+                ViewData["DDLStudent"] = new SelectList(std.GetALLStudentByClass(AcadmicClassId).OrderBy(c => c.StudentId).ToList(), "StudentId", "StudentName");
+                return View("../DropDownLists/DDLStudent");
+            }
+            else
+            {
+                IStudent std = new StudentBLL();
+                ViewData["DDLStudent"] = new SelectList(std.GetAllStudentByName().OrderBy(c => c.StudentId).ToList(), "StudentId", "StudentName");
+                return View("../DropDownLists/DDLStudent");
+            }
 
         }
     }

@@ -61,6 +61,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@AssignCourseId", DbType.Int32, stdCourse.AssignCourseId);
                     gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.Int32, stdCourse.StudentId);
                     gObjDatabase.AddInParameter(objDbCommand, "@CourseId", DbType.Int32, stdCourse.CourseId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@AcadmicClassId", DbType.Int32, stdCourse.AcadmicClassId);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, stdCourse.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, stdCourse.CreatedDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, stdCourse.ModifiedById == null ? DBNull.Value : (object)stdCourse.ModifiedById);

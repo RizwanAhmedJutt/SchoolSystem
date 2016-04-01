@@ -1,0 +1,268 @@
+﻿@model SMSDataContract.Accounts.StudentAssignedCourse
+@{
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="well">
+                @Html.AntiForgeryToken()
+
+
+                <div class="row well">
+                    @if (Model.AssignCourseId == 0)
+                    {
+                        <span class="HeadingStyle">Add Assign Course</span>
+                    }
+                    else
+                    {
+                        <span class="HeadingStyle">Update Assign Course</span>
+                    }
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true)
+                        <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                            <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                    @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                                </div>
+
+                            </div>
+                        </div> 
+                        <div id="dvCourse" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                            <span id="CourseMsg" class="error" style="display:none;"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 control-label"><label>Course</label> </div>
+                           
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                     
+                                        <div id="dvDDLCourse">
+                                            @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 0 });}
+                                        </div>
+                                    @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div> 
+                        <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                            <span id="StudentMsg" class="error" style="display:none;"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 control-label"><label>Student</label> </div>
+
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                    @*@{Html.RenderPartial("../DropDownLists/DDLStudent", new { @AcadmicClassId = 0 });}*@
+                                    <div id="dvDDLStudent">
+                                        @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        @if (Model.AssignCourseId == 0)
+                                        {
+                                            <input type="submit" value="Add" id="AddAssignCourse" style="background-color:#fab625;color:white;" class="btn pull-right" />
+
+                                        }
+                                        else
+                                        {
+                                            <input type="submit" value="Update" id="UpdateAssignCourse" style="background-color:#fab625; color:white;" class="btn pull-right" />
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        {
+            $(document).ready(function () {
+                if ('@Model.AssignCourseId' > 0) {
+                    LoadDDLCourseANDStudent();
+
+                }
+                else {
+                    $('#ddlCourse option[value=""]').attr("selected", true);
+                    $('#ddlStudent option[value=""]').attr("selected", true);
+
+                }
+                // change event of ddlAcadmicClass
+                $("#ddlAcadmicClass").change(function () {
+
+                    
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    if (getClass != '') {
+                        LoadDDLCourseANDStudent();
+                        $("#AcadmicclassMsg").hide();
+                        $("#CourseMsg").hide();
+                        $("#StudentMsg").hide();
+                    }
+                    else
+                    {
+                        $("#AcadmicclassMsg").show();
+                        $("#AcadmicclassMsg").text("Please Select Class");
+                    }
+
+
+                });
+                //change event of ddlCourse
+                $("#ddlCourse").change(function () {
+                    debugger;
+                    alert("Course");
+                    var getCourse = $("#ddlCourse :selected").val();
+                    if(getCourse!='')
+                    {
+                        $("#AcadmicclassMsg").hide();
+                        $("#CourseMsg").hide();
+                        $("#StudentMsg").hide();
+                    }
+                    else
+                    {
+                        $("#CourseMsg").show();
+                        $("#CourseMsg").text("Please Select Course");
+                    }
+
+                });
+                //change event of ddlStudent
+                $("#ddlStudent").change(function () {
+                    debugger;
+                    alert("Student");
+                    var getStudent = $("#ddlStudent :selected").val();
+                    if(getStudent!='')
+                    {
+                        $("#AcadmicclassMsg").hide();
+                        $("#CourseMsg").hide();
+                        $("#StudentMsg").hide();
+                    }
+                    else {
+                        $("#StudentMsg").show();
+                        $("#AcadmicclassMsg").text("Please Select Student");
+                    }
+                });
+                // Add btn Click Event
+                $("#AddAssignCourse").click(function (e) {
+                    debugger;
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    var getCourse = $("#ddlCourse :selected").val();
+                    var getStudent = $("#ddlStudent :selected").val();
+                    if (getClass == '')
+                    {
+                        $("#AcadmicclassMsg").show();
+                        $("#AcadmicclassMsg").text("Please Select Acadmic Class");
+                        e.preventDefault();
+                        return false;
+                    }
+                    else if(getCourse=='')
+                    {
+                        $("#CourseMsg").show();
+                        $("#CourseMsg").text("Please Select Course");
+                        e.preventDefault();
+                        return false;
+                    }
+                    else if(getStudent=='')
+                    {
+                        $("#StudentMsg").show();
+                        $("#StudentMsg").text("Please Select Student");
+                        e.preventDefault();
+                        return false;
+                    }
+
+
+                });
+                $("#UpdateAssignCourse").click(function () {
+                    debugger;
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    var getCourse = $("#ddlCourse :selected").val();
+                    var getStudent = $("#ddlStudent :selected").val();
+                    if (getClass == '') {
+                        $("#AcadmicclassMsg").show();
+                        $("#AcadmicclassMsg").text("Please Select Acadmic Class");
+                        e.preventDefault();
+                        return false;
+                    }
+                    else if (getCourse == '') {
+                        $("#CourseMsg").show();
+                        $("#CourseMsg").text("Please Select Course");
+                        e.preventDefault();
+                        return false;
+                    }
+                    else if (getStudent == '') {
+                        $("#StudentMsg").show();
+                        $("#StudentMsg").text("Please Select Student");
+                        e.preventDefault();
+                        return false;
+                    }
+
+                });
+            });
+
+
+            function LoadDDLCourseANDStudent() {
+                debugger;
+                var ClassId=$("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: ClassId };
+                var Url = null;
+                var Url = "/Course/DDLCourse";
+                $.get(Url, model)
+                        .done(function (siteHtml) {
+                            debugger;
+                            $("#dvDDLCourse").html(siteHtml);
+                            if ('@Model.AssignCourseId' > 0) {
+                                $('#ddlCourse option[value="@Model.CourseId"]').attr("selected", true);
+                            }
+                            else { $('#ddlCourse option[value=""]').attr("selected", true); }
+                            Url = "/Course/DDLStudent";
+                           
+                            // Fill Student Dropdown
+                            $.get(Url, model)
+                            .done(function (stdhtml) {
+                                debugger;
+                                $("#dvDDLStudent").html(stdhtml);
+                                if ('@Model.StudentId' > 0)
+                                {
+                                    $('#ddlStudent option[value="@Model.StudentId"]').attr("selected", true);
+                                }
+                                else {$('#ddlStudent option[value=""]').attr("selected", true);}
+                            })
+                            .fail(function (ex1, ex2) {
+                                alert("Can't get Student DDL");
+                            })
+                        })
+                    .fail(function (ex1, ex2, ex3) {
+                        alert("Can't get Course DDL");
+                        $("#loader").hide();
+                    });
+            }
+            
+
+        }
+
+
+    </script>
+}
