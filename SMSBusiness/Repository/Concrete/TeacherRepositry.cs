@@ -531,6 +531,36 @@ namespace SMSBusiness.Repository.Concrete
 
 
         }
+        public List<TeacherAssignClass> GetAllTeacherAssignClass()
+        {
+            var objTeacherDao = new TeacherDAO(new SqlDatabase());
+            var dtTeachers = new DataTable();
+            dtTeachers = objTeacherDao.GetAllTeacherAssignClass();
+            List<TeacherAssignClass> objTeacherList = new List<TeacherAssignClass>();
+
+            try
+            {
+
+                foreach (DataRow dr in dtTeachers.Rows)
+                {
+                    var TeacherDetails = new TeacherAssignClass();
+                    TeacherDetails.TeacherId = dr.IsNull("TeacherId") ? 0 : Convert.ToInt32(dr["TeacherId"]);
+                    TeacherDetails.TeacherName = dr.IsNull("TeacherName") ? string.Empty : Convert.ToString(dr["TeacherName"]);
+                    TeacherDetails.ClassName = dr.IsNull("ClassName") ? string.Empty : Convert.ToString(dr["ClassName"]);
+                    objTeacherList.Add(TeacherDetails);
+                }
+
+                return objTeacherList;
+
+            }
+            catch
+            {
+
+                throw;
+            }
+
+
+        }
         public TeacherAssignClass GetTeacherAssignClassById(int AssignId)
         {
             var objTeacherDao = new TeacherDAO(new SqlDatabase());

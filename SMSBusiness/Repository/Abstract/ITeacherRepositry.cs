@@ -43,6 +43,7 @@ namespace SMSBusiness.Repository.Abstract
         int DeleteProfile(TeacherProfile tProfile);
         List<Teacher> GetALLTeacherByName();
         int InsertUpdateTeacherAssignClass(TeacherAssignClass tclassAssign);
+        List<TeacherAssignClass> GetAllTeacherAssignClass();
         TeacherAssignClass GetTeacherAssignClassById(int AssignId);
     }
 }

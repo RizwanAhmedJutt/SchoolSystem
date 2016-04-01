@@ -605,7 +605,25 @@ namespace SMSDAL.DAL
             }
 
             return 0; 
-        }  
+        }
+        public DataTable GetAllTeacherAssignClass()
+        {
+            DataTable dtTeacherDetails;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("usp_Teacher_GetAllTeacherAssignClass"))
+                {
+                    
+                    dtTeacherDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtTeacherDetails;
+
+        }
         public DataTable GetTeacherByClass(int AcadmicClassId)
         {
             DataTable dtTeachers;

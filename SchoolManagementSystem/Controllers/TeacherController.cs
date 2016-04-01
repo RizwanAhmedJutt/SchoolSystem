@@ -162,6 +162,11 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("TeacherList", "Teacher");
         }
        
+        public ActionResult GetALLAssignClass()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult AddChangesTeacherAssignedClass(int id)
         {
