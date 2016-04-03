@@ -624,6 +624,25 @@ namespace SMSDAL.DAL
             return dtTeacherDetails;
 
         }
+        public DataTable GetAllTeacherAssignClassByTeacherName(string TeacherName)
+        {
+
+            DataTable dtTeacherDetails;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("usp_Teacher_GetALLTeacherAssignClassByTeacherName"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@TeacherName", DbType.String, TeacherName);
+                    dtTeacherDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtTeacherDetails;
+
+        }
         public DataTable GetTeacherByClass(int AcadmicClassId)
         {
             DataTable dtTeachers;
@@ -682,5 +701,6 @@ namespace SMSDAL.DAL
             return dtTeacherDetails;
 
         }
+      
     }
 }

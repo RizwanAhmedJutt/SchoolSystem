@@ -167,9 +167,16 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("TeacherList", "Teacher");
         }
 
-        public ActionResult GetALLAssignClass(int? page)
+        public ActionResult GetALLAssignClass(string SearchBy, string search, int? page)
         {
-
+            if (SearchBy == "TeacherName" && search != "")
+            {
+                List<TeacherAssignClass> objTeacher = repoTeacher.GetAllTeacherAssignClassByTeacherName(search);
+                return View(objTeacher.ToList().ToPagedList(page ?? 1, 10));
+            
+            
+            }
+            else
             return View(repoTeacher.GetAllTeacherAssignClass().ToList().ToPagedList(page ?? 1, 10));
         }
 

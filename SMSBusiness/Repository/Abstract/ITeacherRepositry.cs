@@ -45,6 +45,7 @@ namespace SMSBusiness.Repository.Abstract
         List<Teacher> GetALLTeacherByName();
         int InsertUpdateTeacherAssignClass(TeacherAssignClass tclassAssign);
         List<TeacherAssignClass> GetAllTeacherAssignClass();
+        List<TeacherAssignClass> GetAllTeacherAssignClassByTeacherName(string TeacherName);
         TeacherAssignClass GetTeacherAssignClassById(int AssignId);
     }
 }
