@@ -11,6 +11,7 @@ namespace SMSBusiness.Repository.Abstract
     public interface ITeacherRepositry
     {
         List<Teacher> GetAllTeachers();
+        List<Teacher> GetAllTeacherByCNIC(string CNIC);
         List<Teacher> GetTeacherByClass(int AcadmicClassId);
         Teacher GetTeacherById(int TeacherId);
         int InsertUpdateTeacher(Teacher teacher);

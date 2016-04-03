@@ -22,9 +22,14 @@ namespace SchoolManagementSystem.Controllers
 
 
         // GET: Teacher
-        public ActionResult TeacherList(int? page)
+        public ActionResult TeacherList(string SearchBy, string search, int? page)
         {
-          
+            if (SearchBy == "CNIC" && search != "")
+            {
+                List<Teacher> objTeacher = repoTeacher.GetAllTeacherByCNIC(search);
+                return View(objTeacher.ToList().ToPagedList(page ?? 1, 10));
+            }
+            else
             
             return View( repoTeacher.GetAllTeachers().ToList().ToPagedList(page??1,10));
         }

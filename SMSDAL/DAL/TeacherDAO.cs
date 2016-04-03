@@ -663,5 +663,24 @@ namespace SMSDAL.DAL
             return dtTeacherDetails;
 
         }
+        public DataTable GetALLTeacherByCNIC(string CNIC)
+        {
+
+            DataTable dtTeacherDetails;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("usp_Teacher_GetALLTeacherByCNIC"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@CNIC", DbType.String, CNIC);
+                    dtTeacherDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtTeacherDetails;
+
+        }
     }
 }
