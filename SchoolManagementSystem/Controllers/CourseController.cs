@@ -72,10 +72,20 @@ namespace SchoolManagementSystem.Controllers
 
         }
         [HttpGet]
-        public ActionResult GetALLStudentAssignCourse()
+        public ActionResult GetALLStudentAssignCourse(string SearchBy, string search, int? page)
         {
-            List<StudentAssignedCourse> stdassignCourse = stdAssignCourserepo.GetStudentAssignedCourse();
-            return View(stdassignCourse);
+            if (SearchBy == "CourseName" && search != "")
+            {
+                List<StudentAssignedCourse> stdByName = stdAssignCourserepo.GetStudentAssignedCourseByName(search);
+
+                return View(stdByName.ToList().ToPagedList(page ?? 1, 10));
+            }
+            else
+            {
+                List<StudentAssignedCourse> stdassignCourse = stdAssignCourserepo.GetStudentAssignedCourse();
+                return View(stdassignCourse.ToList().ToPagedList(page ?? 1, 10));
+            }
+         
         }
         [HttpGet]
         public ActionResult AddChangesStudentAssignCourse(int id)

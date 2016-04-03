@@ -51,7 +51,43 @@ namespace SMSBusiness.Repository.Concrete
 
 
         }
+        public List<StudentAssignedCourse> GetStudentAssignedCourseByName(string CourseName)
+        {
+            var objAssignCourseDao = new StudentAssignCourseDAO(new SqlDatabase());
+            DataTable tblCourse;
 
+            List<StudentAssignedCourse> objstdAssignCourse = new List<StudentAssignedCourse>();
+            try
+            {
+                tblCourse = objAssignCourseDao.GetStudentAssignedCourseByName(CourseName);
+                if (tblCourse.Rows.Count > 0)
+                {
+                    foreach (DataRow item in tblCourse.Rows)
+                    {
+                        StudentAssignedCourse Assigncourse = new StudentAssignedCourse();
+                        Assigncourse.AssignCourseId = Convert.ToInt32(item["CourseAssignId"]);
+                        Assigncourse.CourseName = item["CourseName"].ToString();
+                        Assigncourse.StudentName = item["StudentName"].ToString();
+                        Assigncourse.ClassName = item["ClassName"].ToString();
+                        Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
+                        Assigncourse.StudentId = item.IsNull("StudentId") ? 0 : Convert.ToInt32(item["StudentId"]);
+                        Assigncourse.AcadmicClassId = item.IsNull("AcadmicClassId") ? 0 : Convert.ToInt32(item["AcadmicClassId"]);
+                        objstdAssignCourse.Add(Assigncourse);
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return objstdAssignCourse;
+
+
+
+        }
         public StudentAssignedCourse GetStudentAssignedCourseById(int StdAssignCId)
         {
             var objAssignCourseDao = new StudentAssignCourseDAO(new SqlDatabase());
