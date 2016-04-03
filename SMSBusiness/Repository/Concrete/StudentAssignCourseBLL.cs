@@ -11,54 +11,55 @@ using System.Threading.Tasks;
 
 namespace SMSBusiness.Repository.Concrete
 {
-public    class StudentAssignCourseBLL : IStudentAssignCourse
+    public class StudentAssignCourseBLL : IStudentAssignCourse
     {
 
-    public List<StudentAssignedCourse> GetStudentAssignedCourse()
-    {
-        var objAssignCourseDao = new StudentAssignCourseDAO(new SqlDatabase());
-        DataTable tblCourse;
-      
-        List<StudentAssignedCourse> objstdAssignCourse = new List<StudentAssignedCourse>();
-        try
+        public List<StudentAssignedCourse> GetStudentAssignedCourse()
         {
-            tblCourse = objAssignCourseDao.GetStudentAssignedCourse();
-            if (tblCourse.Rows.Count > 0)
+            var objAssignCourseDao = new StudentAssignCourseDAO(new SqlDatabase());
+            DataTable tblCourse;
+
+            List<StudentAssignedCourse> objstdAssignCourse = new List<StudentAssignedCourse>();
+            try
             {
-                foreach (DataRow item in tblCourse.Rows)
+                tblCourse = objAssignCourseDao.GetStudentAssignedCourse();
+                if (tblCourse.Rows.Count > 0)
                 {
-                    StudentAssignedCourse Assigncourse = new StudentAssignedCourse();
-                    Assigncourse.AssignCourseId = Convert.ToInt32(item["CourseAssignId"]);
-                    Assigncourse.CourseName = item["CourseName"].ToString();
-                    Assigncourse.StudentName = item["StudentName"].ToString();
-                    Assigncourse.ClassName = item["ClassName"].ToString();
-                    Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
-                    Assigncourse.StudentId = Convert.ToInt32(item["StudentId"]);
-                    objstdAssignCourse.Add(Assigncourse);
+                    foreach (DataRow item in tblCourse.Rows)
+                    {
+                        StudentAssignedCourse Assigncourse = new StudentAssignedCourse();
+                        Assigncourse.AssignCourseId = Convert.ToInt32(item["CourseAssignId"]);
+                        Assigncourse.CourseName = item["CourseName"].ToString();
+                        Assigncourse.StudentName = item["StudentName"].ToString();
+                        Assigncourse.ClassName = item["ClassName"].ToString();
+                        Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
+                        Assigncourse.StudentId = item.IsNull("StudentId") ? 0 : Convert.ToInt32(item["StudentId"]);
+                        Assigncourse.AcadmicClassId = item.IsNull("AcadmicClassId")?0:Convert.ToInt32(item["AcadmicClassId"]);
+                        objstdAssignCourse.Add(Assigncourse);
+                    }
                 }
+
+
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return objstdAssignCourse;
+
 
 
         }
-        catch (Exception ex)
-        {
 
-            throw ex;
-        }
-        return objstdAssignCourse;
-
-
-
-    }  
-
-        public StudentAssignedCourse GetAssignedCourseByStudentId(int StudentId)
+        public StudentAssignedCourse GetStudentAssignedCourseById(int StdAssignCId)
         {
             var objAssignCourseDao = new StudentAssignCourseDAO(new SqlDatabase());
             DataTable tblCourse;
             StudentAssignedCourse Assigncourse = new StudentAssignedCourse();
             try
             {
-                tblCourse = objAssignCourseDao.GetAssignedCourseByStudentId(StudentId);
+                tblCourse = objAssignCourseDao.GetStudentAssignedCourseById(StdAssignCId);
                 if (tblCourse.Rows.Count > 0)
                 {
                     foreach (DataRow item in tblCourse.Rows)
@@ -66,6 +67,9 @@ public    class StudentAssignCourseBLL : IStudentAssignCourse
                         Assigncourse.AssignCourseId = Convert.ToInt32(item["CourseAssignId"]);
                         Assigncourse.CourseName = item["CourseName"].ToString();
                         Assigncourse.StudentName = item["StudentName"].ToString();
+                        Assigncourse.AcadmicClassId = item.IsNull("AcadmicClassId")?0:  Convert.ToInt32(item["AcadmicClassId"]);
+                        Assigncourse.StudentId = item.IsNull("StudentId") ? 0 : Convert.ToInt32(item["StudentId"]);
+                        Assigncourse.CourseId = item.IsNull("CourseId") ? 0 : Convert.ToInt32(item["CourseId"]);
 
 
                     }

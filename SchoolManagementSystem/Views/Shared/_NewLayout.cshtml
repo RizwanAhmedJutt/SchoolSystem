@@ -60,16 +60,27 @@
                         <a href="@Url.Action("StudentList", "Student")"><i class="fa fa-fw fa-bar-chart-o"></i>Students</a>
                     </li>
                     <li class="active">
-                        <a href="@Url.Action("TeacherList", "Teacher")"><i class="fa fa-fw fa-table"></i> Teachers</a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#techer"><i class="fa fa-fw fa-arrows-v"></i> Teacher <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="techer" class="collapse">
+                            <li>
+                                <a href="@Url.Action("TeacherList", "Teacher")"><i class="fa fa-fw fa-table"></i> Teachers</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("GetALLAssignClass", "Teacher")"><i class="fa fa-fw fa-table"></i> Assign Class </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Courses <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
-                                <a href="@Url.Action("AddChangesTeacherAssignCourse", "Course")">Assign Course to teacher</a>
+                                <a href="@Url.Action("GetALLCourse","Course")">Courses</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("AddChangesStudentAssignCourse", "Course")">Assign Course to student</a>
+                                <a href="@Url.Action("GetALLTeacherAssignCourse", "Course")">Teacher Assigned Course</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("GetALLStudentAssignCourse", "Course")">Student Assigned Course</a>
                             </li>
                         </ul>
                     </li>

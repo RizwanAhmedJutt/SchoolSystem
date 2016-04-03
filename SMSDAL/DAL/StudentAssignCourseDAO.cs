@@ -35,14 +35,14 @@ namespace SMSDAL.DAL
            }
            return dtCStudentDetail;
        }
-        public DataTable GetAssignedCourseByStudentId(int StudentId)
+       public DataTable GetStudentAssignedCourseById(int StdAssignCId)
         {
             DataTable dtStudentDetail;
             try
             {
-                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Course_GetAssignedCourseByStudentId"))
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Course_GetStudentAssignedCourseById"))
                 {
-                    gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
+                    gObjDatabase.AddInParameter(objCommand, "@StdAssignCId", DbType.Int32, StdAssignCId);
                     dtStudentDetail = gObjDatabase.GetDataTable(objCommand);
                 }
             }

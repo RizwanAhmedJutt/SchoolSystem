@@ -82,7 +82,7 @@ namespace SchoolManagementSystem.Controllers
         {
             var userloggedId = User.Identity.GetUserId();
             StudentAssignedCourse stdAssignCourse;
-            stdAssignCourse = stdAssignCourserepo.GetAssignedCourseByStudentId(id);
+            stdAssignCourse = stdAssignCourserepo.GetStudentAssignedCourseById(id);
             if (id == 0)
             {
                 StudentAssignedCourse stdAssigncourse = new StudentAssignedCourse();
@@ -103,7 +103,7 @@ namespace SchoolManagementSystem.Controllers
             stdCourse.StudentId = StudentId;
             stdCourse.AcadmicClassId = AcadmicClassId;
             int getReturnValue = stdAssignCourserepo.InsertUpdateAssignedCourseAddChanges(stdCourse);
-            return RedirectToAction("GetALLCourse", "Course");
+            return RedirectToAction("GetALLStudentAssignCourse", "Course");
         }
         [HttpGet]
         public ActionResult GetALLTeacherAssignCourse()
@@ -114,7 +114,7 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult AddChangesTeacherAssignCourse(int Id)
         {
-            TeacherAssignedCourse assignCourse=teacherrepo.GetAssignedCourseByTeacherId(Id);
+            TeacherAssignedCourse assignCourse = teacherrepo.GetTeacherAssignedCourseById(Id);
             if (assignCourse.TeacherAssignedCourseId == 0)
             {
                 TeacherAssignedCourse tassignCourse = new TeacherAssignedCourse();
@@ -135,7 +135,7 @@ namespace SchoolManagementSystem.Controllers
             tAssignCourse.CreatedById = userloggedId;
             int getStatus = teacherrepo.InsertUpdateAssignedCourseAddChanges(tAssignCourse);
 
-            return RedirectToAction("GetALLCourse", "Course");
+            return RedirectToAction("GetALLTeacherAssignCourse", "Course");
 
         }
 

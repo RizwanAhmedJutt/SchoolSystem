@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SMSBusiness.Repository.Abstract
 {
-public  interface IStudentAssignCourse
+    public interface IStudentAssignCourse
     {
-    List<StudentAssignedCourse> GetStudentAssignedCourse();
-    StudentAssignedCourse GetAssignedCourseByStudentId(int StudentId);
-    int InsertUpdateAssignedCourseAddChanges(StudentAssignedCourse stdAssigncourese);
+        List<StudentAssignedCourse> GetStudentAssignedCourse();
+        StudentAssignedCourse GetStudentAssignedCourseById(int StdAssignCId);
+        int InsertUpdateAssignedCourseAddChanges(StudentAssignedCourse stdAssigncourese);
 
 
     }

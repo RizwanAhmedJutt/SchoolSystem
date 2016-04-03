@@ -32,7 +32,7 @@ namespace SMSBusiness.Repository.Concrete
                         Assigncourse.TeacherName = item["TeacherName"].ToString();
                         Assigncourse.ClassName = item["ClassName"].ToString();
                         Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
-                       
+                        Assigncourse.ClassId = Convert.ToInt32(item["ClassId"]);
                         objTeacherAssign.Add(Assigncourse);
                       
                     }
@@ -50,14 +50,14 @@ namespace SMSBusiness.Repository.Concrete
 
 
         }
-      public TeacherAssignedCourse GetAssignedCourseByTeacherId(int TeacherId)
+      public TeacherAssignedCourse GetTeacherAssignedCourseById(int TSssignCId)
       {
           var objAssignCourseDao = new TeacherAssignedCouresDAO(new SqlDatabase());
           DataTable tblCourse;
           TeacherAssignedCourse Assigncourse = new TeacherAssignedCourse();
           try
           {
-              tblCourse = objAssignCourseDao.GetAssignedCourseByTeacherId(TeacherId);
+              tblCourse = objAssignCourseDao.GetTeacherAssignedCourseById(TSssignCId);
               if (tblCourse.Rows.Count > 0)
               {
                   foreach (DataRow item in tblCourse.Rows)
@@ -65,7 +65,9 @@ namespace SMSBusiness.Repository.Concrete
                       Assigncourse.TeacherAssignedCourseId = Convert.ToInt32(item["TeacherAssignedCourseID"]);
                       Assigncourse.CourseName = item["CourseName"].ToString();
                       Assigncourse.TeacherName = item["TeacherName"].ToString();
-
+                      Assigncourse.ClassId = Convert.ToInt32(item["ClassId"]);
+                      Assigncourse.TeacherId = Convert.ToInt32(item["TeacherId"]);
+                      Assigncourse.CourseId = Convert.ToInt32(item["CourseId"]);
 
                   }
               }
