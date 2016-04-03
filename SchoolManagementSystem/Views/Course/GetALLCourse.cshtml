@@ -7,15 +7,29 @@
 }
 <div class="row">
     <div class="col-md-12 col-sm-12">
+        <div class="col-md-7 col-md-offset-3">
+            @using (Html.BeginForm("GetALLCourse", "Course", FormMethod.Get))
+            {  <div class="input-group col-md-8">
+                <b>Search By:</b>
+                @Html.RadioButton("SearchBy", "CourseCode", true)
+                <text>Course Code</text>
+
+                <br />
+
+
+                @Html.TextBox("search", null, new { @class = "form-control" })
+
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+            }
+        </div>
+        <div style="clear:left"></div>
         <div class="well">
             <div class="row">
                 <div class="pull-left">
                     <a href="/Course/AddChangesCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Course</a>
                 </div>
-                @*<div class="pull-right">
-                        <a href="/Course/AddChangesTeacherAssignCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Assign Course To Teacher</a>
-                        <a href="/Course/AddChangesStudentAssignCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Assign Course To Student</a>
-                    </div>*@
+              
             </div>
 
             <br />
@@ -73,7 +87,7 @@
 
                 </table>
                 <div class="col-md-10 col-md-offset-4">
-                    @Html.PagedListPager(Model, page => Url.Action("GetALLCourse", new { page }))
+                    @Html.PagedListPager(Model, page => Url.Action("GetALLCourse",new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))
                 </div>
             </div>
         </div>

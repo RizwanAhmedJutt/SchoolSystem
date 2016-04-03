@@ -35,8 +35,26 @@ namespace SMSDAL.DAL
                 throw;
             }
             return dtCourseDetails;
-        } 
+        }
+        public DataTable GetALLCourseByCourseCode(string CourseCode )
+        {
+            DataTable dtCourseDetails;
+            try
+            {
 
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Course_GetALLCourseByCourseCode"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@CourseCode", DbType.String, CourseCode);
+                    dtCourseDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtCourseDetails;
+
+        }
         public DataTable GetALLCourseByAcadmicClassId(int AcadmicClassId)
         {
             DataTable dtCourseDetails;

@@ -20,9 +20,14 @@ namespace SchoolManagementSystem.Controllers
         IStudentAssignCourse stdAssignCourserepo = new StudentAssignCourseBLL();
         ITeacherAssignedCourse teacherrepo = new TeacherAssignCourseBLL();
         [HttpGet]
-        public ActionResult GetALLCourse(int? page)
+        public ActionResult GetALLCourse(string SearchBy, string search, int? page)
         {
-
+            if (SearchBy == "CourseCode" && search != "")
+            {
+                List<Course> objCourses = courserepositry.GetALLCourseByCourseCode(search);
+                return View(objCourses.ToList().ToPagedList(page ?? 1, 10));
+            }
+            else
             return View(courserepositry.GetALLCourse().ToPagedList(page ?? 1, 10));
         }
         [HttpGet]
