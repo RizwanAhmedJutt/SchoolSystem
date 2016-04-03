@@ -50,6 +50,42 @@ namespace SMSBusiness.Repository.Concrete
 
 
         }
+      public List<TeacherAssignedCourse> GetTeacherAssignedCourseByCourseName(string CourseName)
+      {
+          var objAssignTeacherDao = new TeacherAssignedCouresDAO(new SqlDatabase());
+          DataTable tblCourse;
+          List<TeacherAssignedCourse> objTeacherAssign = new List<TeacherAssignedCourse>();
+          try
+          {
+              tblCourse = objAssignTeacherDao.GetTeacherAssignedCourseByCourseName(CourseName);
+              if (tblCourse.Rows.Count > 0)
+              {
+                  foreach (DataRow item in tblCourse.Rows)
+                  {
+                      TeacherAssignedCourse Assigncourse = new TeacherAssignedCourse();
+                      Assigncourse.TeacherAssignedCourseId = Convert.ToInt32(item["TeacherAssignedCourseID"]);
+                      Assigncourse.CourseName = item["CourseName"].ToString();
+                      Assigncourse.TeacherName = item["TeacherName"].ToString();
+                      Assigncourse.ClassName = item["ClassName"].ToString();
+                      Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
+                      Assigncourse.ClassId = Convert.ToInt32(item["ClassId"]);
+                      objTeacherAssign.Add(Assigncourse);
+
+                  }
+              }
+
+
+          }
+          catch (Exception ex)
+          {
+
+              throw ex;
+          }
+          return objTeacherAssign;
+
+
+
+      } 
       public TeacherAssignedCourse GetTeacherAssignedCourseById(int TSssignCId)
       {
           var objAssignCourseDao = new TeacherAssignedCouresDAO(new SqlDatabase());

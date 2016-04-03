@@ -13,7 +13,7 @@ using PagedList.Mvc;
 
 namespace SchoolManagementSystem.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin")]
     public class CourseController : Controller
     {
         ICourse courserepositry = new CourseBLL();
@@ -76,7 +76,7 @@ namespace SchoolManagementSystem.Controllers
         {
             if (SearchBy == "CourseName" && search != "")
             {
-                List<StudentAssignedCourse> stdByName = stdAssignCourserepo.GetStudentAssignedCourseByName(search);
+                List<StudentAssignedCourse> stdByName = stdAssignCourserepo.GetStudentAssignedCourseByCourseName(search);
 
                 return View(stdByName.ToList().ToPagedList(page ?? 1, 10));
             }
@@ -85,7 +85,7 @@ namespace SchoolManagementSystem.Controllers
                 List<StudentAssignedCourse> stdassignCourse = stdAssignCourserepo.GetStudentAssignedCourse();
                 return View(stdassignCourse.ToList().ToPagedList(page ?? 1, 10));
             }
-         
+
         }
         [HttpGet]
         public ActionResult AddChangesStudentAssignCourse(int id)
@@ -116,10 +116,18 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("GetALLStudentAssignCourse", "Course");
         }
         [HttpGet]
-        public ActionResult GetALLTeacherAssignCourse()
+        public ActionResult GetALLTeacherAssignCourse(string SearchBy, string search, int? page)
         {
-            List<TeacherAssignedCourse> objTeacherAssignCourse = teacherrepo.GetTeacherAssignedCourse();
-            return View(objTeacherAssignCourse);
+            if (SearchBy == "CourseName" && search != "")
+            {
+                List<TeacherAssignedCourse> objTeacherAssignCourse = teacherrepo.GetTeacherAssignedCourseByCourseName(search);
+                return View(objTeacherAssignCourse.ToList().ToPagedList(page ?? 1, 10));
+            }
+            else
+            {
+                List<TeacherAssignedCourse> objTeacherAssignCourse = teacherrepo.GetTeacherAssignedCourse();
+                return View(objTeacherAssignCourse.ToList().ToPagedList(page ?? 1, 10));
+            }
         }
         [HttpGet]
         public ActionResult AddChangesTeacherAssignCourse(int Id)
@@ -180,7 +188,7 @@ namespace SchoolManagementSystem.Controllers
 
                 throw;
             }
-            
+
 
         }
         public ActionResult DDLStudent(int AcadmicClassId)

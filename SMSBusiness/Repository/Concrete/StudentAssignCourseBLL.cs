@@ -51,7 +51,7 @@ namespace SMSBusiness.Repository.Concrete
 
 
         }
-        public List<StudentAssignedCourse> GetStudentAssignedCourseByName(string CourseName)
+        public List<StudentAssignedCourse> GetStudentAssignedCourseByCourseName(string CourseName)
         {
             var objAssignCourseDao = new StudentAssignCourseDAO(new SqlDatabase());
             DataTable tblCourse;

@@ -10,7 +10,7 @@ namespace SMSBusiness.Repository.Abstract
     public interface IStudentAssignCourse
     {
         List<StudentAssignedCourse> GetStudentAssignedCourse();
-        List<StudentAssignedCourse> GetStudentAssignedCourseByName(string CourseName);
+        List<StudentAssignedCourse> GetStudentAssignedCourseByCourseName(string CourseName);
         StudentAssignedCourse GetStudentAssignedCourseById(int StdAssignCId);
         int InsertUpdateAssignedCourseAddChanges(StudentAssignedCourse stdAssigncourese);
 

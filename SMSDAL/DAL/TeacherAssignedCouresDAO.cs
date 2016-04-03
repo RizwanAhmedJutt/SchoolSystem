@@ -34,6 +34,23 @@ namespace SMSDAL.DAL
             }
             return dtTeacherDetail;
         }
+        public DataTable GetTeacherAssignedCourseByCourseName(string CourseName)
+        {
+            DataTable dtTeacherDetail;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Course_GetALLTeacherAssignCourseByCourseName"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@CourseName", DbType.String, CourseName);
+                    dtTeacherDetail = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtTeacherDetail;
+        }
         public DataTable GetTeacherAssignedCourseById(int TSssignCId)
         {
             DataTable dtTeacherDetail;
