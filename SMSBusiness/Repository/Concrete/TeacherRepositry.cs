@@ -641,6 +641,8 @@ namespace SMSBusiness.Repository.Concrete
                     foreach (DataRow item in dtTeachers.Rows)
                     {
                         teacher.TeacherAssignId = Convert.ToInt32(item["TeacherAssignId"]);
+                        teacher.AcadmicClassId = Convert.ToInt32(item["ClassId"]);
+                        teacher.TeacherId = Convert.ToInt32(item["TeacherId"]);
                         teacher.TeacherName = item["TeacherName"].ToString();
                         teacher.ClassName = item["ClassName"].ToString();
                         

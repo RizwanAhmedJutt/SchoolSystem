@@ -12,6 +12,7 @@
 
 
                 <div class="row well">
+                    @Html.HiddenFor(x=>x.TeacherAssignId)
                     @if (Model.AcadmicClassId == 0)
                     {
                         <span class="HeadingStyle"> Assign Acadmic Class</span>
@@ -84,7 +85,28 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript">
-    { }
+        {
+            $(document).ready(function () {
+
+                if('@Model.TeacherAssignId'>0)
+                {
+                    $('#AcadmicClassId option[value="@Model.AcadmicClassId"]').attr("selected", true);
+                    $('#ddlTeacher option[value="@Model.TeacherId"]').attr("selected", true);
+                }
+                else
+                {
+                   
+                    $('#AcadmicClassId option[value=""]').attr("selected", true);
+                    $('#ddlTeacher option[value=""]').attr("selected", true);
+                }
+
+
+
+            });
+
+
+
+        }
     </script>
     }
 

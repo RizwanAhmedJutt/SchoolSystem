@@ -196,7 +196,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddChangesTeacherAssignedClass(TeacherAssignClass tassignClass)
         {
             int getStatus = repoTeacher.InsertUpdateTeacherAssignClass(tassignClass);
-            return RedirectToAction("TeacherList");
+            return RedirectToAction("GetALLAssignClass");
         }
         public ActionResult DeleteTeacher(int Id)
         {
