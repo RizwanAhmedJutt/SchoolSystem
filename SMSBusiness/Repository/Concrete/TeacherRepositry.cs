@@ -112,6 +112,7 @@ namespace SMSBusiness.Repository.Concrete
                         teacher.LeaveDate = item.IsNull("LeaveDate") ? DateTime.Now : Convert.ToDateTime(item["LeaveDate"]);
                         teacher.RefrenceName = item.IsNull("RefrenceName") ? string.Empty : Convert.ToString(item["RefrenceName"]);
                         teacher.RefrenceContact = item.IsNull("RefrenceContact") ? string.Empty : Convert.ToString(item["RefrenceContact"]);
+                        teacher.Active = item.IsNull("Active") ? false : Convert.ToBoolean(item["Active"]);
                         teacher.CreatedById = item.IsNull("CreatedById") ? string.Empty : Convert.ToString(item["CreatedById"]);
                         teacher.CreatedDate = item.IsNull("CreatedDate") ? DateTime.Now : Convert.ToDateTime(item["CreatedDate"]);
                         teacher.ModifiedById = item.IsNull("ModifiedById") ? string.Empty : Convert.ToString(item["ModifiedById"]);

@@ -95,7 +95,8 @@
                        
                         <td>
                             <a href="/Teacher/AddChangesTeacher?Id=@item.TeacherId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="/Teacher/DeleteTeacher?Id=@item.TeacherId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
+                            <a id="btnDelete" href="/Teacher/DeleteTeacher?Id=@item.TeacherId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a> 
+                            
                         </td>
                     </tr>
                 }
@@ -103,11 +104,31 @@
             </table>
             <div class="col-md-10 col-md-offset-4">
 
-                <div class="col-md-10 col-md-offset-4">
+                
                     @Html.PagedListPager(Model, page => Url.Action("TeacherList", new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))
-                </div>
+               
             </div>
 
         </div>
     </div>
 </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+         
+            $("#btnDelete").click(function () {
+                debugger;
+                alert("test");
+                if (confirm("Are You Sure you want to delete Teacher?"))
+                    return true;
+                else
+                    return false;
+
+            });
+        });
+
+    </script>
+}
