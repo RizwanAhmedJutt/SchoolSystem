@@ -45,7 +45,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.Int32, guardianDetail.StudentId);
                     gObjDatabase.AddInParameter(objDbCommand, "@FathertName", DbType.String, guardianDetail.FatherName);
                     gObjDatabase.AddInParameter(objDbCommand, "@MotherName", DbType.String, guardianDetail.MotherName);
-                    gObjDatabase.AddInParameter(objDbCommand, "@GuardianName", DbType.String, guardianDetail.GuardianName);
+                    gObjDatabase.AddInParameter(objDbCommand, "@GuardianName", DbType.String,(string.IsNullOrEmpty(guardianDetail.GuardianName)?(object)DBNull.Value:guardianDetail.GuardianName));
                     gObjDatabase.AddInParameter(objDbCommand, "@MotherTongue", DbType.String, guardianDetail.MotherName);
                     gObjDatabase.AddInParameter(objDbCommand, "@OccupationOfGuardian", DbType.String, guardianDetail.OccupationOfGuardian);
                     gObjDatabase.AddInParameter(objDbCommand, "@RelationWithGuardian", DbType.String, guardianDetail.RelationWithGuardian);

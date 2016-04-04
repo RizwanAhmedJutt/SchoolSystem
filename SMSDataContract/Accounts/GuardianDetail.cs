@@ -32,7 +32,7 @@ namespace SMSDataContract.Accounts
         [Display(Name = "Mother Name")]
         public string MotherName { get; set; }
 
-         [Required(ErrorMessage = "Enter Guardian Name")]
+        // [Required(ErrorMessage = "Enter Guardian Name")]
          [Display(Name = "Guardian Name")]
         public string GuardianName { get; set; }
 
@@ -41,17 +41,17 @@ namespace SMSDataContract.Accounts
         public string MotherTongue { get; set; }
 
         [Required(ErrorMessage = "Enter Guardian Relation")]
-        [Display(Name = "Relation with Guardian")]
+        [Display(Name = "Relation")]
         public string RelationWithGuardian { get; set; }
         [Required(ErrorMessage = "Enter Guardian Income")]
-        [Display(Name = "Guardian Monthly Income")]
+        [Display(Name = "Monthly Income")]
         public decimal GuardianMontlyIncome { get; set; }
 
         [Required(ErrorMessage = "Enter Guardian Qualification")]
-        [Display(Name = "Guardian Qualification")]
+        [Display(Name = "Qualification")]
         public string GuardianQualification { get; set; }
         [Required(ErrorMessage = "Enter Guardian Occupation")]
-        [Display(Name = "Occupation of Guardian")]
+        [Display(Name = "Occupation of Father/Guardian")]
         public string OccupationOfGuardian { get; set; }
 
     }

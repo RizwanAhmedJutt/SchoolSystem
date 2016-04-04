@@ -30,7 +30,7 @@ namespace SMSBusiness.Repository.Concrete
                         gDetail.StudentId = Convert.ToInt32(item["StudentId"].ToString());
                         gDetail.FatherName = item["FatherName"].ToString();
                         gDetail.MotherName = item["MotherName"].ToString();
-                        gDetail.GuardianName = item["GuardianName"].ToString();
+                        gDetail.GuardianName = item.IsNull("GuardianName") ? string.Empty : item["GuardianName"].ToString();
                         gDetail.MotherTongue = item["MotherTongue"].ToString();
                         gDetail.OccupationOfGuardian = item["OccupationOfGuardian"].ToString();
                         gDetail.RelationWithGuardian = item["RelationwithGuardian"].ToString();
