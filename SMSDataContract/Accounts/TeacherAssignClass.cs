@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace SMSDataContract.Accounts
             ClassName = string.Empty;
         }
         public int TeacherAssignId { get; set; }
+        [Required(ErrorMessage="Teacher Name is Required")]
+        [Display(Name="Teacher Name")]
         public int TeacherId { get; set; }
         public int AcadmicClassId { get; set; }
         public string TeacherName { get; set; }

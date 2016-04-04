@@ -79,7 +79,7 @@
                             </td>
                             <td>
                                 <a href="/Course/AddChangesCourse?Id=@item.CourseId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-                                <a href="/Course/DeleteCourse?CourseId=@item.CourseId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
+                                <a id="btnDelete" href="/Course/DeleteCourse?CourseId=@item.CourseId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
                             </td>
 
                         </tr>
@@ -93,3 +93,23 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#btnDelete").click(function () {
+                debugger;
+               
+                if (confirm("Are You Sure you want to delete Course?"))
+                    return true;
+                else
+                    return false;
+
+            });
+        });
+
+    </script>
+}
