@@ -24,7 +24,7 @@
             <div class="well">
                 @Html.AntiForgeryToken()
 
-
+                @Html.HiddenFor(x => x.AssignCourseId);
                 <div class="row well">
                     @if (Model.AssignCourseId == 0)
                     {
@@ -61,7 +61,19 @@
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                                      
                                         <div id="dvDDLCourse">
-                                            @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 0 });}
+                                           @{ 
+                                               if(Model.CourseId==0)
+                                               {    <text>
+                                                   @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 0 });}
+                                                   </text>
+                                              }
+                                              else
+                                               {
+                                                   <text>
+                                                  @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = Model.AcadmicClassId });}
+                                                   </text>
+                                               }
+                                            }
                                         </div>
                                     @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
                                 </div>
@@ -78,7 +90,19 @@
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                                     @*@{Html.RenderPartial("../DropDownLists/DDLStudent", new { @AcadmicClassId = 0 });}*@
                                     <div id="dvDDLStudent">
-                                        @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                                        @{
+                                            if(Model.CourseId==0)
+                                            { <text>
+                                                 @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                                             </text>
+                                            }
+                                            else
+                                            {
+                                                <text>
+                                        @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = Model.AcadmicClassId });}
+                                               </text>
+                                            }
+                                         }
                                     </div>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
@@ -118,7 +142,9 @@
             $(document).ready(function () {
                 $("#Loading").hide();
                 if ('@Model.AssignCourseId' > 0) {
-                    LoadDDLCourseANDStudent();
+                    $('#ddlAcadmicClass option[value="@Model.AcadmicClassId"]').attr("selected", true);
+                    $('#ddlStudent option[value="@Model.StudentId"]').attr("selected", true);
+                    $('#ddlCourse option[value="@Model.CourseId"]').attr("selected", true);
 
                 }
                 else {
