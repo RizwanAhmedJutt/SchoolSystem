@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SMSBusiness.Repository.Abstract
 {
-  public   class IAssignRoom
+  public  interface IAssignRoom
     {
 
        int RoomAssignAddChanges(AssignRoom assignRoom);

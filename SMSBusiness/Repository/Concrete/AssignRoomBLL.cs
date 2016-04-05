@@ -1,4 +1,5 @@
-﻿using SMSDAL;
+﻿using SMSBusiness.Repository.Abstract;
+using SMSDAL;
 using SMSDAL.DAL;
 using SMSDataContract.Accounts;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SMSBusiness.Repository.Concrete
 {
-  public  class AssignRoomBLL
+  public  class AssignRoomBLL:IAssignRoom
     {
 
       public int RoomAssignAddChanges(AssignRoom assignRoom)

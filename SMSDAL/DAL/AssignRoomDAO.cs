@@ -72,7 +72,7 @@ namespace SMSDAL.DAL
     }
     public class Room
     {
-        private readonly IDatabase gObjDatabase;
+        //private readonly IDatabase gObjDatabase;
 
         public Room()
         {
