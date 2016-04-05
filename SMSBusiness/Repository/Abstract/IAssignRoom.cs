@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace SMSBusiness.Repository.Abstract
 {
-  public  interface IAssignRoom
+    public interface IAssignRoom
     {
 
-       int RoomAssignAddChanges(AssignRoom assignRoom);
+        int RoomAssignAddChanges(AssignRoom assignRoom);
+        AssignRoom GetCourseDetailByCourseId(int rAssignId);
+        AssignRoom GetRoomAssignedClassAvailablity(AssignRoom aroom);
 
     }
 }

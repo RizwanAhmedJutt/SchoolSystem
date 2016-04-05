@@ -46,7 +46,25 @@ namespace SMSDataContract.Accounts
         public DateTime CreatedDate { get; set; }
         public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public string ClassName { get; set; }
+        public string DayName { get; set; }
+        public string RoomName { get; set; }
 
 
     }
+    public class Room
+    {
+        
+
+        public Room()
+        {
+            RoomId = 0;
+            RoomName = string.Empty;
+
+        }
+        public int RoomId { get; set; }
+        public string RoomName { get; set; }
+
+
+    } 
 }

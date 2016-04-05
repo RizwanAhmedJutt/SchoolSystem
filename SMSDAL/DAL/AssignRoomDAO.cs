@@ -68,23 +68,46 @@ namespace SMSDAL.DAL
             return 0;// show Error in inserting or Updating Record
         }
 
-
-    }
-    public class Room
-    {
-        //private readonly IDatabase gObjDatabase;
-
-        public Room()
+        public DataTable GetRoomAssignClassDetailByID(int rAssignId)
         {
-            RoomId = 0;
-            RoomName = string.Empty;
-
+            DataTable dtRoomDetails;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Room_GetRoomAssignClassDetailByID"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@RAssignId", DbType.Int32, rAssignId);
+                    dtRoomDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtRoomDetails;
         }
-        public int RoomId { get; set; }
-        public string RoomName { get; set; }
-
-
-    } 
+        public DataTable GetRoomAssignedClassAvailablity(AssignRoom aroom)
+        {
+            DataTable dtRoomDetails;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Room_GetRoomAssignedClassAvailablity"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@RoomId", DbType.Int32, aroom.RoomId);
+                    gObjDatabase.AddInParameter(objCommand, "@ClassId", DbType.Int32, aroom.AcadmicClassId);
+                    gObjDatabase.AddInParameter(objCommand, "@WeekDayId", DbType.Int32, aroom.WeekDayId);
+                    gObjDatabase.AddInParameter(objCommand, "@StartTime", DbType.Time, aroom.StartTime);
+                    gObjDatabase.AddInParameter(objCommand, "@EndTime", DbType.Time, aroom.EndTime);
+                    dtRoomDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtRoomDetails;
+        }
+    }
+  
 
     
 }
