@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounts\AdmissionGranted.cs" />
+    <Compile Include="Accounts\AssignRoom.cs" />
     <Compile Include="Accounts\StudentMonthAssessment.cs" />
     <Compile Include="Accounts\StudentSubjectProgressReport.cs" />
     <Compile Include="Accounts\TeacherAssignClass.cs" />
