@@ -171,6 +171,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
@@ -419,6 +420,8 @@
     <Content Include="Views\Teacher\AddChangesTeacherAssignedClass.cshtml" />
     <Content Include="Views\Teacher\GetALLAssignClass.cshtml" />
     <Content Include="Views\Course\AddChangesTeacherAssignCourse.cshtml" />
+    <Content Include="Views\Room\AddChangesRoom.cshtml" />
+    <Content Include="Views\Room\GetALLRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

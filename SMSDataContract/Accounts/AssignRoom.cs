@@ -63,6 +63,8 @@ namespace SMSDataContract.Accounts
 
         }
         public int RoomId { get; set; }
+        [Display(Name="Room Name")]
+        [Required(ErrorMessage="Please Enter Room")]
         public string RoomName { get; set; }
 
 

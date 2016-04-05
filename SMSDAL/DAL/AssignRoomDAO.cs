@@ -107,6 +107,79 @@ namespace SMSDAL.DAL
             return dtRoomDetails;
         }
     }
+    public class RoomDAO
+    {
+        private readonly IDatabase gObjDatabase;
+        public RoomDAO(IDatabase database)
+        {
+            gObjDatabase = database;
+        }
+        public int InsertUpdateRoom(Room r)
+        {
+            try
+            {
+                var query = string.Empty;
+                if (r.RoomId == 0)
+                    query = "Insert Into Room (RoomName) Values ('" + r.RoomName + "')";
+                else
+                    query = "Update Room set RoomId=" + r.RoomId + ", RoomName='" + r.RoomName + "'";
+                using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+                   
+                    gObjDatabase.ExecuteNonQuery(objDbCommand);
+
+                    return 1; //Successfully Added Or updated..
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+
+            
+        }
+
+        public DataTable GetRoomById(int RoomId)
+        {
+            DataTable dtRoomDetails;
+            try
+            {
+                var query = "Select * from Room WHERE RoomId="+RoomId;
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+                   
+                    dtRoomDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtRoomDetails;
+
+
+        }
+        public DataTable GetALLRoom()
+        {
+            DataTable dtAllRoom;
+            try
+            {
+                var query = "Select * from Room";
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+
+                    dtAllRoom = gObjDatabase.GetDataTable(objCommand);
+                }
+                return dtAllRoom;
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+    }
   
 
     

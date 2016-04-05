@@ -1,0 +1,82 @@
+﻿@model SMSDataContract.Accounts.Room
+
+@{
+    //Layout = "~/Views/Shared/_NewLayout.cshtml";
+    Layout = null;
+}
+
+
+<button id="AddNewbtn" class="btn btn-sm btn-success " data-toggle="modal" data-target="#myModal">
+    Add New Room
+</button>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="col-md-12 col-sm-12">
+                    <div class="row well">
+                        <div class="form-horizontal">
+                            @if (Model.RoomId == 0)
+                            {
+                                <span class="HeadingStyle">Add Room </span>
+
+                            }
+                            else
+                            {
+                                <span class="HeadingStyle">Update Room</span>
+                            }
+                            <hr />
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+
+                                    @Html.ValidationSummary(true)
+
+                                    <div class="form-group">
+
+                                        @Html.LabelFor(model => model.RoomName, new { @class = "control-label col-md-3" })
+                                        <div class="col-md-7">
+
+                                            @Html.EditorFor(model => model.RoomName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.RoomName)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <span class="col-md-3 col-md-offset-7">
+                                             
+                                                <button type="submit" class="btn btn-primary btn-success">
+                                                    @if (Model.RoomId == 0)
+                                                    { <text>
+                                                        @*<input type="submit" value="Save Changes" class="btn btn-primary btn-success" />*@
+                                                    Save Changes
+                                                    </text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>
+                                                            @*<input type="submit" value="Update Changes" class="btn btn-primary btn-success" />*@
+                                                     Update Changes
+                                                        </text>
+                                                    }
+                                                </button>
+
+                                            </span>
+                                            
+                                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

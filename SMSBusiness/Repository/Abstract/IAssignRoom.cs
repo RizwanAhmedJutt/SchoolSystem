@@ -15,4 +15,12 @@ namespace SMSBusiness.Repository.Abstract
         AssignRoom GetRoomAssignedClassAvailablity(AssignRoom aroom);
 
     }
+    public interface IRoom
+    {
+        List<Room> GetALLRooms();
+        int AddChangesRoom(Room r);
+        Room GetRoomById(int Id);
+
+
+    }
 }
