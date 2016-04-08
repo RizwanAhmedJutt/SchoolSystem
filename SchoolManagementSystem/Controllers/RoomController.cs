@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using PagedList;
+using PagedList.Mvc;
+
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -19,10 +22,10 @@ namespace SchoolManagementSystem.Controllers
         IAssignRoom assignRepo = new AssignRoomBLL();
         public ActionResult GetALLRoom()
         {
-            
+
             return View(roomRepo.GetALLRooms().ToList());
         }
-      
+
         public ActionResult AddChangesRoom(int Id)
         {
             Room r = roomRepo.GetRoomById(Id);
@@ -37,29 +40,54 @@ namespace SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult AddChangesRoom(Room r)
         {
-           
+
             int getStatus = roomRepo.AddChangesRoom(r);
             return RedirectToAction("GetALLRoom");
         }
         [HttpGet]
-        public ActionResult AddChangesRoomAssignClass()
+        public ActionResult GetALLRoomAssignedClass(string SearchBy, string search, int? page)
         {
-            
-            AssignRoom aroom = new AssignRoom();
-            return View(aroom);
+            if (SearchBy == "RoomName" && search != "")
+            {
+                List<AssignRoom> objAssignRoom = assignRepo.GetALLRoomAssignedClassByRoomName(search);
+                return View(objAssignRoom.ToList().ToPagedList(page ?? 1, 10));
+            }
+            else
+            {
+                List<AssignRoom> objAssignedRoom = assignRepo.GetALLRoomAssignedClass();
+                return View(objAssignedRoom.ToList().ToPagedList(page ?? 1, 10));
+            }
+        }
+
+        [HttpGet]
+        public ActionResult AddChangesRoomAssignClass(int Id)
+        {
+            AssignRoom asroom = assignRepo.GetRoomAssignedDetailId(Id);
+            if (asroom.RAssignId == 0)
+            {
+                AssignRoom aroom = new AssignRoom();
+                return View(aroom);
+            }
+            else
+                return View(asroom);
         }
         [HttpPost]
         public ActionResult AddChangesRoomAssignClass(AssignRoom assignRoom)
         {
             var userloggedId = User.Identity.GetUserId();
-            assignRoom.CreatedById = userloggedId;
+            if (assignRoom.RAssignId == 0)
+            { assignRoom.CreatedById = userloggedId; }
+            else
+            {
+                assignRoom.ModifiedById = userloggedId;
+                assignRoom.ModifiedDate = DateTime.Now;
+            }
+            int getStatus = assignRepo.RoomAssignAddChanges(assignRoom);
 
-           int getStatus = assignRepo.RoomAssignAddChanges(assignRoom);
-
-            return View();
+            return RedirectToAction("GetALLRoomAssignedClass");
         }
 
-      
+
     }
 
 }

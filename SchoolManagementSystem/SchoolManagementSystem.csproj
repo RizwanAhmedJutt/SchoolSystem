@@ -424,6 +424,7 @@
     <Content Include="Views\Room\GetALLRoom.cshtml" />
     <Content Include="Views\DropDownLists\DDLRoom.cshtml" />
     <Content Include="Views\Room\AddChangesRoomAssignClass.cshtml" />
+    <Content Include="Views\Room\GetALLRoomAssignedClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

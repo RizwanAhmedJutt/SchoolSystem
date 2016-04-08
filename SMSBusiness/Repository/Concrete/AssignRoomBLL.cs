@@ -46,6 +46,39 @@ namespace SMSBusiness.Repository.Concrete
 
             return AssignedRooms;
         }
+        public List<AssignRoom> GetALLRoomAssignedClassByRoomName(string RoomName)
+        {
+            var objAssignRoomDao = new AssignRoomDAO(new SqlDatabase());
+            DataTable AssignRoom = objAssignRoomDao.GetALLRoomAssignedClassByRoomName(RoomName);
+            List<AssignRoom> AssignedRooms = new List<AssignRoom>();
+            try
+            {
+                if (AssignRoom.Rows.Count > 0)
+                {
+                    foreach (DataRow item in AssignRoom.Rows)
+                    {
+                        AssignRoom aroom = new AssignRoom();
+                        aroom.RAssignId = Convert.ToInt32(item["RAssignId"]);
+                        aroom.RoomName = item["RoomName"].ToString();
+                        aroom.ClassName = item["ClassName"].ToString();
+                        aroom.DayName = item["DayName"].ToString();
+                        aroom.StartTime = item["StartTime"].ToString();
+                        aroom.EndTime = item["EndTime"].ToString();
+                        aroom.IsAvailable = Convert.ToBoolean(item["IsAvailable"]);
+                        AssignedRooms.Add(aroom);
+                    }
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return AssignedRooms;
+        }
         public int RoomAssignAddChanges(AssignRoom assignRoom)
         {
             var objAssignRoomDao = new AssignRoomDAO(new SqlDatabase());
@@ -79,7 +112,7 @@ namespace SMSBusiness.Repository.Concrete
                         aroom.RoomName = item["RoomName"].ToString();
                         aroom.AcadmicClassId = Convert.ToInt32(item["AcadmicClassId"]);
                         aroom.ClassName = item["ClassName"].ToString();
-                        aroom.WeekDayId = Convert.ToInt32(item["WeekDayId"]);
+                        aroom.WeekDayId = Convert.ToInt32(item["DayId"]);
                         aroom.DayName = item["DayName"].ToString();
                         aroom.StartTime =item["StartTime"].ToString();
                         aroom.EndTime = item["EndTime"].ToString();

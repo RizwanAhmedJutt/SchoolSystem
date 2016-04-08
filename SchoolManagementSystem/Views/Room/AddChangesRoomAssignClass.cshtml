@@ -18,6 +18,9 @@
                     else
                     {
                         <span class="HeadingStyle">Update Room Assign </span>
+                        @Html.HiddenFor(model=>model.RAssignId)
+                        @Html.HiddenFor(model=>model.CreatedById)
+                        @Html.HiddenFor(model=>model.CreatedDate)
                     }
                     <div class="form-horizontal">
                         <hr />
