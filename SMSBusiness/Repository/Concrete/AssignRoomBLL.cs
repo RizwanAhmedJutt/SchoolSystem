@@ -25,6 +25,7 @@ namespace SMSBusiness.Repository.Concrete
                     foreach (DataRow item in AssignRoom.Rows)
                     {
                         AssignRoom aroom = new AssignRoom();
+                        aroom.RAssignId = Convert.ToInt32(item["RAssignId"]);
                         aroom.RoomName = item["RoomName"].ToString();
                         aroom.ClassName = item["ClassName"].ToString();
                         aroom.DayName = item["DayName"].ToString();
