@@ -13,7 +13,38 @@ namespace SMSBusiness.Repository.Concrete
 {
     public class AssignRoomBLL : IAssignRoom
     {
+        public List<AssignRoom> GetALLRoomAssignedClass()
+        {
+            var objAssignRoomDao = new AssignRoomDAO(new SqlDatabase());
+            DataTable AssignRoom = objAssignRoomDao.GetALLRoomAssignedClass();
+            List<AssignRoom> AssignedRooms = new List<AssignRoom>();
+            try
+            {
+                if (AssignRoom.Rows.Count > 0)
+                {
+                    foreach (DataRow item in AssignRoom.Rows)
+                    {
+                        AssignRoom aroom = new AssignRoom();
+                        aroom.RoomName = item["RoomName"].ToString();
+                        aroom.ClassName = item["ClassName"].ToString();
+                        aroom.DayName = item["DayName"].ToString();
+                        aroom.StartTime = item["StartTime"].ToString();
+                        aroom.EndTime = item["EndTime"].ToString();
+                        aroom.IsAvailable = Convert.ToBoolean(item["IsAvailable"]);
+                        AssignedRooms.Add(aroom);
+                    }
 
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return AssignedRooms;
+        }
         public int RoomAssignAddChanges(AssignRoom assignRoom)
         {
             var objAssignRoomDao = new AssignRoomDAO(new SqlDatabase());

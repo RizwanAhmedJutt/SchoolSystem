@@ -9,7 +9,7 @@ namespace SMSBusiness.Repository.Abstract
 {
     public interface IAssignRoom
     {
-
+        List<AssignRoom> GetALLRoomAssignedClass();
         int RoomAssignAddChanges(AssignRoom assignRoom);
         AssignRoom GetRoomAssignedDetailId(int rAssignId);
         AssignRoom GetRoomAssignedClassAvailablity(AssignRoom aroom);

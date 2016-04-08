@@ -17,7 +17,24 @@ namespace SMSDAL.DAL
         {
             gObjDatabase = database;
         }
+        public DataTable GetALLRoomAssignedClass()
+        {
+            DataTable dtRoomDetails;
+            try
+            {
 
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Room_GetALLRoomAssignedClass"))
+                {
+
+                    dtRoomDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtRoomDetails;
+        }
         public int InsertUpdateAssignRoom(AssignRoom assignRoom)
         {
             try
