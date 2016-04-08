@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -14,6 +16,7 @@ namespace SchoolManagementSystem.Controllers
         //
         // GET: /Room/
         IRoom roomRepo = new RoomBLL();
+        IAssignRoom assignRepo = new AssignRoomBLL();
         public ActionResult GetALLRoom()
         {
             
@@ -36,12 +39,27 @@ namespace SchoolManagementSystem.Controllers
         {
            
             int getStatus = roomRepo.AddChangesRoom(r);
-            return View();
+            return RedirectToAction("GetALLRoom");
         }
-        
+        [HttpGet]
         public ActionResult AddChangesRoomAssignClass()
         {
+            
+            AssignRoom aroom = new AssignRoom();
+            return View(aroom);
+        }
+        [HttpPost]
+        public ActionResult AddChangesRoomAssignClass(AssignRoom assignRoom)
+        {
+            var userloggedId = User.Identity.GetUserId();
+            assignRoom.CreatedById = userloggedId;
+
+           int getStatus = assignRepo.RoomAssignAddChanges(assignRoom);
+
             return View();
         }
+
+      
     }
+
 }

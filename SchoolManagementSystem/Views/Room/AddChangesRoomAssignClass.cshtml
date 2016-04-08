@@ -1,0 +1,174 @@
+﻿@model SMSDataContract.Accounts.AssignRoom
+@{
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="well">
+                @Html.AntiForgeryToken()
+
+
+                <div class="row well">
+                    @if (Model.RAssignId == 0)
+                    {
+                        <span class="HeadingStyle">New Room Assign </span>
+                    }
+                    else
+                    {
+                        <span class="HeadingStyle">Update Room Assign </span>
+                    }
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true)
+                        <div id="dvRoom" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                            <span id="RoomMsg" class="error" style="display:none;"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 control-label"><label>Room</label> </div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                    @{Html.RenderPartial("../DropDownLists/DDLRoom");}
+                                </div>
+                                @Html.ValidationMessageFor(model => model.RoomId)
+                            </div>
+                           
+                        </div>
+                        <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                            <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                    @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AcadmicClassId)
+                            </div>
+                          
+                        </div>
+                        <div id="dvCourse" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                            <span id="CourseMsg" class="error" style="display:none;"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3 control-label"><label>Week Day</label> </div>
+
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+
+                                    <div id="dvDDLCourse">
+                                        @Html.DropDownList("WeekDayId", new List<SelectListItem>()
+                                        {
+                                            new SelectListItem(){ Text= "Monday", Value = "1"},
+                                            new SelectListItem(){ Text= "Tuesday", Value = "2"},
+                                            new SelectListItem(){ Text= "Wednesday", Value = "3"},
+                                            new SelectListItem(){ Text= "Thursday", Value = "4"},
+                                            new SelectListItem(){ Text= "Friday", Value = "5"},
+                                            new SelectListItem(){ Text= "Saturday", Value = "6"},
+                                            new SelectListItem(){ Text= "Sunday", Value = "7"},
+    
+                                        }, "Select Week Day", new { id = "ddlWeek", @class = "form-control" })
+
+                                    </div>
+                                  
+                                </div>
+                                @Html.ValidationMessageFor(model => model.WeekDayId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div id="dvStarttime" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                            <span id="StarttimeMsg" class="error" style="display:none;"></span>
+                        </div>
+                        <div class="form-group">
+                         
+                            @Html.Label("Start Time", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                    @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control col-md-2", type = "datetime", id = "StartTime", })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            @Html.Label("End Time", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                    @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control col-md-2", type = "datetime", id = "EndTime", })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            @Html.Label("Available", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                  
+                                    @Html.CheckBoxFor(model => model.IsAvailable)
+                                </div>
+                                @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-8" >
+                                            @if (Model.RAssignId == 0)
+                                        {
+                                                <input type="submit" value="Add" id="AddAssignRoom" style="background-color:#fab625;color:white;" class="btn pull-right" />
+
+                                        }
+                                        else
+                                        {
+                                                <input type="submit" value="Update" id="UpdateAssignRoom" style="background-color:#fab625; color:white;" class="btn pull-right" />
+
+                                        }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        {
+            $(function () {
+                var timeFormat = " HH:mm";
+
+                $('#StartTime').datetimepicker({
+                    format: timeFormat
+                });
+                $('#EndTime').datetimepicker({
+                    format: timeFormat
+                });
+            });
+            $(document).ready(function () {
+                $("#AddAssignRoom").click(function () {
+                    debugger;
+                    var getStartTime = $("#StartTime").val();
+                    var getEndTime = $("#EndTime").val();
+                    
+
+                });
+              
+
+
+            });
+
+        }
+
+    </script>
+}

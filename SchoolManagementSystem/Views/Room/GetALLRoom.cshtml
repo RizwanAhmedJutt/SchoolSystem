@@ -5,13 +5,16 @@
 @{
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
+<button id="AddNewbtn" class="btn btn-sm btn-success " data-toggle="modal" data-target="#myModal">
+    Add New Room
+</button>
 @{Html.RenderAction("AddChangesRoom", "Room", new { @Id = 0 });}
 <div class="row">
     <div class="col-md-12 col-sm-12">
         <div class="well">
             <div class="row">
                 <span class="HeadingStyle">List of Rooms</span>
-                <table class="table table-bordered table-striped table-responsive table-hover">
+                <table  id="getTable" class="table table-bordered table-striped table-responsive table-hover">
                     <tr class="action info">
                         <th>
                             @Html.DisplayNameFor(model => model.First().RoomId)
@@ -37,8 +40,9 @@
 
                     
                             <td>
-                                <a href="/Room/AddChangesRoom?Id=@item.RoomId" class="btn btn-sm btn-info" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i></a>
-                              
+                                @*<a href="#" id="btnEdit" class="btn btn-sm btn-info edit" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i></a>*@
+                                <a href="#" id="btnEdit" class="btn btn-sm btn-info edit"><i class="glyphicon glyphicon-edit"></i></a>
+                                 @*@{Html.RenderAction("AddChangesRoom", "Room", new { @Id = item.RoomId });}*@ 
                             </td>
                         </tr>
                     }
@@ -55,8 +59,25 @@
    
 
     <script type="text/javascript">
+       
         $(document).ready(function () {
-          
+            $("#btnEdit").click(function () {
+                debugger;
+              
+                var myModal = $('#myModal');
+                // now get the values from the table
+                var roomId = $("#getTable tr").eq(1).find('td:first').text();
+                var roomName = $("#getTable tr").eq(1).find('td:nth-child(2)').text();
+                // and set them in the modal:
+                //$('#RoomId', myModal).val(RoomId);
+                $('#RoomName', myModal).val(roomName);
+               
+
+                // and finally show the modal
+                myModal.modal({ show: true });
+
+                return false;
+            });
         });
 
     </script>

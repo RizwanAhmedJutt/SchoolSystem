@@ -30,7 +30,7 @@ namespace SMSBusiness.Repository.Concrete
 
             return ReturnValue;
         }
-        public AssignRoom GetCourseDetailByCourseId(int rAssignId)
+        public AssignRoom GetRoomAssignedDetailId(int rAssignId)
         {
             var objAssignRoomDao = new AssignRoomDAO(new SqlDatabase());
             DataTable tblRoom;
@@ -49,8 +49,8 @@ namespace SMSBusiness.Repository.Concrete
                         aroom.ClassName = item["ClassName"].ToString();
                         aroom.WeekDayId = Convert.ToInt32(item["WeekDayId"]);
                         aroom.DayName = item["DayName"].ToString();
-                        aroom.StartTime = (TimeSpan)item["StartTime"];
-                        aroom.EndTime = (TimeSpan)item["EndTime"];
+                        aroom.StartTime =item["StartTime"].ToString();
+                        aroom.EndTime = item["EndTime"].ToString();
                         aroom.IsAvailable = Convert.ToBoolean(item["IsAvailable"]);
                         aroom.CreatedById = item["CreatedById"].ToString();
                         aroom.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);

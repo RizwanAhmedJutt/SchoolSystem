@@ -11,7 +11,7 @@ namespace SMSBusiness.Repository.Abstract
     {
 
         int RoomAssignAddChanges(AssignRoom assignRoom);
-        AssignRoom GetCourseDetailByCourseId(int rAssignId);
+        AssignRoom GetRoomAssignedDetailId(int rAssignId);
         AssignRoom GetRoomAssignedClassAvailablity(AssignRoom aroom);
 
     }

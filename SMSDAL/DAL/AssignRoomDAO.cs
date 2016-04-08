@@ -28,8 +28,8 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@RoomId", DbType.Int32, assignRoom.RoomId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AcadmicClassId", DbType.Int32, assignRoom.AcadmicClassId);
                     gObjDatabase.AddInParameter(objDbCommand, "@WeekDayId", DbType.Int32, assignRoom.WeekDayId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@StartTime", DbType.Time,assignRoom.StartTime);
-                    gObjDatabase.AddInParameter(objDbCommand, "@EndTime", DbType.Time, assignRoom.EndTime);
+                    gObjDatabase.AddInParameter(objDbCommand, "@StartTime", DbType.String,assignRoom.StartTime);
+                    gObjDatabase.AddInParameter(objDbCommand, "@EndTime", DbType.String, assignRoom.EndTime);
                     gObjDatabase.AddInParameter(objDbCommand, "@IsAvailable", DbType.Boolean, assignRoom.IsAvailable);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, assignRoom.CreatedDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, assignRoom.CreatedById);

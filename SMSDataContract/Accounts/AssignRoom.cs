@@ -15,8 +15,8 @@ namespace SMSDataContract.Accounts
             RoomId = 0;
             AcadmicClassId = 0;
             WeekDayId = 0;
-            StartTime = TimeSpan.Zero;
-            EndTime = TimeSpan.Zero;
+            StartTime = string.Empty;
+            EndTime =string.Empty;
             IsAvailable = false;
             CreatedById = string.Empty;
             CreatedDate = DateTime.Now;
@@ -36,10 +36,10 @@ namespace SMSDataContract.Accounts
         public int WeekDayId { get; set; }
         [Display(Name="Start Time")]
         [Required(ErrorMessage="Start Time Is Required")]
-        public TimeSpan StartTime { get; set; }
+        public string StartTime { get; set; }
         [Display(Name="End Time")]
         [Required(ErrorMessage="End Time Is Required")]
-        public TimeSpan EndTime { get; set; }
+        public string EndTime { get; set; }
         [Display(Name="Available")]
         public bool IsAvailable { get; set; }
         public string CreatedById { get; set; }
