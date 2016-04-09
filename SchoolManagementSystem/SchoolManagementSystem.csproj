@@ -173,6 +173,7 @@
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentReportController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -425,6 +426,8 @@
     <Content Include="Views\DropDownLists\DDLRoom.cshtml" />
     <Content Include="Views\Room\AddChangesRoomAssignClass.cshtml" />
     <Content Include="Views\Room\GetALLRoomAssignedClass.cshtml" />
+    <Content Include="Views\StudentReport\GetALLAssessment.cshtml" />
+    <Content Include="Views\StudentReport\AddChangesAssessmentType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

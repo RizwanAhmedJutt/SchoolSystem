@@ -1,0 +1,80 @@
+﻿@model SMSDataContract.Accounts.DailyAssessmentType
+
+@{
+   
+    Layout = null;
+}
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="col-md-12 col-sm-12">
+                    <div class="row well">
+                        <div class="form-horizontal">
+                            @if (Model.AssessmentTypeId == 0)
+                            {
+                                <span class="HeadingStyle">Add Assessment Type </span>
+
+                            }
+                            else
+                            {
+                                <span class="HeadingStyle">Update Assessment Type</span>
+                            }
+                            <hr />
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+
+                                    @Html.ValidationSummary(true)
+
+                                    <div class="form-group">
+
+                                        @Html.LabelFor(model => model.AssessmentName, new { @class = "control-label col-md-3" })
+                                        <div class="col-md-7">
+
+                                            @Html.EditorFor(model => model.AssessmentName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.AssessmentName)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <span class="col-md-3 col-md-offset-7">
+
+                                                <button type="submit" class="btn btn-primary btn-success">
+                                                    @if (Model.AssessmentTypeId == 0)
+                                                    { <text>
+                                                      
+                                                        Save Changes
+                                                    </text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>
+                                                          
+                                                            Update Changes
+                                                        </text>
+                                                    }
+                                                </button>
+
+                                            </span>
+
+                                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
