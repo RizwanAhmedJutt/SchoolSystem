@@ -40,7 +40,7 @@ namespace SMSDataContract.Accounts
         [Display(Name="End Time")]
         [Required(ErrorMessage="End Time Is Required")]
         public string EndTime { get; set; }
-        [Display(Name="Available")]
+        [Display(Name=" Check Available")]
         public bool IsAvailable { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreatedDate { get; set; }

@@ -130,8 +130,8 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objCommand, "@RoomId", DbType.Int32, aroom.RoomId);
                     gObjDatabase.AddInParameter(objCommand, "@ClassId", DbType.Int32, aroom.AcadmicClassId);
                     gObjDatabase.AddInParameter(objCommand, "@WeekDayId", DbType.Int32, aroom.WeekDayId);
-                    gObjDatabase.AddInParameter(objCommand, "@StartTime", DbType.Time, aroom.StartTime);
-                    gObjDatabase.AddInParameter(objCommand, "@EndTime", DbType.Time, aroom.EndTime);
+                    gObjDatabase.AddInParameter(objCommand, "@StartTime", DbType.String, aroom.StartTime);
+                    gObjDatabase.AddInParameter(objCommand, "@EndTime", DbType.String, aroom.EndTime);
                     dtRoomDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }

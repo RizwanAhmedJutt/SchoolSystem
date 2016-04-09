@@ -18,9 +18,9 @@
                     else
                     {
                         <span class="HeadingStyle">Update Room Assign </span>
-                        @Html.HiddenFor(model=>model.RAssignId)
-                        @Html.HiddenFor(model=>model.CreatedById)
-                        @Html.HiddenFor(model=>model.CreatedDate)
+                        @Html.HiddenFor(model => model.RAssignId)
+                        @Html.HiddenFor(model => model.CreatedById)
+                        @Html.HiddenFor(model => model.CreatedDate)
                     }
                     <div class="form-horizontal">
                         <hr />
@@ -37,7 +37,7 @@
                                 </div>
                                 @Html.ValidationMessageFor(model => model.RoomId)
                             </div>
-                           
+
                         </div>
                         <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:29%;">
                             <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
@@ -51,7 +51,7 @@
                                 </div>
                                 @Html.ValidationMessageFor(model => model.AcadmicClassId)
                             </div>
-                          
+
                         </div>
                         <div id="dvCourse" style="text-align: center; margin-top: 10px; margin-left:29%;">
                             <span id="CourseMsg" class="error" style="display:none;"></span>
@@ -73,20 +73,20 @@
                                             new SelectListItem(){ Text= "Friday", Value = "5"},
                                             new SelectListItem(){ Text= "Saturday", Value = "6"},
                                             new SelectListItem(){ Text= "Sunday", Value = "7"},
-    
+
                                         }, "Select Week Day", new { id = "ddlWeek", @class = "form-control" })
 
                                     </div>
-                                  
+
                                 </div>
                                 @Html.ValidationMessageFor(model => model.WeekDayId, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div id="dvStarttime" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                        <div id="dvStarttime" style="text-align: center; margin-top: 10px; margin-left:34%;">
                             <span id="StarttimeMsg" class="error" style="display:none;"></span>
                         </div>
                         <div class="form-group">
-                         
+
                             @Html.Label("Start Time", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -102,41 +102,41 @@
                             <div class="col-md-9">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                                    @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control col-md-2", type = "datetime", id = "EndTime", })
+                                    @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control col-md-2", type = "datetime", id = "EndTime" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
 
-                            @Html.Label("Available", htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.Label("Check Available", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 <div class="input-group">
-                                  
+
                                     @Html.CheckBoxFor(model => model.IsAvailable)
                                 </div>
                                 @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-8" >
-                                            @if (Model.RAssignId == 0)
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        @if (Model.RAssignId == 0)
                                         {
-                                                <input type="submit" value="Add" id="AddAssignRoom" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                            <input type="submit" value="Add" id="AddAssignRoom" style="background-color:#fab625;color:white;" class="btn pull-right" />
 
                                         }
                                         else
                                         {
-                                                <input type="submit" value="Update" id="UpdateAssignRoom" style="background-color:#fab625; color:white;" class="btn pull-right" />
+                                            <input type="submit" value="Update" id="UpdateAssignRoom" style="background-color:#fab625; color:white;" class="btn pull-right" />
 
                                         }
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -148,7 +148,10 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript">
         {
-            $(function () {
+           
+            $(document).ready(function () {
+            
+               
                 var timeFormat = " HH:mm";
 
                 $('#StartTime').datetimepicker({
@@ -156,20 +159,67 @@
                 });
                 $('#EndTime').datetimepicker({
                     format: timeFormat
-                });
-            });
-            $(document).ready(function () {
-                $("#AddAssignRoom").click(function () {
+                })
+                $("#IsAvailable").change(function (e) {
                     debugger;
-                    var getStartTime = $("#StartTime").val();
-                    var getEndTime = $("#EndTime").val();
+                    var AssignRoom = $("#ddlRoom").val();
+                    var AcadmicClass = $("#ddlAcadmicClass").val();
+                    var weekDay = $("#ddlWeek").val();
+                    var getCurrentDate = new Date().toLocaleDateString();
+                    var StartTime = $("#StartTime").val();
+                    var EndTime = $("#EndTime").val();
+                    var getValues = new Array();
+                    $("#StarttimeMsg").text("");
+                    $("#StarttimeMsg").hide();
+
+                    //convert both time into timestamp
+                    var stt = new Date("'"+getCurrentDate+"'" + StartTime);
+                    stt = stt.getTime();
+
+                    var endt = new Date("'"+getCurrentDate+"'" + EndTime);
+                    endt = endt.getTime();
+                    if (endt < stt)
+                    {
+                        $("#StarttimeMsg").text("Start Time Must be Lesser than End Time");
+                        $("#StarttimeMsg").show();
+                        e.preventDefault();
+                        return false;
+                    }
+                    // After Check Time Contstraint insert values into Array
+                    getValues.push(AssignRoom,AcadmicClass,weekDay,StartTime,EndTime);
+                    // Go To Action
+                  
+                    var URL="/Room/CheckRoomAvailabilty";
+                    $.get(URL, $.param({ CheckAttributes: getValues }, true), function (resp) {
+                        debugger;
+                        JSON.stringify(rep
+                            );
+                        if (resp.Avaliable == true) {
+                            alert("Room Is Available for Current Selection");
+                        }
+                        else {
+                            alert("Room Is not Available for Current Selection");
+                        }
+                    });
+                    //.done(function(resp){
+                    //    debugger;
+                    //    if(resp.Avaliable==true)
+                    //    {
+                    //        alert("Room Is Available for Current Selection");
+                    //    }
+                    //    else
+                    //    {
+                    //        alert("Room Is not Available for Current Selection");
+                    //    }
+                    //})
                     
+                    //.fail(function(e1){
+                    //    alert("there is error..");
+                    //})
+                    
+                });
 
                 });
-              
-
-
-            });
 
         }
 

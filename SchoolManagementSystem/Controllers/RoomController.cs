@@ -86,7 +86,23 @@ namespace SchoolManagementSystem.Controllers
 
             return RedirectToAction("GetALLRoomAssignedClass");
         }
-
+        [HttpGet]
+        public JsonResult CheckRoomAvailabilty(string[] CheckAttributes)
+        {
+            AssignRoom aroom = new AssignRoom
+            {
+                RoomId = Convert.ToInt32(CheckAttributes[0]),
+                AcadmicClassId = Convert.ToInt32(CheckAttributes[1]),
+                WeekDayId = Convert.ToInt32(CheckAttributes[2]),
+                StartTime = CheckAttributes[3],
+                EndTime = CheckAttributes[4]
+            };
+            aroom = assignRepo.GetRoomAssignedClassAvailablity(aroom);
+            if(aroom.RAssignId>0)
+            return Json(new {Avaliable=true }); // Room is Available for Class with selected time
+            else
+                return Json(new { Avaliable = false }); // Room is not Available for Class with selected time
+        }
 
     }
 
