@@ -110,12 +110,17 @@
                         <div class="form-group">
 
                             @Html.Label("Check Available", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
+                            <div class="col-md-6">
                                 <div class="input-group">
 
-                                    @Html.CheckBoxFor(model => model.IsAvailable)
+                                    @Html.CheckBoxFor(model => model.IsAvailable, new {@id ="IsAvailable" })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
+                            </div>
+                            <div style="text-align: center;float:left; margin-top: -15px; margin-left:30%;">
+                                <span id="RoomAvailableMsg" class="successmsg" style="display:none;"></span>
+                                <span id="RoomNotAvailableMsg" class="error" style="display:none;"></span>
+                                <span id="fillAllFields" class="error" style="display:none;"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -151,7 +156,7 @@
            
             $(document).ready(function () {
             
-               
+                $("#fillAllFields").hide();
                 var timeFormat = " HH:mm";
 
                 $('#StartTime').datetimepicker({
@@ -186,37 +191,36 @@
                         return false;
                     }
                     // After Check Time Contstraint insert values into Array
+                    if (AssignRoom == "" || AcadmicClass == "" ||weekDay == "" ||StartTime == "" || EndTime == "")
+                    {
+                        $("#fillAllFields").text("Please fill all the fields");
+                        $("#fillAllFields").show();
+                        $("#IsAvailable").prop('checked', false);
+                    }
+                    else { 
                     getValues.push(AssignRoom,AcadmicClass,weekDay,StartTime,EndTime);
                     // Go To Action
                   
                     var URL="/Room/CheckRoomAvailabilty";
                     $.get(URL, $.param({ CheckAttributes: getValues }, true), function (resp) {
                         debugger;
-                        JSON.stringify(rep
-                            );
-                        if (resp.Avaliable == true) {
-                            alert("Room Is Available for Current Selection");
+                        $("#IsAvailable").prop('checked', false);
+                       // var a =  JSON.stringify(resp);
+                        if (resp == "false") {
+                            //$("#RoomAvailableCehck").hide();
+                            $("#RoomNotAvailableMsg").text("Room is not available");
+                            $("#RoomNotAvailableMsg").show();
+                            $("#RoomAvailableMsg").hide();
+                            $('input[type="submit"]').prop('disabled', true);
                         }
                         else {
-                            alert("Room Is not Available for Current Selection");
-                        }
+                            $("#RoomAvailableMsg").text("Room is available");
+                            $("#RoomAvailableMsg").show();
+                            $("#RoomNotAvailableMsg").hide();
+                            $('input[type="submit"]').prop('disabled', false);
+                             }
                     });
-                    //.done(function(resp){
-                    //    debugger;
-                    //    if(resp.Avaliable==true)
-                    //    {
-                    //        alert("Room Is Available for Current Selection");
-                    //    }
-                    //    else
-                    //    {
-                    //        alert("Room Is not Available for Current Selection");
-                    //    }
-                    //})
-                    
-                    //.fail(function(e1){
-                    //    alert("there is error..");
-                    //})
-                    
+                    }
                 });
 
                 });
