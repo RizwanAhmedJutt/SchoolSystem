@@ -46,6 +46,9 @@
     <Compile Include="Repository\Abstract\ICategoryBLL.cs" />
     <Compile Include="Repository\Abstract\ICityBLL.cs" />
     <Compile Include="Repository\Abstract\ICourse.cs" />
+    <Compile Include="Repository\Abstract\IDailyAssessmentOperation.cs" />
+    <Compile Include="Repository\Abstract\IDailyAssessmentSubType.cs" />
+    <Compile Include="Repository\Abstract\IDailyAssessmentType.cs" />
     <Compile Include="Repository\Abstract\IGuardianContact.cs" />
     <Compile Include="Repository\Abstract\IGuardianDetail.cs" />
     <Compile Include="Repository\Abstract\IStudent.cs" />
@@ -61,6 +64,9 @@
     <Compile Include="Repository\Concrete\CategoryBLL.cs" />
     <Compile Include="Repository\Concrete\CityBLL.cs" />
     <Compile Include="Repository\Concrete\CourseBLL.cs" />
+    <Compile Include="Repository\Concrete\DailyAssessmentOperationBLL.cs" />
+    <Compile Include="Repository\Concrete\DailyAssessmentSubTypeBLL.cs" />
+    <Compile Include="Repository\Concrete\DailyAssessmentTypeBLL.cs" />
     <Compile Include="Repository\Concrete\GuardianContactBLL.cs" />
     <Compile Include="Repository\Concrete\GuardianDetailBLL.cs" />
     <Compile Include="Repository\Concrete\StudentAddressBLL.cs" />
