@@ -66,8 +66,13 @@
               
                 var myModal = $('#myModal');
                 // now get the values from the table
-                var roomId = $("#getTable tr").eq(1).find('td:first').text();
-                var roomName = $("#getTable tr").eq(1).find('td:nth-child(2)').text();
+                //var roomId = $("#getTable tr").eq(1).find('td:first').text();
+                //var roomName = $("#getTable tr").eq(1).find('td:nth-child(2)').text();
+                var par = $(this).parent().parent();
+                var roomId = par.children("td:nth-child(1)").text();
+
+                var roomName = par.children("td:nth-child(2)").text();
+
                 // and set them in the modal:
                 //$('#RoomId', myModal).val(RoomId);
                 $('#RoomName', myModal).val(roomName);
