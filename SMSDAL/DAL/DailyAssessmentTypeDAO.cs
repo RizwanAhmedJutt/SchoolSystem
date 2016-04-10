@@ -18,7 +18,7 @@ namespace SMSDAL.DAL
         {
             gObjDatabase = database;
         }
-        public DataTable GetALLDailyAssessmentTypeBy()
+        public DataTable GetALLDailyAssessmentType()
         {
             DataTable dtAssessmentDetails;
             try
