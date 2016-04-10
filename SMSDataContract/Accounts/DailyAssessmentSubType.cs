@@ -27,6 +27,7 @@ namespace SMSDataContract.Accounts
         [Display(Name="Sub Assessment Name")]
         [Required(ErrorMessage="Enter Sub Assessment Name")]
         public string AssessmentSubTypeName { get; set; }
+        public string ParentAssementName { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreateDate { get; set; }
         public string ModifiedById { get; set; }
