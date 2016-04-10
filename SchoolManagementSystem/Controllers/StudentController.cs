@@ -15,7 +15,6 @@ namespace SchoolManagementSystem.Controllers
     [Authorize(Roles = "Admin")]
     public class StudentController : Controller
     {
-
         IStudent student = new StudentBLL();
         IStudentAddressBLL studentAddress = new StudentAddressBLL();
         IGuardianDetail guardiainrepositry = new GuardianDetailBLL();
