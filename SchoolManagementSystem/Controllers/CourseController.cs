@@ -16,7 +16,7 @@ namespace SchoolManagementSystem.Controllers
     [Authorize(Roles = "Admin")]
     public class CourseController : Controller
     {
-        ICourse courserepositry = new CourseBLL();
+      ICourse courserepositry = new CourseBLL();
         IStudentAssignCourse stdAssignCourserepo = new StudentAssignCourseBLL();
         ITeacherAssignedCourse teacherrepo = new TeacherAssignCourseBLL();
         [HttpGet]
