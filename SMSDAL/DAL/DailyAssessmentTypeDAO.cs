@@ -18,7 +18,24 @@ namespace SMSDAL.DAL
         {
             gObjDatabase = database;
         }
+        public DataTable GetALLDailyAssessmentTypeBy()
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+                var query = "Select * from DailyAssementType" ;
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
 
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+        }
         public int InsertUpdateDailyAssessmentType(DailyAssessmentType dAssessmentType)
         {
             try
@@ -57,6 +74,25 @@ namespace SMSDAL.DAL
             return 0;  // show Error in inserting or Updating Record
         }
 
+
+        public DataTable GetDailyAssessmentTypeById(int AssessmentTypeId)
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+                var query = "Select * from DailyAssementType Where AssessmentTypeId=" + AssessmentTypeId;
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+        }
 
 
 

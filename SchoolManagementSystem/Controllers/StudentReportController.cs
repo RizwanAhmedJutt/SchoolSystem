@@ -15,8 +15,9 @@ namespace SchoolManagementSystem.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult AddChangesAssessmentType()
+        public ActionResult AddChangesAssessmentType(int Id)
         {
+            
             return View();
         }
 

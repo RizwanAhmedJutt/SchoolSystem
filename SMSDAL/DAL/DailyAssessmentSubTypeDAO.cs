@@ -10,16 +10,53 @@ using System.Threading.Tasks;
 
 namespace SMSDAL.DAL
 {
-  public  class DailyAssessmentSubTypeDAO
+    public class DailyAssessmentSubTypeDAO
     {
 
 
-      private readonly IDatabase gObjDatabase;
-      public DailyAssessmentSubTypeDAO(IDatabase database)
+        private readonly IDatabase gObjDatabase;
+        public DailyAssessmentSubTypeDAO(IDatabase database)
         {
             gObjDatabase = database;
         }
+        public DataTable GetALLDailyAssessmentSubType()
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
 
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand("sp_Report_GetALLDailyAssessmentSubType "))
+                {
+                   
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+
+        }
+        public DataTable GetDailyAssessmentSubTypeById(int AssessmentSubTypeId)
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand("sp_Report_GetAssessmentSubTypeById "))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@AssessmentSubTypeId", DbType.Int32, AssessmentSubTypeId);
+
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+        }
         public int InsertUpdateDailyAssessmentSubType(DailyAssessmentSubType dAssessmentSubType)
         {
             try
@@ -30,8 +67,8 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentSubTypeName", DbType.String, dAssessmentSubType.AssessmentSubTypeName);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, dAssessmentSubType.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, dAssessmentSubType.CreateDate);
-                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, string.IsNullOrEmpty(dAssessmentSubType.ModifiedById)?(object)dAssessmentSubType.ModifiedById: dAssessmentSubType.ModifiedById);
-                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedDate", DbType.DateTime, dAssessmentSubType.ModifiedDate==null?(object)DBNull.Value:dAssessmentSubType.ModifiedDate);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, string.IsNullOrEmpty(dAssessmentSubType.ModifiedById) ? (object)dAssessmentSubType.ModifiedById : dAssessmentSubType.ModifiedById);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedDate", DbType.DateTime, dAssessmentSubType.ModifiedDate == null ? (object)DBNull.Value : dAssessmentSubType.ModifiedDate);
                     gObjDatabase.AddOutParameter(objDbCommand, "@AssessmentSubTypenewId", DbType.Int32, 4);
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
