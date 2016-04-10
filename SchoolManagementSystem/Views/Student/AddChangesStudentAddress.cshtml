@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 
 }
-
+<div class="col-md-12">
+    <div class="row well">
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -88,6 +89,8 @@
     </div>
 
 }
+</div>
+</div>
 
 @section Scripts {
 
