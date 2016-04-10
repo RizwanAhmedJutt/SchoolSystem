@@ -18,6 +18,10 @@ namespace SMSDataContract.Accounts
             CreateDate = DateTime.Now;
             ModifiedById = string.Empty;
             ModifiedDate = null;
+            Good = false;
+            VeryGood = false;
+            Average = false;
+            Worse = false;
         }
 
         public int AssessmentSubTypeId { get; set; }
@@ -27,7 +31,16 @@ namespace SMSDataContract.Accounts
         [Display(Name="Sub Assessment Name")]
         [Required(ErrorMessage="Enter Sub Assessment Name")]
         public string AssessmentSubTypeName { get; set; }
+       // public int ParentAssessmentId { get; set; }
         public string ParentAssementName { get; set; }
+        [Display(Name="V.Good")]
+        public bool VeryGood { get; set; }
+
+        public bool Good { get; set; }
+        [Display(Name="AVG")]
+        public bool Average { get; set; }
+
+        public bool Worse { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreateDate { get; set; }
         public string ModifiedById { get; set; }

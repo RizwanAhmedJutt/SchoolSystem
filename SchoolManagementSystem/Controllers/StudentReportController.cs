@@ -3,6 +3,7 @@ using SMSBusiness.Repository.Concrete;
 using SMSDataContract.Accounts;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,7 +34,12 @@ namespace SchoolManagementSystem.Controllers
 
         public ActionResult AddChangesDailyAssessmentReport()
         {
-            return View();
+           List<DailyAssessmentType> type = repoAssessmentType.GetAllAssessmentType();
+           List<DailyAssessmentSubType> subtype= repoAssessementSubType.GetAllAssessmentSubType();
+           dynamic mymodel = new ExpandoObject();
+           mymodel.AssessmentType = type;
+           mymodel.AssessmentSubType = subtype;
+           return View(mymodel);
         }
 
 

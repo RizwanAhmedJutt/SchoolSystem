@@ -13,7 +13,7 @@ namespace SMSBusiness.Repository.Concrete
 {
     public class DailyAssessmentSubTypeBLL : IDailyAssessmentSubType
     {
-        public List<DailyAssessmentSubType> GetAllAssessmentType()
+        public List<DailyAssessmentSubType> GetAllAssessmentSubType()
         {
             var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
             var dtAssement = new DataTable();
@@ -26,9 +26,10 @@ namespace SMSBusiness.Repository.Concrete
                 foreach (DataRow dr in dtAssement.Rows)
                 {
                     var AssessmentDetails = new DailyAssessmentSubType();
-                    AssessmentDetails.AssessmentTypeId = Convert.ToInt32(dr["AssessmentSubTypeId"]);
+                    AssessmentDetails.AssessmentSubTypeId = Convert.ToInt32(dr["AssessmentSubTypeId"]);
                     AssessmentDetails.AssessmentSubTypeName = dr["AssessmentSubTypeName"].ToString();
                     AssessmentDetails.ParentAssementName = dr["AssementName"].ToString();
+                    AssessmentDetails.AssessmentTypeId=Convert.ToInt32(dr["AssessmentTypeId"]);
                     objAssementList.Add(AssessmentDetails);
 
                 }

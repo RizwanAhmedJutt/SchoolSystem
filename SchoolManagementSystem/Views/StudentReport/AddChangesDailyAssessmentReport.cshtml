@@ -1,1 +1,79 @@
-﻿
+﻿@using SMSDataContract.Accounts;
+@model  dynamic
+@{
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="well">
+            <div id="stdBasicInfo">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            @foreach (var parent in Model.AssessmentType)
+                            {
+
+                                <table>
+                                    <tr>
+
+                                        <td>
+                                            @Html.Hidden("AssessmentId", new { parent.AssessmentTypeId })
+                                            @parent.AssessmentName
+                                        </td>
+                                    </tr>
+
+                                    @foreach (var child in Model.AssessmentSubType)
+                                    {
+                                        <text>
+                                        @if (parent.AssessmentTypeId == child.AssessmentTypeId)
+                                        {   <text>
+                                            <tr>
+                                                <td>
+                                                    @Html.Hidden("AssessmentSubTypeId", new { child.AssessmentSubTypeId })
+                                                    @child.AssessmentSubTypeName
+                                                </td>
+                                            
+                                                  <td>
+                                                    <input type="radio" name="DynamicCategoryItems[@child]"  value="@child.VeryGood" @(child.VeryGood ? "checked" : "") />
+                                                     
+                                                   </td>
+                                                <td>
+                                                    
+                                                    <input type="radio" name="DynamicCategoryItems[@child]" value="@child.Good" @(child.Good ? "checked" : "") />
+                                                   
+                                                </td>
+                                                <td>
+                                                   
+                                                    <input type="radio" name="DynamicCategoryItems[@child]" value="@child.Average" @(child.Average ? "checked" : "") />
+                                                </td>
+                                                <td>
+                                                   
+                                                    <input type="radio" name="DynamicCategoryItems[@child]" value="@child.Worse" @(child.Worse ? "checked" : "") />
+                                                </td>
+                                            </tr>
+                                        </text>
+                                        }
+                                       
+                                    </text>
+
+                                    }
+
+                                </table>
+                            }
+                        </div>
+                    </div>
+                }
+                @section Scripts {
+                    @Scripts.Render("~/bundles/jqueryval")
+                    @Scripts.Render("~/bundles/bootstrap")
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                        });
+                    </script>
+                }
+            </div>
+        </div>
+    </div>
+</div>

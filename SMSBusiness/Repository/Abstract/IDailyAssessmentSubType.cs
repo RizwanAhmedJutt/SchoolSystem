@@ -9,7 +9,7 @@ namespace SMSBusiness.Repository.Abstract
 {
  public   interface IDailyAssessmentSubType
     {
-     List<DailyAssessmentSubType> GetAllAssessmentType();
+     List<DailyAssessmentSubType> GetAllAssessmentSubType();
      DailyAssessmentSubType GetDailyAssessmentSubTypeById(int AssessmentSubTypeId);
      int AddChangesAssessmentSubType(DailyAssessmentSubType dAssessmentsubType);
 
