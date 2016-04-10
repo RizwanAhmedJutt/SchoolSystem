@@ -428,6 +428,7 @@
     <Content Include="Views\Room\GetALLRoomAssignedClass.cshtml" />
     <Content Include="Views\StudentReport\GetALLAssessment.cshtml" />
     <Content Include="Views\StudentReport\AddChangesAssessmentType.cshtml" />
+    <Content Include="Views\StudentReport\AddChangesDailyAssessmentReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
