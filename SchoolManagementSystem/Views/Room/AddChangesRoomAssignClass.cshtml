@@ -204,10 +204,11 @@
                     var URL="/Room/CheckRoomAvailabilty";
                     $.get(URL, $.param({ CheckAttributes: getValues }, true), function (resp) {
                         debugger;
-                        $("#IsAvailable").prop('checked', false);
+                      
                        // var a =  JSON.stringify(resp);
                         if (resp == "false") {
                             //$("#RoomAvailableCehck").hide();
+                            $("#IsAvailable").prop('checked', false);
                             $("#RoomNotAvailableMsg").text("Room is not available");
                             $("#RoomNotAvailableMsg").show();
                             $("#RoomAvailableMsg").hide();

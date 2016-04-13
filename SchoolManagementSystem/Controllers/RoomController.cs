@@ -98,11 +98,13 @@ namespace SchoolManagementSystem.Controllers
                 StartTime = CheckAttributes[3],
                 EndTime = CheckAttributes[4]
             };
+        
             aroom = assignRepo.GetRoomAssignedClassAvailablity(aroom);
             if(aroom.RAssignId>0)
-            return new JavaScriptSerializer().Serialize(true); // Room is Available for Class with selected time
+                return new JavaScriptSerializer().Serialize(false);// Room is not Available for Class with selected time
+              
             else
-                return new JavaScriptSerializer().Serialize(false); // Room is not Available for Class with selected time
+                return new JavaScriptSerializer().Serialize(true);   // Room is Available for Class with selected time
         }
 
     }

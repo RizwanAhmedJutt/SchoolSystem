@@ -151,7 +151,7 @@ namespace SMSBusiness.Repository.Concrete
                     {
                         assignroom.RAssignId = Convert.ToInt32(item["RAssignId"]);
                         assignroom.IsAvailable = Convert.ToBoolean(item["IsAvailable"]);
-                        aroom.WeekDayId = Convert.ToInt32(item["DayId"]);
+                        assignroom.ClassName = item["ClassName"].ToString();
 
                     }
                 }
@@ -163,7 +163,7 @@ namespace SMSBusiness.Repository.Concrete
 
                 throw ex;
             }
-            return aroom;
+            return assignroom;
 
 
 

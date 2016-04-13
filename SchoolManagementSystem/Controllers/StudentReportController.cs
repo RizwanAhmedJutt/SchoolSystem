@@ -1,6 +1,7 @@
 ﻿using SMSBusiness.Repository.Abstract;
 using SMSBusiness.Repository.Concrete;
 using SMSDataContract.Accounts;
+using SMSDataContract.Common;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -41,7 +42,15 @@ namespace SchoolManagementSystem.Controllers
            mymodel.AssessmentSubType = subtype;
            return View(mymodel);
         }
-
+        public ActionResult AddChangesAssessmentReport()
+        {
+          
+          
+            DailyAssessmentHelper myModel = new DailyAssessmentHelper();
+            myModel.ParentAssessments = repoAssessmentType.GetAllAssessmentType();
+            myModel.ChildAssessments = repoAssessementSubType.GetAllAssessmentSubType();
+            return View(myModel);
+        }
 
 	}
 }

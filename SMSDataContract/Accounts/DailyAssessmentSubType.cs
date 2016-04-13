@@ -41,6 +41,7 @@ namespace SMSDataContract.Accounts
         public bool Average { get; set; }
 
         public bool Worse { get; set; }
+        public string WorseConcequence { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreateDate { get; set; }
         public string ModifiedById { get; set; }
