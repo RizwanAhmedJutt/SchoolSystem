@@ -1,4 +1,6 @@
 ﻿@model SMSDataContract.Common.DailyAssessmentHelper
+@using System.Collections.Generic
+
 @{
     ViewBag.Title = "AddChangesAssessmentReport";
     Layout = "~/Views/Shared/_NewLayout.cshtml";
@@ -13,57 +15,6 @@
                     @Html.AntiForgeryToken()
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            @*@foreach (var parent in Model.AssessmentType)
-                                {
-
-                                    <table>
-                                        <tr>
-
-                                            <td>
-                                                @Html.Hidden("AssessmentId", new { parent.AssessmentTypeId })
-                                                @parent.AssessmentName
-                                            </td>
-                                        </tr>
-
-                                        @foreach (var child in Model.AssessmentSubType)
-                                        {
-                                            <text>
-                                                @if (parent.AssessmentTypeId == child.AssessmentTypeId)
-                                                {   <text>
-                                                    <tr>
-                                                        <td>
-                                                            @Html.Hidden("AssessmentSubTypeId", new { child.AssessmentSubTypeId })
-                                                            @child.AssessmentSubTypeName
-                                                        </td>
-
-                                                        <td>
-                                                            <input type="radio" name="DynamicCategoryItems[@child]" value="@child.VeryGood" @(child.VeryGood ? "checked" : "") />
-
-                                                        </td>
-                                                        <td>
-
-                                                            <input type="radio" name="DynamicCategoryItems[@child]" value="@child.Good" @(child.Good ? "checked" : "") />
-
-                                                        </td>
-                                                        <td>
-
-                                                            <input type="radio" name="DynamicCategoryItems[@child]" value="@child.Average" @(child.Average ? "checked" : "") />
-                                                        </td>
-                                                        <td>
-
-                                                            <input type="radio" name="DynamicCategoryItems[@child]" value="@child.Worse" @(child.Worse ? "checked" : "") />
-                                                        </td>
-                                                    </tr>
-                                                </text>
-                                                }
-
-                                            </text>
-
-                                        }
-
-                                    </table>
-                                }*@
-
                             @for (int i = 0; i < Model.ParentAssessments.Count; i++)
                             {
                                 <text>
@@ -79,21 +30,44 @@
                                         @for (int j = 0; j < Model.ChildAssessments.Count; j++)
                                         {
                                             <text>
-                                                @if (Model.ChildAssessments[i].AssessmentSubTypeId == Model.ParentAssessments[i].AssessmentTypeId)
+                                                @if (Model.ChildAssessments[j].AssessmentTypeId == Model.ParentAssessments[i].AssessmentTypeId)
                                                 {
                                                     <text>
 
                                                         <tr>
                                                             <td>
-                                                                @Html.HiddenFor(x=>x.ChildAssessments[i].AssessmentSubTypeId)
-                                                                @Html.DisplayFor(x=>x.ChildAssessments[i].AssessmentSubTypeName)
-                                                              
-                                                            </td>
+                                                                @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeId)
+                                                                @Html.DisplayFor(x => x.ChildAssessments[j].AssessmentSubTypeName)
+                                                             @{  
+                                                                 //Model.ChildAssessments[j].evaluation.Add(new SMSDataContract.Common.Evaluation() { VeryGood = false, Good = false, Average = false, Worse = false, WorseConcequence = string.Empty });
 
-                                                            <td>
-                                                               
+                                                                Model.ChildAssessments[j].evaluation = new List<SMSDataContract.Common.Evaluation>();
+                                                                 Model.ChildAssessments[j].evaluation.Add(new SMSDataContract.Common.Evaluation());
+                                                             }
                                                             </td>
-                                                            
+                                                            @foreach (var item in Model.ChildAssessments[j].evaluation)
+                                                            {
+                                                                <td>
+
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].VeryGood, item.VeryGood)
+                                                                    <label for="@item.VeryGood">@item.VeryGood</label>
+
+                                                                </td>
+                                                                <td>
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Good, item.Good)
+                                                                    <label for="@item.Good">@item.Good</label>
+                                                                </td>
+                                                                 <td>
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Average, item.Average)
+                                                                    <label for="@item.Average">@item.Average</label>
+                                                                </td>
+                                                                 <td>
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Worse, item.Worse)
+                                                                    <label for="@item.Worse">@item.Worse</label>
+                                                                </td>
+                                                            }
+
+
                                                         </tr>
                                                     </text>
                                                 }
