@@ -42,31 +42,51 @@
                                                                  //Model.ChildAssessments[j].evaluation.Add(new SMSDataContract.Common.Evaluation() { VeryGood = false, Good = false, Average = false, Worse = false, WorseConcequence = string.Empty });
 
                                                                 Model.ChildAssessments[j].evaluation = new List<SMSDataContract.Common.Evaluation>();
-                                                                 Model.ChildAssessments[j].evaluation.Add(new SMSDataContract.Common.Evaluation());
+                                                                Model.ChildAssessments[j].evaluation.Add(new SMSDataContract.Common.Evaluation());
                                                              }
                                                             </td>
-                                                            @foreach (var item in Model.ChildAssessments[j].evaluation)
+                                                            @*@foreach (var item in Model.ChildAssessments[j].evaluation)
                                                             {
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].VeryGood, item.VeryGood)
-                                                                    <label for="@item.VeryGood">@item.VeryGood</label>
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].VeryGood, "V.Good", new { @name="Evaluation" })
+                                                                    <label for="VeryGood">V.Good</label>
 
                                                                 </td>
                                                                 <td>
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Good, item.Good)
-                                                                    <label for="@item.Good">@item.Good</label>
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Good, "Good", new { @name = "Evaluation" })
+                                                                    <label for="Good">Good</label>
                                                                 </td>
                                                                  <td>
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Average, item.Average)
-                                                                    <label for="@item.Average">@item.Average</label>
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Average, "Average", new { @name = "Evaluation" })
+                                                                    <label for="Average">Average</label>
                                                                 </td>
                                                                  <td>
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Worse, item.Worse)
-                                                                    <label for="@item.Worse">@item.Worse</label>
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Worse, "Worse", new { @name = "Evaluation" })
+                                                                    <label for="Worse">Worse</label>
                                                                 </td>
+                                                            }*@
+                                                            @for (int k = 0; k < Model.ChildAssessments[j].evaluation.Count; k++)
+                                                            {
+                                                                <td>
+                                                                    @Html.RadioButton("Evaluation" +j, Model.ChildAssessments[j].evaluation[k].VeryGood, "V.Good")
+                                                                    <label for="Good">V.Good</label>
+                                                                  
+                                                                </td>
+                                                                <td>
+                                                                    @Html.RadioButton("Evaluation"+j, Model.ChildAssessments[j].evaluation[k].Good, "Good")
+                                                                    <label for="Good">Good</label>
+                                                                </td>
+                                                                 <td>
+                                                                    @Html.RadioButton("Evaluation" + j, Model.ChildAssessments[j].evaluation[k].Average, "Average")
+                                                                    <label for="Good">Average</label>
+                                                                </td>
+                                                                 <td>
+                                                                    @Html.RadioButton("Evaluation" + j, Model.ChildAssessments[j].evaluation[k].Worse, "Worse")
+                                                                    <label for="Good">Worse</label>
+                                                                </td>
+                                                                
                                                             }
-
 
                                                         </tr>
                                                     </text>
