@@ -1,6 +1,7 @@
-﻿@using PagedList;
+﻿
+@using PagedList;
 @using PagedList.Mvc;
-@model IEnumerable<SMSDataContract.Accounts.DailyAssessmentType>
+@model IEnumerable<SMSDataContract.Accounts.DailyAssessmentSubType>
 
 @{
     Layout = "~/Views/Shared/_NewLayout.cshtml";
@@ -8,21 +9,22 @@
 <div id="AddEdithtml"></div>
 <div id="content">
     <button id="AddNewbtn" class="btn btn-sm btn-success ">
-        Add New Assessment
+        Add New Sub Assessment
     </button>
 
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="well">
                 <div class="row">
-                    <span class="HeadingStyle">List of Assessments</span>
+                    <span class="HeadingStyle">List of Sub Assessments</span>
                     <table id="getTable" class="table table-bordered table-striped table-responsive table-hover">
                         <tr class="action info">
+                            
                             <th>
-                                @Html.DisplayNameFor(model => model.First().AssessmentTypeId)
+                                @Html.DisplayNameFor(model => model.First().ParentAssementName)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.First().AssessmentName)
+                                @Html.DisplayNameFor(model => model.First().AssessmentSubTypeName)
                             </th>
 
 
@@ -30,24 +32,24 @@
                         </tr>
 
                         @foreach (var item in Model)
-                    {
+                        {
                             <tr>
+                               
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.AssessmentTypeId)
+                                    @Html.DisplayFor(modelItem => item.ParentAssementName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.AssessmentName)
+                                    @Html.DisplayFor(model=>item.AssessmentSubTypeName)
                                 </td>
-
 
 
                                 <td>
 
-                                    <a href="javascript:AddEdit(@item.AssessmentTypeId)" id="btnEdit" class="btn btn-sm btn-info edit"><i class="glyphicon glyphicon-edit"></i></a>
+                                    <a href="javascript:AddEdit(@item.AssessmentSubTypeId)" id="btnEdit" class="btn btn-sm btn-info edit"><i class="glyphicon glyphicon-edit"></i></a>
 
                                 </td>
                             </tr>
-                    }
+                        }
 
                     </table>
 
@@ -73,7 +75,7 @@
         });
         function AddEdit(id) {
             debugger;
-            var URL = "/StudentReport/AddChangesAssessmentType";
+            var URL = "/StudentReport/AddChangesSubAssessmentType";
             var model = { Id: id };
             $.get(URL, model)
             .done(function (gethtml) {
@@ -89,3 +91,7 @@
         }
     </script>
 }
+
+
+
+

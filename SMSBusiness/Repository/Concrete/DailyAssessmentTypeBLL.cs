@@ -55,7 +55,10 @@ namespace SMSBusiness.Repository.Concrete
                     {
                         assessment.AssessmentTypeId = int.Parse(item["AssessmentTypeId"].ToString());
                         assessment.AssessmentName = item["AssementName"].ToString();
-
+                        assessment.CreateDate = Convert.ToDateTime(item["CreatedDate"]);
+                        assessment.CreatedById = item["CreatedById"].ToString();
+                        assessment.ModifiedById = item.IsNull("ModifiedById") ? string.Empty : item["ModifiedById"].ToString();
+                        assessment.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?)null : Convert.ToDateTime(item["ModifiedDate"]);
 
 
                     }
@@ -91,6 +94,41 @@ namespace SMSBusiness.Repository.Concrete
             return ReturnValue;
         }
 
+        public DailyAssessmentType GetDailyAssessmentTypeByName(string AssessmentName)
+        {
+
+            var objgConatactsDao = new DailyAssessmentTypeDAO(new SqlDatabase());
+            DataTable stdAssessmentDetail;
+            DailyAssessmentType assessment = new DailyAssessmentType();
+            try
+            {
+                stdAssessmentDetail = objgConatactsDao.GetDailyAssessmentTypeByName(AssessmentName);
+                if (stdAssessmentDetail.Rows.Count > 0)
+                {
+                    foreach (DataRow item in stdAssessmentDetail.Rows)
+                    {
+                        assessment.AssessmentTypeId = int.Parse(item["AssessmentTypeId"].ToString());
+                        assessment.AssessmentName = item["AssementName"].ToString();
+                        assessment.CreateDate = Convert.ToDateTime(item["CreatedDate"]);
+                        assessment.CreatedById = item["CreatedById"].ToString();
+                        assessment.ModifiedById = item.IsNull("ModifiedById") ? string.Empty : item["ModifiedById"].ToString();
+                        assessment.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?)null : Convert.ToDateTime(item["ModifiedDate"]);
+
+
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return assessment;
+
+
+        }
 
     }
 }

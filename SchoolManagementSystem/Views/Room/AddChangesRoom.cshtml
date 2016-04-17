@@ -94,28 +94,35 @@
     });
     $("#btnAddEdit").click(function (e) {
         e.preventDefault();
-        var model = { RoomName: $("#RoomName").val() };
-        $.get("/Room/CheckRoomNameExist", model)
-   .success(function (response) {
+        var name = $("#RoomName").val();
+        if (name != "") {
+            var model = { RoomName: $("#RoomName").val() };
+            $.get("/Room/CheckRoomNameExist", model)
+       .success(function (response) {
 
-       if (response == "true") {
-           $("#RoomMsg").text("Room Name already Exist..");
-           $("#RoomMsg").show();
-          
-       }
-       else {
-           $("#RoomMsg").text("");
-           $("#RoomMsg").hide();
-           $("form").submit();
+           if (response == "true") {
+               $("#RoomMsg").text("Room Name already Exist..");
+               $("#RoomMsg").show();
 
-       }
+           }
+           else {
+               $("#RoomMsg").text("");
+               $("#RoomMsg").hide();
+               $("form").submit();
 
-   })
-   .fail(function (e) {
+           }
 
-       alert("Can't Check Room Existance..")
-   })
+       })
+       .fail(function (e) {
 
+           alert("Can't Check Room Existance..")
+       })
 
+        }
+        else
+        {
+            $("#RoomMsg").text("Enter Room Name");
+            $("#RoomMsg").show();
+        }
     });
 </script>

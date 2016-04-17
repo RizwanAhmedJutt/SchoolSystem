@@ -1,4 +1,4 @@
-﻿@model SMSDataContract.Accounts.DailyAssessmentType
+﻿@model SMSDataContract.Accounts.DailyAssessmentSubType
 
 @{
 
@@ -16,7 +16,7 @@
                     <div class="col-md-12 col-sm-12">
                         <div class="row well">
                             <div class="form-horizontal">
-                                @if (Model.AssessmentTypeId == 0)
+                                @if (Model.AssessmentSubTypeId == 0)
                                 {
                                     <span class="HeadingStyle">Add Assessment Type </span>
 
@@ -38,14 +38,14 @@
 
                                     <div class="form-group">
 
-                                        @Html.LabelFor(model => model.AssessmentName, new { @class = "control-label col-md-4" })
+                                        @Html.LabelFor(model => model.AssessmentSubTypeName, new { @class = "control-label col-md-4" })
                                         <div id="dvCourse" style="text-align: center; margin-top: -25px; margin-left:57%;">
                                             <span id="RoomMsg" class="error" style="display:none;"></span>
                                         </div>
-                                           <div class="col-md-5">
+                                        <div class="col-md-5">
 
-                                            @Html.EditorFor(model => model.AssessmentName, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.AssessmentName)
+                                            @Html.EditorFor(model => model.AssessmentSubTypeName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.AssessmentSubTypeName)
                                         </div>
                                     </div>
                                     <div class="row">
@@ -53,7 +53,7 @@
                                             <span class="col-md-3 col-md-offset-7">
 
                                                 <button id="btnAddEdit" type="submit" class="btn btn-primary btn-success pull-right">
-                                                    @if (Model.AssessmentTypeId == 0)
+                                                    @if (Model.AssessmentSubTypeId == 0)
                                                     { <text>
 
                                                         Save
@@ -96,37 +96,36 @@
     });
     $("#btnAddEdit").click(function (e) {
         debugger;
-          e.preventDefault();
-          var RoomName =  $("#AssessmentName").val() ;
-          if (RoomName != "") {
-              var model = { AssessmentName: $("#AssessmentName").val() };
-              $.get("/StudentReport/CheckAssessmentTypeExist", model)
-                .success(function (response) {
+        e.preventDefault();
+        var RoomName = $("#AssessmentName").val();
+        if (RoomName != "") {
+            var model = { AssessmentName: $("#AssessmentName").val() };
+            $.get("/StudentReport/CheckAssessmentTypeExist", model)
+              .success(function (response) {
 
-                    if (response == "true") {
-                        $("#RoomMsg").text("Assessment Name already Exist..");
-                        $("#RoomMsg").show();
+                  if (response == "true") {
+                      $("#RoomMsg").text("Assessment Name already Exist..");
+                      $("#RoomMsg").show();
 
-                    }
-                    else {
-                        $("#RoomMsg").text("");
-                        $("#RoomMsg").hide();
-                        $("form").submit();
+                  }
+                  else {
+                      $("#RoomMsg").text("");
+                      $("#RoomMsg").hide();
+                      $("form").submit();
 
-                    }
+                  }
 
-                })
-                .fail(function (e) {
+              })
+              .fail(function (e) {
 
-                    alert("Can't Check AssessmentType Existance..")
-                })
+                  alert("Can't Check AssessmentType Existance..")
+              })
 
-          }
-          else
-          {
-              $("#RoomMsg").text("Enter Assessment Type");
-              $("#RoomMsg").show();
-          }
+        }
+        else {
+            $("#RoomMsg").text("Enter Assessment Type");
+            $("#RoomMsg").show();
+        }
     });
 </script>
-    
+

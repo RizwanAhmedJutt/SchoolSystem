@@ -92,6 +92,24 @@ namespace SMSDAL.DAL
                 throw;
             }
             return dtAssessmentDetails;
+        }  
+      public DataTable GetDailyAssessmentTypeByName(string AssessmentName)
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+                var query = "Select * from DailyAssementType Where AssementName='" + AssessmentName +"'";
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
         }
 
 
