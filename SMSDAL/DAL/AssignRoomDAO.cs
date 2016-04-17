@@ -157,7 +157,7 @@ namespace SMSDAL.DAL
                 if (r.RoomId == 0)
                     query = "Insert Into Room (RoomName) Values ('" + r.RoomName + "')";
                 else
-                    query = "Update Room set RoomId=" + r.RoomId + ", RoomName='" + r.RoomName + "'";
+                    query = "Update Room set RoomName='" + r.RoomName + "'" + "Where RoomId="+r.RoomId;
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                    
@@ -211,6 +211,25 @@ namespace SMSDAL.DAL
             catch (Exception)
             {
                 
+                throw;
+            }
+        } 
+        public DataTable CheckRoomNameExist(string RoomName)
+        {
+            DataTable dtAllRoom;
+            try
+            {
+                var query = "Select r.RoomId,r.RoomName from Room r Where r.RoomName like '"+RoomName+"'";
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+
+                    dtAllRoom = gObjDatabase.GetDataTable(objCommand);
+                }
+                return dtAllRoom;
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

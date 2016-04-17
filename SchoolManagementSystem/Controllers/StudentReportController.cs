@@ -42,6 +42,7 @@ namespace SchoolManagementSystem.Controllers
            mymodel.AssessmentSubType = subtype;
            return View(mymodel);
         }
+        [HttpGet]
         public ActionResult AddChangesAssessmentReport()
         {
           
@@ -51,6 +52,13 @@ namespace SchoolManagementSystem.Controllers
             myModel.ChildAssessments = repoAssessementSubType.GetAllAssessmentSubType();
             return View(myModel);
         }
+         [HttpPost]
+        public ActionResult AddChangesAssessmentReport(DailyAssessmentHelper helper)
+        {
+
+            return View();
+        }
+
 
 	}
 }

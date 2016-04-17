@@ -1,78 +1,101 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
-@model IEnumerable<SMSDataContract.Accounts.Room>
+@model IPagedList<SMSDataContract.Accounts.Room>
 @{
 
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
-<div class="row">
-    <div class="col-md-12 col-sm-12">
-        <div class="col-md-7 col-md-offset-3">
-          
-        </div>
-        <div style="clear:left"></div>
-        <div class="well">
-            <div class="row">
-                <div class="pull-left">
-                    <a href="/Room/AddChangesRoom?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Room</a>
-                </div>
+<div id="AddEdithtml"></div>
+<div id="maincontent">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-7 col-md-offset-3">
 
             </div>
+            <div style="clear:left"></div>
+            <div class="well">
+                <div class="row">
+                    <div class="pull-left">
+                        <a id="btnAddEdit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Room</a>
+                    </div>
 
-            <br />
-            <div class="row">
-                <span class="HeadingStyle">List of Room</span>
-                <table class="table  table-bordered table-striped table-responsive table-hover">
-                    <tr class="action info">
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().RoomId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().RoomName)
-                        </th>
+                </div>
 
-                
+                <br />
+                <div class="row">
+                    <span class="HeadingStyle">List of Room</span>
+                    <table class="table  table-bordered table-striped table-responsive table-hover">
+                        <tr class="action info">
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().RoomId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().RoomName)
+                            </th>
 
-                        <th style="width:90px;"><b>ACTION</b></th>
 
-                    </tr>
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.RoomId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.RoomName)
-                            </td>
-
-                           
-                            <td>
-                                <a href="/Room/AddChangesRoom?Id=@item.RoomId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-                              
-                            </td>
+                            <th style="width:90px;"><b>ACTION</b></th>
 
                         </tr>
+
+                        @foreach (var item in Model)
+                    {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RoomId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RoomName)
+                                </td>
+
+
+                                <td>
+                                    <a id="btnUpdate" class="btn btn-sm btn-info" href="javascript:AddEdit(@item.RoomId)"><i class="glyphicon glyphicon-edit"></i></a>
+
+                                </td>
+
+                            </tr>
                     }
 
-                </table>
-                <div class="col-md-10 col-md-offset-4">
-                    @*@Html.PagedListPager(Model, page => Url.Action("GetALLRoom", new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))*@
+                    </table>
+                    <div class="col-md-10 col-md-offset-4">
+                        @Html.PagedListPager(Model, page => Url.Action("GetALLRoom", new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/bootstrap")
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#btnAddEdit").click(function () {
+                    AddEdit(0);
+                });
+            });
 
-       
-        });
+            function AddEdit(id)
+            {
+                debugger;
+                var URL = "/Room/AddChangesRoom";
+                var model = { Id: id };
+                $.get(URL, model)
+                .done(function (gethtml) {
+                    debugger;
+                   
+                    $("#AddEdithtml").html("");
+                    $("#AddEdithtml").html(gethtml);
+                    $('#myModal').modal('show');
+                    $("#myModel").modal({ "backdrop": "static" });
 
-    </script>
-}
+                })
+                .fail(function(e1){})
+            }
+          
+
+        </script>
+    }

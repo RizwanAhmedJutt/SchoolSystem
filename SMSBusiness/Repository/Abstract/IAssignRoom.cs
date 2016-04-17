@@ -21,6 +21,7 @@ namespace SMSBusiness.Repository.Abstract
         List<Room> GetALLRooms();
         int AddChangesRoom(Room r);
         Room GetRoomById(int Id);
+        Room CheckRoomNameExist(string RoomName);
 
 
     }

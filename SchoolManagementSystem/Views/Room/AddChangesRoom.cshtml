@@ -1,77 +1,121 @@
 ﻿@model SMSDataContract.Accounts.Room
 
 @{
-    Layout = "~/Views/Shared/_NewLayout.cshtml";
+
+    Layout = null;
 }
-<div class="col-md-12">
-    <div class="row">
-        <div class="well">
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-                <div class="row">
+
+
+@using (Html.BeginForm("AddChangesRoom", "Room", FormMethod.Post))
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
                     <div class="col-md-12 col-sm-12">
-                    
                         <div class="row well">
-                            @if (Model.RoomId == 0)
-                            {
-                                <span class="HeadingStyle">Add Room</span>
-
-                            }
-                            else
-                            {
-                                <span class="HeadingStyle">Update Room</span>
-                            }
                             <div class="form-horizontal">
+                                @if (Model.RoomId == 0)
+                                {
+                                    <span class="HeadingStyle">Add Room </span>
+
+                                }
+                                else
+                                {
+                                    @Html.HiddenFor(x => x.RoomId)
+                                    <span class="HeadingStyle">Update Room</span>
+                                }
                                 <hr />
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(model => model.RoomId)
-                             
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.RoomName, htmlAttributes: new { @class = "control-label col-md-4" })
-                                    <div class="col-md-8">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                                            @Html.EditorFor(model => model.RoomName, new { htmlAttributes = new { @class = "form-control", id = "FirstContact", placeholder = "First Contact" } })
-                                        </div>
-                                        @Html.ValidationMessageFor(model => model.RoomName, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                   
-                                <br />
-                                <hr />
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-md-9">
-                                                @if (Model.RoomId == 0)
-                                                {
-                                                    <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                    <div class="form-horizontal">
 
-                                                }
-                                                else
-                                                {
-                                                    <input type="submit" value="Update" style="background-color:#fab625; color:white;" class="btn pull-right" />
+                                        @Html.ValidationSummary(true)
 
-                                                }
+                                        <div class="form-group">
+
+                                            @Html.LabelFor(model => model.RoomName, new { @class = "control-label col-md-3" })
+                                            <div id="dvCourse" style="text-align: center; margin-top: -25px; margin-left:67%;">
+                                                <span id="RoomMsg" class="error" style="display:none;"></span>
+                                            </div>
+                                            <div class="col-md-7">
+
+                                                @Html.EditorFor(model => model.RoomName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.RoomName)
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <span class="col-md-3 col-md-offset-7">
 
+                                                    <button id="btnAddEdit" type="submit" class="btn btn-primary btn-success pull-right">
+                                                        @if (Model.RoomId == 0)
+                                                        { <text>
+                                                            Save
+                                                        </text>
+                                                        }
+                                                        else
+                                                        {
+                                                            <text>
+
+                                                                Update
+                                                            </text>
+                                                        }
+                                                    </button>
+
+                                                </span>
+
+
+                                                <button type="submit" id="btnClosemodel" class="btn btn-primary">Close</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
 
-            }
+            </div>
         </div>
     </div>
-</div>
-
-@section Scripts {
-
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
 }
+<script type="text/javascript">
+    $("#btnClosemodel").click(function (e) {
+        $('#myModal').modal('hide');
+        // $('#modal').modal('toggle');
+        $("#AddEdithtml").empty();
+        $("div").removeClass("modal-backdrop fade in");
+        e.preventDefault();
+
+    });
+    $("#btnAddEdit").click(function (e) {
+        e.preventDefault();
+        var model = { RoomName: $("#RoomName").val() };
+        $.get("/Room/CheckRoomNameExist", model)
+   .success(function (response) {
+
+       if (response == "true") {
+           $("#RoomMsg").text("Room Name already Exist..");
+           $("#RoomMsg").show();
+          
+       }
+       else {
+           $("#RoomMsg").text("");
+           $("#RoomMsg").hide();
+           $("form").submit();
+
+       }
+
+   })
+   .fail(function (e) {
+
+       alert("Can't Check Room Existance..")
+   })
+
+
+    });
+</script>

@@ -33,6 +33,7 @@ namespace SMSDataContract.Accounts
        // public int ParentAssessmentId { get; set; }
         public string ParentAssementName { get; set; }
         public List<Evaluation> evaluation { get; set; }
+        public string SelectedEvaluation { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreateDate { get; set; }
         public string ModifiedById { get; set; }

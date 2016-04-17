@@ -247,6 +247,33 @@ namespace SMSBusiness.Repository.Concrete
 
 
 
+        } 
+        public Room CheckRoomNameExist(string RoomName)
+        {
+            var objRoomDao = new RoomDAO(new SqlDatabase());
+            DataTable tblRoom;
+            Room aroom = new Room();
+            try
+            {
+                tblRoom = objRoomDao.CheckRoomNameExist(RoomName);
+                if (tblRoom.Rows.Count > 0)
+                {
+                    foreach (DataRow item in tblRoom.Rows)
+                    {
+                        aroom.RoomId = Convert.ToInt32(item["RoomId"]);
+                        aroom.RoomName = item["RoomName"].ToString();
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return aroom;
+
         }
     }
 }

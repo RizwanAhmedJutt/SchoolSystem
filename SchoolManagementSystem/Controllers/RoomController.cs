@@ -21,12 +21,12 @@ namespace SchoolManagementSystem.Controllers
         // GET: /Room/
         IRoom roomRepo = new RoomBLL();
         IAssignRoom assignRepo = new AssignRoomBLL();
-        public ActionResult GetALLRoom()
+        public ActionResult GetALLRoom(string SearchBy, string search, int? page)
         {
 
-            return View(roomRepo.GetALLRooms().ToList());
+            return View(roomRepo.GetALLRooms().ToPagedList(page ?? 1, 10));
         }
-
+        [HttpGet]
         public ActionResult AddChangesRoom(int Id)
         {
             Room r = roomRepo.GetRoomById(Id);
@@ -41,8 +41,7 @@ namespace SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult AddChangesRoom(Room r)
         {
-
-            int getStatus = roomRepo.AddChangesRoom(r);
+           int getStatus = roomRepo.AddChangesRoom(r);
             return RedirectToAction("GetALLRoom");
         }
         [HttpGet]
@@ -105,6 +104,16 @@ namespace SchoolManagementSystem.Controllers
               
             else
                 return new JavaScriptSerializer().Serialize(true);   // Room is Available for Class with selected time
+        } 
+
+        public string  CheckRoomNameExist(string RoomName)
+        {
+            Room room = roomRepo.CheckRoomNameExist(RoomName);
+            if(room.RoomId>0)
+                return new JavaScriptSerializer().Serialize(true);// Room Name  already Exist
+            else
+                return new JavaScriptSerializer().Serialize(false);   // Room name not already Exist
+
         }
 
     }

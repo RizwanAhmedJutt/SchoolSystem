@@ -24,6 +24,8 @@
 
                                             <td>
                                                 @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentTypeId)
+                                                @Html.HiddenFor(x=>x.ParentAssessments[i].AssessmentName)
+                                                @Html.HiddenFor(x=>x.ParentAssessments[i].AssessmentTypeId)
                                                 @Html.DisplayFor(x => x.ParentAssessments[i].AssessmentName)
                                             </td>
                                         </tr>
@@ -37,6 +39,7 @@
                                                         <tr>
                                                             <td>
                                                                 @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeId)
+                                                                @Html.HiddenFor(x=>x.ChildAssessments[j].AssessmentSubTypeName)
                                                                 @Html.DisplayFor(x => x.ChildAssessments[j].AssessmentSubTypeName)
                                                              @{  
                                                                  //Model.ChildAssessments[j].evaluation.Add(new SMSDataContract.Common.Evaluation() { VeryGood = false, Good = false, Average = false, Worse = false, WorseConcequence = string.Empty });
@@ -66,23 +69,28 @@
                                                                     <label for="Worse">Worse</label>
                                                                 </td>
                                                             }*@
-                                                            @for (int k = 0; k < Model.ChildAssessments[j].evaluation.Count; k++)
+                                                            @for (int k = 0; k < 1; k++)
                                                             {
                                                                 <td>
-                                                                    @Html.RadioButton("Evaluation" +j, Model.ChildAssessments[j].evaluation[k].VeryGood, "V.Good")
+                                                                    @*@Html.RadioButton("Evaluation" +j, Model.ChildAssessments[j].evaluation[k].VeryGood, "V.Good")*@
+                                                                    @*@Html.HiddenFor(x=>x.ChildAssessments[j].evaluation[k].VeryGood)*@
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "VeryGood")
                                                                     <label for="Good">V.Good</label>
                                                                   
                                                                 </td>
                                                                 <td>
-                                                                    @Html.RadioButton("Evaluation"+j, Model.ChildAssessments[j].evaluation[k].Good, "Good")
+                                                                    @*@Html.RadioButton("Evaluation"+j, Model.ChildAssessments[j].evaluation[k].Good, "Good")*@
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Good")
                                                                     <label for="Good">Good</label>
                                                                 </td>
                                                                  <td>
-                                                                    @Html.RadioButton("Evaluation" + j, Model.ChildAssessments[j].evaluation[k].Average, "Average")
+                                                                    @*@Html.RadioButton("Evaluation" + j, Model.ChildAssessments[j].evaluation[k].Average, "Average")*@
+                                                                     @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Average")
                                                                     <label for="Good">Average</label>
                                                                 </td>
                                                                  <td>
-                                                                    @Html.RadioButton("Evaluation" + j, Model.ChildAssessments[j].evaluation[k].Worse, "Worse")
+                                                                    @*@Html.RadioButton("Evaluation" + j, Model.ChildAssessments[j].evaluation[k].Worse, "Worse")*@
+                                                                     @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Worse")
                                                                     <label for="Good">Worse</label>
                                                                 </td>
                                                                 
@@ -97,6 +105,12 @@
                                     </table>
                                 </text>
                             }
+
+                            <div class="col-md-8 col-md-offset-4">
+
+                                <input type="submit" value="Add" class="btn btn-primary" />
+
+                            </div> 
                         </div>
                     </div>
                 }
