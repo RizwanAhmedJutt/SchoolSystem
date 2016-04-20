@@ -57,8 +57,12 @@ namespace SMSBusiness.Repository.Concrete
                     {
                         assessment.AssessmentSubTypeId = int.Parse(item["AssessmentSubTypeId"].ToString());
                         assessment.AssessmentSubTypeName = item["AssessmentSubTypeName"].ToString();
+                        assessment.AssessmentTypeId = Convert.ToInt32(item["AssessmentTypeId"]);
                         assessment.ParentAssementName = item["AssementName"].ToString();
-
+                        assessment.CreatedById = item["CreatedById"].ToString();
+                        assessment.CreateDate = Convert.ToDateTime(item["CreatedDate"]);
+                        assessment.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?)null : Convert.ToDateTime(item["ModifiedDate"]);
+                        assessment.ModifiedById = item.IsNull("ModifiedById") ? string.Empty : item["ModifiedById"].ToString();
 
 
                     }
@@ -91,6 +95,34 @@ namespace SMSBusiness.Repository.Concrete
             }
 
             return ReturnValue;
+        }
+        public DailyAssessmentSubType CheckSubAssementExist(int ParentAssessmentId, string SubAssessmentName)
+        {
+            var objgConatactsDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
+            DataTable stdAssessmentDetail;
+            DailyAssessmentSubType assessment = new DailyAssessmentSubType();
+            try
+            {
+                stdAssessmentDetail = objgConatactsDao.CheckSubAssementExist(ParentAssessmentId, SubAssessmentName);
+                if (stdAssessmentDetail.Rows.Count > 0)
+                {
+                    foreach (DataRow item in stdAssessmentDetail.Rows)
+                    {
+                        assessment.AssessmentSubTypeId = int.Parse(item["AssessmentSubTypeId"].ToString());
+                        assessment.AssessmentSubTypeName = item["AssessmentSubTypeName"].ToString();
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return assessment;
+
+
         }
     }
 }

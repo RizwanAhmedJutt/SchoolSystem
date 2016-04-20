@@ -44,7 +44,7 @@ namespace SMSDAL.DAL
             try
             {
 
-                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand("sp_Report_GetAssessmentSubTypeById "))
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Report_GetAssessmentSubTypeById "))
                 {
                     gObjDatabase.AddInParameter(objCommand, "@AssessmentSubTypeId", DbType.Int32, AssessmentSubTypeId);
 
@@ -64,6 +64,7 @@ namespace SMSDAL.DAL
                 using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("sp_Report_DailyAssessmentSubTypeInsertUpdate"))
                 {
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentSubTypeId", DbType.Int32, dAssessmentSubType.AssessmentSubTypeId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@AssessmentTypeId",DbType.Int32 ,dAssessmentSubType.AssessmentTypeId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentSubTypeName", DbType.String, dAssessmentSubType.AssessmentSubTypeName);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, dAssessmentSubType.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, dAssessmentSubType.CreateDate);
@@ -76,7 +77,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
                     if (dAssessmentSubType.AssessmentSubTypeId == 0)
                     {
-                        int identity = Convert.ToInt32(objDbCommand.Parameters["@AssessmentTypenewId"].Value);
+                        int identity = Convert.ToInt32(objDbCommand.Parameters["@AssessmentSubTypenewId"].Value);
                         return identity;
                     }
                     else if (dAssessmentSubType.AssessmentSubTypeId > 0)
@@ -93,6 +94,27 @@ namespace SMSDAL.DAL
             }
 
             return 0;  // show Error in inserting or Updating Record
+        }
+
+        public DataTable CheckSubAssementExist(int ParentAssessmentId, string SubAssessmentName)
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Report_CheckSubAssessmentType"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@ParentAssessmentId", DbType.Int32, ParentAssessmentId);
+                    gObjDatabase.AddInParameter(objCommand, "@AssessmentName", DbType.String,SubAssessmentName );
+
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
         }
     }
 }

@@ -12,6 +12,7 @@ namespace SMSBusiness.Repository.Abstract
      List<DailyAssessmentSubType> GetAllAssessmentSubType();
      DailyAssessmentSubType GetDailyAssessmentSubTypeById(int AssessmentSubTypeId);
      int AddChangesAssessmentSubType(DailyAssessmentSubType dAssessmentsubType);
+     DailyAssessmentSubType CheckSubAssementExist(int ParentAssessmentId, string SubAssessmentName);
 
     }
 }

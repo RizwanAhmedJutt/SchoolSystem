@@ -74,7 +74,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddChangesSubAssessmentType(DailyAssessmentSubType dailyAssementSubType)
         {
             var userloggedId = User.Identity.GetUserId();
-            if (dailyAssementSubType.AssessmentSubTypeId > 0)
+            if (dailyAssementSubType.AssessmentSubTypeId == 0)
             {
                 dailyAssementSubType.CreatedById = userloggedId;
 
@@ -84,6 +84,7 @@ namespace SchoolManagementSystem.Controllers
                 dailyAssementSubType.ModifiedById = userloggedId;
                 dailyAssementSubType.ModifiedDate = DateTime.Now;
             }
+            int getStatus = repoAssessementSubType.AddChangesAssessmentSubType(dailyAssementSubType);
             return RedirectToAction("GetALLSubAssessment");
         }
 
@@ -121,6 +122,22 @@ namespace SchoolManagementSystem.Controllers
                 return new JavaScriptSerializer().Serialize(false);   // Room name not already Exist
 
         }
+       
+        public string CheckSubAssementExist(int ParentAssessmentId, string SubAssessmentName)
+        {
+            DailyAssessmentSubType assessmentsubtype = repoAssessementSubType.CheckSubAssementExist(ParentAssessmentId, SubAssessmentName);
+            if (assessmentsubtype.AssessmentSubTypeId > 0)
+                return new JavaScriptSerializer().Serialize(true);
+            else
+                return new JavaScriptSerializer().Serialize(false);   
+        }
+        public ActionResult DDLAssessment()
+        {
+                ViewData["DDLAssessment"] = new SelectList(repoAssessmentType.GetAllAssessmentType().OrderBy(c => c.AssessmentTypeId).ToList(), "AssessmentTypeId", "AssessmentName");
+                return View("../DropDownLists/DDLAssessments");
+           
+           
 
+        }
     }
 }

@@ -432,6 +432,7 @@
     <Content Include="Views\StudentReport\AddChangesAssessmentReport.cshtml" />
     <Content Include="Views\StudentReport\GetALLSubAssessment.cshtml" />
     <Content Include="Views\StudentReport\AddChangesSubAssessmentType.cshtml" />
+    <Content Include="Views\DropDownLists\DDLAssessments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

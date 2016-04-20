@@ -6,7 +6,7 @@
 }
 
 
-@using (Html.BeginForm("AddChangesAssessmentType", "StudentReport", FormMethod.Post))
+@using (Html.BeginForm("AddChangesSubAssessmentType", "StudentReport", FormMethod.Post))
 {
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -23,6 +23,7 @@
                                 }
                                 else
                                 {
+                                    @Html.HiddenFor(x=>x.AssessmentSubTypeId)
                                     @Html.HiddenFor(x => x.AssessmentTypeId)
                                     @Html.HiddenFor(x => x.CreatedById)
                                     @Html.HiddenFor(x => x.CreateDate)
@@ -35,10 +36,22 @@
                                 <div class="form-horizontal">
 
                                     @Html.ValidationSummary(true)
-
+                                    <div class="form-group">
+                                        <div class="col-md-5 control-label"><label>Assessment Types</label> </div>
+                                        <div id="dvCourse" style="text-align: center; margin-top: -25px; margin-left:57%;">
+                                            <span id="AssessmentMsg" class="error" style="display:none;"></span>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="input-group">
+                                                @*<span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>*@
+                                                @{Html.RenderAction("DDLAssessment", "StudentReport");}
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.AssessmentTypeId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
                                     <div class="form-group">
 
-                                        @Html.LabelFor(model => model.AssessmentSubTypeName, new { @class = "control-label col-md-4" })
+                                        @Html.LabelFor(model => model.AssessmentSubTypeName, new { @class = "control-label col-md-5" })
                                         <div id="dvCourse" style="text-align: center; margin-top: -25px; margin-left:57%;">
                                             <span id="RoomMsg" class="error" style="display:none;"></span>
                                         </div>
@@ -86,6 +99,10 @@
 }
 
 <script type="text/javascript">
+    if ('@Model.AssessmentSubTypeId' > 0)
+    {
+        $('#ddlAssessment option[value="@Model.AssessmentTypeId"]').attr("selected", true);
+    }
     $("#btnClosemodel").click(function (e) {
         $('#myModal').modal('hide');
         // $('#modal').modal('toggle');
@@ -95,17 +112,29 @@
 
     });
     $("#btnAddEdit").click(function (e) {
-        debugger;
         e.preventDefault();
-        var RoomName = $("#AssessmentName").val();
-        if (RoomName != "") {
-            var model = { AssessmentName: $("#AssessmentName").val() };
-            $.get("/StudentReport/CheckAssessmentTypeExist", model)
+        var SubAssessmentName = $("#AssessmentSubTypeName").val();
+        var AssessmentTypeId = $("#ddlAssessment").val();
+        if (AssessmentTypeId === '')
+        {
+          
+            $("#AssessmentMsg").text("Please Select Assessment");
+            $("#AssessmentMsg").show();
+        }
+        if (SubAssessmentName == "") {
+          
+            $("#RoomMsg").text("Enter Sub Assessment Name");
+            $("#RoomMsg").show();
+        }
+        else {
+           
+            var model = { ParentAssessmentId: AssessmentTypeId, SubAssessmentName: SubAssessmentName };
+            $.get("/StudentReport/CheckSubAssementExist", model)
               .success(function (response) {
-
+                 
                   if (response == "true") {
-                      $("#RoomMsg").text("Assessment Name already Exist..");
-                      $("#RoomMsg").show();
+                      $("#AssessmentMsg").text("Select another Assessment.");
+                      $("#AssessmentMsg").show();
 
                   }
                   else {
@@ -118,13 +147,8 @@
               })
               .fail(function (e) {
 
-                  alert("Can't Check AssessmentType Existance..")
+                  alert("Can't Check SubAssessmentType Existance..")
               })
-
-        }
-        else {
-            $("#RoomMsg").text("Enter Assessment Type");
-            $("#RoomMsg").show();
         }
     });
 </script>

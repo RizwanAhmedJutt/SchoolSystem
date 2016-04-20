@@ -1,0 +1,10 @@
+﻿@*@using schoolmanagementsystem;*@
+@using SMSDataContract.Accounts;
+@using SMSBusiness.Repository.Concrete;
+@using SMSBusiness.Repository.Abstract;
+
+
+@{
+    Layout = null;
+}
+@Html.DropDownList("AssessmentTypeId", (SelectList)ViewData["DDLAssessment"], "Select Assessment", new { id = "ddlAssessment", @class = "form-control" })
