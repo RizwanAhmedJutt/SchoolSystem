@@ -28,6 +28,8 @@ namespace SMSBusiness.Repository.Concrete
                     var AssessmentDetails = new DailyAssessmentType();
                     AssessmentDetails.AssessmentTypeId = Convert.ToInt32(dr["AssessmentTypeId"]);
                     AssessmentDetails.AssessmentName = dr["AssementName"].ToString();
+                    AssessmentDetails.AssessmentCategoryId = Convert.ToInt32(dr["AssessmentCategoryId"]);
+                    AssessmentDetails.AssementCategory = dr["AssessmentCategory"].ToString();
                     objAssementList.Add(AssessmentDetails);
 
                 }
@@ -41,6 +43,34 @@ namespace SMSBusiness.Repository.Concrete
                 throw;
             }
         }
+        public List<DailyAssessmentType> GetALLAssignedParentAssessments()
+        {
+            var objAssessmentDao = new DailyAssessmentTypeDAO(new SqlDatabase());
+            var dtAssement = new DataTable();
+            dtAssement = objAssessmentDao.GetALLAssignedParentAssessments();
+            List<DailyAssessmentType> objAssementList = new List<DailyAssessmentType>();
+
+            try
+            {
+
+                foreach (DataRow dr in dtAssement.Rows)
+                {
+                    var AssessmentDetails = new DailyAssessmentType();
+                    AssessmentDetails.AssessmentTypeId = Convert.ToInt32(dr["AssessmentTypeId"]);
+                    AssessmentDetails.AssessmentName = dr["AssementName"].ToString();
+                    objAssementList.Add(AssessmentDetails);
+
+                }
+
+                return objAssementList;
+
+            }
+            catch
+            {
+
+                throw;
+            }
+        } 
         public DailyAssessmentType GetDailyAssessmentById(int AssessmentTypeId)
         {
             var objgConatactsDao = new DailyAssessmentTypeDAO(new SqlDatabase());
@@ -55,6 +85,7 @@ namespace SMSBusiness.Repository.Concrete
                     {
                         assessment.AssessmentTypeId = int.Parse(item["AssessmentTypeId"].ToString());
                         assessment.AssessmentName = item["AssementName"].ToString();
+                        assessment.AssessmentCategoryId = Convert.ToInt32(item["AssessmentCategoryId"]);
                         assessment.CreateDate = Convert.ToDateTime(item["CreatedDate"]);
                         assessment.CreatedById = item["CreatedById"].ToString();
                         assessment.ModifiedById = item.IsNull("ModifiedById") ? string.Empty : item["ModifiedById"].ToString();
@@ -109,6 +140,7 @@ namespace SMSBusiness.Repository.Concrete
                     {
                         assessment.AssessmentTypeId = int.Parse(item["AssessmentTypeId"].ToString());
                         assessment.AssessmentName = item["AssementName"].ToString();
+                        assessment.AssessmentCategoryId = Convert.ToInt32(item["AssessmentCategoryId"]);
                         assessment.CreateDate = Convert.ToDateTime(item["CreatedDate"]);
                         assessment.CreatedById = item["CreatedById"].ToString();
                         assessment.ModifiedById = item.IsNull("ModifiedById") ? string.Empty : item["ModifiedById"].ToString();

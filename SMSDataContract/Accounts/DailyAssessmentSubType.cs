@@ -15,6 +15,7 @@ namespace SMSDataContract.Accounts
         {
             AssessmentSubTypeId = 0;
             AssessmentSubTypeName = string.Empty;
+            Concequence = string.Empty;
             CreatedById = string.Empty;
             CreateDate = DateTime.Now;
             ModifiedById = string.Empty;
@@ -30,10 +31,12 @@ namespace SMSDataContract.Accounts
         [Display(Name="Sub Assessment Name")]
         [Required(ErrorMessage="Enter Sub Assessment Name")]
         public string AssessmentSubTypeName { get; set; }
-       // public int ParentAssessmentId { get; set; }
+    
         public string ParentAssementName { get; set; }
-        public List<Evaluation> evaluation { get; set; }
+        public int AcadmicClassId { get; set; }
+        public int StudentId { get; set; }
         public string SelectedEvaluation { get; set; }
+        public string Concequence { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreateDate { get; set; }
         public string ModifiedById { get; set; }

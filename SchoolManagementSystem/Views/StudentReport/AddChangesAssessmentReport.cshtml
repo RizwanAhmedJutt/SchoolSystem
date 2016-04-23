@@ -13,93 +13,111 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
+
                     <div class="row">
+                        <span class="HeadingStyle">Student Assessment Sheet </span>
                         <div class="col-md-12 col-sm-12">
+                            <div class="form-group row">
+                                <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                        @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group row">
+                                <div class="col-md-3"> <b>Student </b> </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                        <div id="dvDDLStudent">
+                                           
+                                                 @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                   
+                                            
+                                        </div>
+                                    </div>
+                                 
+                                </div>
+                            </div>
+
                             @for (int i = 0; i < Model.ParentAssessments.Count; i++)
                             {
                                 <text>
 
-                                    <table>
+                                    <table  class="col-md-12 table-condensed table-striped table" >
                                         <tr>
 
-                                            <td>
+                                            <td colspan="5">
                                                 @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentTypeId)
-                                                @Html.HiddenFor(x=>x.ParentAssessments[i].AssessmentName)
-                                                @Html.HiddenFor(x=>x.ParentAssessments[i].AssessmentTypeId)
-                                                @Html.DisplayFor(x => x.ParentAssessments[i].AssessmentName)
+                                                @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentName)
+                                                @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentTypeId)
+                                                <span class="subheader">   @Html.DisplayFor(x => x.ParentAssessments[i].AssessmentName) </span>
+
                                             </td>
                                         </tr>
                                         @for (int j = 0; j < Model.ChildAssessments.Count; j++)
                                         {
-                                            <text>
-                                                @if (Model.ChildAssessments[j].AssessmentTypeId == Model.ParentAssessments[i].AssessmentTypeId)
+                                        <text>
+                                            @if (Model.ChildAssessments[j].AssessmentTypeId == Model.ParentAssessments[i].AssessmentTypeId)
                                                 {
-                                                    <text>
+                                        <text>
 
-                                                        <tr>
-                                                            <td>
-                                                                @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeId)
-                                                                @Html.HiddenFor(x=>x.ChildAssessments[j].AssessmentSubTypeName)
-                                                                @Html.DisplayFor(x => x.ChildAssessments[j].AssessmentSubTypeName)
-                                                             @{  
-                                                                 //Model.ChildAssessments[j].evaluation.Add(new SMSDataContract.Common.Evaluation() { VeryGood = false, Good = false, Average = false, Worse = false, WorseConcequence = string.Empty });
+                                            <tr>
+                                                <td>
+                                                    @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeId)
+                                                    @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeName)
+                                                    @Html.HiddenFor(x=>x.ChildAssessments[j].AssessmentTypeId)
+                                                    <label for=" SubAssessmentName">   @Html.DisplayFor(x => x.ChildAssessments[j].AssessmentSubTypeName) </label>
 
-                                                                Model.ChildAssessments[j].evaluation = new List<SMSDataContract.Common.Evaluation>();
-                                                                Model.ChildAssessments[j].evaluation.Add(new SMSDataContract.Common.Evaluation());
-                                                             }
-                                                            </td>
-                                                            @*@foreach (var item in Model.ChildAssessments[j].evaluation)
-                                                            {
-                                                                <td>
+                                                </td>
 
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].VeryGood, "V.Good", new { @name="Evaluation" })
-                                                                    <label for="VeryGood">V.Good</label>
 
-                                                                </td>
-                                                                <td>
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Good, "Good", new { @name = "Evaluation" })
-                                                                    <label for="Good">Good</label>
-                                                                </td>
-                                                                 <td>
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Average, "Average", new { @name = "Evaluation" })
-                                                                    <label for="Average">Average</label>
-                                                                </td>
-                                                                 <td>
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].evaluation[0].Worse, "Worse", new { @name = "Evaluation" })
-                                                                    <label for="Worse">Worse</label>
-                                                                </td>
-                                                            }*@
-                                                            @for (int k = 0; k < 1; k++)
-                                                            {
-                                                                <td>
-                                                                    @*@Html.RadioButton("Evaluation" +j, Model.ChildAssessments[j].evaluation[k].VeryGood, "V.Good")*@
-                                                                    @*@Html.HiddenFor(x=>x.ChildAssessments[j].evaluation[k].VeryGood)*@
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "VeryGood")
-                                                                    <label for="Good">V.Good</label>
-                                                                  
-                                                                </td>
-                                                                <td>
-                                                                    @*@Html.RadioButton("Evaluation"+j, Model.ChildAssessments[j].evaluation[k].Good, "Good")*@
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Good")
-                                                                    <label for="Good">Good</label>
-                                                                </td>
-                                                                 <td>
-                                                                    @*@Html.RadioButton("Evaluation" + j, Model.ChildAssessments[j].evaluation[k].Average, "Average")*@
-                                                                     @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Average")
-                                                                    <label for="Good">Average</label>
-                                                                </td>
-                                                                 <td>
-                                                                    @*@Html.RadioButton("Evaluation" + j, Model.ChildAssessments[j].evaluation[k].Worse, "Worse")*@
-                                                                     @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Worse")
-                                                                    <label for="Good">Worse</label>
-                                                                </td>
-                                                                
-                                                            }
+                                                <td>
 
-                                                        </tr>
-                                                    </text>
+                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "VeryGood")
+                                                    V.Good
+
+                                                </td>
+                                                <td>
+
+                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Good")
+                                                    Good
+                                                </td>
+                                                <td>
+
+                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Average")
+                                                    Average
+                                                </td>
+                                                <td>
+
+                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Worse")
+                                                    Worse
+                                                </td>
+
+
+
+                                                <td>
+                                                    @if (string.IsNullOrEmpty(Model.ChildAssessments[j].Concequence))
+                                                                {  <text>
+                                                                    @Html.EditorFor(x => x.ChildAssessments[j].Concequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtConcequence" + j } })
+                                                                </text>
+                                                                }
+                                                                else
+                                                                {
+                                                                <text>
+                                                                    @Html.EditorFor(x => x.ChildAssessments[j].Concequence, new { htmlAttributes = new { @class = "form-control", @Id = "txtConcequence" + j } })
+                                                                </text>
+                                                                }
+                                                </td>
+
+                                            </tr>
+
+                                        </text>
                                                 }
-                                            </text>
+                                        </text>
 
                                         }
                                     </table>
@@ -108,9 +126,9 @@
 
                             <div class="col-md-8 col-md-offset-4">
 
-                                <input type="submit" value="Add" class="btn btn-primary" />
+                                <input type="submit" id="btnAddEit" value="Add" class="btn btn-primary" />
 
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 }
@@ -119,6 +137,52 @@
                     @Scripts.Render("~/bundles/bootstrap")
                     <script type="text/javascript">
                         $(document).ready(function () {
+                            $('input:radio').click(function () {
+                                debugger;
+
+                                var getRadiobuttonvalue = $(this).closest('tr').find('input[type=radio]:checked:first').val();
+
+                                if (getRadiobuttonvalue == "Worse") {
+                                    $(this).closest('tr').find('input[type="text"]').attr("disabled", false);
+                                }
+                                else {
+                                    $(this).closest('tr').find('input[type="text"]').attr("disabled", true);
+                                }
+
+
+                            });
+                            $("#btnAddEit").click(function (e) {
+                                debugger;
+                                e.preventDefault();
+                                var findtable = $.find("table");
+                                var gethtml = $("table").closest("tr").find('input[type="text"]').html();
+                                alert(findtable);
+                                alert(gethtml);
+
+                            });
+                            //change event for acadmic class
+                            $("#ddlAcadmicClass").change(function () {
+                                debugger;
+                                
+                                var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
+                                var model = { AcadmicClassId: getAcadmicClass };
+                                if(getAcadmicClass!='')
+                                {
+                                    Url = "/Course/DDLStudent";
+
+                                    // Fill Student Dropdown
+                                    $.get(Url, model)
+                                    .done(function (stdhtml) {
+                                        debugger;
+                                        $("#dvDDLStudent").html(stdhtml);
+                                       
+                                    })
+                                    .fail(function (ex1, ex2) {
+                                        alert("Can't get Student DDL");
+                                    })
+                                }
+
+                            });
                         });
                     </script>
                 }

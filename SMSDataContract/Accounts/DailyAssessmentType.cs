@@ -25,6 +25,12 @@ namespace SMSDataContract.Accounts
         [Display(Name = "Assessment Name")]
         [Required(ErrorMessage="Please Enter Assessment Name")]
         public string AssessmentName { get; set; }
+        [Display(Name="Assessment Category")]
+        public string AssementCategory { get; set; }
+        public int AssessmentCategoryId { get; set; }
+        [Display(Name="Assessment Criteria")]
+        [Required(ErrorMessage="Please Select Criteria")]
+        public string AssessmentCriteria { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreateDate { get; set; }
         public string ModifiedById { get; set; }

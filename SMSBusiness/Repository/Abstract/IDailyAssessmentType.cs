@@ -13,6 +13,7 @@ namespace SMSBusiness.Repository.Abstract
       DailyAssessmentType GetDailyAssessmentById(int AssessmentTypeId);
       int AddChangeDailyAssessmentType(DailyAssessmentType dAssessmentsubType);
       DailyAssessmentType GetDailyAssessmentTypeByName(string AssessmentName);
+      List<DailyAssessmentType> GetALLAssignedParentAssessments();
 
     }
 }

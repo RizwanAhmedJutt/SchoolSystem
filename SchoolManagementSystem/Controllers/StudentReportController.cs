@@ -17,9 +17,44 @@ namespace SchoolManagementSystem.Controllers
 {
     public class StudentReportController : Controller
     {
+        IAssessmentCategories repoAssessmentCategory = new AssessmentCategoriesBLL();
         IDailyAssessmentType repoAssessmentType = new DailyAssessmentTypeBLL();
         IDailyAssessmentSubType repoAssessementSubType = new DailyAssessmentSubTypeBLL();
         // GET: /StudentReport/
+        public ActionResult GetALLAssessmentCategories()
+        {
+            return View(repoAssessmentCategory.GetALLAssessmentCategories().ToList());
+        }
+        [HttpGet]
+        public ActionResult AddChangesAssessmentCategory(int Id)
+        {
+            AssessmentCategories dAssessCategory = repoAssessmentCategory.GetAssessmentCategoryById(Id);
+            if (Id == 0)
+            {
+                AssessmentCategories dassesscategory = new AssessmentCategories();
+
+                return View(dassesscategory);
+            }
+            else
+                return View(dAssessCategory);
+        }
+        [HttpPost]
+        public ActionResult AddChangesAssessmentCategory(AssessmentCategories dAssesscategory)
+        {
+            var userloggedId = User.Identity.GetUserId();
+            if (dAssesscategory.AssessmentCategoryId == 0)
+            {
+                dAssesscategory.CreatedById = userloggedId;
+
+            }
+            else
+            {
+                dAssesscategory.ModifiedById = userloggedId;
+                dAssesscategory.ModifiedDate = DateTime.Now;
+            }
+            int getStatus = repoAssessmentCategory.AddChangeAssessmentCategories(dAssesscategory);
+            return RedirectToAction("GetALLAssessmentCategories");
+        }
         public ActionResult GetALLAssessment()
         {
             return View(repoAssessmentType.GetAllAssessmentType().ToList());
@@ -38,7 +73,7 @@ namespace SchoolManagementSystem.Controllers
                 return View(dAssessType);
         }
         [HttpPost]
-        public ActionResult AddChangesAssessmentType(DailyAssessmentType dAssesstype)
+        public ActionResult AddChangesAssessmentType(DailyAssessmentType dAssesstype, int AssessmentCategoryId)
         {
             var userloggedId = User.Identity.GetUserId();
             if (dAssesstype.AssessmentTypeId == 0)
@@ -51,7 +86,7 @@ namespace SchoolManagementSystem.Controllers
                 dAssesstype.ModifiedById = userloggedId;
                 dAssesstype.ModifiedDate = DateTime.Now;
             }
-            // int getStatus = repoAssessmentType.AddChangeDailyAssessmentType(dAssesstype);
+             int getStatus = repoAssessmentType.AddChangeDailyAssessmentType(dAssesstype);
             return RedirectToAction("GetALLAssessment");
         }
         //Get All SubAssement Type
@@ -103,12 +138,12 @@ namespace SchoolManagementSystem.Controllers
 
 
             DailyAssessmentHelper myModel = new DailyAssessmentHelper();
-            myModel.ParentAssessments = repoAssessmentType.GetAllAssessmentType();
+            myModel.ParentAssessments = repoAssessmentType.GetALLAssignedParentAssessments();
             myModel.ChildAssessments = repoAssessementSubType.GetAllAssessmentSubType();
             return View(myModel);
         }
         [HttpPost]
-        public ActionResult AddChangesAssessmentReport(DailyAssessmentHelper helper)
+        public ActionResult AddChangesAssessmentReport(DailyAssessmentHelper helper, int AcadmicClassId, int StudentId)
         {
 
             return View();
@@ -131,6 +166,14 @@ namespace SchoolManagementSystem.Controllers
             else
                 return new JavaScriptSerializer().Serialize(false);   
         }
+        public string CheckAssessmentCategoryExist(string AssessmentName)
+        {
+            AssessmentCategories assessmentsubtype = repoAssessmentCategory.GetAssessmentCategoryByName(AssessmentName);
+            if (assessmentsubtype.AssessmentCategoryId > 0)
+                return new JavaScriptSerializer().Serialize(true);
+            else
+                return new JavaScriptSerializer().Serialize(false);   
+        }
         public ActionResult DDLAssessment()
         {
                 ViewData["DDLAssessment"] = new SelectList(repoAssessmentType.GetAllAssessmentType().OrderBy(c => c.AssessmentTypeId).ToList(), "AssessmentTypeId", "AssessmentName");
@@ -139,5 +182,7 @@ namespace SchoolManagementSystem.Controllers
            
 
         }
+
+     
     }
 }

@@ -37,8 +37,21 @@
                                     @Html.ValidationSummary(true)
 
                                     <div class="form-group">
+                                        <div class="col-md-5 control-label"><label>Assessment Belong To</label> </div>
+                                        <div id="dvCategory" style="text-align: center; margin-top: -25px; margin-left:57%;">
+                                            <span id="CategoryMsg" class="error" style="display:none;"></span>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                                @{Html.RenderPartial("../DropDownLists/DDLCategory");}
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                        @Html.LabelFor(model => model.AssessmentName, new { @class = "control-label col-md-4" })
+                                    <div class="form-group">
+
+                                        @Html.LabelFor(model => model.AssessmentName, new { @class = "control-label col-md-5" })
                                         <div id="dvCourse" style="text-align: center; margin-top: -25px; margin-left:57%;">
                                             <span id="RoomMsg" class="error" style="display:none;"></span>
                                         </div>
@@ -46,6 +59,19 @@
 
                                             @Html.EditorFor(model => model.AssessmentName, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.AssessmentName)
+                                        </div>
+                                    </div>
+                                    <div id="criteria" class="form-group">
+
+                                        @Html.LabelFor(model => model.AssessmentCriteria, new { @class = "control-label col-md-5" })
+                                        <div id="dvCourse" style="text-align: center; margin-top: -25px; margin-left:57%;">
+                                            <span id="AssessmentCriteriaMsg" class="error" style="display:none;"></span>
+                                        </div>
+                                        <div class="col-md-5">
+
+                                            <span id="generalAssessment">  @Html.RadioButtonFor(model => model.AssessmentName, "General") General </span>
+                                            <span id="acadmicAssessment">  @Html.RadioButtonFor(model => model.AssessmentName, "Acadmic") Acadmic </span>
+                                            @Html.ValidationMessageFor(model => model.AssessmentCriteria)
                                         </div>
                                     </div>
                                     <div class="row">
@@ -86,6 +112,31 @@
 }
 
 <script type="text/javascript">
+    //Default Set Criteria Hide
+    $("#criteria").hide();
+    $("#ddlAssessmentCategory").change(function (e) {
+        debugger;
+        $("#criteria").hide();
+        var checkCategory = $("#ddlAssessmentCategory option:selected").val();
+        debugger;
+        if (checkCategory != '') {
+
+            var getSelectedCategoryText = $("#ddlAssessmentCategory option:selected").text();
+
+            if (getSelectedCategoryText == "Student" || getSelectedCategoryText == "student") {
+                debugger;
+                $("#criteria").show();
+                $("#acadmicAssessment").show();
+               
+            }
+            if (getSelectedCategoryText == "Teacher" || getSelectedCategoryText == "teacher") {
+                debugger;
+                $("#criteria").show();
+                $("#acadmicAssessment").hide();
+            }
+        }
+
+    });
     $("#btnClosemodel").click(function (e) {
         $('#myModal').modal('hide');
         // $('#modal').modal('toggle');
@@ -96,9 +147,15 @@
     });
     $("#btnAddEdit").click(function (e) {
         debugger;
-          e.preventDefault();
-          var RoomName =  $("#AssessmentName").val() ;
-          if (RoomName != "") {
+        e.preventDefault();
+        var getAssessmentCategory = $("#ddlAssessmentCategory").val();
+        if (getAssessmentCategory == '')
+        {
+            $("#CategoryMsg").text("Please Select Assessment Category");
+            $("#CategoryMsg").show();
+        }
+          var getAssessment =  $("#AssessmentName").val() ;
+          if (getAssessment != "") {
               var model = { AssessmentName: $("#AssessmentName").val() };
               $.get("/StudentReport/CheckAssessmentTypeExist", model)
                 .success(function (response) {

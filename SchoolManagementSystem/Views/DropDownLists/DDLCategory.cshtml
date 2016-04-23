@@ -2,12 +2,12 @@
 @*@using SMSDataContract.Enums;*@
 @using SMSBusiness.Repository.Concrete;
 @using SMSBusiness.Repository.Abstract;
-@using SMSDataContract.Common;
+@using SMSDataContract.Accounts;
 @{
 
-    ICategoryBLL repCategory = new CategoryBLL();
-    List<Category> ObjCategory = new List<Category>();
-    ObjCategory = repCategory.GetALLCategories();
+    IAssessmentCategories repCategory = new AssessmentCategoriesBLL();
+    List<AssessmentCategories> ObjCategory = new List<AssessmentCategories>();
+    ObjCategory = repCategory.GetALLAssessmentCategories();
 }
 
-@Html.DropDownList("CategoryId", new SelectList(ObjCategory.ToList(), "Id", "Name"), new { id = "ddlCategoryId", @class = "form-control" })
+@Html.DropDownList("AssessmentCategoryId", new SelectList(ObjCategory.ToList(), "AssessmentCategoryId", "AssessmentName"),"Select Assessment Category" ,new { id = "ddlAssessmentCategory", @class = "form-control" })

@@ -13,6 +13,7 @@ namespace SMSDataContract.Accounts
            DailyAssessmentOpertationId = 0;
            StudentId = 0;
            AcadmicClassId = 0;
+           ParentAssessmentId = 0;
            AssessmentSubTypeId = 0;
            AssementStatus = string.Empty;
            WorseConsequence = string.Empty;
@@ -25,7 +26,7 @@ namespace SMSDataContract.Accounts
        public int DailyAssessmentOpertationId { get; set; }
        public int StudentId { get; set; }
        public int AcadmicClassId { get; set; }
-
+       public int ParentAssessmentId { get; set; }
        public int AssessmentSubTypeId { get; set; }
        public string AssementStatus { get; set; }
        public string WorseConsequence { get; set; }

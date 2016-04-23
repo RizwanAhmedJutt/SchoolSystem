@@ -42,6 +42,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Abstract\IAcadmicClassBLL.cs" />
     <Compile Include="Repository\Abstract\IAdmissionGranted.cs" />
+    <Compile Include="Repository\Abstract\IAssessmentCategories.cs" />
     <Compile Include="Repository\Abstract\IAssignRoom.cs" />
     <Compile Include="Repository\Abstract\ICategoryBLL.cs" />
     <Compile Include="Repository\Abstract\ICityBLL.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Repository\Abstract\ITeacherRepositry.cs" />
     <Compile Include="Repository\Concrete\AcadmicClassBLL.cs" />
     <Compile Include="Repository\Concrete\AdmissionGrantedBLL.cs" />
+    <Compile Include="Repository\Concrete\AssessmentCategoriesBLL.cs" />
     <Compile Include="Repository\Concrete\AssignRoomBLL.cs" />
     <Compile Include="Repository\Concrete\CategoryBLL.cs" />
     <Compile Include="Repository\Concrete\CityBLL.cs" />

@@ -1,6 +1,6 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
-@model IEnumerable<SMSDataContract.Accounts.DailyAssessmentType>
+@model IEnumerable<SMSDataContract.Accounts.AssessmentCategories>
 
 @{
     Layout = "~/Views/Shared/_NewLayout.cshtml";
@@ -8,50 +8,46 @@
 <div id="AddEdithtml"></div>
 <div id="content">
     <button id="AddNewbtn" class="btn btn-sm btn-success ">
-        Add New Assessment
+        Add New Assessment Category
     </button>
 
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="well">
                 <div class="row">
-                    <span class="HeadingStyle">List of Assessments</span>
+                    <span class="HeadingStyle">List of Assessment Categories</span>
                     <table id="getTable" class="table table-bordered table-striped table-responsive table-hover">
                         <tr class="action info">
                             <th>
-                                @Html.DisplayNameFor(model => model.First().AssessmentTypeId)
+                                @Html.DisplayNameFor(model => model.First().AssessmentCategoryId)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.First().AssessmentName)
                             </th>
-                            <th>
-                                <b>Assessment Belong To</b>
-                            </th>
+
 
                             <th style="width:90px;"><b>ACTION</b></th>
                         </tr>
 
                         @foreach (var item in Model)
-                    {
+                        {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.AssessmentTypeId)
+                                    @Html.DisplayFor(modelItem => item.AssessmentCategoryId)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.AssessmentName)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem=>item.AssementCategory)
-                                </td>
+
 
 
                                 <td>
 
-                                    <a href="javascript:AddEdit(@item.AssessmentTypeId)" id="btnEdit" class="btn btn-sm btn-info edit"><i class="glyphicon glyphicon-edit"></i></a>
+                                    <a href="javascript:AddEdit(@item.AssessmentCategoryId)" id="btnEdit" class="btn btn-sm btn-info edit"><i class="glyphicon glyphicon-edit"></i></a>
 
                                 </td>
                             </tr>
-                    }
+                        }
 
                     </table>
 
@@ -77,7 +73,7 @@
         });
         function AddEdit(id) {
             debugger;
-            var URL = "/StudentReport/AddChangesAssessmentType";
+            var URL = "/StudentReport/AddChangesAssessmentCategory";
             var model = { Id: id };
             $.get(URL, model)
             .done(function (gethtml) {

@@ -15,7 +15,17 @@ select,
 textarea {
     max-width: 280px;
 }
-
+.subheader {
+    background-color: #606060;
+    background-image: linear-gradient(to bottom, #606060, #88827C);
+    border-radius: 5px 5px 5px 5px;
+    color: #F7A93D;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px;
+    margin-left: 10px;
+}
 .HeadingStyle {
     background-color: blue;
     background-image: linear-gradient(to bottom, #5bc0de, #5bc0de);

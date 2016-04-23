@@ -1,0 +1,133 @@
+﻿@model SMSDataContract.Accounts.AssessmentCategories
+
+@{
+
+    Layout = null;
+}
+
+
+@using (Html.BeginForm("AddChangesAssessmentCategory", "StudentReport", FormMethod.Post))
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="row well">
+                            <div class="form-horizontal">
+                                @if (Model.AssessmentCategoryId == 0)
+                                {
+                                    <span class="HeadingStyle">Add Assessment Category </span>
+
+                                }
+                                else
+                                {
+                                    @Html.HiddenFor(x => x.AssessmentCategoryId)
+                                    @Html.HiddenFor(x => x.CreatedById)
+                                    @Html.HiddenFor(x => x.CreateDate)
+                                    
+                                   
+                                    <span class="HeadingStyle">Update Assessment Category</span>
+                                }
+                                <hr />
+
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+
+                                    @Html.ValidationSummary(true)
+
+                                    <div class="form-group">
+
+                                        @Html.LabelFor(model => model.AssessmentName, new { @class = "control-label col-md-4" })
+                                        <div id="dvCategory" style="text-align: center; margin-top: -25px; margin-left:57%;">
+                                            <span id="AssessmentMsg" class="error" style="display:none;"></span>
+                                        </div>
+                                        <div class="col-md-5">
+
+                                            @Html.EditorFor(model => model.AssessmentName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.AssessmentName)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <span class="col-md-3 col-md-offset-7">
+
+                                                <button id="btnAddEdit" type="submit" class="btn btn-primary btn-success pull-right">
+                                                    @if (Model.AssessmentCategoryId == 0)
+                                                    { <text>
+
+                                                        Save
+                                                    </text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>
+
+                                                            Update
+                                                        </text>
+                                                    }
+                                                </button>
+
+                                            </span>
+
+                                            <button type="submit" id="btnClosemodel" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $("#btnClosemodel").click(function (e) {
+        $('#myModal').modal('hide');
+        // $('#modal').modal('toggle');
+        $("#AddEdithtml").empty();
+        $("div").removeClass("modal-backdrop fade in");
+        e.preventDefault();
+
+    });
+    $("#btnAddEdit").click(function (e) {
+        debugger;
+        e.preventDefault();
+        var getAssessment = $("#AssessmentName").val();
+        if (getAssessment != "") {
+            var model = { AssessmentName: $("#AssessmentName").val() };
+            $.get("/StudentReport/CheckAssessmentCategoryExist", model)
+              .success(function (response) {
+
+                  if (response == "true") {
+                      $("#AssessmentMsg").text("Assessment Name already Exist..");
+                      $("#AssessmentMsg").show();
+
+                  }
+                  else {
+                      $("#AssessmentMsg").text("");
+                      $("#AssessmentMsg").hide();
+                      $("form").submit();
+
+                  }
+
+              })
+              .fail(function (e) {
+
+                  alert("Can't Check AssessmentCategory Existance..")
+              })
+
+        }
+        else {
+            $("#AssessmentMsg").text("Enter Assessment Category");
+            $("#AssessmentMsg").show();
+        }
+    });
+</script>
+
