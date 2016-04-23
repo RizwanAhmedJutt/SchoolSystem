@@ -69,8 +69,8 @@
                                         </div>
                                         <div class="col-md-5">
 
-                                            <span id="generalAssessment">  @Html.RadioButtonFor(model => model.AssessmentName, "General") General </span>
-                                            <span id="acadmicAssessment">  @Html.RadioButtonFor(model => model.AssessmentName, "Acadmic") Acadmic </span>
+                                            <span id="generalAssessment">  @Html.RadioButtonFor(model => model.AssessmentCriteria, "General") General </span>
+                                            <span id="acadmicAssessment">  @Html.RadioButtonFor(model => model.AssessmentCriteria, "Acadmic") Acadmic </span>
                                             @Html.ValidationMessageFor(model => model.AssessmentCriteria)
                                         </div>
                                     </div>
@@ -154,9 +154,27 @@
             $("#CategoryMsg").text("Please Select Assessment Category");
             $("#CategoryMsg").show();
         }
+        var isCriteriaVisible = $("#criteria").is(":visible");
+        if (isCriteriaVisible == true)
+        {
+           
+            var getradiobuttValue = $("input[type=radio][name=AssessmentCriteria]:checked").val();
+            if (typeof getradiobuttValue === "undefined")
+            {
+                
+                $("#AssessmentCriteriaMsg").text("Please Select Assessment Criteria.");
+                $("#AssessmentCriteriaMsg").show();
+                return;
+            }
+            else
+            {
+                $("#AssessmentCriteriaMsg").text("");
+                $("#AssessmentCriteriaMsg").hide();
+            }
+        }
           var getAssessment =  $("#AssessmentName").val() ;
           if (getAssessment != "") {
-              var model = { AssessmentName: $("#AssessmentName").val() };
+              var model = { AssessmentName: $("#AssessmentName").val(), AssessmentCategoryId: $("#ddlAssessmentCategory").val() };
               $.get("/StudentReport/CheckAssessmentTypeExist", model)
                 .success(function (response) {
 
@@ -184,6 +202,13 @@
               $("#RoomMsg").text("Enter Assessment Type");
               $("#RoomMsg").show();
           }
+       
     });
+    // For Update Mode
+    if('@Model.AssessmentTypeId'>0)
+    {
+        $("#criteria").show();
+    }
+
 </script>
     

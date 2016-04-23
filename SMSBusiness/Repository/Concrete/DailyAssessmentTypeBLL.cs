@@ -30,6 +30,7 @@ namespace SMSBusiness.Repository.Concrete
                     AssessmentDetails.AssessmentName = dr["AssementName"].ToString();
                     AssessmentDetails.AssessmentCategoryId = Convert.ToInt32(dr["AssessmentCategoryId"]);
                     AssessmentDetails.AssementCategory = dr["AssessmentCategory"].ToString();
+                    AssessmentDetails.AssessmentCriteria = dr["AssessmentCriteria"].ToString();
                     objAssementList.Add(AssessmentDetails);
 
                 }
@@ -85,6 +86,7 @@ namespace SMSBusiness.Repository.Concrete
                     {
                         assessment.AssessmentTypeId = int.Parse(item["AssessmentTypeId"].ToString());
                         assessment.AssessmentName = item["AssementName"].ToString();
+                        assessment.AssessmentCriteria = item["AssessmentCriteria"].ToString();
                         assessment.AssessmentCategoryId = Convert.ToInt32(item["AssessmentCategoryId"]);
                         assessment.CreateDate = Convert.ToDateTime(item["CreatedDate"]);
                         assessment.CreatedById = item["CreatedById"].ToString();
@@ -125,7 +127,7 @@ namespace SMSBusiness.Repository.Concrete
             return ReturnValue;
         }
 
-        public DailyAssessmentType GetDailyAssessmentTypeByName(string AssessmentName)
+        public DailyAssessmentType GetDailyAssessmentTypeByName(string AssessmentName, int AssessmentCategoryId)
         {
 
             var objgConatactsDao = new DailyAssessmentTypeDAO(new SqlDatabase());
@@ -133,7 +135,7 @@ namespace SMSBusiness.Repository.Concrete
             DailyAssessmentType assessment = new DailyAssessmentType();
             try
             {
-                stdAssessmentDetail = objgConatactsDao.GetDailyAssessmentTypeByName(AssessmentName);
+                stdAssessmentDetail = objgConatactsDao.GetDailyAssessmentTypeByName(AssessmentName, AssessmentCategoryId);
                 if (stdAssessmentDetail.Rows.Count > 0)
                 {
                     foreach (DataRow item in stdAssessmentDetail.Rows)

@@ -27,7 +27,9 @@
                             <th>
                                 <b>Assessment Belong To</b>
                             </th>
-
+                            <th>
+                                @Html.DisplayNameFor(model=> model.First().AssessmentCriteria)
+                            </th>
                             <th style="width:90px;"><b>ACTION</b></th>
                         </tr>
 
@@ -43,7 +45,9 @@
                                 <td>
                                     @Html.DisplayFor(modelItem=>item.AssementCategory)
                                 </td>
-
+                                <td>
+                                    @Html.DisplayFor(modelItem =>item.AssessmentCriteria)
+                                </td>
 
                                 <td>
 

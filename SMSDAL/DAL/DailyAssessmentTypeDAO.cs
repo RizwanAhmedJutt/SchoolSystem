@@ -62,6 +62,7 @@ namespace SMSDAL.DAL
                 {
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentTypeId", DbType.Int32, dAssessmentType.AssessmentTypeId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentCategoryId", DbType.Int32, dAssessmentType.AssessmentCategoryId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@AssessmentCriteria", DbType.String, dAssessmentType.AssessmentCriteria);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentName", DbType.String, dAssessmentType.AssessmentName);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, dAssessmentType.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, dAssessmentType.CreateDate);
@@ -112,12 +113,12 @@ namespace SMSDAL.DAL
             }
             return dtAssessmentDetails;
         }
-        public DataTable GetDailyAssessmentTypeByName(string AssessmentName)
+        public DataTable GetDailyAssessmentTypeByName(string AssessmentName, int AssessmentCategoryId )
         {
             DataTable dtAssessmentDetails;
             try
             {
-                var query = "Select * from DailyAssementType Where AssementName='" + AssessmentName + "'";
+                var query = "Select * from DailyAssementType Where AssementName='" + AssessmentName + "'" +"And AssessmentCategoryId=" + AssessmentCategoryId ;
                 using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
 

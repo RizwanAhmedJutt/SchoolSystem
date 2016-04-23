@@ -76,6 +76,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddChangesAssessmentType(DailyAssessmentType dAssesstype, int AssessmentCategoryId)
         {
             var userloggedId = User.Identity.GetUserId();
+            dAssesstype.AssessmentCategoryId = AssessmentCategoryId;
             if (dAssesstype.AssessmentTypeId == 0)
             {
                 dAssesstype.CreatedById = userloggedId;
@@ -86,7 +87,7 @@ namespace SchoolManagementSystem.Controllers
                 dAssesstype.ModifiedById = userloggedId;
                 dAssesstype.ModifiedDate = DateTime.Now;
             }
-             int getStatus = repoAssessmentType.AddChangeDailyAssessmentType(dAssesstype);
+            int getStatus = repoAssessmentType.AddChangeDailyAssessmentType(dAssesstype);
             return RedirectToAction("GetALLAssessment");
         }
         //Get All SubAssement Type
@@ -148,9 +149,9 @@ namespace SchoolManagementSystem.Controllers
 
             return View();
         }
-        public string CheckAssessmentTypeExist(string AssessmentName)
+        public string CheckAssessmentTypeExist(string AssessmentName, int AssessmentCategoryId)
         {
-            DailyAssessmentType assessmenttype = repoAssessmentType.GetDailyAssessmentTypeByName(AssessmentName);
+            DailyAssessmentType assessmenttype = repoAssessmentType.GetDailyAssessmentTypeByName(AssessmentName, AssessmentCategoryId);
             if (assessmenttype.AssessmentTypeId > 0)
                 return new JavaScriptSerializer().Serialize(true);// Room Name  already Exist
             else
