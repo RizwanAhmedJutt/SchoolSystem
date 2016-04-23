@@ -18,16 +18,16 @@
                             <div class="form-horizontal">
                                 @if (Model.AssessmentSubTypeId == 0)
                                 {
-                                    <span class="HeadingStyle">Add Assessment Type </span>
+                                    <span class="HeadingStyle">Add Sub Assessment Type </span>
 
                                 }
                                 else
                                 {
-                                    @Html.HiddenFor(x=>x.AssessmentSubTypeId)
+                                    @Html.HiddenFor(x => x.AssessmentSubTypeId)
                                     @Html.HiddenFor(x => x.AssessmentTypeId)
                                     @Html.HiddenFor(x => x.CreatedById)
                                     @Html.HiddenFor(x => x.CreateDate)
-                                    <span class="HeadingStyle">Update Assessment Type</span>
+                                    <span class="HeadingStyle">Update Sub Assessment Type</span>
                                 }
                                 <hr />
 
@@ -45,17 +45,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+
+                                    <div id="Assessments" class="form-group">
                                         <div class="col-md-5 control-label"><label>Assessment Types</label> </div>
                                         <div id="dvCourse" style="text-align: center; margin-top: -25px; margin-left:57%;">
                                             <span id="AssessmentMsg" class="error" style="display:none;"></span>
                                         </div>
                                         <div class="col-md-7">
                                             <div class="input-group">
-                                                @*<span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>*@
-                                                @{Html.RenderAction("DDLAssessment", "StudentReport");}
+                                                <div id="ddAssessmentbycategory">
+                                                    @{Html.RenderAction("DDLAssessment", "StudentReport", new { @AssessmentCategoryId = 0 });}
+                                                </div>
+                                                @Html.ValidationMessageFor(model => model.AssessmentTypeId, "", new { @class = "text-danger" })
                                             </div>
-                                            @Html.ValidationMessageFor(model => model.AssessmentTypeId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -69,6 +71,14 @@
                                             @Html.EditorFor(model => model.AssessmentSubTypeName, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.AssessmentSubTypeName)
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AssessmentFormat, new { @class = "control-label col-md-5" })
+                                        <div class="col-md-7">
+                                            @Html.RadioButtonFor(x=>x.AssessmentFormat,"true") Concequence
+                                            @Html.RadioButtonFor(x => x.AssessmentFormat, "false") Non-Concequence
+                                        </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="form-group">
@@ -108,28 +118,34 @@
 }
 
 <script type="text/javascript">
+    //Fill Assessment By Category
     $("#ddlAssessmentCategory").change(function (e) {
         debugger;
-        var checkCategory =$("#ddlAssessmentCategory option:selected").val();
-        debugger;
-        if (checkCategory != '')
-        {
-            
-            var getSelectedCategoryText = $("#ddlAssessmentCategory option:selected").text();
-            
-            if(getSelectedCategoryText=="Student" || getSelectedCategoryText=="student")
-            {
-                debugger;
-            }
-            if (getSelectedCategoryText == "Teacher" || getSelectedCategoryText == "teacher")
-            {
+        var checkCategory = $("#ddlAssessmentCategory option:selected").val();
 
-            }
+        if (checkCategory != '') {
+            var model = { AssessmentCategoryId: $("#ddlAssessmentCategory option:selected").val() };
+            var URL = "/StudentReport/DDLAssessment";
+            debugger;
+            $.get(URL, model)
+            .done(function (gethtml) {
+                debugger;
+
+
+                $("#ddAssessmentbycategory").html("");
+                $("#ddAssessmentbycategory").html(gethtml);
+            })
+            .fail(function (ex1, ex2) {
+          alert("Can't get Assessment DDL");
+      })
+
+
         }
 
     });
-    if ('@Model.AssessmentSubTypeId' > 0)
-    {
+   
+
+    if ('@Model.AssessmentSubTypeId' > 0) {
         $('#ddlAssessment option[value="@Model.AssessmentTypeId"]').attr("selected", true);
     }
     $("#btnClosemodel").click(function (e) {
@@ -144,23 +160,22 @@
         e.preventDefault();
         var SubAssessmentName = $("#AssessmentSubTypeName").val();
         var AssessmentTypeId = $("#ddlAssessment").val();
-        if (AssessmentTypeId === '')
-        {
-          
+        if (AssessmentTypeId === '') {
+
             $("#AssessmentMsg").text("Please Select Assessment");
             $("#AssessmentMsg").show();
         }
         if (SubAssessmentName == "") {
-          
+
             $("#RoomMsg").text("Enter Sub Assessment Name");
             $("#RoomMsg").show();
         }
         else {
-           
+
             var model = { ParentAssessmentId: AssessmentTypeId, SubAssessmentName: SubAssessmentName };
             $.get("/StudentReport/CheckSubAssementExist", model)
               .success(function (response) {
-                 
+
                   if (response == "true") {
                       $("#AssessmentMsg").text("Select another Assessment.");
                       $("#AssessmentMsg").show();

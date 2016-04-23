@@ -18,9 +18,7 @@
                     <span class="HeadingStyle">List of Assessments</span>
                     <table id="getTable" class="table table-bordered table-striped table-responsive table-hover">
                         <tr class="action info">
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().AssessmentTypeId)
-                            </th>
+                            
                             <th>
                                 @Html.DisplayNameFor(model => model.First().AssessmentName)
                             </th>
@@ -36,9 +34,7 @@
                         @foreach (var item in Model)
                     {
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AssessmentTypeId)
-                                </td>
+                                
                                 <td>
                                     @Html.DisplayFor(modelItem => item.AssessmentName)
                                 </td>

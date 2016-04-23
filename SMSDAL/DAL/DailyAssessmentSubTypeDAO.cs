@@ -66,6 +66,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentSubTypeId", DbType.Int32, dAssessmentSubType.AssessmentSubTypeId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentTypeId",DbType.Int32 ,dAssessmentSubType.AssessmentTypeId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentSubTypeName", DbType.String, dAssessmentSubType.AssessmentSubTypeName);
+                    gObjDatabase.AddInParameter(objDbCommand, "@AssessmentFormat", DbType.Boolean, dAssessmentSubType.AssessmentFormat);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, dAssessmentSubType.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, dAssessmentSubType.CreateDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, string.IsNullOrEmpty(dAssessmentSubType.ModifiedById) ? (object)dAssessmentSubType.ModifiedById : dAssessmentSubType.ModifiedById);

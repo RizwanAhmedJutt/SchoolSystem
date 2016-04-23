@@ -29,6 +29,7 @@ namespace SMSBusiness.Repository.Concrete
                     AssessmentDetails.AssessmentSubTypeId = Convert.ToInt32(dr["AssessmentSubTypeId"]);
                     AssessmentDetails.AssessmentSubTypeName = dr["AssessmentSubTypeName"].ToString();
                     AssessmentDetails.ParentAssementName = dr["AssementName"].ToString();
+                    AssessmentDetails.AssessmentFormat = Convert.ToBoolean(dr["AssessmentFormat"]);
                     AssessmentDetails.AssessmentTypeId=Convert.ToInt32(dr["AssessmentTypeId"]);
                     objAssementList.Add(AssessmentDetails);
 
@@ -59,6 +60,7 @@ namespace SMSBusiness.Repository.Concrete
                         assessment.AssessmentSubTypeName = item["AssessmentSubTypeName"].ToString();
                         assessment.AssessmentTypeId = Convert.ToInt32(item["AssessmentTypeId"]);
                         assessment.ParentAssementName = item["AssementName"].ToString();
+                        assessment.AssessmentFormat = Convert.ToBoolean(item["AssessmentFormat"]);
                         assessment.CreatedById = item["CreatedById"].ToString();
                         assessment.CreateDate = Convert.ToDateTime(item["CreatedDate"]);
                         assessment.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?)null : Convert.ToDateTime(item["ModifiedDate"]);

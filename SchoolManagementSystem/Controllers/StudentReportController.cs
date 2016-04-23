@@ -174,16 +174,36 @@ namespace SchoolManagementSystem.Controllers
                 return new JavaScriptSerializer().Serialize(true);
             else
                 return new JavaScriptSerializer().Serialize(false);   
-        }
-        public ActionResult DDLAssessment()
+        } 
+        [HttpGet]
+        public ActionResult DDLAssessment(int AssessmentCategoryId)
         {
+            if (AssessmentCategoryId == 0)
+            {
                 ViewData["DDLAssessment"] = new SelectList(repoAssessmentType.GetAllAssessmentType().OrderBy(c => c.AssessmentTypeId).ToList(), "AssessmentTypeId", "AssessmentName");
                 return View("../DropDownLists/DDLAssessments");
-           
+            }
+            else
+            {
+                ViewData["DDLAssessment"] = new SelectList(repoAssessmentType.GetAllAssessmentType().Where(x=>x.AssessmentCategoryId==AssessmentCategoryId).OrderBy(c => c.AssessmentTypeId).ToList(), "AssessmentTypeId", "AssessmentName");
+                return View("../DropDownLists/DDLAssessments");
+            }
            
 
         }
 
-     
+        public string GetAssessmentCriteria(int AssessmentCategoryId,int AssessmentTypeId)
+        {
+            string getCriteria=string.Empty;
+            var GetAssessmentCriteria = from x in repoAssessmentType.GetAllAssessmentType()
+                                        where x.AssessmentCategoryId == AssessmentCategoryId
+                                        && x.AssessmentTypeId == AssessmentTypeId
+                                        select x.AssessmentCriteria;
+            foreach (string item in GetAssessmentCriteria)
+            {
+                getCriteria= item;
+            }
+            return getCriteria;
+        }
     }
 }

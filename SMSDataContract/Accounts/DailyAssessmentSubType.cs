@@ -16,6 +16,7 @@ namespace SMSDataContract.Accounts
             AssessmentSubTypeId = 0;
             AssessmentSubTypeName = string.Empty;
             Concequence = string.Empty;
+            AssessmentFormat = false;
             CreatedById = string.Empty;
             CreateDate = DateTime.Now;
             ModifiedById = string.Empty;
@@ -33,6 +34,8 @@ namespace SMSDataContract.Accounts
         public string AssessmentSubTypeName { get; set; }
     
         public string ParentAssementName { get; set; }
+        [Display(Name="Assessment Format")]
+        public bool AssessmentFormat { get; set; }
         public int AcadmicClassId { get; set; }
         public int StudentId { get; set; }
         public string SelectedEvaluation { get; set; }
