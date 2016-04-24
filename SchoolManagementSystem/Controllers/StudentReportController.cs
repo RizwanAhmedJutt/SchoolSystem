@@ -15,6 +15,7 @@ using PagedList.Mvc;
 
 namespace SchoolManagementSystem.Controllers
 {
+     [Authorize(Roles = "Admin")]
     public class StudentReportController : Controller
     {
         IAssessmentCategories repoAssessmentCategory = new AssessmentCategoriesBLL();
