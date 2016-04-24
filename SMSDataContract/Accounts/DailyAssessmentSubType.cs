@@ -13,6 +13,7 @@ namespace SMSDataContract.Accounts
 
         public DailyAssessmentSubType()
         {
+            OperationalId = 0;
             AssessmentSubTypeId = 0;
             AssessmentSubTypeName = string.Empty;
             Concequence = string.Empty;
@@ -24,7 +25,7 @@ namespace SMSDataContract.Accounts
 
            
         }
-
+        public int OperationalId { get; set; }
         public int AssessmentSubTypeId { get; set; }
      
         [Required(ErrorMessage="Select Assessment Type")]

@@ -41,7 +41,7 @@ namespace SMSDataContract.Accounts
         [Display(Name="Admission Granted Date")]
         public DateTime AdmissionGrantedDate { get; set; }
         [Required(ErrorMessage="Enter Remarks")]
-        [Display(Name="Penal Remarks")]
+        [Display(Name="Final Remarks")]
         public string Remarks { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreatedDate { get; set; }

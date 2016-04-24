@@ -42,7 +42,7 @@ namespace SMSDAL.DAL
             try
             {
 
-                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("GetALLAssignedParentAssessments"))
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_report_GetALLAssignedParentAssessmentsGeneralStudent"))
                 {
 
                     dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);

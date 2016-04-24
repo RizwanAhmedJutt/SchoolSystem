@@ -15,39 +15,45 @@
                     @Html.AntiForgeryToken()
 
                     <div class="row">
-                        <span class="HeadingStyle">Student Assessment Sheet </span>
+                        <span class="HeadingStyle">Student General Assessment  </span>
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group row">
                                 <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
                                 <div class="col-md-9">
+                                    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                                        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                                    </div>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                                         @{Html.RenderPartial("../DropDownLists/DDLClass");}
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div class="form-group row">
                                 <div class="col-md-3"> <b>Student </b> </div>
                                 <div class="col-md-9">
+                                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                                    </div>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                                         <div id="dvDDLStudent">
-                                           
-                                                 @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
-                   
-                                            
+
+                                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+
+
                                         </div>
                                     </div>
-                                 
+
                                 </div>
                             </div>
 
                             @for (int i = 0; i < Model.ParentAssessments.Count; i++)
                             {
                                 <text>
-
-                                    <table  class="col-md-12 table-condensed table-striped table" >
+                                    @*id='table@(i)'*@
+                                    <table class="col-md-12 table-condensed table-striped table">
                                         <tr>
 
                                             <td colspan="5">
@@ -60,71 +66,73 @@
                                         </tr>
                                         @for (int j = 0; j < Model.ChildAssessments.Count; j++)
                                         {
-                                        <text>
-                                            @if (Model.ChildAssessments[j].AssessmentTypeId == Model.ParentAssessments[i].AssessmentTypeId)
+                                            <text>
+                                                @if (Model.ChildAssessments[j].AssessmentTypeId == Model.ParentAssessments[i].AssessmentTypeId)
                                                 {
-                                        <text>
+                                                    <text>
 
-                                            <tr>
-                                                <td>
-                                                    @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeId)
-                                                    @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeName)
-                                                    @Html.HiddenFor(x=>x.ChildAssessments[j].AssessmentTypeId)
-                                                    <label for=" SubAssessmentName">   @Html.DisplayFor(x => x.ChildAssessments[j].AssessmentSubTypeName) </label>
+                                                        <tr>
+                                                            <td>
+                                                                @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeId)
+                                                                @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeName)
+                                                                @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentTypeId)
+                                                                @Html.HiddenFor(x => x.ChildAssessments[j].OperationalId)
+                                                                <label for=" SubAssessmentName">   @Html.DisplayFor(x => x.ChildAssessments[j].AssessmentSubTypeName) </label>
 
-                                                </td>
-
-
-                                                <td>
-
-                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "VeryGood")
-                                                    V.Good
-
-                                                </td>
-                                                <td>
-
-                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Good")
-                                                    Good
-                                                </td>
-                                                <td>
-
-                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Average")
-                                                    Average
-                                                </td>
-                                                <td>
-
-                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Worse")
-                                                    Worse
-                                                </td>
+                                                            </td>
 
 
+                                                            <td>
 
-                                                <td>
-                                                    @if (string.IsNullOrEmpty(Model.ChildAssessments[j].Concequence))
+                                                                @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "VeryGood")
+                                                                V.Good
+
+                                                            </td>
+                                                            <td>
+
+                                                                @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Good")
+                                                                Good
+                                                            </td>
+                                                            <td>
+
+                                                                @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Average")
+                                                                Average
+                                                            </td>
+                                                            <td>
+
+                                                                @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Worse")
+                                                                Worse
+                                                            </td>
+
+
+
+                                                            <td>
+                                                                @if (string.IsNullOrEmpty(Model.ChildAssessments[j].Concequence))
                                                                 {  <text>
                                                                     @Html.EditorFor(x => x.ChildAssessments[j].Concequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtConcequence" + j } })
                                                                 </text>
                                                                 }
                                                                 else
                                                                 {
-                                                                <text>
-                                                                    @Html.EditorFor(x => x.ChildAssessments[j].Concequence, new { htmlAttributes = new { @class = "form-control", @Id = "txtConcequence" + j } })
-                                                                </text>
+                                                                    <text>
+                                                                        @Html.EditorFor(x => x.ChildAssessments[j].Concequence, new { htmlAttributes = new { @class = "form-control", @Id = "txtConcequence" + j } })
+                                                                    </text>
                                                                 }
-                                                </td>
+                                                            </td>
 
-                                            </tr>
+                                                        </tr>
 
-                                        </text>
+                                                    </text>
                                                 }
-                                        </text>
+                                            </text>
 
                                         }
                                     </table>
+
                                 </text>
                             }
 
-                            <div class="col-md-8 col-md-offset-4">
+                            <div class="col-md-12 col-md-offset-8">
 
                                 <input type="submit" id="btnAddEit" value="Add" class="btn btn-primary" />
 
@@ -137,8 +145,11 @@
                     @Scripts.Render("~/bundles/bootstrap")
                     <script type="text/javascript">
                         $(document).ready(function () {
+
+
+                         
                             $('input:radio').click(function () {
-                                debugger;
+                                
 
                                 var getRadiobuttonvalue = $(this).closest('tr').find('input[type=radio]:checked:first').val();
 
@@ -154,28 +165,68 @@
                             $("#btnAddEit").click(function (e) {
                                 debugger;
                                 e.preventDefault();
-                                var findtable = $.find("table");
-                                var gethtml = $("table").closest("tr").find('input[type="text"]').html();
-                                alert(findtable);
-                                alert(gethtml);
+                                $("#AcadmicclassMsg").text("");
+                                $("#AcadmicclassMsg").hide();
+                                $("#StudentMsg").text("");
+                                $("#StudentMsg").hide();
+                                if ($("#ddlAcadmicClass").val() == '') {
+                                    $("#AcadmicclassMsg").text("Please Select Acadmic Class");
+                                    $("#AcadmicclassMsg").show();
+                                }
+                                else if ($("#ddlStudent").val() == '') {
+                                    $("#StudentMsg").text("Please Select Student");
+                                    $("#StudentMsg").show();
+                                }
+                                else {
 
+                                    var getALLgroupName = new Array();
+                                    var validated = false;
+                                    $("table tr td input[type=radio]").each(function (i, value) {    // Get ALL radio button Groups
+                                        var groupname = $(this).attr("name");
+                                        if (jQuery.inArray(groupname, getALLgroupName) == -1) {
+                                            getALLgroupName.push(groupname);
+                                        }
+                                    });
+                                    var getValidationStatus = new Array();
+                                    //Iterate ALL Groupe for Validation
+                                    for (var i = 0; i < getALLgroupName.length; i++) {
+                                        var getGroupValuesStatus = new Array();
+                                        var groupname = $("table tr td input[name='" + getALLgroupName[i] + "']");
+                                        $("table tr td input[name='" + getALLgroupName[i] + "']").each(function (i, value) {
+                                            getGroupValuesStatus.push($(this).is(":checked"));
+
+                                        });
+                                        // Show Validation Error and add bool parameter  for postback
+                                        if (jQuery.inArray(true, getGroupValuesStatus) == -1) {
+                                            $(groupname).closest("tr").css("border", "2px solid red");
+                                            getValidationStatus.push(false);
+                                        }
+                                        else {
+                                            getValidationStatus.push(true);
+                                        }
+                                    }
+                                    //After successfully validation submitt form.
+                                    if ($.inArray(false, getValidationStatus) == -1) {
+                                        $("form").submit();
+                                    }
+                                }
                             });
                             //change event for acadmic class
                             $("#ddlAcadmicClass").change(function () {
-                                debugger;
-                                
+                              
                                 var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
                                 var model = { AcadmicClassId: getAcadmicClass };
-                                if(getAcadmicClass!='')
-                                {
+                                if (getAcadmicClass != '') {
+                                    $("#AcadmicclassMsg").text("");
+                                    $("#AcadmicclassMsg").hide();
                                     Url = "/Course/DDLStudent";
 
                                     // Fill Student Dropdown
                                     $.get(Url, model)
                                     .done(function (stdhtml) {
-                                        debugger;
-                                        $("#dvDDLStudent").html(stdhtml);
                                        
+                                        $("#dvDDLStudent").html(stdhtml);
+
                                     })
                                     .fail(function (ex1, ex2) {
                                         alert("Can't get Student DDL");
@@ -183,6 +234,17 @@
                                 }
 
                             });
+
+                           
+                            $('body').on("change", "#ddlStudent", function () {
+                              
+                                if ($("#ddlStudent").val() != "") {
+                                    $("#StudentMsg").text("");
+                                    $("#StudentMsg").hide();
+                                }
+
+                            });
+
                         });
                     </script>
                 }

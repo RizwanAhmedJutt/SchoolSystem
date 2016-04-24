@@ -28,6 +28,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.Int32, dAssessmentOpertion.StudentId);
                     gObjDatabase.AddInParameter(objDbCommand, "@ParentAssessmentId", DbType.Int32, dAssessmentOpertion.ParentAssessmentId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentSubTypeId", DbType.Int32, dAssessmentOpertion.AssessmentSubTypeId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@AssessmentFormat", DbType.Boolean, dAssessmentOpertion.AssessmentFormat);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssementStatus", DbType.String, dAssessmentOpertion.AssementStatus);
                     gObjDatabase.AddInParameter(objDbCommand, "@WorseConsequence", DbType.String, string.IsNullOrEmpty(dAssessmentOpertion.WorseConsequence)?(object)dAssessmentOpertion.WorseConsequence:dAssessmentOpertion.WorseConsequence);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, dAssessmentOpertion.CreatedById);

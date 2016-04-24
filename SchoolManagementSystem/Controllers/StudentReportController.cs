@@ -20,7 +20,9 @@ namespace SchoolManagementSystem.Controllers
         IAssessmentCategories repoAssessmentCategory = new AssessmentCategoriesBLL();
         IDailyAssessmentType repoAssessmentType = new DailyAssessmentTypeBLL();
         IDailyAssessmentSubType repoAssessementSubType = new DailyAssessmentSubTypeBLL();
+        IDailyAssessmentOperation repoOperation = new DailyAssessmentOperationBLL();
         // GET: /StudentReport/
+        //Get Assessment Categories
         public ActionResult GetALLAssessmentCategories()
         {
             return View(repoAssessmentCategory.GetALLAssessmentCategories().ToList());
@@ -54,7 +56,8 @@ namespace SchoolManagementSystem.Controllers
             }
             int getStatus = repoAssessmentCategory.AddChangeAssessmentCategories(dAssesscategory);
             return RedirectToAction("GetALLAssessmentCategories");
-        }
+        } 
+        // Get Assessment Types
         public ActionResult GetALLAssessment()
         {
             return View(repoAssessmentType.GetAllAssessmentType().ToList());
@@ -123,16 +126,8 @@ namespace SchoolManagementSystem.Controllers
             int getStatus = repoAssessementSubType.AddChangesAssessmentSubType(dailyAssementSubType);
             return RedirectToAction("GetALLSubAssessment");
         }
-
-        public ActionResult AddChangesDailyAssessmentReport()
-        {
-            List<DailyAssessmentType> type = repoAssessmentType.GetAllAssessmentType();
-            List<DailyAssessmentSubType> subtype = repoAssessementSubType.GetAllAssessmentSubType();
-            dynamic mymodel = new ExpandoObject();
-            mymodel.AssessmentType = type;
-            mymodel.AssessmentSubType = subtype;
-            return View(mymodel);
-        }
+        // Student General Assessment
+      
         [HttpGet]
         public ActionResult AddChangesAssessmentReport()
         {
@@ -146,6 +141,28 @@ namespace SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult AddChangesAssessmentReport(DailyAssessmentHelper helper, int AcadmicClassId, int StudentId)
         {
+            var userloggedId = User.Identity.GetUserId();
+            for (int i = 0; i < helper.ChildAssessments.Count; i++)
+            {
+                DailyAssessmentOperation op = new DailyAssessmentOperation();
+                op.AcadmicClassId = AcadmicClassId;
+                op.StudentId = StudentId;
+                op.ParentAssessmentId = helper.ChildAssessments[i].AssessmentTypeId;
+                op.AssessmentSubTypeId = helper.ChildAssessments[i].AssessmentSubTypeId;
+                op.AssementStatus = helper.ChildAssessments[i].SelectedEvaluation;
+                op.WorseConsequence = helper.ChildAssessments[i].Concequence;
+                op.AssessmentFormat = helper.ChildAssessments[i].AssessmentFormat; // Assessment format refer to consequence or non-consequence
+                if(helper.ChildAssessments[i].OperationalId==0)
+                {
+                    op.CreatedById = userloggedId;
+                }
+                else
+                {
+                    op.ModifiedById = userloggedId;
+                    op.ModifiedDate = DateTime.Now;
+                }
+               // int getStatus = repoOperation.AddChangesAssessmentOperation(op);
+            }
 
             return View();
         }

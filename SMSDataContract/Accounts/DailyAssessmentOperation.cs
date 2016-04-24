@@ -17,6 +17,7 @@ namespace SMSDataContract.Accounts
            AssessmentSubTypeId = 0;
            AssementStatus = string.Empty;
            WorseConsequence = string.Empty;
+           AssessmentFormat = false;
            CreatedById = string.Empty;
            CreateDate = DateTime.Now;
            ModifiedById = string.Empty;
@@ -30,6 +31,7 @@ namespace SMSDataContract.Accounts
        public int AssessmentSubTypeId { get; set; }
        public string AssementStatus { get; set; }
        public string WorseConsequence { get; set; }
+       public bool AssessmentFormat { get; set; }
        public string CreatedById { get; set; }
        public DateTime CreateDate { get; set; }
        public string ModifiedById { get; set; }
