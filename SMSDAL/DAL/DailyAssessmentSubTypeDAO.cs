@@ -117,5 +117,46 @@ namespace SMSDAL.DAL
             }
             return dtAssessmentDetails;
         }
+        public DataTable GetStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Report_GetStudentGeneralAssessment"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
+                    gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
+                    gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+        } 
+
+        public DataTable GetStudentSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Report_GetStudentSingleGeneralAssessment"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
+                    gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
+                    gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+        }
     }
 }

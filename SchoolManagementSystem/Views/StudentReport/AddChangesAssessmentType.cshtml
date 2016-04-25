@@ -118,19 +118,19 @@
         debugger;
         $("#criteria").hide();
         var checkCategory = $("#ddlAssessmentCategory option:selected").val();
-        debugger;
+       
         if (checkCategory != '') {
 
             var getSelectedCategoryText = $("#ddlAssessmentCategory option:selected").text();
 
             if (getSelectedCategoryText == "Student" || getSelectedCategoryText == "student") {
-                debugger;
+               
                 $("#criteria").show();
                 $("#acadmicAssessment").show();
                
             }
             if (getSelectedCategoryText == "Teacher" || getSelectedCategoryText == "teacher") {
-                debugger;
+               
                 $("#criteria").show();
                 $("#acadmicAssessment").hide();
             }
@@ -146,7 +146,7 @@
 
     });
     $("#btnAddEdit").click(function (e) {
-        debugger;
+       
         e.preventDefault();
         var getAssessmentCategory = $("#ddlAssessmentCategory").val();
         if (getAssessmentCategory == '')

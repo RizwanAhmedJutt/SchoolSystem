@@ -66,77 +66,100 @@
                                         </tr>
                                         @for (int j = 0; j < Model.ChildAssessments.Count; j++)
                                         {
-                                            <text>
-                                                @if (Model.ChildAssessments[j].AssessmentTypeId == Model.ParentAssessments[i].AssessmentTypeId)
+                                        <text>
+                                            @if (Model.ChildAssessments[j].AssessmentTypeId == Model.ParentAssessments[i].AssessmentTypeId)
                                                 {
-                                                    <text>
+                                        <text>
 
-                                                        <tr>
+                                            <tr>
+                                                <td>
+                                                    @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeId)
+                                                    @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeName)
+                                                    @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentTypeId)
+                                                    @Html.HiddenFor(x => x.ChildAssessments[j].OperationalId)
+                                                    @Html.HiddenFor(x => x.ChildAssessments[j].CreateDate)
+                                                    @Html.HiddenFor(x=>x.ChildAssessments[j].CreatedById)
+                                                    @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentFormat)
+                                                    <label for=" SubAssessmentName">   @Html.DisplayFor(x => x.ChildAssessments[j].AssessmentSubTypeName) </label>
+
+                                                </td>
+
+                                                @if (Model.ChildAssessments[j].AssessmentFormat == false)
+                                                            {
+                                                            <text>
+                                                                <td>
+
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "VeryGood")
+                                                                    V.Good
+
+                                                                </td>
+                                                                <td>
+
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Good")
+                                                                    Good
+                                                                </td>
+                                                                <td>
+
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Average")
+                                                                    Average
+                                                                </td>
+                                                                <td>
+
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Worse")
+                                                                    Worse
+                                                                </td>
+
+                                                            </text>
+                                                            }
+                                                            else
+                                                            {
                                                             <td>
-                                                                @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeId)
-                                                                @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentSubTypeName)
-                                                                @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentTypeId)
-                                                                @Html.HiddenFor(x => x.ChildAssessments[j].OperationalId)
-                                                                <label for=" SubAssessmentName">   @Html.DisplayFor(x => x.ChildAssessments[j].AssessmentSubTypeName) </label>
 
+                                                                @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Improved")
+                                                                Improved
                                                             </td>
-
-
                                                             <td>
-
-                                                                @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "VeryGood")
-                                                                V.Good
-
+                                                                @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "NotImproved")
+                                                                Not-Improved
                                                             </td>
-                                                            <td>
+                                                            }
 
-                                                                @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Good")
-                                                                Good
-                                                            </td>
-                                                            <td>
-
-                                                                @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Average")
-                                                                Average
-                                                            </td>
-                                                            <td>
-
-                                                                @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Worse")
-                                                                Worse
-                                                            </td>
-
-
-
-                                                            <td>
-                                                                @if (string.IsNullOrEmpty(Model.ChildAssessments[j].Concequence))
+                                                <td>
+                                                    @if (string.IsNullOrEmpty(Model.ChildAssessments[j].Concequence))
                                                                 {  <text>
                                                                     @Html.EditorFor(x => x.ChildAssessments[j].Concequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtConcequence" + j } })
                                                                 </text>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <text>
-                                                                        @Html.EditorFor(x => x.ChildAssessments[j].Concequence, new { htmlAttributes = new { @class = "form-control", @Id = "txtConcequence" + j } })
-                                                                    </text>
+                                                                <text>
+                                                                    @Html.EditorFor(x => x.ChildAssessments[j].Concequence, new { htmlAttributes = new { @class = "form-control", @Id = "txtConcequence" + j } })
+                                                                </text>
                                                                 }
-                                                            </td>
+                                                </td>
 
-                                                        </tr>
+                                            </tr>
 
-                                                    </text>
+                                        </text>
                                                 }
-                                            </text>
+                                        </text>
 
                                         }
                                     </table>
 
                                 </text>
                             }
+                              <div class="col-md-12 col-md-offset-8">
 
-                            <div class="col-md-12 col-md-offset-8">
-
-                                <input type="submit" id="btnAddEit" value="Add" class="btn btn-primary" />
-
-                            </div>
+                              @if (Model.ChildAssessments[0].OperationalId == 0)
+                            {  <input type="submit" id="btnAddEit" value="Add" class="btn btn-primary" />  }
+                              else
+                              {
+                                  <input type="submit" id="btnAddEit" value="Update" class="btn btn-primary" /> 
+                              }
+                                </div>
+                          
+                           
                         </div>
                     </div>
                 }
@@ -145,15 +168,30 @@
                     @Scripts.Render("~/bundles/bootstrap")
                     <script type="text/javascript">
                         $(document).ready(function () {
+                            // Dropdown Default Values
+                            if ('@Model.ChildAssessments[0].AcadmicClassId' > 0) {
 
+                                $('#ddlAcadmicClass option[value="@Model.ChildAssessments[0].AcadmicClassId"]').attr("selected", true);
 
-                         
+                            }
+                            else {
+                                $('#ddlAcadmicClass option[value=""]').attr("selected", true);
+                            }
+                            if ('@Model.ChildAssessments[0].StudentId' > 0) {
+
+                                $('#ddlStudent option[value="@Model.ChildAssessments[0].StudentId"]').attr("selected", true);
+
+                            }
+                            else {
+                                $('#ddlStudent option[value=""]').attr("selected", true);
+                            }
+                            // Enable-Disable textbox on basis of Selected Radio button.
                             $('input:radio').click(function () {
-                                
+
 
                                 var getRadiobuttonvalue = $(this).closest('tr').find('input[type=radio]:checked:first').val();
 
-                                if (getRadiobuttonvalue == "Worse") {
+                                if (getRadiobuttonvalue == "Worse" || getRadiobuttonvalue == "NotImproved") {
                                     $(this).closest('tr').find('input[type="text"]').attr("disabled", false);
                                 }
                                 else {
@@ -163,7 +201,7 @@
 
                             });
                             $("#btnAddEit").click(function (e) {
-                                debugger;
+                               
                                 e.preventDefault();
                                 $("#AcadmicclassMsg").text("");
                                 $("#AcadmicclassMsg").hide();
@@ -213,7 +251,7 @@
                             });
                             //change event for acadmic class
                             $("#ddlAcadmicClass").change(function () {
-                              
+
                                 var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
                                 var model = { AcadmicClassId: getAcadmicClass };
                                 if (getAcadmicClass != '') {
@@ -224,7 +262,7 @@
                                     // Fill Student Dropdown
                                     $.get(Url, model)
                                     .done(function (stdhtml) {
-                                       
+
                                         $("#dvDDLStudent").html(stdhtml);
 
                                     })
@@ -235,9 +273,9 @@
 
                             });
 
-                           
+
                             $('body').on("change", "#ddlStudent", function () {
-                              
+
                                 if ($("#ddlStudent").val() != "") {
                                     $("#StudentMsg").text("");
                                     $("#StudentMsg").hide();

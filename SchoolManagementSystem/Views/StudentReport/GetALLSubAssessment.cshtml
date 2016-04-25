@@ -112,7 +112,7 @@
             //});
             //Change Event For DDLAssessment. since reload html skip its bind event that's why i place event in ready.
             $('body').on("change", "#ddlAssessment", function () {
-                debugger;
+             
                 var getCategoryId = $("#ddlAssessmentCategory option:selected").val();
                 var getAssessmentTypeId = $("#ddlAssessment option:selected").val();
                 if (getAssessmentTypeId != '') {
@@ -147,13 +147,12 @@
             });
         });
         function AddEdit(id) {
-            debugger;
+           
             var URL = "/StudentReport/AddChangesSubAssessmentType";
             var model = { Id: id };
             $.get(URL, model)
             .done(function (gethtml) {
-                debugger;
-
+                
                 $("#AddEdithtml").html("");
                 $("#AddEdithtml").html(gethtml);
                 $('#myModal').modal('show');

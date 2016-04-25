@@ -23,26 +23,34 @@ namespace SMSDataContract.Accounts
             ModifiedById = string.Empty;
             ModifiedDate = null;
 
-           
+
         }
         public int OperationalId { get; set; }
         public int AssessmentSubTypeId { get; set; }
-     
-        [Required(ErrorMessage="Select Assessment Type")]
+
+        [Required(ErrorMessage = "Select Assessment Type")]
         public int AssessmentTypeId { get; set; }
-        [Display(Name="Sub Assessment Name")]
-        [Required(ErrorMessage="Enter Sub Assessment Name")]
+        [Display(Name = "Sub Assessment")]
+        [Required(ErrorMessage = "Enter Sub Assessment Name")]
         public string AssessmentSubTypeName { get; set; }
-    
+        [Display(Name = "Parent Assessment")]
         public string ParentAssementName { get; set; }
-        [Display(Name="Assessment Format")]
+        [Display(Name = "Assessment Format")]
         public bool AssessmentFormat { get; set; }
         public int AcadmicClassId { get; set; }
+        [Display(Name = "Acadmic Class")]
+        public string AcadmicClassName { get; set; }
         public int StudentId { get; set; }
+        [Display(Name = "Student Name")]
+        public string StudentName { get; set; }
+        [Display(Name = "Evaluation")]
         public string SelectedEvaluation { get; set; }
         public string Concequence { get; set; }
         public string CreatedById { get; set; }
+        [Display(Name="Create Date")]
         public DateTime CreateDate { get; set; }
+        [Display(Name = "Create Date")]
+        public string FormateCreateDate { get; set; }
         public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }

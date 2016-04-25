@@ -173,9 +173,9 @@
 
                 });
                 //change event of ddlCourse
-                $("#ddlCourse").change(function () {
-                    debugger;
-                    alert("Course");
+                $('body').on("change", "#ddlCourse", function ()
+                {
+                   
                     var getCourse = $("#ddlCourse :selected").val();
                     if(getCourse!='')
                     {
@@ -191,9 +191,8 @@
 
                 });
                 //change event of ddlStudent
-                $("#ddlStudent").change(function () {
-                    debugger;
-                    alert("Student");
+                $('body').on("change","#ddlStudent",function () {
+                   
                     var getStudent = $("#ddlStudent :selected").val();
                     if(getStudent!='')
                     {
@@ -208,7 +207,7 @@
                 });
                 // Add btn Click Event
                 $("#AddAssignCourse").click(function (e) {
-                    debugger;
+                    
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     var getCourse = $("#ddlCourse :selected").val();
                     var getStudent = $("#ddlStudent :selected").val();
@@ -237,7 +236,7 @@
 
                 });
                 $("#UpdateAssignCourse").click(function () {
-                    debugger;
+                   
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     var getCourse = $("#ddlCourse :selected").val();
                     var getStudent = $("#ddlStudent :selected").val();
@@ -272,7 +271,7 @@
                 var Url = "/Course/DDLCourse";
                 $.get(Url, model)
                         .done(function (siteHtml) {
-                            debugger;
+                          
                             $("#dvDDLCourse").html(siteHtml);
                             if ('@Model.AssignCourseId' > 0) {
                                 $('#ddlCourse option[value="@Model.CourseId"]').attr("selected", true);
@@ -283,7 +282,7 @@
                             // Fill Student Dropdown
                             $.get(Url, model)
                             .done(function (stdhtml) {
-                                debugger;
+                               
                                 $("#dvDDLStudent").html(stdhtml);
                                 if ('@Model.StudentId' > 0)
                                 {

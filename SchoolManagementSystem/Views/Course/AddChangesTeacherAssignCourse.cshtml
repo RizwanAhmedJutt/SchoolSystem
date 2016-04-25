@@ -154,7 +154,7 @@
                 }
                 // change event of ddlAcadmicClass
                 $("#ddlAcadmicClass").change(function () {
-                    debugger;
+                   
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     if (getClass != '') {
                         $("#Loading").show();
@@ -172,9 +172,7 @@
 
                 });
                 //change event of ddlCourse
-                $("#ddlCourse").change(function () {
-                    debugger;
-                   
+                $('body').on("change","#ddlCourse",function () {
                     var getCourse = $("#ddlCourse :selected").val();
                     if (getCourse != '') {
                         $("#AcadmicclassMsg").hide();
@@ -188,9 +186,7 @@
 
                 });
                 //change event of ddlStudent
-                $("#ddlTeacher").change(function () {
-                    debugger;
-
+                $('body').on("change","#ddlTeacher",function () {
                     var getStudent = $("#ddlTeacher :selected").val();
                     if (getStudent != '') {
                         $("#AcadmicclassMsg").hide();
@@ -204,7 +200,7 @@
                 });
                 // Add btn Click Event
                 $("#AddAssignCourse").click(function (e) {
-                    debugger;
+                    
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     var getCourse = $("#ddlCourse :selected").val();
                     var getStudent = $("#ddlTeacher :selected").val();
@@ -230,7 +226,6 @@
 
                 });
                 $("#UpdateAssignCourse").click(function () {
-                    debugger;
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     var getCourse = $("#ddlCourse :selected").val();
                     var getTeacher = $("#ddlTeacher :selected").val();

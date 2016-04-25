@@ -85,8 +85,6 @@
                 var model = { Id: id };
                 $.get(URL, model)
                 .done(function (gethtml) {
-                    debugger;
-                   
                     $("#AddEdithtml").html("");
                     $("#AddEdithtml").html(gethtml);
                     $('#myModal').modal('show');

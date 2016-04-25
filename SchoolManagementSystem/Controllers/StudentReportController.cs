@@ -15,7 +15,7 @@ using PagedList.Mvc;
 
 namespace SchoolManagementSystem.Controllers
 {
-     [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class StudentReportController : Controller
     {
         IAssessmentCategories repoAssessmentCategory = new AssessmentCategoriesBLL();
@@ -57,7 +57,7 @@ namespace SchoolManagementSystem.Controllers
             }
             int getStatus = repoAssessmentCategory.AddChangeAssessmentCategories(dAssesscategory);
             return RedirectToAction("GetALLAssessmentCategories");
-        } 
+        }
         // Get Assessment Types
         public ActionResult GetALLAssessment()
         {
@@ -128,16 +128,32 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("GetALLSubAssessment");
         }
         // Student General Assessment
-      
         [HttpGet]
-        public ActionResult AddChangesAssessmentReport()
+        public ActionResult GetALLStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
         {
-
-
+            
+           return View(repoAssessementSubType.GetStudentGeneralAssessment(AcadmicClassId, StudentId, CreateDate).ToList()); 
+        }
+        [HttpGet]
+        public ActionResult AddChangesAssessmentReport(int? AcadmicClassId, int? StudentId, string CreateDate)
+        {
             DailyAssessmentHelper myModel = new DailyAssessmentHelper();
             myModel.ParentAssessments = repoAssessmentType.GetALLAssignedParentAssessments();
-            myModel.ChildAssessments = repoAssessementSubType.GetAllAssessmentSubType();
-            return View(myModel);
+            if (AcadmicClassId > 0)
+            {
+                List<DailyAssessmentSubType> GetALLSubAssessments = repoAssessementSubType.GetStudentSingleGeneralAssessment(AcadmicClassId, StudentId, CreateDate).ToList();
+                if (GetALLSubAssessments[0].OperationalId > 0)
+                {
+                    myModel.ChildAssessments = GetALLSubAssessments;
+                   
+                }
+                return View(myModel);
+            }
+            else
+            {
+                myModel.ChildAssessments = repoAssessementSubType.GetAllAssessmentSubType();
+                return View(myModel);
+            }
         }
         [HttpPost]
         public ActionResult AddChangesAssessmentReport(DailyAssessmentHelper helper, int AcadmicClassId, int StudentId)
@@ -153,19 +169,22 @@ namespace SchoolManagementSystem.Controllers
                 op.AssementStatus = helper.ChildAssessments[i].SelectedEvaluation;
                 op.WorseConsequence = helper.ChildAssessments[i].Concequence;
                 op.AssessmentFormat = helper.ChildAssessments[i].AssessmentFormat; // Assessment format refer to consequence or non-consequence
-                if(helper.ChildAssessments[i].OperationalId==0)
+                op.CreateDate = helper.ChildAssessments[i].CreateDate;
+                op.CreatedById = helper.ChildAssessments[i].CreatedById;
+                if (helper.ChildAssessments[i].OperationalId == 0)
                 {
                     op.CreatedById = userloggedId;
                 }
                 else
                 {
+                    op.DailyAssessmentOpertationId = helper.ChildAssessments[i].OperationalId;
                     op.ModifiedById = userloggedId;
                     op.ModifiedDate = DateTime.Now;
                 }
-               // int getStatus = repoOperation.AddChangesAssessmentOperation(op);
+                 int getStatus = repoOperation.AddChangesAssessmentOperation(op);
             }
 
-            return View();
+            return RedirectToAction("GetALLStudentGeneralAssessment");
         }
         public string CheckAssessmentTypeExist(string AssessmentName, int AssessmentCategoryId)
         {
@@ -176,14 +195,14 @@ namespace SchoolManagementSystem.Controllers
                 return new JavaScriptSerializer().Serialize(false);   // Room name not already Exist
 
         }
-       
+
         public string CheckSubAssementExist(int ParentAssessmentId, string SubAssessmentName)
         {
             DailyAssessmentSubType assessmentsubtype = repoAssessementSubType.CheckSubAssementExist(ParentAssessmentId, SubAssessmentName);
             if (assessmentsubtype.AssessmentSubTypeId > 0)
                 return new JavaScriptSerializer().Serialize(true);
             else
-                return new JavaScriptSerializer().Serialize(false);   
+                return new JavaScriptSerializer().Serialize(false);
         }
         public string CheckAssessmentCategoryExist(string AssessmentName)
         {
@@ -191,8 +210,8 @@ namespace SchoolManagementSystem.Controllers
             if (assessmentsubtype.AssessmentCategoryId > 0)
                 return new JavaScriptSerializer().Serialize(true);
             else
-                return new JavaScriptSerializer().Serialize(false);   
-        } 
+                return new JavaScriptSerializer().Serialize(false);
+        }
         [HttpGet]
         public ActionResult DDLAssessment(int AssessmentCategoryId)
         {
@@ -203,23 +222,23 @@ namespace SchoolManagementSystem.Controllers
             }
             else
             {
-                ViewData["DDLAssessment"] = new SelectList(repoAssessmentType.GetAllAssessmentType().Where(x=>x.AssessmentCategoryId==AssessmentCategoryId).OrderBy(c => c.AssessmentTypeId).ToList(), "AssessmentTypeId", "AssessmentName");
+                ViewData["DDLAssessment"] = new SelectList(repoAssessmentType.GetAllAssessmentType().Where(x => x.AssessmentCategoryId == AssessmentCategoryId).OrderBy(c => c.AssessmentTypeId).ToList(), "AssessmentTypeId", "AssessmentName");
                 return View("../DropDownLists/DDLAssessments");
             }
-           
+
 
         }
 
-        public string GetAssessmentCriteria(int AssessmentCategoryId,int AssessmentTypeId)
+        public string GetAssessmentCriteria(int AssessmentCategoryId, int AssessmentTypeId)
         {
-            string getCriteria=string.Empty;
+            string getCriteria = string.Empty;
             var GetAssessmentCriteria = from x in repoAssessmentType.GetAllAssessmentType()
                                         where x.AssessmentCategoryId == AssessmentCategoryId
                                         && x.AssessmentTypeId == AssessmentTypeId
                                         select x.AssessmentCriteria;
             foreach (string item in GetAssessmentCriteria)
             {
-                getCriteria= item;
+                getCriteria = item;
             }
             return getCriteria;
         }

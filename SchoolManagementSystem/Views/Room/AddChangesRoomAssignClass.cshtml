@@ -166,7 +166,7 @@
                     format: timeFormat
                 })
                 $("#IsAvailable").change(function (e) {
-                    debugger;
+                   
                     var AssignRoom = $("#ddlRoom").val();
                     var AcadmicClass = $("#ddlAcadmicClass").val();
                     var weekDay = $("#ddlWeek").val();
@@ -203,7 +203,7 @@
                   
                     var URL="/Room/CheckRoomAvailabilty";
                     $.get(URL, $.param({ CheckAttributes: getValues }, true), function (resp) {
-                        debugger;
+                      
                       
                        // var a =  JSON.stringify(resp);
                         if (resp == "false") {
