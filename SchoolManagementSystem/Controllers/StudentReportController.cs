@@ -190,7 +190,7 @@ namespace SchoolManagementSystem.Controllers
         // Student Acadmic Assessment
         public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
         {
-            return View();
+            return View(repoAssessementSubType.GetStudentAcadmicAssessment(AcadmicClassId, StudentId,CourseId ,CreateDate).ToList());
         }
 
         [HttpGet]

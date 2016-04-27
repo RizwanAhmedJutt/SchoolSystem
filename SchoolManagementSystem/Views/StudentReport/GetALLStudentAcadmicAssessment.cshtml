@@ -1,0 +1,266 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<SMSDataContract.Accounts.DailyAssessmentSubType>
+@{
+
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+
+        @using (Html.BeginForm("GetALLStudentAcadmicAssessment", "StudentReport", FormMethod.Get))
+        {
+            <div class="input-group col-md-8">
+
+
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
+
+                    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                    </div>
+                    @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3"> <b>Student </b> </div>
+
+                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLStudent">
+
+                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+
+
+
+                        </div>
+                        @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+                    </div>
+                </div> 
+
+                <br />
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3">
+                        <b>Date</b>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <input id="setDate" type="date" name="CreateDate" class="form-control" />
+
+                    </div>
+                </div>
+
+                <br />
+                <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+            </div>
+        }
+
+        <div style="clear:left"></div>
+        <div class="well">
+            <div class="row">
+                <div class="pull-left">
+                    <a href="/StudentReport//AddChangesAssessmentReport?AcadmicClassId=0&StudentId=0&CreateDate=''" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Assessment</a>
+                </div>
+
+            </div>
+
+            <br />
+            <div class="row">
+                <span class="HeadingStyle">General Assessment Detail</span>
+                <table class="table  table-bordered table-striped table-responsive table-hover">
+                    <tr class="action info">
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().AcadmicClassName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().StudentName)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().ParentAssementName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().AssessmentSubTypeName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().SelectedEvaluation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().AssessmentFormat)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().Concequence)
+                        </th>
+                        <th>
+
+                            @Html.DisplayNameFor(model => model.First().CreateDate)
+                        </th>
+                        <th style="width:90px;"><b>ACTION</b></th>
+
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AcadmicClassName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ParentAssementName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AssessmentSubTypeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SelectedEvaluation)
+                            </td>
+                            <td>
+                                @if (item.AssessmentFormat == true)
+                                {
+                                    <text>
+                                        Consequence
+                                    </text>
+                                }
+                                else
+                                {
+                                    <text>
+                                        Non- Consequence
+                                    </text>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Concequence)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FormateCreateDate)
+                            </td>
+                            <td>
+                                <a href="/StudentReport/AddChangesAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CreateDate=@item.FormateCreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Set Query String Parameter
+            if ('@Request.QueryString["AcadmicClassId"]' != null) {
+
+                $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
+
+            }
+            else {
+                $('#ddlAcadmicClass option[value=""]').attr("selected", true);
+            }
+            if ('@Request.QueryString["StudentId"]' != null) {
+
+                $('#ddlStudent option[value="@Request.QueryString["StudentId"]"]').attr("selected", true);
+
+            }
+            else {
+                $('#ddlStudent option[value=""]').attr("selected", true);
+            }
+            if ('@Request.QueryString["CreateDate"]' != null) {
+                debugger;
+                $("#setDate").val('@Request.QueryString["CreateDate"]');
+
+            }
+            else {
+                $("#setDate").val() = "";
+            }
+            //change event for acadmic class
+            $("#ddlAcadmicClass").change(function () {
+
+                var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: getAcadmicClass };
+                if (getAcadmicClass != '') {
+
+                    $(this).removeAttr("style");
+                    Url = "/Course/DDLStudent";
+
+                    // Fill Student Dropdown
+                    $.get(Url, model)
+                    .done(function (stdhtml) {
+
+                        $("#dvDDLStudent").html(stdhtml);
+
+                    })
+                    .fail(function (ex1, ex2) {
+                        alert("Can't get Student DDL");
+                    })
+                }
+
+            });
+
+
+            $('body').on("change", "#ddlStudent", function () {
+
+                if ($("#ddlStudent").val() != "") {
+                    $("#StudentMsg").text("");
+                    $("#StudentMsg").hide();
+                }
+
+            });
+            $("#setDate").change(function () {
+                $(this).removeAttr("style");
+
+
+            });
+            $("#btnSearch").click(function (e) {
+                debugger;
+                e.preventDefault();
+
+                if ($("#ddlAcadmicClass").val() == '') {
+
+
+                    $("#ddlAcadmicClass").css("border", "1px solid red");
+
+                }
+                else if ($("#ddlStudent").val() == '') {
+
+                    $("#ddlStudent").css("border", "1px solid red");
+                }
+                else if ($("#setDate").val() === '') {
+
+                    $("#setDate").css("border", "1px solid red");
+                }
+                else {
+                    $("form").submit();
+                }
+
+
+            });
+        });
+
+    </script>
+}
+
+
+
+
+
