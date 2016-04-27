@@ -47,6 +47,7 @@
     <Compile Include="Repository\Abstract\ICategoryBLL.cs" />
     <Compile Include="Repository\Abstract\ICityBLL.cs" />
     <Compile Include="Repository\Abstract\ICourse.cs" />
+    <Compile Include="Repository\Abstract\IAcadmicAssessmentOperation.cs" />
     <Compile Include="Repository\Abstract\IDailyAssessmentOperation.cs" />
     <Compile Include="Repository\Abstract\IDailyAssessmentSubType.cs" />
     <Compile Include="Repository\Abstract\IDailyAssessmentType.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Repository\Concrete\CategoryBLL.cs" />
     <Compile Include="Repository\Concrete\CityBLL.cs" />
     <Compile Include="Repository\Concrete\CourseBLL.cs" />
+    <Compile Include="Repository\Concrete\AcadmicAssessmentOperationBLL.cs" />
     <Compile Include="Repository\Concrete\DailyAssessmentOperationBLL.cs" />
     <Compile Include="Repository\Concrete\DailyAssessmentSubTypeBLL.cs" />
     <Compile Include="Repository\Concrete\DailyAssessmentTypeBLL.cs" />

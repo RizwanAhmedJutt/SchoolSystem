@@ -126,11 +126,11 @@
 
                         $("#lblAssessment").show();
                         if ($("#lblAssessment").length == 0) {
-                            $("<div id=lblAssessment class='col-md-7 col-md-offset-3 ' style=color:green; float:right;><span> Related Assessment Criteria Is " + getResponce + "</span></div>").insertAfter("#Assessments");
+                            $("<div id=lblAssessment  style=color:green;><span> Related Assessment Criteria Is " + getResponce + "</span></div>").insertAfter("#ddAssessmentbycategory");
                         }
                         else {
-                            $("#lblAssessment").html().remove();
-                            $("<div id=lblAssessment class='col-md-7 col-md-offset-3 ' style=color:green; float:right;><span> Related Assessment Criteria Is " + getResponce + "</span></div>").insertAfter("#Assessments");
+                            $("#lblAssessment").html("");
+                            $("<div id=lblAssessment  style=color:green;><span> Related Assessment Criteria Is " + getResponce + "</span></div>").insertAfter("#ddAssessmentbycategory");
                         }
 
                     })

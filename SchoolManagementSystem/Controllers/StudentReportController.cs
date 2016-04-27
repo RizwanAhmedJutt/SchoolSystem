@@ -22,6 +22,7 @@ namespace SchoolManagementSystem.Controllers
         IDailyAssessmentType repoAssessmentType = new DailyAssessmentTypeBLL();
         IDailyAssessmentSubType repoAssessementSubType = new DailyAssessmentSubTypeBLL();
         IDailyAssessmentOperation repoOperation = new DailyAssessmentOperationBLL();
+        IAcadmicAssessmentOperation repAcOperation = new AcadmicAssessmentOperationBLL();
         // GET: /StudentReport/
         //Get Assessment Categories
         public ActionResult GetALLAssessmentCategories()
@@ -181,11 +182,73 @@ namespace SchoolManagementSystem.Controllers
                     op.ModifiedById = userloggedId;
                     op.ModifiedDate = DateTime.Now;
                 }
-                 int getStatus = repoOperation.AddChangesAssessmentOperation(op);
+                // int getStatus = repoOperation.AddChangesAssessmentOperation(op);
             }
 
             return RedirectToAction("GetALLStudentGeneralAssessment");
         }
+        // Student Acadmic Assessment
+        public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult AddChangesAcadmicAssessmentReport(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        {
+            DailyAssessmentHelper myModel = new DailyAssessmentHelper();
+            myModel.ParentAssessments = repoAssessmentType.GetALLAssignedParentAcadmicAssessments();
+            if (AcadmicClassId > 0)
+            {
+                List<DailyAssessmentSubType> GetALLSubAssessments = repoAssessementSubType.GetStudentSingleAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate).ToList();
+                if (GetALLSubAssessments[0].OperationalId > 0)
+                {
+                    myModel.ChildAssessments = GetALLSubAssessments;
+
+                }
+                return View(myModel);
+            }
+            else
+            {
+                myModel.ChildAssessments = repoAssessementSubType.GetALLAcadmicAssessmentSubType();
+                return View(myModel);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddChangesAcadmicAssessmentReport(DailyAssessmentHelper helpers, int AcadmicClassId, int StudentId, int CourseId)
+        {
+            var userloggedId = User.Identity.GetUserId();
+            for (int i = 0; i < helpers.ChildAssessments.Count; i++)
+            {
+                AcadmicAssessmentOperation op = new AcadmicAssessmentOperation();
+                op.AcadmicClassId = AcadmicClassId;
+                op.StudentId = StudentId;
+                op.CourseId = CourseId;
+                op.ParentAssessmentId = helpers.ChildAssessments[i].AssessmentTypeId;
+                op.AssessmentSubTypeId = helpers.ChildAssessments[i].AssessmentSubTypeId;
+                op.AssementStatus = helpers.ChildAssessments[i].SelectedEvaluation;
+                op.AverageConsequence = helpers.ChildAssessments[i].AverageConcequence;
+                op.WorseConsequence = helpers.ChildAssessments[i].Concequence;
+                op.AssessmentFormat = helpers.ChildAssessments[i].AssessmentFormat; // Assessment format refer to consequence or non-consequence
+                op.CreateDate = helpers.ChildAssessments[i].CreateDate;
+                op.CreatedById = helpers.ChildAssessments[i].CreatedById;
+                if (helpers.ChildAssessments[i].OperationalId == 0)
+                {
+                    op.CreatedById = userloggedId;
+                }
+                else
+                {
+                    op.AcadmicAssessmentOperationId = helpers.ChildAssessments[i].OperationalId;
+                    op.ModifiedById = userloggedId;
+                    op.ModifiedDate = DateTime.Now;
+                }
+               // int getStatus = repAcOperation.AddChangesAcadmicAssessmentOperation(op);
+            }
+
+            return RedirectToAction("GetALLStudentGeneralAssessment");
+        }
+        
         public string CheckAssessmentTypeExist(string AssessmentName, int AssessmentCategoryId)
         {
             DailyAssessmentType assessmenttype = repoAssessmentType.GetDailyAssessmentTypeByName(AssessmentName, AssessmentCategoryId);

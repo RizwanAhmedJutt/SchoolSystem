@@ -38,6 +38,25 @@ namespace SMSDAL.DAL
             return dtAssessmentDetails;
 
         }
+        public DataTable GetALLAcadmicAssessmentSubType()
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand("sp_report_GetALLAcadmicAssessmentSubType"))
+                {
+
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+
+        }
         public DataTable GetDailyAssessmentSubTypeById(int AssessmentSubTypeId)
         {
             DataTable dtAssessmentDetails;
@@ -136,6 +155,27 @@ namespace SMSDAL.DAL
                 throw;
             }
             return dtAssessmentDetails;
+        }
+        public DataTable GetStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Report_GetStudentAcadmicAssessment"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
+                    gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
+                    gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.Int32, CourseId);
+                    gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
         } 
 
         public DataTable GetStudentSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
@@ -148,6 +188,27 @@ namespace SMSDAL.DAL
                 {
                     gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
                     gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
+                    gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+        }
+        public DataTable GetStudentSingleAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Report_GetStudentSingleAcadmicAssessment"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
+                    gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
+                    gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.Int32, CourseId);
                     gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
                     dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
                 }

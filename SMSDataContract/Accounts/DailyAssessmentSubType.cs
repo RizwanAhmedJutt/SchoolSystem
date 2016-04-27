@@ -46,6 +46,9 @@ namespace SMSDataContract.Accounts
         [Display(Name = "Evaluation")]
         public string SelectedEvaluation { get; set; }
         public string Concequence { get; set; }
+        public int CourseId { get; set; }
+        public string CourseName { get; set; }
+        public string AverageConcequence { get; set; }
         public string CreatedById { get; set; }
         [Display(Name="Create Date")]
         public DateTime CreateDate { get; set; }

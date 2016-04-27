@@ -435,6 +435,7 @@
     <Content Include="Views\StudentReport\GetALLAssessmentCategories.cshtml" />
     <Content Include="Views\StudentReport\AddChangesAssessmentCategory.cshtml" />
     <Content Include="Views\StudentReport\GetALLStudentGeneralAssessment.cshtml" />
+    <Content Include="Views\StudentReport\AddChangesAcadmicAssessmentReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

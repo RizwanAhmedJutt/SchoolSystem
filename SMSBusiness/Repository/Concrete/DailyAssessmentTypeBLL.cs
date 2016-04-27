@@ -71,6 +71,34 @@ namespace SMSBusiness.Repository.Concrete
 
                 throw;
             }
+        }
+        public List<DailyAssessmentType> GetALLAssignedParentAcadmicAssessments()
+        {
+            var objAssessmentDao = new DailyAssessmentTypeDAO(new SqlDatabase());
+            var dtAssement = new DataTable();
+            dtAssement = objAssessmentDao.GetALLAssignedParentAcadmicAssessments();
+            List<DailyAssessmentType> objAssementList = new List<DailyAssessmentType>();
+
+            try
+            {
+
+                foreach (DataRow dr in dtAssement.Rows)
+                {
+                    var AssessmentDetails = new DailyAssessmentType();
+                    AssessmentDetails.AssessmentTypeId = Convert.ToInt32(dr["AssessmentTypeId"]);
+                    AssessmentDetails.AssessmentName = dr["AssementName"].ToString();
+                    objAssementList.Add(AssessmentDetails);
+
+                }
+
+                return objAssementList;
+
+            }
+            catch
+            {
+
+                throw;
+            }
         } 
         public DailyAssessmentType GetDailyAssessmentById(int AssessmentTypeId)
         {

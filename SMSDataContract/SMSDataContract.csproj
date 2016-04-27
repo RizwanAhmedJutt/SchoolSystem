@@ -51,6 +51,7 @@
     <Compile Include="Accounts\AdmissionGranted.cs" />
     <Compile Include="Accounts\AssessmentCategories.cs" />
     <Compile Include="Accounts\AssignRoom.cs" />
+    <Compile Include="Accounts\AcadmicAssessmentOperation.cs" />
     <Compile Include="Accounts\DailyAssessmentType.cs" />
     <Compile Include="Accounts\DailyAssessmentOperation.cs" />
     <Compile Include="Accounts\DailyAssessmentSubType.cs" />

@@ -54,6 +54,7 @@
     <Compile Include="DAL\CategoryDAO.cs" />
     <Compile Include="DAL\CityDAO.cs" />
     <Compile Include="DAL\CourseDAO.cs" />
+    <Compile Include="DAL\AcadmicAssessmentOperationDAO.cs" />
     <Compile Include="DAL\DailyAssessmentOperationDAO.cs" />
     <Compile Include="DAL\DailyAssessmentSubTypeDAO.cs" />
     <Compile Include="DAL\DailyAssessmentTypeDAO.cs" />

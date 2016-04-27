@@ -48,7 +48,9 @@
 
                                 </div>
                             </div>
-
+                            @if(Model.ParentAssessments.Count>0)
+                            { 
+                                <text>
                             @for (int i = 0; i < Model.ParentAssessments.Count; i++)
                             {
                                 <text>
@@ -158,8 +160,8 @@
                                   <input type="submit" id="btnAddEit" value="Update" class="btn btn-primary" /> 
                               }
                                 </div>
-                          
-                           
+                          </text>
+                            }
                         </div>
                     </div>
                 }
