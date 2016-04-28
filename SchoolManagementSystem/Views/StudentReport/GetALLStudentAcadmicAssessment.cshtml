@@ -1,5 +1,4 @@
-﻿
-@using PagedList;
+﻿@using PagedList;
 @using PagedList.Mvc;
 @model IEnumerable<SMSDataContract.Accounts.DailyAssessmentSubType>
 @{
@@ -45,8 +44,26 @@
                         </div>
                         @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
                     </div>
-                </div> 
+                </div>
 
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3"> <b>Course </b> </div>
+
+                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLCourse">
+
+                            @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 0 });}
+
+
+
+                        </div>
+                        @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+                    </div>
+                </div>
                 <br />
                 <div class="row">
                     <div class="col-md-3 col-md-offset-3">
@@ -84,7 +101,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.First().StudentName)
                         </th>
-
+                        <th>
+                            @Html.DisplayNameFor(model => model.First().CourseName);
+                        </th>
                         <th>
                             @Html.DisplayNameFor(model => model.First().ParentAssementName)
                         </th>
@@ -97,7 +116,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.First().AssessmentFormat)
                         </th>
-
+                        <th>
+                            @Html.DisplayNameFor(model=>model.First().AverageConcequence)
+                        </th>
                         <th>
                             @Html.DisplayNameFor(model => model.First().Concequence)
                         </th>
@@ -111,49 +132,54 @@
 
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AcadmicClassName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.StudentName)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ParentAssementName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AssessmentSubTypeName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SelectedEvaluation)
-                            </td>
-                            <td>
-                                @if (item.AssessmentFormat == true)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AcadmicClassName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem=>item.CourseName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParentAssementName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssessmentSubTypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SelectedEvaluation)
+                        </td>
+                        <td>
+                            @if (item.AssessmentFormat == true)
                                 {
-                                    <text>
-                                        Consequence
-                                    </text>
+                                <text>
+                                    Consequence
+                                </text>
                                 }
                                 else
                                 {
-                                    <text>
-                                        Non- Consequence
-                                    </text>
+                                <text>
+                                    Non- Consequence
+                                </text>
                                 }
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Concequence)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FormateCreateDate)
-                            </td>
-                            <td>
-                                <a href="/StudentReport/AddChangesAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CreateDate=@item.FormateCreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem=>item.AverageConcequence)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Concequence)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FormateCreateDate)
+                        </td>
+                        <td>
+                            <a href="/StudentReport/AddChangesAcadmicAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CourseId=@item.CourseId&CreateDate=@item.FormateCreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
 
-                            </td>
+                        </td>
 
-                        </tr>
+                    </tr>
                     }
 
                 </table>
@@ -185,6 +211,14 @@
             else {
                 $('#ddlStudent option[value=""]').attr("selected", true);
             }
+            if ('@Request.QueryString["CourseId"]' != null) {
+
+                $('#ddlCourse option[value="@Request.QueryString["CourseId"]"]').attr("selected", true);
+
+            }
+            else {
+                $('#ddlCourse option[value=""]').attr("selected", true);
+            }
             if ('@Request.QueryString["CreateDate"]' != null) {
                 debugger;
                 $("#setDate").val('@Request.QueryString["CreateDate"]');
@@ -212,7 +246,20 @@
                     })
                     .fail(function (ex1, ex2) {
                         alert("Can't get Student DDL");
-                    })
+                    });
+                    //Fill Course Dropdown
+
+                    Url = null;
+                    Url = "/Course/DDLCourse";
+                    $.get(Url, model)
+               .done(function (siteHtml) {
+
+                   $("#dvDDLCourse").html(siteHtml);
+               })
+              .fail(function (ex1, ex2, ex3) {
+                  alert("Can't get Course DDL");
+
+              });
                 }
 
             });

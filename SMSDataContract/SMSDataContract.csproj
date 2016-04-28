@@ -57,6 +57,7 @@
     <Compile Include="Accounts\DailyAssessmentSubType.cs" />
     <Compile Include="Accounts\StudentMonthAssessment.cs" />
     <Compile Include="Accounts\StudentSubjectProgressReport.cs" />
+    <Compile Include="Accounts\TeacherAssessmentOperation.cs" />
     <Compile Include="Accounts\TeacherAssignClass.cs" />
     <Compile Include="Common\AcadmicClass.cs" />
     <Compile Include="Common\Category.cs" />

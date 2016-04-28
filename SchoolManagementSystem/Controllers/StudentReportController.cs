@@ -243,10 +243,10 @@ namespace SchoolManagementSystem.Controllers
                     op.ModifiedById = userloggedId;
                     op.ModifiedDate = DateTime.Now;
                 }
-               // int getStatus = repAcOperation.AddChangesAcadmicAssessmentOperation(op);
+               int getStatus = repAcOperation.AddChangesAcadmicAssessmentOperation(op);
             }
 
-            return RedirectToAction("GetALLStudentGeneralAssessment");
+            return RedirectToAction("GetALLStudentAcadmicAssessment");
         }
         
         public string CheckAssessmentTypeExist(string AssessmentName, int AssessmentCategoryId)

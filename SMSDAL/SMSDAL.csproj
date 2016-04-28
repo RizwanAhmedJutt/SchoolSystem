@@ -64,6 +64,7 @@
     <Compile Include="DAL\StudentAssignCourseDAO.cs" />
     <Compile Include="DAL\StudentProfileDAO.cs" />
     <Compile Include="DAL\ST_PreviousAcadmicDetailDAO.cs" />
+    <Compile Include="DAL\TeacherAssessmentOperationDAO.cs" />
     <Compile Include="DAL\TeacherAssignedCouresDAO.cs" />
     <Compile Include="DAL\TeacherDAO.cs" />
     <Compile Include="DbReturnValues.cs" />
