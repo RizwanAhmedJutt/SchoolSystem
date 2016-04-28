@@ -16,7 +16,7 @@ namespace SMSBusiness.Repository.Abstract
         DailyAssessmentSubType CheckSubAssementExist(int ParentAssessmentId, string SubAssessmentName);
         List<DailyAssessmentSubType> GetStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate);
         List<DailyAssessmentSubType> GetStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate);
-        List<DailyAssessmentSubType> GetTeacherGeneralAssessments(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate);
+        List<DailyAssessmentSubType> GetTeacherGeneralAssessments(int? AcadmicClassId, int? StudentId, int? TeacherId, string CreateDate);
         List<DailyAssessmentSubType> GetStudentSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate);
         List<DailyAssessmentSubType> GetStudentSingleAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate);
 

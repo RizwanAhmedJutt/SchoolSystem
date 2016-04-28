@@ -177,7 +177,7 @@ namespace SMSDAL.DAL
             }
             return dtAssessmentDetails;
         }
-        public DataTable GetTeacherGeneralAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        public DataTable GetTeacherGeneralAssessment(int? AcadmicClassId, int? TeacherId, int? CourseId, string CreateDate)
         {
             DataTable dtAssessmentDetails;
             try
@@ -186,7 +186,7 @@ namespace SMSDAL.DAL
                 using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Report_GetTeacherGeneralAssessments"))
                 {
                     gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
-                    gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
+                    gObjDatabase.AddInParameter(objCommand, "@TeacherId", DbType.Int32, TeacherId);
                     gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.Int32, CourseId);
                     gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
                     dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
