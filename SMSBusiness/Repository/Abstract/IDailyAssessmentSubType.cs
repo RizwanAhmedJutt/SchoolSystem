@@ -11,6 +11,7 @@ namespace SMSBusiness.Repository.Abstract
     {
         List<DailyAssessmentSubType> GetAllAssessmentSubType();
         List<DailyAssessmentSubType> GetALLAcadmicAssessmentSubType();
+        List<DailyAssessmentSubType> GetALLTeacherGeneralAssessmentSubType();
         DailyAssessmentSubType GetDailyAssessmentSubTypeById(int AssessmentSubTypeId);
         int AddChangesAssessmentSubType(DailyAssessmentSubType dAssessmentsubType);
         DailyAssessmentSubType CheckSubAssementExist(int ParentAssessmentId, string SubAssessmentName);
@@ -19,6 +20,7 @@ namespace SMSBusiness.Repository.Abstract
         List<DailyAssessmentSubType> GetTeacherGeneralAssessments(int? AcadmicClassId, int? StudentId, int? TeacherId, string CreateDate);
         List<DailyAssessmentSubType> GetStudentSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate);
         List<DailyAssessmentSubType> GetStudentSingleAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate);
+        List<DailyAssessmentSubType> GetTeacherSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate);
 
     }
 }

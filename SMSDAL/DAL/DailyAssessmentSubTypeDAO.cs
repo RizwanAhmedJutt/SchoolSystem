@@ -57,6 +57,25 @@ namespace SMSDAL.DAL
             return dtAssessmentDetails;
 
         }
+        public DataTable GetALLTeacherGeneralAssessmentSubType()
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand("sp_report_GetALLTeacherGeneralAssessmentSubType"))
+                {
+
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+
+        }
         public DataTable GetDailyAssessmentSubTypeById(int AssessmentSubTypeId)
         {
             DataTable dtAssessmentDetails;
@@ -230,6 +249,27 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
                     gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
                     gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.Int32, CourseId);
+                    gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+        }
+        public DataTable GetTeacherSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, int? TeacherId, string CreateDate)
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Report_GetTeacherSingleGeneralAssessment"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
+                    gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
+                    gObjDatabase.AddInParameter(objCommand, "@TeacherId", DbType.Int32, TeacherId);
                     gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
                     dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
                 }
