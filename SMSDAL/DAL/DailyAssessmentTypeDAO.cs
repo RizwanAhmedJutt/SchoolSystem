@@ -72,6 +72,24 @@ namespace SMSDAL.DAL
             }
             return dtAssessmentDetails;
         }
+        public DataTable GetALLAssignedParentTeacherGeneralAssessments()
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_report_GetALLAssignedParentAssessmentsGeneralTeacher"))
+                {
+
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
+        }
         public int InsertUpdateDailyAssessmentType(DailyAssessmentType dAssessmentType)
         {
             try
