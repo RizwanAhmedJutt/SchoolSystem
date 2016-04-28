@@ -43,12 +43,16 @@ namespace SMSDataContract.Accounts
         public int StudentId { get; set; }
         [Display(Name = "Student Name")]
         public string StudentName { get; set; }
+        public int TeacherId { get; set; }
+        [Display(Name="Teacher Name")]
+        public string TeacherName { get; set; }
         [Display(Name = "Evaluation")]
         public string SelectedEvaluation { get; set; }
         public string Concequence { get; set; }
         public int CourseId { get; set; }
         public string CourseName { get; set; }
         public string AverageConcequence { get; set; }
+
         public string CreatedById { get; set; }
         [Display(Name="Create Date")]
         public DateTime CreateDate { get; set; }

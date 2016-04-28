@@ -176,6 +176,27 @@ namespace SMSDAL.DAL
                 throw;
             }
             return dtAssessmentDetails;
+        }
+        public DataTable GetTeacherGeneralAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        {
+            DataTable dtAssessmentDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Report_GetTeacherGeneralAssessments"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
+                    gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
+                    gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.Int32, CourseId);
+                    gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
+                    dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAssessmentDetails;
         } 
 
         public DataTable GetStudentSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
