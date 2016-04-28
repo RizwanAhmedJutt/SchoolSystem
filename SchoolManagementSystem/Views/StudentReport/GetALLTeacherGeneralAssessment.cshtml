@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-12 col-sm-12">
 
-        @using (Html.BeginForm("GetALLStudentAcadmicAssessment", "StudentReport", FormMethod.Get))
+        @using (Html.BeginForm("GetALLTeacherGeneralAssessment", "StudentReport", FormMethod.Get))
         {
             <div class="input-group col-md-8">
 
@@ -31,13 +31,13 @@
                     <div class="col-md-3 col-md-offset-3"> <b>Teacher </b> </div>
 
                     <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                        <span id="TeacherMsg" class="error" style="display:none;"></span>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                        <div id="dvDDLStudent">
+                        <div id="dvDDLTeacher">
 
-                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                            @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 0 });}
 
 
 
@@ -85,7 +85,7 @@
         <div class="well">
             <div class="row">
                 <div class="pull-left">
-                    <a href="/StudentReport/AddChangesAssessmentReport?AcadmicClassId=0&StudentId=0&CreateDate=''" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Assessment</a>
+                    <a href="/StudentReport/AddChangeTeacherGeneralAssessmentReport?AcadmicClassId=0&TeacherId=0&CreateDate=''" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Assessment</a>
                 </div>
 
             </div>
@@ -99,7 +99,7 @@
                             @Html.DisplayNameFor(model => model.First().AcadmicClassName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.First().StudentName)
+                            @Html.DisplayNameFor(model => model.First().TeacherName)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.First().CourseName);
@@ -117,7 +117,7 @@
                             @Html.DisplayNameFor(model => model.First().AssessmentFormat)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model=>model.First().AverageConcequence)
+                            @Html.DisplayNameFor(model => model.First().AverageConcequence)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.First().Concequence)
@@ -132,54 +132,54 @@
 
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AcadmicClassName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StudentName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem=>item.CourseName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ParentAssementName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AssessmentSubTypeName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SelectedEvaluation)
-                        </td>
-                        <td>
-                            @if (item.AssessmentFormat == true)
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AcadmicClassName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TeacherName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ParentAssementName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AssessmentSubTypeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SelectedEvaluation)
+                            </td>
+                            <td>
+                                @if (item.AssessmentFormat == true)
                                 {
-                                <text>
-                                    Consequence
-                                </text>
+                                    <text>
+                                        Consequence
+                                    </text>
                                 }
                                 else
                                 {
-                                <text>
-                                    Non- Consequence
-                                </text>
+                                    <text>
+                                        Non- Consequence
+                                    </text>
                                 }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem=>item.AverageConcequence)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Concequence)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FormateCreateDate)
-                        </td>
-                        <td>
-                            <a href="/StudentReport/AddChangesAcadmicAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CourseId=@item.CourseId&CreateDate=@item.FormateCreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AverageConcequence)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Concequence)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem =>(item.FormateCreateDate))
+                            </td>
+                            <td>
+                                <a href="/StudentReport/AddChangeTeacherGeneralAssessmentReport?AcadmicClassId=@item.AcadmicClassId&TeacherId=@item.TeacherId&CourseId=@item.CourseId&CreateDate=@item.FormateCreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
 
-                        </td>
+                            </td>
 
-                    </tr>
+                        </tr>
                     }
 
                 </table>
@@ -235,17 +235,17 @@
                 if (getAcadmicClass != '') {
 
                     $(this).removeAttr("style");
-                    Url = "/Course/DDLStudent";
+                    Url = "/Teacher/DDLTeacher";
 
                     // Fill Student Dropdown
                     $.get(Url, model)
                     .done(function (stdhtml) {
 
-                        $("#dvDDLStudent").html(stdhtml);
+                        $("#dvDDLTeacher").html(stdhtml);
 
                     })
                     .fail(function (ex1, ex2) {
-                        alert("Can't get Student DDL");
+                        alert("Can't get Teacher DDL");
                     });
                     //Fill Course Dropdown
 
@@ -265,22 +265,21 @@
             });
 
 
-            $('body').on("change", "#ddlStudent", function () {
+            $('body').on("change", "#ddlTeacher", function () {
 
-                if ($("#ddlStudent").val() != "") {
-                    $("#ddlStudent").css("border", "");
-                    
+                if ($("#ddlTeacher").val() != "") {
+                    $("#ddlTeacher").css("border", "");
+
                 }
 
             });
             $('body').on("change", "#ddlCourse", function () {
 
-                if($("#ddlCourse").val()!='')
-                {
+                if ($("#ddlCourse").val() != '') {
                     $("#ddlCourse").css("border", "");
-                    
+
                 }
-               
+
             });
             $("#setDate").change(function () {
                 $(this).removeAttr("style");
@@ -295,12 +294,11 @@
                     $("#ddlAcadmicClass").css("border", "1px solid red");
 
                 }
-                else if ($("#ddlStudent").val() == '') {
+                else if ($("#ddlTeacher").val() == '') {
 
-                    $("#ddlStudent").css("border", "1px solid red");
+                    $("#ddlTeacher").css("border", "1px solid red");
                 }
-                else if($("#ddlCourse").val()=='')
-                {
+                else if ($("#ddlCourse").val() == '') {
                     $("#ddlCourse").css("border", "1px solid red");
                 }
                 else if ($("#setDate").val() === '') {
@@ -317,6 +315,10 @@
 
     </script>
 }
+
+
+
+
 
 
 
