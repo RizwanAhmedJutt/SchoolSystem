@@ -50,7 +50,7 @@
                     <div class="col-md-3 col-md-offset-3"> <b>Course </b> </div>
 
                     <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                        <span id="CourseMsg" class="error" style="display:none;"></span>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
@@ -268,10 +268,19 @@
             $('body').on("change", "#ddlStudent", function () {
 
                 if ($("#ddlStudent").val() != "") {
-                    $("#StudentMsg").text("");
-                    $("#StudentMsg").hide();
+                    $("#ddlStudent").css("border", "");
+                    
                 }
 
+            });
+            $('body').on("change", "#ddlCourse", function () {
+
+                if($("#ddlCourse").val()!='')
+                {
+                    $("#ddlCourse").css("border", "");
+                    
+                }
+               
             });
             $("#setDate").change(function () {
                 $(this).removeAttr("style");
@@ -283,14 +292,16 @@
                 e.preventDefault();
 
                 if ($("#ddlAcadmicClass").val() == '') {
-
-
                     $("#ddlAcadmicClass").css("border", "1px solid red");
 
                 }
                 else if ($("#ddlStudent").val() == '') {
 
                     $("#ddlStudent").css("border", "1px solid red");
+                }
+                else if($("#ddlCourse").val()=='')
+                {
+                    $("#ddlCourse").css("border", "1px solid red");
                 }
                 else if ($("#setDate").val() === '') {
 
