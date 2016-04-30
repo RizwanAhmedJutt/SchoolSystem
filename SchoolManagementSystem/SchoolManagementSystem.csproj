@@ -442,6 +442,8 @@
     <Content Include="Views\StudentReport\AddChangeTeacherGeneralAssessmentReport.cshtml" />
     <Content Include="Views\StudentExpense\GetStudentBasicExpenditure.cshtml" />
     <Content Include="Views\StudentExpense\StudentBasicExpenseAddChanges.cshtml" />
+    <Content Include="Views\StudentExpense\GetRegularExpenditure.cshtml" />
+    <Content Include="Views\StudentExpense\StudentRegularExpenseAddChanges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

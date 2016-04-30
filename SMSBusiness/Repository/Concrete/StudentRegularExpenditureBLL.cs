@@ -14,7 +14,7 @@ namespace SMSBusiness.Repository.Concrete
     public class StudentRegularExpenditureBLL : IStudentRegularExpenditure
     {
 
-        public List<StudentExpenditure> GetStudentRegularExpenditure(int StudentId, int AcadmicClassId)
+        public List<StudentExpenditure> GetStudentRegularExpenditure(int? StudentId, int? AcadmicClassId)
         {
             var objStudentExpensDao = new StudentExpenditureDAO(new SqlDatabase());
             DataTable dtexpense = objStudentExpensDao.GetRegularExpenditure(StudentId, AcadmicClassId);
