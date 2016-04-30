@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\StudentExpenditureDAO.cs" />
+    <Compile Include="DAL\StudentBasicExpenditureDAO.cs" />
     <Compile Include="DAL\AcadmicClassDAO.cs" />
     <Compile Include="DAL\AdmissionGrantedDAO.cs" />
     <Compile Include="DAL\AssessmentCategoriesDAO.cs" />

@@ -56,6 +56,8 @@
     <Compile Include="Repository\Abstract\IStudent.cs" />
     <Compile Include="Repository\Abstract\IStudentAddressBLL.cs" />
     <Compile Include="Repository\Abstract\IStudentAssignCourse.cs" />
+    <Compile Include="Repository\Abstract\IStudentRegularExpenditure.cs" />
+    <Compile Include="Repository\Abstract\IStudentBasicExpenditure.cs" />
     <Compile Include="Repository\Abstract\IStudentProfile.cs" />
     <Compile Include="Repository\Abstract\IST_PreviousAcadmicRecord.cs" />
     <Compile Include="Repository\Abstract\ITeacherAssessmentOperation.cs" />
@@ -76,6 +78,8 @@
     <Compile Include="Repository\Concrete\GuardianDetailBLL.cs" />
     <Compile Include="Repository\Concrete\StudentAddressBLL.cs" />
     <Compile Include="Repository\Concrete\StudentAssignCourseBLL.cs" />
+    <Compile Include="Repository\Concrete\StudentRegularExpenditureBLL.cs" />
+    <Compile Include="Repository\Concrete\StudentBasicExpenditureBLL.cs" />
     <Compile Include="Repository\Concrete\StudentBLL.cs" />
     <Compile Include="Repository\Concrete\StudentProfileBLL.cs" />
     <Compile Include="Repository\Concrete\ST_PreviousAcadmicDetailBLL.cs" />

@@ -173,6 +173,7 @@
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentExpenseController.cs" />
     <Compile Include="Controllers\StudentReportController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
@@ -439,6 +440,8 @@
     <Content Include="Views\StudentReport\GetALLStudentAcadmicAssessment.cshtml" />
     <Content Include="Views\StudentReport\GetALLTeacherGeneralAssessment.cshtml" />
     <Content Include="Views\StudentReport\AddChangeTeacherGeneralAssessmentReport.cshtml" />
+    <Content Include="Views\StudentExpense\GetStudentBasicExpenditure.cshtml" />
+    <Content Include="Views\StudentExpense\StudentBasicExpenseAddChanges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

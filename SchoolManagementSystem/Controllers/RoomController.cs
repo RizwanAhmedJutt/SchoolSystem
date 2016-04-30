@@ -15,6 +15,7 @@ using System.Web.Script.Serialization;
 
 namespace SchoolManagementSystem.Controllers
 {
+     [Authorize(Roles = "Admin")]
     public class RoomController : Controller
     {
         //

@@ -1,0 +1,131 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SMSDataContract.Accounts.StudentBasicExpenditure>
+@{
+
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div id="AddEdithtml"></div>
+<div id="maincontent">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-7 col-md-offset-3">
+
+            </div>
+            <div style="clear:left"></div>
+            <div class="well">
+                <div class="row">
+                    <div class="pull-left">
+                        <a id="btnAddEdit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add Basic Expense</a>
+                    </div>
+
+                </div>
+
+                <br />
+                <div class="row">
+                    <span class="HeadingStyle">List of Basic Expense</span>
+                    <table class="table  table-bordered table-striped table-responsive table-hover">
+                        <tr class="action info">
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().StudentName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().ClassName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().AdmissionFee)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().SecurityFee)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().ExaminationFee)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().RegistrationFee)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().CreateDate)
+                            </th>
+
+                            <th style="width:90px;"><b>ACTION</b></th>
+
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClassName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AdmissionFee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SecurityFee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ExaminationFee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RegistrationFee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateDate.ToShortDateString())
+                                </td>
+
+
+                                <td>
+                                    <a id="btnUpdate" class="btn btn-sm btn-info" href="javascript:AddEdit(@item.FeeId)"><i class="glyphicon glyphicon-edit"></i></a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </table>
+                    <div class="col-md-10 col-md-offset-4">
+                        @Html.PagedListPager(Model, page => Url.Action("GetStudentBasicExpenditure", new { page, StudentId = Request.QueryString["StudentId"], AcadmicClassId = Request.QueryString["AcadmicClassId"] }))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnAddEdit").click(function () {
+                AddEdit(0);
+            });
+        });
+
+        function AddEdit(id) {
+            debugger;
+            var URL = "/StudentExpense/StudentBasicExpenseAddChanges";
+            var model = { Id: id };
+            $.get(URL, model)
+            .done(function (gethtml) {
+                $("#AddEdithtml").html("");
+                $("#AddEdithtml").html(gethtml);
+                $('#myModal').modal('show');
+                $("#myModel").modal({ "backdrop": "static" });
+
+            })
+            .fail(function (e1) { })
+        }
+
+
+    </script>
+}
+
+
+
+
