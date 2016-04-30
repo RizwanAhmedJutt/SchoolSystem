@@ -59,7 +59,7 @@ namespace SMSBusiness.Repository.Concrete
          {
              sbExpense.FeeId = Convert.ToInt32(item["FeesId"]);
              sbExpense.StudentId = Convert.ToInt32(item["StudentId"]);
-             sbExpense.AcadmicClassId = Convert.ToInt32(item[""]);
+             sbExpense.AcadmicClassId = Convert.ToInt32(item["AcadmicClassId"]);
              sbExpense.FeeMonth = item["FeeMonth"].ToString();
              sbExpense.ClassName = item["ClassName"].ToString();
              sbExpense.AdmissionFee = Convert.ToInt32(item["AdmissionFee"]);
@@ -69,7 +69,7 @@ namespace SMSBusiness.Repository.Concrete
              sbExpense.CreateDate = Convert.ToDateTime(item["CreatedDate"]);
              sbExpense.CreateById = item["CreatedById"].ToString();
              sbExpense.ModifiedById = item["ModifiedById"].ToString();
-             sbExpense.ModifiedDate = Convert.ToDateTime(item["ModifiedDate"]);
+             sbExpense.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?)null : Convert.ToDateTime(item["ModifiedDate"]);
 
 
          }

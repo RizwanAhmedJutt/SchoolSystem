@@ -58,7 +58,7 @@ namespace SchoolManagementSystem.Controllers
             {
                 expense.CreateById = userloggedId;
             }
-           // int getStatus = repoBasicExpense.StudentBasicExpenseAddChanges(expense);
+            int getStatus = repoBasicExpense.StudentBasicExpenseAddChanges(expense);
             return RedirectToAction("GetStudentBasicExpenditure");
         }
 	}

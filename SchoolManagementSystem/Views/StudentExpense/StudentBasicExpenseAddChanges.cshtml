@@ -6,8 +6,8 @@
 }
 
 
-@using (Html.BeginForm("StudentBasicExpenseAddChanges", "StudentExpense", FormMethod.Post))
-{
+@using (Html.BeginForm("StudentBasicExpenseAddChanges", "StudentExpense", FormMethod.Post, new { enctype = "multipart/form-data", id = "attachmentForm" }))
+{  @Html.AntiForgeryToken()
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -24,12 +24,13 @@
                                 else
                                 {
                                     @Html.HiddenFor(x => x.FeeId)
+                                    @Html.HiddenFor(x=>x.CreateDate)
+                                    @Html.HiddenFor(x=>x.CreateById)
                                     <span class="HeadingStyle">Update Basic Expense</span>
                                 }
                                 <hr />
-                                @using (Html.BeginForm())
-                                {
-                                    @Html.AntiForgeryToken()
+                              
+                                  
 
                                     <div class="form-horizontal">
 
@@ -44,7 +45,7 @@
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                                                     @{Html.RenderPartial("../DropDownLists/DDLClass");}
-                                                   @Html.ValidationMessageFor(x=>x.AcadmicClassId)
+                                                    @Html.ValidationMessageFor(x => x.AcadmicClassId)
                                                 </div>
                                             </div>
                                         </div>
@@ -58,18 +59,18 @@
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                                                     <div id="dvDDLStudent">
                                                         @{
-                                                    if (Model.FeeId == 0)
-                                                    { <text>
-                                                        @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
-                                                    </text>
-                                                    }
-                                                    else
-                                                    {
-                                                        <text>
-                                                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = Model.AcadmicClassId });}
-                                                        </text>
-                                                    }
-                                                                }
+                                    if (Model.FeeId == 0)
+                                    { <text>
+                                        @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                                    </text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = Model.AcadmicClassId });}
+                                        </text>
+                                    }
+                                                        }
                                                     </div>
                                                 </div>
                                                 @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
@@ -138,10 +139,10 @@
                                                         }
                                                         else
                                                         {
-                                                        <text>
+                                                            <text>
 
-                                                            Update
-                                                        </text>
+                                                                Update
+                                                            </text>
                                                         }
                                                     </button>
 
@@ -152,7 +153,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                               
                             </div>
                         </div>
                     </div>
@@ -163,6 +164,17 @@
     </div>
 }
 <script type="text/javascript">
+    if ('@Model.FeeId' > 0)
+    {
+        if ('@Model.StudentId' > 0) {
+
+            $('#ddlStudent option[value="@Model.StudentId"]').attr("selected", true);
+
+        }
+        else {
+            $('#ddlStudent option[value=""]').attr("selected", true);
+        }
+    }
     $("#btnClosemodel").click(function (e) {
         $('#myModal').modal('hide');
         // $('#modal').modal('toggle');
@@ -180,25 +192,28 @@
          var SecurityFee = $("#SecurityFee").val();
          var ExaminationFee = $("#ExaminationFee").val();
          var RegistrationFee = $("#RegistrationFee").val();
+        
+        
          if(AcadmicClass!=''&&StudentId!=''&& AdmissionFee!=''&&SecurityFee!=''&&ExaminationFee!=''&&RegistrationFee!='')
          {
              $("form").submit();
          }
 
-        
-        
 
-        
+
+
+
+
     });
     // change event of ddlAcadmicClass
     $("#ddlAcadmicClass").change(function () {
         debugger;
         var getClass = $("#ddlAcadmicClass :selected").val();
         if (getClass != '') {
-           
+
             LoadDDLStudent();
             $("#AcadmicclassMsg").hide();
-           
+
             $("#StudentMsg").hide();
         }
         else {
@@ -214,7 +229,7 @@
         var getStudent = $("#ddlStudent :selected").val();
         if (getStudent != '') {
             $("#AcadmicclassMsg").hide();
-            
+
             $("#StudentMsg").hide();
         }
         else {
@@ -241,10 +256,10 @@
             .fail(function (ex1, ex2) {
               alert("Can't get Student DDL");
                     })
-              
-           
-    }
-            
 
-    
+
+    }
+
+
+
 </script>
