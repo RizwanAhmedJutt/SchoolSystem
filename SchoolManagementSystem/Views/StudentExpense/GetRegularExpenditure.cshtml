@@ -9,9 +9,50 @@
 <div id="maincontent">
     <div class="row">
         <div class="col-md-12 col-sm-12">
-            <div class="col-md-7 col-md-offset-3">
+            @using (Html.BeginForm("GetRegularExpenditure", "StudentExpense", FormMethod.Get))
+            {
+                <div class="input-group col-md-8">
 
-            </div>
+
+
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
+
+                        <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                            <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                        </div>
+                        @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+                    </div>
+
+                   
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-3"> <b>Student </b> </div>
+
+                        <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                            <span id="CourseMsg" class="error" style="display:none;"></span>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            <div id="dvDDLStudent">
+
+                                @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+
+
+
+                            </div>
+                            @Html.ValidationMessageFor(x => x.First().StudentId)
+                        </div>
+                    </div>
+                   
+                 
+                    <br />
+                    <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+                </div>
+            }
             <div style="clear:left"></div>
             <div class="well">
                 <div class="row">
@@ -115,6 +156,24 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            if ('@Request.QueryString["AcadmicClassId"]' != null) {
+
+                $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
+
+            }
+            else {
+                $('#ddlAcadmicClass option[value=""]').attr("selected", true);
+            }
+            if ('@Request.QueryString["StudentId"]' != null) {
+
+                $('#ddlStudent option[value="@Request.QueryString["StudentId"]"]').attr("selected", true);
+
+            }
+            else {
+                $('#ddlStudent option[value=""]').attr("selected", true);
+            }
+            //Add-Update Click event
+            
             $("#btnAddEdit").click(function () {
                 AddEdit(0);
             });
