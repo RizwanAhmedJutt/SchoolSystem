@@ -95,6 +95,18 @@
                             </li>
                            
                         </ul>
+                    </li> 
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#fee"><i class="fa fa-fw fa-arrows-v"></i> Manage Dues <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="fee" class="collapse">
+                            <li>
+                                <a href="@Url.Action("GetStudentBasicExpenditure", "StudentExpense")"><i class="fa fa-fw fa-table"></i>Basic Expense</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("GetRegularExpenditure", "StudentExpense")"><i class="fa fa-fw fa-table"></i>Monthly Expense</a>
+                            </li>
+
+                        </ul>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#Assessments"><i class="fa fa-fw fa-arrows-v"></i> Assessment Reports <i class="fa fa-fw fa-caret-down"></i></a>
