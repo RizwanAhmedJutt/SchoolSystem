@@ -34,7 +34,7 @@ namespace SMSBusiness.Repository.Concrete
                     TeacherDetails.CNIC = dr.IsNull("CNIC") ? string.Empty : Convert.ToString(dr["CNIC"]);
                     TeacherDetails.LastQualification = dr.IsNull("LastQualification") ? String.Empty : Convert.ToString( dr["LastQualification"]);
                     TeacherDetails.JoinDate = dr.IsNull("JoinDate") ? DateTime.Now : Convert.ToDateTime(dr["JoinDate"]);
-                    TeacherDetails.LeaveDate = dr.IsNull("LeaveDate") ? DateTime.Now : Convert.ToDateTime(dr["LeaveDate"]);
+                    TeacherDetails.LeaveDate = dr.IsNull("LeaveDate") ?(DateTime?) null: Convert.ToDateTime(dr["LeaveDate"]);
                     TeacherDetails.RefrenceName = dr.IsNull("RefrenceName") ? string.Empty : Convert.ToString(dr["RefrenceName"]);
                     TeacherDetails.RefrenceContact = dr.IsNull("RefrenceContact") ? string.Empty : Convert.ToString(dr["RefrenceContact"]);
                     TeacherDetails.Active = Convert.ToBoolean(dr["Active"]);
@@ -73,7 +73,7 @@ namespace SMSBusiness.Repository.Concrete
                     TeacherDetails.CNIC = dr.IsNull("CNIC") ? string.Empty : Convert.ToString(dr["CNIC"]);
                     TeacherDetails.LastQualification = dr.IsNull("LastQualification") ? String.Empty : Convert.ToString(dr["LastQualification"]);
                     TeacherDetails.JoinDate = dr.IsNull("JoinDate") ? DateTime.Now : Convert.ToDateTime(dr["JoinDate"]);
-                    TeacherDetails.LeaveDate = dr.IsNull("LeaveDate") ? DateTime.Now : Convert.ToDateTime(dr["LeaveDate"]);
+                    TeacherDetails.LeaveDate = dr.IsNull("LeaveDate") ? (DateTime?)null : Convert.ToDateTime(dr["LeaveDate"]);
                     TeacherDetails.RefrenceName = dr.IsNull("RefrenceName") ? string.Empty : Convert.ToString(dr["RefrenceName"]);
                     TeacherDetails.RefrenceContact = dr.IsNull("RefrenceContact") ? string.Empty : Convert.ToString(dr["RefrenceContact"]);
                     TeacherDetails.Active = Convert.ToBoolean(dr["Active"]);
@@ -109,7 +109,7 @@ namespace SMSBusiness.Repository.Concrete
                         teacher.CNIC = item.IsNull("CNIC") ? string.Empty : Convert.ToString(item["CNIC"].ToString());
                         teacher.LastQualification = item.IsNull("LastQualification") ? string.Empty : Convert.ToString(item["LastQualification"]);
                         teacher.JoinDate = item.IsNull("JoinDate") ? DateTime.Now : Convert.ToDateTime(item["JoinDate"]);
-                        teacher.LeaveDate = item.IsNull("LeaveDate") ? DateTime.Now : Convert.ToDateTime(item["LeaveDate"]);
+                        teacher.LeaveDate = item.IsNull("LeaveDate") ? (DateTime?)null : Convert.ToDateTime(item["LeaveDate"]);
                         teacher.RefrenceName = item.IsNull("RefrenceName") ? string.Empty : Convert.ToString(item["RefrenceName"]);
                         teacher.RefrenceContact = item.IsNull("RefrenceContact") ? string.Empty : Convert.ToString(item["RefrenceContact"]);
                         teacher.Active = item.IsNull("Active") ? false : Convert.ToBoolean(item["Active"]);

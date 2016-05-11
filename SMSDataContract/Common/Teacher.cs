@@ -17,7 +17,7 @@ namespace SMSDataContract.Common
             LastQualification = string.Empty;
             CNIC = string.Empty;
             JoinDate = DateTime.Now;
-            LeaveDate = DateTime.Now;
+            LeaveDate = null;
             RefrenceName = string.Empty;
             RefrenceContact = string.Empty;
             Active = false;
@@ -43,7 +43,7 @@ namespace SMSDataContract.Common
         public DateTime JoinDate { get; set; }
         [Display(Name="Leave Date")]
         
-        public DateTime LeaveDate { get; set; }
+        public DateTime? LeaveDate { get; set; }
         [Display(Name="Refrence Name")]
         public string RefrenceName { get; set; }
         [Display(Name="Refrence Contact")]

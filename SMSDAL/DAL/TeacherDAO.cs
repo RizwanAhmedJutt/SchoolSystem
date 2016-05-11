@@ -85,7 +85,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@LastQualification", DbType.String, teacher.LastQualification);
                     gObjDatabase.AddInParameter(objDbCommand, "@CNIC", DbType.String, teacher.CNIC);
                     gObjDatabase.AddInParameter(objDbCommand, "@JoinDate", DbType.DateTime, teacher.JoinDate);
-                    gObjDatabase.AddInParameter(objDbCommand, "@LeaveDate", DbType.DateTime, teacher.LeaveDate);
+                    gObjDatabase.AddInParameter(objDbCommand, "@LeaveDate", DbType.DateTime, teacher.LeaveDate==null?(object)DBNull.Value:teacher.LeaveDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@RefrenceName", DbType.String, teacher.RefrenceName);
                     gObjDatabase.AddInParameter(objDbCommand, "@RefrenceContact", DbType.String, teacher.RefrenceContact);
                     gObjDatabase.AddInParameter(objDbCommand, "@Active", DbType.Boolean, teacher.Active);

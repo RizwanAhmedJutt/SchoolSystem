@@ -74,6 +74,7 @@
     <Compile Include="Repository\Concrete\DailyAssessmentOperationBLL.cs" />
     <Compile Include="Repository\Concrete\DailyAssessmentSubTypeBLL.cs" />
     <Compile Include="Repository\Concrete\DailyAssessmentTypeBLL.cs" />
+    <Compile Include="Repository\Concrete\ExportFileBLL.cs" />
     <Compile Include="Repository\Concrete\GuardianContactBLL.cs" />
     <Compile Include="Repository\Concrete\GuardianDetailBLL.cs" />
     <Compile Include="Repository\Concrete\StudentAddressBLL.cs" />
