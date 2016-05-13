@@ -15,7 +15,7 @@ namespace SMSDAL.DAL
         {
             gObjDatabase = database;
         }
-        public DataTable GetStudentReport()
+        public DataTable GetStudentReport(DateTime startDate,DateTime endDate ,int AcadmicClassId )
         {
             DataTable dtAssessmentDetails;
             try
@@ -23,7 +23,9 @@ namespace SMSDAL.DAL
 
                 using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Export_StudentReport"))
                 {
-
+                    gObjDatabase.AddInParameter(objCommand, "@startDate", DbType.DateTime, startDate);
+                    gObjDatabase.AddInParameter(objCommand, "@endDate",   DbType.DateTime, endDate);
+                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
                     dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }

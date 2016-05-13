@@ -10,15 +10,19 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PagedList;
 using PagedList.Mvc;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.Drawing;
 
 namespace SchoolManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class CourseController : Controller
     {
-      ICourse courserepositry = new CourseBLL();
+        ICourse courserepositry = new CourseBLL();
         IStudentAssignCourse stdAssignCourserepo = new StudentAssignCourseBLL();
         ITeacherAssignedCourse teacherrepo = new TeacherAssignCourseBLL();
+        IExport exportfiles;
         [HttpGet]
         public ActionResult GetALLCourse(string SearchBy, string search, int? page)
         {
@@ -28,7 +32,7 @@ namespace SchoolManagementSystem.Controllers
                 return View(objCourses.ToList().ToPagedList(page ?? 1, 10));
             }
             else
-            return View(courserepositry.GetALLCourse().ToPagedList(page ?? 1, 10));
+                return View(courserepositry.GetALLCourse().ToPagedList(page ?? 1, 10));
         }
         [HttpGet]
         public ActionResult AddChangesCourse(int Id)
@@ -209,6 +213,133 @@ namespace SchoolManagementSystem.Controllers
                 IStudent std = new StudentBLL();
                 ViewData["DDLStudent"] = new SelectList(std.GetAllStudentByName().OrderBy(c => c.StudentId).ToList(), "StudentId", "StudentName");
                 return View("../DropDownLists/DDLStudent");
+            }
+
+        }
+
+        public void GetAllCourse()
+        {
+            int rowNo = 6;
+            using (ExcelPackage pckg = new ExcelPackage())
+            {
+
+                ExcelWorksheet ws = pckg.Workbook.Worksheets.Add("Course");
+                //set header
+                using (ExcelRange rng = ws.Cells["I6:Y6"])
+                {
+                    ws.Cells[rowNo, 8].Value = "Course Code";
+                    ws.Cells[rowNo, 9].Value = "Course Name";
+                    ws.Cells[rowNo, 10].Value = "Class Name";
+                    rng.Style.Font.Size = 12;
+
+                    rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(204, 255, 204));
+                    rng.Style.Font.Color.SetColor(Color.Black);
+
+
+                }
+                rowNo++;
+                List<Course> teacherDetail = exportfiles.GetALLCourse();
+                foreach (var item in teacherDetail)
+                {
+                    ws.Cells[rowNo, 8].Value = item.CourseCode;
+                    ws.Cells[rowNo, 9].Value = item.CourseName;
+                    ws.Cells[rowNo, 10].Value = item.ClassName;
+
+                }
+                //Write it back to the client
+                Response.Clear();
+                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.BinaryWrite(pckg.GetAsByteArray());
+                Response.End();
+
+            }
+
+        }
+        public void GetALLTeacherAssignCourse()
+        {
+            int rowNo = 6;
+            using (ExcelPackage pckg = new ExcelPackage())
+            {
+
+                ExcelWorksheet ws = pckg.Workbook.Worksheets.Add("Teacher Assigned Course");
+                //set header
+                using (ExcelRange rng = ws.Cells["I6:Y6"])
+                {
+                    ws.Cells[rowNo, 8].Value = "Teacher Name";
+                    ws.Cells[rowNo, 9].Value = "Course Name";
+                    ws.Cells[rowNo, 10].Value = "Class Name";
+                    rng.Style.Font.Size = 12;
+
+                    rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(204, 255, 204));
+                    rng.Style.Font.Color.SetColor(Color.Black);
+
+
+                }
+                rowNo++;
+                List<TeacherAssignedCourse> teacherDetail = exportfiles.GetALLTeacherAssignCourse();
+                foreach (var item in teacherDetail)
+                {
+                    ws.Cells[rowNo, 8].Value = item.TeacherName;
+                    ws.Cells[rowNo, 9].Value = item.CourseName;
+                    ws.Cells[rowNo, 10].Value = item.ClassName;
+
+                }
+                //Write it back to the client
+                Response.Clear();
+                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.BinaryWrite(pckg.GetAsByteArray());
+                Response.End();
+
+            }
+
+        }
+        public void GetALLStudentAssignCourse()
+        {
+            int rowNo = 6;
+            using (ExcelPackage pckg = new ExcelPackage())
+            {
+
+                ExcelWorksheet ws = pckg.Workbook.Worksheets.Add("Student Assigned Course ");
+                //set header
+                using (ExcelRange rng = ws.Cells["I6:Y6"])
+                {
+                    ws.Cells[rowNo, 8].Value = "Student Name";
+                    ws.Cells[rowNo, 9].Value = "Course Name";
+                    ws.Cells[rowNo, 10].Value = "Class Name";
+                    rng.Style.Font.Size = 12;
+
+                    rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(204, 255, 204));
+                    rng.Style.Font.Color.SetColor(Color.Black);
+
+
+                }
+                rowNo++;
+                List<StudentAssignedCourse> teacherDetail = exportfiles.GetALLStudentAssignCourse();
+                foreach (var item in teacherDetail)
+                {
+                    ws.Cells[rowNo, 8].Value = item.StudentName;
+                    ws.Cells[rowNo, 9].Value = item.CourseName;
+                    ws.Cells[rowNo, 10].Value = item.ClassName;
+
+                }
+                //Write it back to the client
+                Response.Clear();
+                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.BinaryWrite(pckg.GetAsByteArray());
+                Response.End();
+
             }
 
         }

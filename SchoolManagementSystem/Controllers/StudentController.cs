@@ -10,6 +10,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PagedList;
 using PagedList.Mvc;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.Drawing;
 namespace SchoolManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -21,6 +24,7 @@ namespace SchoolManagementSystem.Controllers
         IGuardianContact gContactrepositry = new GuardianContactBLL();
         IST_PreviousAcadmicRecord previousrepositry = new ST_PreviousAcadmicDetailBLL();
         IAdmissionGranted aGrantedrepositry = new AdmissionGrantedBLL();
+        IExport exportfiles;
         // GET: Student
         public ActionResult Index()
         {
@@ -46,14 +50,14 @@ namespace SchoolManagementSystem.Controllers
 
                 return View(stdByName.ToList().ToPagedList(page ?? 1, 10));
             }
-           
+
             if (SearchBy == "NotActiv")
             {
                 List<Student> stdByName = student.GetALLDisActiveStudents().Where(x => x.FirstName == search || search == null).ToList();
 
                 return View(stdByName.ToList().ToPagedList(page ?? 1, 10));
             }
-          
+
             return View(student.GetAllStudents().ToList().ToPagedList(page ?? 1, 10));
         }
         [HttpGet]
@@ -290,6 +294,89 @@ namespace SchoolManagementSystem.Controllers
             int getStatus = student.DeleteStudent(std);
             return RedirectToAction("StudentList", "Student");
 
+        }
+        public void ExportStudentReport(DateTime startDate, DateTime endDate, int AcadmicClass)
+        {
+            int rowNo = 6;
+            using (ExcelPackage pckg = new ExcelPackage())
+            {
+
+                ExcelWorksheet ws = pckg.Workbook.Worksheets.Add("Students");
+                //set header
+                using (ExcelRange rng = ws.Cells["I6:Y6"])
+                {
+                    ws.Cells[rowNo, 8].Value = "Student Name";
+                    ws.Cells[rowNo, 9].Value = "Father Name";
+                    ws.Cells[rowNo, 10].Value = "Class Name";
+                    ws.Cells[rowNo, 11].Value = "Birth Date";
+                    ws.Cells[rowNo, 12].Value = "Religion";
+                    ws.Cells[rowNo, 13].Value = "CNIC";
+                    ws.Cells[rowNo, 14].Value = "TotalSibling";
+                    ws.Cells[rowNo, 15].Value = "CurrentSchoolSibling";
+                    ws.Cells[rowNo, 16].Value = "CityName";
+                    ws.Cells[rowNo, 17].Value = "PermanentAddress";
+                    ws.Cells[rowNo, 18].Value = "PresentAddress";
+                    ws.Cells[rowNo, 19].Value = "GuardianName";
+                    ws.Cells[rowNo, 20].Value = "GuardianContacts";
+                    ws.Cells[rowNo, 21].Value = "AdmissionGrantedDate";
+                    ws.Cells[rowNo, 22].Value = "AdmissionGrantedForClass";
+                    ws.Cells[rowNo, 23].Value = "AssessmentResult";
+                    rng.Style.Font.Size = 12;
+
+                    rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(204, 255, 204));
+                    rng.Style.Font.Color.SetColor(Color.Black);
+
+
+                }
+                rowNo++;
+                List<StudentDetail> studentDetail = exportfiles.GetStudentReport(startDate, endDate, AcadmicClass);
+                foreach (var item in studentDetail)
+                {
+                    ws.Cells[rowNo, 8].Value = item.Student.StudentName;
+                    ws.Cells[rowNo, 8].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 9].Value = item.GuardianDetail.FatherName;
+                    ws.Cells[rowNo, 9].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 10].Value = item.AcadmicClass.ClassName;
+                    ws.Cells[rowNo, 10].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 11].Value = item.Student.DOB;
+                    ws.Cells[rowNo, 11].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 12].Value = item.Student.Religion;
+                    ws.Cells[rowNo, 12].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 13].Value = item.Student.CNIC;
+                    ws.Cells[rowNo, 13].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 14].Value = item.Student.NoOfSibling;
+                    ws.Cells[rowNo, 14].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 15].Value = item.Student.NoOfSiblingCurrentSchool;
+                    ws.Cells[rowNo, 15].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 16].Value = item.Cities.CityName;
+                    ws.Cells[rowNo, 16].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 17].Value = item.StudentAddress.PermanentAddress;
+                    ws.Cells[rowNo, 17].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 18].Value = item.StudentAddress.PresentAddress;
+                    ws.Cells[rowNo, 18].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 19].Value = item.GuardianDetail.GuardianName;
+                    ws.Cells[rowNo, 19].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 20].Value = item.GuardianContact.FirstContact;
+                    ws.Cells[rowNo, 20].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 21].Value = item.AdmissionGranted.AdmissionGrantedDate;
+                    ws.Cells[rowNo, 21].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 22].Value = item.AdmissionGranted.AdmissionGrantedForClass;
+                    ws.Cells[rowNo, 22].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 23].Value = item.AdmissionGranted.AssessmentResult;
+                    ws.Cells[rowNo, 23].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                }
+                //Write it back to the client
+                Response.Clear();
+                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.BinaryWrite(pckg.GetAsByteArray());
+                Response.End();
+
+            }
         }
     }
 }

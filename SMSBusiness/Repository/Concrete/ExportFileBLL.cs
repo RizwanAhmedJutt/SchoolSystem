@@ -1,4 +1,5 @@
-﻿using SMSDAL;
+﻿using SMSBusiness.Repository.Abstract;
+using SMSDAL;
 using SMSDAL.DAL;
 using SMSDataContract.Accounts;
 using SMSDataContract.Common;
@@ -11,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace SMSBusiness.Repository.Concrete
 {
-    public class ExportFileBLL
+    public class ExportFileBLL : IExport
     {
-        public List<StudentDetail> GetStudentReport()
+        public List<StudentDetail> GetStudentReport(DateTime startDate, DateTime endDate, int AcadmicClassId)
         {
             var objExportFileDao = new ExportFileDAO(new SqlDatabase());
-            DataTable dtDetail = objExportFileDao.GetStudentReport();
+            DataTable dtDetail = objExportFileDao.GetStudentReport(startDate,endDate,AcadmicClassId);
             List<StudentDetail> stdDetail = new List<StudentDetail>();
             try
             {

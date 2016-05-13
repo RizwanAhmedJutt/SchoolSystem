@@ -12,6 +12,9 @@ using System.IO;
 using System.Web.UI.WebControls;
 using PagedList;
 using PagedList.Mvc;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.Drawing;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -19,7 +22,7 @@ namespace SchoolManagementSystem.Controllers
     public class TeacherController : Controller
     {
         ITeacherRepositry repoTeacher = new TeacherRepositry();
-
+        IExport exportfiles;
 
         // GET: Teacher
         public ActionResult TeacherList(string SearchBy, string search, int? page)
@@ -231,5 +234,101 @@ namespace SchoolManagementSystem.Controllers
 
         }
 
+        public void GetTeacherReport()
+        {
+            int rowNo = 6;
+            using (ExcelPackage pckg = new ExcelPackage())
+            {
+
+                ExcelWorksheet ws = pckg.Workbook.Worksheets.Add("Teachers");
+                //set header
+                using (ExcelRange rng = ws.Cells["I6:Y6"])
+                {
+                    ws.Cells[rowNo, 8].Value = "Teacher Name";
+                    ws.Cells[rowNo, 9].Value = "CNIC";
+                    ws.Cells[rowNo, 10].Value = "Last Qualification";
+                    ws.Cells[rowNo, 11].Value = "JoinDate";
+                    ws.Cells[rowNo, 12].Value = "Refrence Name";
+                    ws.Cells[rowNo, 13].Value = "Refrence Contact";
+                   
+                    rng.Style.Font.Size = 12;
+
+                    rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(204, 255, 204));
+                    rng.Style.Font.Color.SetColor(Color.Black);
+
+
+                }
+                rowNo++;
+                List<Teacher> teacherDetail = exportfiles.GetTeacherReport();
+                foreach (var item in teacherDetail)
+                {
+                    ws.Cells[rowNo, 8].Value = item.TeacherName;
+                    ws.Cells[rowNo, 8].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 9].Value = item.CNIC;
+                    ws.Cells[rowNo, 9].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 10].Value = item.LastQualification;
+                    ws.Cells[rowNo, 10].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 11].Value = item.JoinDate;
+                    ws.Cells[rowNo, 11].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 12].Value = item.RefrenceName;
+                    ws.Cells[rowNo, 12].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 13].Value = item.RefrenceContact;
+                    ws.Cells[rowNo, 13].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                }
+                //Write it back to the client
+                Response.Clear();
+                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.BinaryWrite(pckg.GetAsByteArray());
+                Response.End();
+
+            }
+        }
+
+        public void GetALLTeachersAssignedClass()
+        {
+            int rowNo = 6;
+            using (ExcelPackage pckg = new ExcelPackage())
+            {
+
+                ExcelWorksheet ws = pckg.Workbook.Worksheets.Add("Teacher Assigned Class");
+                //set header
+                using (ExcelRange rng = ws.Cells["I6:Y6"])
+                {
+                    ws.Cells[rowNo, 8].Value = "Teacher Name";
+                    ws.Cells[rowNo, 9].Value = "ClassName";
+                    rng.Style.Font.Size = 12;
+
+                    rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    rng.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(204, 255, 204));
+                    rng.Style.Font.Color.SetColor(Color.Black);
+
+
+                }
+                rowNo++;
+                List<TeacherAssignClass> teacherDetail = exportfiles.GetALLTeachersAssignedClass();
+                foreach (var item in teacherDetail)
+                {
+                    ws.Cells[rowNo, 8].Value = item.TeacherName;
+                    ws.Cells[rowNo, 8].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[rowNo, 9].Value = item.ClassName;
+                    ws.Cells[rowNo, 9].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                   
+                }
+                //Write it back to the client
+                Response.Clear();
+                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.BinaryWrite(pckg.GetAsByteArray());
+                Response.End();
+
+            }
+
+        }
     }
 }
