@@ -1,0 +1,88 @@
+﻿@{
+
+    Layout = null;
+}
+
+@using (Html.BeginForm("GetStudentBasicExpenditureReport", "StudentExpense", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="row well">
+                            <div class="form-horizontal">
+                                <div class="input-group">
+                                    <!--Start Date-->
+                                    <div class="form-group">
+                                        <div class="col-md-3 control-label"><label>Start Date</label> </div>
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                                <input type="date" name="startDate" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--End Date-->
+                                    <div class="form-group">
+                                        <div class="col-md-3 control-label"><label>End Date</label> </div>
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                                <input type="date" name="endDate" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Acadmic Class-->
+                                    <div class="form-group">
+                                        <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
+                                        <div class="col-md-5">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                                @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <span class="col-md-3 col-md-offset-7">
+
+                                                <button id="btnSearch" type="submit" class="btn btn-success">
+                                                    Search
+                                                </button>
+
+                                            </span>
+
+
+                                            <button type="submit" id="btnClosemodel" class="btn btn-primary">Close</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>  }
+<script type="text/javascript">
+    $("#btnClosemodel").click(function (e) {
+        $('#myModal').modal('hide');
+        // $('#modal').modal('toggle');
+        $("#AddEdithtml").empty();
+        $("div").removeClass("modal-backdrop fade in");
+        e.preventDefault();
+
+    });
+
+
+</script>
+
+
+

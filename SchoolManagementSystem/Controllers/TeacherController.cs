@@ -22,7 +22,7 @@ namespace SchoolManagementSystem.Controllers
     public class TeacherController : Controller
     {
         ITeacherRepositry repoTeacher = new TeacherRepositry();
-        IExport exportfiles;
+        IExport exportfiles=new ExportFileBLL();
 
         // GET: Teacher
         public ActionResult TeacherList(string SearchBy, string search, int? page)
@@ -36,7 +36,18 @@ namespace SchoolManagementSystem.Controllers
             
             return View( repoTeacher.GetAllTeachers().ToList().ToPagedList(page??1,10));
         }
-
+        [HttpPost]
+        public ActionResult ExportReport()
+        {
+            GetTeacherReport();
+            return RedirectToAction("TeacherList");
+        }
+        [HttpPost]
+        public ActionResult ExportTeacherAssignClassReport()
+        {
+            GetALLTeachersAssignedClass();
+            return RedirectToAction("GetALLAssignClass");
+        }
         public ActionResult AddChangesTeacher(int Id)
         {
             Teacher teacherdetail;
@@ -233,7 +244,7 @@ namespace SchoolManagementSystem.Controllers
             }
 
         }
-
+        
         public void GetTeacherReport()
         {
             int rowNo = 6;
@@ -280,7 +291,7 @@ namespace SchoolManagementSystem.Controllers
                 }
                 //Write it back to the client
                 Response.Clear();
-                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.AddHeader("content-disposition", "attachment;  filename=TeacherReport.xlsx");
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 Response.BinaryWrite(pckg.GetAsByteArray());
                 Response.End();
@@ -322,7 +333,7 @@ namespace SchoolManagementSystem.Controllers
                 }
                 //Write it back to the client
                 Response.Clear();
-                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.AddHeader("content-disposition", "attachment;  filename=TeacherAssignedClass.xlsx");
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 Response.BinaryWrite(pckg.GetAsByteArray());
                 Response.End();

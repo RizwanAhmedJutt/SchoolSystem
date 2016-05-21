@@ -48,7 +48,7 @@ namespace SMSBusiness.Repository.Concrete
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -209,6 +209,76 @@ namespace SMSBusiness.Repository.Concrete
 
             return cDetail;
         } 
+        public List<StudentBasicExpenditure>  GetStudentBasicExpense(DateTime startDate,DateTime endDate,int AcadmicClassId)
+        {
+            var objExportFileDao = new ExportFileDAO(new SqlDatabase());
+            DataTable dtDetail = objExportFileDao.GetStudentBasicExpense(startDate,endDate,AcadmicClassId);
+            List<StudentBasicExpenditure> cDetail = new List<StudentBasicExpenditure>();
+            try
+            {
+
+                foreach (DataRow item in dtDetail.Rows)
+                {
+                    StudentBasicExpenditure getExpenseDetail = new StudentBasicExpenditure();
+
+                    getExpenseDetail.StudentName = item.IsNull("StudentName") ? string.Empty : item["StudentName"].ToString();
+                    getExpenseDetail.ClassName = item.IsNull("ClassName") ? string.Empty : item["ClassName"].ToString();
+                    getExpenseDetail.AdmissionFee = item.IsNull("AdmissionFee") ? 0 : Convert.ToInt32(item["AdmissionFee"]);
+                    getExpenseDetail.RegistrationFee = item.IsNull("RegistrationFee") ? 0 : Convert.ToInt32(item["RegistrationFee"]);
+                    getExpenseDetail.ExaminationFee = item.IsNull("ExaminationFee") ? 0 : Convert.ToInt32(item["ExaminationFee"]);
+                    getExpenseDetail.SecurityFee = item.IsNull("SecurityFee") ? 0 : Convert.ToInt32(item["SecurityFee"]);
+                    cDetail.Add(getExpenseDetail);
+                }
+
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return cDetail;
+
+        }
+        public List<StudentExpenditure> GetStudentRegularExpense(DateTime startDate, DateTime endDate, int AcadmicClassId)
+        {
+            var objExportFileDao = new ExportFileDAO(new SqlDatabase());
+            DataTable dtDetail = objExportFileDao.GetStudentRegularExpense(startDate, endDate, AcadmicClassId);
+            List<StudentExpenditure> cDetail = new List<StudentExpenditure>();
+            try
+            {
+
+                foreach (DataRow item in dtDetail.Rows)
+                {
+                    StudentExpenditure getExpenseDetail = new StudentExpenditure();
+
+                    getExpenseDetail.StudentName = item.IsNull("StudentName") ? string.Empty : item["StudentName"].ToString();
+                    getExpenseDetail.ClassName = item.IsNull("ClassName") ? string.Empty : item["ClassName"].ToString();
+                    getExpenseDetail.Uniform = item.IsNull("Uniform") ? 0 : Convert.ToInt32(item["Uniform"]);
+                    getExpenseDetail.Books = item.IsNull("Books") ? 0 : Convert.ToInt32(item["Books"]);
+                    getExpenseDetail.NoteBook = item.IsNull("NoteBooks") ? 0 : Convert.ToInt32(item["NoteBooks"]);
+                    getExpenseDetail.Stationary = item.IsNull("Stationary") ? 0 : Convert.ToInt32(item["Stationary"]);
+                    getExpenseDetail.Other = item.IsNull("Others") ? 0 : Convert.ToInt32(item["Others"]);
+                    getExpenseDetail.Transportation = item.IsNull("TransportationFees") ? 0 : Convert.ToInt32(item["TransportationFees"]);
+                    getExpenseDetail.Tuition = item.IsNull("TutionFee") ? 0 : Convert.ToInt32(item["TutionFee"]);
+                    cDetail.Add(getExpenseDetail);
+                }
+
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return cDetail;
+        
+        
+        }
 
     }
 }

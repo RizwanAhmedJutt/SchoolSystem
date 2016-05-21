@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -455,6 +456,9 @@
     <Content Include="Views\StudentExpense\StudentBasicExpenseAddChanges.cshtml" />
     <Content Include="Views\StudentExpense\GetRegularExpenditure.cshtml" />
     <Content Include="Views\StudentExpense\StudentRegularExpenseAddChanges.cshtml" />
+    <Content Include="Views\Student\ExportReport.cshtml" />
+    <Content Include="Views\StudentExpense\GetStudentBasicExpenditureReport.cshtml" />
+    <Content Include="Views\StudentExpense\GetStudentRegularExpenditureReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

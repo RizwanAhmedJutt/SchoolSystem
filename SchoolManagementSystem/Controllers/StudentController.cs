@@ -24,7 +24,7 @@ namespace SchoolManagementSystem.Controllers
         IGuardianContact gContactrepositry = new GuardianContactBLL();
         IST_PreviousAcadmicRecord previousrepositry = new ST_PreviousAcadmicDetailBLL();
         IAdmissionGranted aGrantedrepositry = new AdmissionGrantedBLL();
-        IExport exportfiles;
+        IExport exportfiles=new ExportFileBLL();
         // GET: Student
         public ActionResult Index()
         {
@@ -60,6 +60,18 @@ namespace SchoolManagementSystem.Controllers
 
             return View(student.GetAllStudents().ToList().ToPagedList(page ?? 1, 10));
         }
+        [HttpGet]
+        public ActionResult ExportReport()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ExportReport(DateTime startDate,DateTime endDate, int AcadmicClassId)
+        {
+            ExportStudentReport(startDate, endDate, AcadmicClassId);
+            return RedirectToAction("StudentList");
+        }
+
         [HttpGet]
         public ActionResult AddChangesStudent(int id)
         {
@@ -369,9 +381,10 @@ namespace SchoolManagementSystem.Controllers
                     ws.Cells[rowNo, 23].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                 }
+               
                 //Write it back to the client
                 Response.Clear();
-                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.AddHeader("content-disposition", "attachment;  filename=StudentReport.xlsx");
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 Response.BinaryWrite(pckg.GetAsByteArray());
                 Response.End();

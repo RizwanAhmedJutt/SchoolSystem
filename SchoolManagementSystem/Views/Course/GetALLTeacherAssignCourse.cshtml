@@ -24,7 +24,15 @@
             }
         </div>
         <div style="clear:left"></div>
-        <a href="~/Course/AddChangesTeacherAssignCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Assign New Course</a>
+        <div style="display:flex">
+            <a href="~/Course/AddChangesTeacherAssignCourse?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Assign New Course</a>
+            <span style="margin-left:20px;">
+                @using (Html.BeginForm("GetTeacherAssignCourseReport", "Course", FormMethod.Post))
+                { <span style="margin-left:15px;">  <button id="btnExportFile" class="btn btn-primary" type="submit">Export </button></span>}
+            </span>
+
+        </div>
+        <br />
         <span class="HeadingStyle">Teacher Assign Course</span>
         <table class="table  table-bordered table-striped table-responsive table-hover">
             <tr class="action info">

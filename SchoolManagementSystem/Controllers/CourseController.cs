@@ -22,7 +22,7 @@ namespace SchoolManagementSystem.Controllers
         ICourse courserepositry = new CourseBLL();
         IStudentAssignCourse stdAssignCourserepo = new StudentAssignCourseBLL();
         ITeacherAssignedCourse teacherrepo = new TeacherAssignCourseBLL();
-        IExport exportfiles;
+        IExport exportfiles=new ExportFileBLL();
         [HttpGet]
         public ActionResult GetALLCourse(string SearchBy, string search, int? page)
         {
@@ -33,6 +33,12 @@ namespace SchoolManagementSystem.Controllers
             }
             else
                 return View(courserepositry.GetALLCourse().ToPagedList(page ?? 1, 10));
+        }
+        [HttpPost]
+        public ActionResult GetCourseReport()
+        {
+            GetAllCourseReport();
+            return RedirectToAction("GetALLCourse");
         }
         [HttpGet]
         public ActionResult AddChangesCourse(int Id)
@@ -95,7 +101,14 @@ namespace SchoolManagementSystem.Controllers
                 return View(stdassignCourse.ToList().ToPagedList(page ?? 1, 10));
             }
 
+        } 
+        [HttpPost]
+        public ActionResult GetStudentAssingCourseReport()
+        {
+            GetALLStudentAssignCourseReport();
+            return RedirectToAction("GetALLStudentAssignCourse");
         }
+       
         [HttpGet]
         public ActionResult AddChangesStudentAssignCourse(int id)
         {
@@ -138,6 +151,12 @@ namespace SchoolManagementSystem.Controllers
                 return View(objTeacherAssignCourse.ToList().ToPagedList(page ?? 1, 10));
             }
         }
+        [HttpPost]
+        public ActionResult GetTeacherAssignCourseReport()
+        {
+            GetALLTeacherAssignCourseReport();
+            return RedirectToAction("GetALLTeacherAssignCourse");
+        }
         [HttpGet]
         public ActionResult AddChangesTeacherAssignCourse(int Id)
         {
@@ -151,7 +170,8 @@ namespace SchoolManagementSystem.Controllers
             {
                 return View(assignCourse);
             }
-        }
+        } 
+
         [HttpPost]
         public ActionResult AddChangesTeacherAssignCourse(TeacherAssignedCourse tAssignCourse, int CourseId, int TeacherId, int AcadmicClassId)
         {
@@ -217,7 +237,7 @@ namespace SchoolManagementSystem.Controllers
 
         }
 
-        public void GetAllCourse()
+        public void GetAllCourseReport()
         {
             int rowNo = 6;
             using (ExcelPackage pckg = new ExcelPackage())
@@ -259,7 +279,7 @@ namespace SchoolManagementSystem.Controllers
             }
 
         }
-        public void GetALLTeacherAssignCourse()
+        public void GetALLTeacherAssignCourseReport()
         {
             int rowNo = 6;
             using (ExcelPackage pckg = new ExcelPackage())
@@ -293,7 +313,7 @@ namespace SchoolManagementSystem.Controllers
                 }
                 //Write it back to the client
                 Response.Clear();
-                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.AddHeader("content-disposition", "attachment;  filename=TeacherAssignCourse.xlsx");
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 Response.BinaryWrite(pckg.GetAsByteArray());
                 Response.End();
@@ -301,7 +321,7 @@ namespace SchoolManagementSystem.Controllers
             }
 
         }
-        public void GetALLStudentAssignCourse()
+        public void GetALLStudentAssignCourseReport()
         {
             int rowNo = 6;
             using (ExcelPackage pckg = new ExcelPackage())
@@ -335,7 +355,7 @@ namespace SchoolManagementSystem.Controllers
                 }
                 //Write it back to the client
                 Response.Clear();
-                Response.AddHeader("content-disposition", "attachment;  filename=SiteProductivity.xlsx");
+                Response.AddHeader("content-disposition", "attachment;  filename=StudentAssignCourse.xlsx");
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 Response.BinaryWrite(pckg.GetAsByteArray());
                 Response.End();

@@ -50,9 +50,9 @@
             <div style="clear:left"></div>
             <div class="well">
                 <div class="row">
-                    <div class="pull-left">
                         <a id="btnAddEdit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add Basic Expense</a>
-                    </div>
+                        <span style="margin-left:15px;">  <button id="btnExportFile" class="btn btn-primary" type="submit">Export </button></span>
+                   
 
                 </div>
 
@@ -177,6 +177,23 @@
             $("#btnAddEdit").click(function () {
                 AddEdit(0);
             });
+            $("#btnExportFile").click(function () {
+                debugger;
+                GetReport();
+
+            });
+            //submit export file form
+            $("#btnSearch").click(function (e) {
+                debugger;
+                e.preventDefault();
+                var startDate = $('input[name="startDate"]').val();
+                var endDate = $('input[name="endDate"]').val();
+                var acadmicClassId = $("#ddlAcadmicClass").val();
+                if (startDate != "" && endDate != "" && acadmicClassId != "") {
+                    debugger;
+                    $("form").submit();
+                }
+            });
         });
 
         function AddEdit(id) {
@@ -192,6 +209,18 @@
 
             })
             .fail(function (e1) { })
+        }
+        function GetReport() {
+            var URL = "/StudentExpense/GetStudentBasicExpenditureReport";
+            $.get(URL)
+            .done(function (gethtml) {
+                debugger;
+                $("#AddEdithtml").html("");
+                $("#AddEdithtml").html(gethtml);
+                $('#myModal').modal('show');
+                $("#myModel").modal({ "backdrop": "static" });
+            })
+            .error(function () { })
         }
 
 

@@ -124,6 +124,51 @@ namespace SMSDAL.DAL
                 throw;
             }
             return dtClassDetails;
+        } 
+
+
+        public DataTable GetStudentBasicExpense(DateTime startDate,DateTime endDate,int AcadmicClassId)
+        {
+            DataTable dtexpensDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Export_StudentBasicFeeExpense"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@startDate", DbType.DateTime, startDate);
+                    gObjDatabase.AddInParameter(objCommand, "@endDate", DbType.DateTime, endDate);
+                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
+                    dtexpensDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtexpensDetails;
+
         }
+
+        public DataTable GetStudentRegularExpense(DateTime startDate, DateTime endDate, int AcadmicClassId)
+        {
+            DataTable dtexpensDetails;
+            try
+            {
+
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Export_StudentRegulareExpense"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@startDate", DbType.DateTime, startDate);
+                    gObjDatabase.AddInParameter(objCommand, "@endDate", DbType.DateTime, endDate);
+                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
+                    dtexpensDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtexpensDetails;
+
+        } 
     }
 }

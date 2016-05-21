@@ -28,8 +28,14 @@
                     }
                 </div>
                 <div style="clear:left"></div>
-                <a href="~/Teacher/AddChangesTeacher?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Teacher</a>
-
+                <div style="display:flex;">
+                    <a href="~/Teacher/AddChangesTeacher?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Teacher</a>
+                    <span style="margin-left:20px;">
+                        @using (Html.BeginForm("ExportReport", "Teacher", FormMethod.Post))
+                        { <span style="margin-left:15px;">  <button id="btnExportFile" class="btn btn-primary" type="submit">Export </button></span>}
+                    </span>
+                </div>
+                <br />
                 <span class="HeadingStyle">Teacher List</span>
                 <table class="table table-bordered table-hover table-striped">
                     <tr class="action info">
@@ -130,6 +136,9 @@
                     return false;
 
             });
+            //$("#btnExportFile").click(function () {
+            //    $.post("/Teacher/ExportReport");
+            //});
         });
 
     </script>

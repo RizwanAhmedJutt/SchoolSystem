@@ -16,5 +16,7 @@ namespace SMSBusiness.Repository.Abstract
       List<Course> GetALLCourse();
       List<TeacherAssignedCourse> GetALLTeacherAssignCourse();
       List<StudentAssignedCourse> GetALLStudentAssignCourse();
+      List<StudentBasicExpenditure> GetStudentBasicExpense(DateTime startDate, DateTime endDate, int AcadmicClassId);
+      List<StudentExpenditure> GetStudentRegularExpense(DateTime startDate, DateTime endDate, int AcadmicClassId);
     }
 }
