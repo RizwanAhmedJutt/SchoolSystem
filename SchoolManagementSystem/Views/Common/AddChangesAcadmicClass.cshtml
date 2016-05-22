@@ -1,0 +1,131 @@
+﻿@model SMSDataContract.Common.AcadmicClass
+
+@{
+
+    Layout = null;
+}
+
+
+@using (Html.BeginForm("AddChangesAcadmicClass", "Common", FormMethod.Post))
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="row well">
+                            <div class="form-horizontal">
+                                @if (Model.AcadmicClassId == 0)
+                                {
+                                    <span class="HeadingStyle">Add Acadmic Class </span>
+
+                                }
+                                else
+                                {
+                                    @Html.HiddenFor(x => x.AcadmicClassId)
+                                    <span class="HeadingStyle">Update Acadmic Class</span>
+                                }
+                                <hr />
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-horizontal">
+
+                                        @Html.ValidationSummary(true)
+
+                                        <div class="form-group">
+
+                                            @Html.LabelFor(model => model.ClassName, new { @class = "control-label col-md-3" })
+                                            <div id="dvCourse" style="text-align: center; margin-top: -25px; margin-left:67%;">
+                                                <span id="ClassMsg" class="error" style="display:none;"></span>
+                                            </div>
+                                            <div class="col-md-7">
+
+                                                @Html.EditorFor(model => model.ClassName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.ClassName)
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <span class="col-md-3 col-md-offset-7">
+
+                                                    <button id="btnAddEdit" type="submit" class="btn btn-primary btn-success pull-right">
+                                                        @if (Model.AcadmicClassId == 0)
+                                                        { <text>
+                                                            Save
+                                                        </text>
+                                                        }
+                                                        else
+                                                        {
+                                                            <text>
+
+                                                                Update
+                                                            </text>
+                                                        }
+                                                    </button>
+
+                                                </span>
+
+
+                                                <button type="submit" id="btnClosemodel" class="btn btn-primary">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $("#btnClosemodel").click(function (e) {
+        $('#myModal').modal('hide');
+        // $('#modal').modal('toggle');
+        $("#AddEdithtml").empty();
+        $("div").removeClass("modal-backdrop fade in");
+        e.preventDefault();
+
+    });
+    //Save Cities
+    $("#btnAddEdit").click(function (e) {
+        e.preventDefault();
+        var name = $("#ClassName").val();
+        if (name != "") {
+            var model = { ClassName: $("#ClassName").val() };
+            $.get("/Common/CheckClassNameExist", model)
+       .success(function (response) {
+
+           if (response == "true") {
+               $("#ClassMsg").text("Class Name already Exist..");
+               $("#ClassMsg").show();
+
+           }
+           else {
+               $("#ClassMsg").text("");
+               $("#ClassMsg").hide();
+               $("form").submit();
+
+           }
+
+       })
+       .fail(function (e) {
+
+           alert("Can't Check Class Existance..")
+       })
+
+        }
+        else {
+            $("#ClassMsg").text("Enter Class Name");
+            $("#ClassMsg").show();
+        }
+    });
+
+</script>
+
+

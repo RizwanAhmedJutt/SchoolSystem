@@ -1,6 +1,6 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
-@model IPagedList<SMSDataContract.Common.City>
+@model IPagedList<SMSDataContract.Common.AcadmicClass>
 @{
 
     Layout = "~/Views/Shared/_NewLayout.cshtml";
@@ -16,19 +16,19 @@
             <div class="well">
                 <div class="row">
                     <div class="pull-left">
-                        <a id="btnAddEdit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new City</a>
+                        <a id="btnAddEdit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Class</a>
                     </div>
 
                 </div>
 
                 <br />
                 <div class="row">
-                    <span class="HeadingStyle">List of City</span>
+                    <span class="HeadingStyle">List of Acadmic Class</span>
                     <table class="table  table-bordered table-striped table-responsive table-hover">
                         <tr class="action info">
-                            
+
                             <th>
-                                @Html.DisplayNameFor(model => model.First().CityName)
+                                @Html.DisplayNameFor(model => model.First().ClassName)
                             </th>
 
 
@@ -40,14 +40,14 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                
+
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CityName)
+                                    @Html.DisplayFor(modelItem => item.ClassName)
                                 </td>
 
 
                                 <td>
-                                    <a id="btnUpdate" class="btn btn-sm btn-info" href="javascript:AddEdit(@item.CityId)"><i class="glyphicon glyphicon-edit"></i></a>
+                                    <a id="btnUpdate" class="btn btn-sm btn-info" href="javascript:AddEdit(@item.AcadmicClassId)"><i class="glyphicon glyphicon-edit"></i></a>
 
                                 </td>
 
@@ -56,8 +56,8 @@
 
                     </table>
                     <div class="col-md-10 col-md-offset-4">
-                        @*@Html.PagedListPager(Model, page => Url.Action("GetALLRoom", new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))*@ 
-                        @Html.PagedListPager(Model, page => Url.Action("GetCity", new { page}))
+                        @*@Html.PagedListPager(Model, page => Url.Action("GetALLRoom", new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))*@
+                        @Html.PagedListPager(Model, page => Url.Action("GetAcadmicClass", new { page }))
                     </div>
                 </div>
             </div>
@@ -73,13 +73,13 @@
                 $("#btnAddEdit").click(function () {
                     AddEdit(0);
                 });
-               
+
             });
 
             function AddEdit(id)
             {
-               
-                var URL = "/Common/AddChangesCity";
+
+                var URL = "/Common/AddChangesAcadmicClass";
                 var model = { Id: id };
                 $.get(URL, model)
                 .done(function (gethtml) {
@@ -95,5 +95,7 @@
 
     </script>
 }
+
+
 
 

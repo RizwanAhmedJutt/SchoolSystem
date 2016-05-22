@@ -462,6 +462,8 @@
     <Content Include="Views\StudentExpense\GetStudentRegularExpenditureReport.cshtml" />
     <Content Include="Views\Common\GetCity.cshtml" />
     <Content Include="Views\Common\AddChangesCity.cshtml" />
+    <Content Include="Views\Common\GetAcadmicClass.cshtml" />
+    <Content Include="Views\Common\AddChangesAcadmicClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

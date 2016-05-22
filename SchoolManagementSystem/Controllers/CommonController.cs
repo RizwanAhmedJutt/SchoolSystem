@@ -19,7 +19,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult GetCity(int? page)
         {
 
-            return View(cities.GetALLCities().ToPagedList(page ?? 1, 10));
+            return View(cities.GetALLCities().ToPagedList(page ?? 1, 5));
         }
         [HttpGet]
         public ActionResult AddChangesCity(int Id)
@@ -48,6 +48,44 @@ namespace SchoolManagementSystem.Controllers
             List<City> city = cities.GetALLCities();
             var query = from c in city
                         where c.CityName == CityName
+                        select c;
+            if (query.Any())
+                return new JavaScriptSerializer().Serialize(true);// City Name  already Exist
+            else
+                return new JavaScriptSerializer().Serialize(false);   // City name not already Exist
+
+        }
+        // Acadmic Class
+        [HttpGet]
+        public ActionResult GetAcadmicClass(int? page)
+        {
+            return View(acadmicClass.GetALLAcadmicClassies().ToPagedList(page ?? 1, 5));
+        }
+        [HttpGet]
+        public ActionResult AddChangesAcadmicClass(int Id)
+        {
+            if (Id == 0)
+            {
+                AcadmicClass c = new AcadmicClass();
+                return View(c);
+            }
+            else
+            {
+                AcadmicClass getAllClass = acadmicClass.GetALLAcadmicClassies().Where(c => c.AcadmicClassId == Id).Select(x => new AcadmicClass { AcadmicClassId = x.AcadmicClassId, ClassName = x.ClassName }).First();
+                return View(getAllClass);
+            }
+        }
+        [HttpPost]
+        public ActionResult AddChangesAcadmicClass(AcadmicClass ac)
+        {
+            int getStatus = acadmicClass.AddChangesAcadmicClass(ac);
+            return RedirectToAction("GetAcadmicClass");
+        }
+        public string CheckClassNameExist(string ClassName)
+        {
+            List<AcadmicClass> ac = acadmicClass.GetALLAcadmicClassies();
+            var query = from c in ac
+                        where c.ClassName == ClassName
                         select c;
             if (query.Any())
                 return new JavaScriptSerializer().Serialize(true);// City Name  already Exist

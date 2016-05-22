@@ -41,10 +41,10 @@ namespace SMSDAL.DAL
         {
             try
             {
-                var query = "Insert into AcadmicClass (ClassName) values('" + acadmicClass.ClassName + "')";
+                var query = acadmicClass.AcadmicClassId==0? "Insert into AcadmicClass (ClassName) values('" + acadmicClass.ClassName + "')":
+                    "Update AcadmicClass set ClassName='"+acadmicClass.ClassName+"' Where AcadmicClassId="+acadmicClass.AcadmicClassId;
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
-
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
                     return 1;
                 }
