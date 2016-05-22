@@ -1,0 +1,130 @@
+﻿@model SMSDataContract.Common.City
+
+@{
+
+    Layout = null;
+}
+
+
+@using (Html.BeginForm("AddChangesCity", "Common", FormMethod.Post))
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="row well">
+                            <div class="form-horizontal">
+                                @if (Model.CityId == 0)
+                                {
+                                    <span class="HeadingStyle">Add City </span>
+
+                                }
+                                else
+                                {
+                                    @Html.HiddenFor(x => x.CityId)
+                                    <span class="HeadingStyle">Update City</span>
+                                }
+                                <hr />
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-horizontal">
+
+                                        @Html.ValidationSummary(true)
+
+                                        <div class="form-group">
+
+                                            @Html.LabelFor(model => model.CityName, new { @class = "control-label col-md-3" })
+                                            <div id="dvCourse" style="text-align: center; margin-top: -25px; margin-left:67%;">
+                                                <span id="CityMsg" class="error" style="display:none;"></span>
+                                            </div>
+                                            <div class="col-md-7">
+
+                                                @Html.EditorFor(model => model.CityName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.CityName)
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <span class="col-md-3 col-md-offset-7">
+
+                                                    <button id="btnAddEdit" type="submit" class="btn btn-primary btn-success pull-right">
+                                                        @if (Model.CityId == 0)
+                                                        { <text>
+                                                            Save
+                                                        </text>
+                                                        }
+                                                        else
+                                                        {
+                                                            <text>
+
+                                                                Update
+                                                            </text>
+                                                        }
+                                                    </button>
+
+                                                </span>
+
+
+                                                <button type="submit" id="btnClosemodel" class="btn btn-primary">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $("#btnClosemodel").click(function (e) {
+        $('#myModal').modal('hide');
+        // $('#modal').modal('toggle');
+        $("#AddEdithtml").empty();
+        $("div").removeClass("modal-backdrop fade in");
+        e.preventDefault();
+
+    });
+    //Save Cities
+    $("#btnAddEdit").click(function (e) {
+        e.preventDefault();
+        var name = $("#CityName").val();
+        if (name != "") {
+            var model = { CityName: $("#CityName").val() };
+            $.get("/Common/CheckCityNameExist", model)
+       .success(function (response) {
+
+           if (response == "true") {
+               $("#CityMsg").text("City Name already Exist..");
+               $("#CityMsg").show();
+
+           }
+           else {
+               $("#CityMsg").text("");
+               $("#CityMsg").hide();
+               $("form").submit();
+
+           }
+
+       })
+       .fail(function (e) {
+
+           alert("Can't Check City Existance..")
+       })
+
+        }
+        else {
+            $("#CityMsg").text("Enter City Name");
+            $("#CityMsg").show();
+        }
+    });
+ 
+</script>
+

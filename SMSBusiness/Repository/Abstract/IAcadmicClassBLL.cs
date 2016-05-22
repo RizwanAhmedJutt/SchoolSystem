@@ -10,5 +10,6 @@ namespace SMSBusiness.Repository.Abstract
     public interface IAcadmicClassBLL
     {
         List<AcadmicClass> GetALLAcadmicClassies();
+        int AddChangesAcadmicClass(AcadmicClass acadmicClass);
     }
 }

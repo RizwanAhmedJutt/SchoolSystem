@@ -1,0 +1,98 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<SMSDataContract.Common.City>
+@{
+
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div id="AddEdithtml"></div>
+<div id="maincontent">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-7 col-md-offset-3">
+
+            </div>
+            <div style="clear:left"></div>
+            <div class="well">
+                <div class="row">
+                    <div class="pull-left">
+                        <a id="btnAddEdit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new City</a>
+                    </div>
+
+                </div>
+
+                <br />
+                <div class="row">
+                    <span class="HeadingStyle">List of City</span>
+                    <table class="table  table-bordered table-striped table-responsive table-hover">
+                        <tr class="action info">
+                            
+                            <th>
+                                @Html.DisplayNameFor(model => model.First().CityName)
+                            </th>
+
+
+
+                            <th style="width:90px;"><b>ACTION</b></th>
+
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CityName)
+                                </td>
+
+
+                                <td>
+                                    <a id="btnUpdate" class="btn btn-sm btn-info" href="javascript:AddEdit(@item.CityId)"><i class="glyphicon glyphicon-edit"></i></a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </table>
+                    @*<div class="col-md-10 col-md-offset-4">
+                        @Html.PagedListPager(Model, page => Url.Action("GetALLRoom", new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $("#btnAddEdit").click(function () {
+                    AddEdit(0);
+                });
+               
+            });
+
+            function AddEdit(id)
+            {
+               
+                var URL = "/Common/AddChangesCity";
+                var model = { Id: id };
+                $.get(URL, model)
+                .done(function (gethtml) {
+                    $("#AddEdithtml").html("");
+                    $("#AddEdithtml").html(gethtml);
+                    $('#myModal').modal('show');
+                    $("#myModel").modal({ "backdrop": "static" });
+
+                })
+                .fail(function(e1){})
+            }
+
+
+    </script>
+}
+
+

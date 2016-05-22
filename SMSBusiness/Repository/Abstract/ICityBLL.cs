@@ -10,5 +10,6 @@ namespace SMSBusiness.Repository.Abstract
     public interface ICityBLL
     {
         List<City> GetALLCities();
+        int AddChangesCity(City c);
     }
 }

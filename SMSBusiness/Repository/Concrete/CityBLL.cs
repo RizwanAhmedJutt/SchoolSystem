@@ -5,6 +5,7 @@ using SMSDataContract.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,8 @@ namespace SMSBusiness.Repository.Concrete
  public   class CityBLL : ICityBLL
     {
 
-     public List<City> GetALLCities()
+        private readonly IDatabase gObjDatabase;
+        public List<City> GetALLCities()
      {
          var objCityDao = new CityDAO(new SqlDatabase());
          DataTable dtCity = objCityDao.GetALLCities();
@@ -43,7 +45,12 @@ namespace SMSBusiness.Repository.Concrete
          return Cities;
      }
 
+        public int AddChangesCity(City c)
+        {
+            var objAcadmicClassDao = new CityDAO(new SqlDatabase());
 
+            return objAcadmicClassDao.AddChangesCity(c);
+        }
 
     }
 }

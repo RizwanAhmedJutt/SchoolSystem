@@ -179,6 +179,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -459,6 +460,8 @@
     <Content Include="Views\Student\ExportReport.cshtml" />
     <Content Include="Views\StudentExpense\GetStudentBasicExpenditureReport.cshtml" />
     <Content Include="Views\StudentExpense\GetStudentRegularExpenditureReport.cshtml" />
+    <Content Include="Views\Common\GetCity.cshtml" />
+    <Content Include="Views\Common\AddChangesCity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
