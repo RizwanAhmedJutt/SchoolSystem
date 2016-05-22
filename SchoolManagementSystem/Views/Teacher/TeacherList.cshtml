@@ -53,6 +53,7 @@
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.First().JoinDate)
+                         
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.First().LeaveDate)
@@ -86,10 +87,11 @@
                                 @Html.DisplayFor(modelItem => item.LastQualification)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.JoinDate, "{0:dd/MM/yyyy}")
+                                @*@Html.DisplayFor(modelItem => item.JoinDate, "{0:dd/MM/yyyy}")*@
+                                @Html.DisplayName(item.JoinDate.ToShortDateString())
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.LeaveDate)
+                                @Html.DisplayName(item.LeaveDate.Value.ToShortDateString())
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.RefrenceName)
