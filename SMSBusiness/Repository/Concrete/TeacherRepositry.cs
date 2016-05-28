@@ -584,6 +584,8 @@ namespace SMSBusiness.Repository.Concrete
                     TeacherDetails.TeacherAssignId = dr.IsNull("TeacherAssignId") ? 0 : Convert.ToInt32(dr["TeacherAssignId"]);
                     TeacherDetails.TeacherName = dr.IsNull("TeacherName") ? string.Empty : Convert.ToString(dr["TeacherName"]);
                     TeacherDetails.ClassName = dr.IsNull("ClassName") ? string.Empty : Convert.ToString(dr["ClassName"]);
+                    TeacherDetails.AcadmicClassId = dr.IsNull("ClassId") ? 0 : Convert.ToInt32(dr["ClassId"]);
+                    TeacherDetails.TeacherId = dr.IsNull("TeacherId") ? 0 : Convert.ToInt32(dr["TeacherId"]);
                     objTeacherList.Add(TeacherDetails);
                 }
 

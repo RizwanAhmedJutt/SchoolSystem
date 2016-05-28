@@ -128,7 +128,8 @@
                                     @Html.DisplayFor(modelItem => item.Other)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.CreateDate)
+                                    @*@Html.DisplayFor(modelItem => item.CreateDate)*@
+                                    @Html.DisplayName(item.CreateDate.ToShortDateString())
                                 </td>
 
 

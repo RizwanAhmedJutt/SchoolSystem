@@ -1,5 +1,4 @@
 ﻿@model SMSDataContract.Common.Teacher
-
 @{
     ViewBag.Title = "Teacher";
     Layout = "~/Views/Shared/_NewLayout.cshtml";
@@ -8,159 +7,145 @@
     <div class="row">
         <div class="well">
 
-        
-
-@using (Html.BeginForm())
-{
-    <div class="row">
-        <div class="col-md-8 col-sm-8">
-            <ol class="breadcrumb">
-                <li class="active">Teacher</li>
-            </ol>
-            <div class="row well">
-                @Html.AntiForgeryToken()
-                <div class="form-horizontal">
-                    @if (Model.TeacherId == 0)
-                    {
-                        <span class="HeadingStyle">Add Teacher</span>
-                    }
-                    else
-                    {
-                        <span class="HeadingStyle">Update Teacher</span>
-                    }
-
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.TeacherId)
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", id = "FirstName", placeholder = "First Name" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", id = "LastName", placeholder = "Last Name" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CNIC, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                                @Html.EditorFor(model => model.CNIC, new { htmlAttributes = new { @class = "form-control", id = "txtCNIC", placeholder = "CNIC Number" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.LastQualification, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
-                                @Html.EditorFor(model => model.LastQualification, new { htmlAttributes = new { @class = "form-control", id = "LastQualification", placeholder = "Last Qualification" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.LastQualification, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.JoinDate, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                @Html.EditorFor(model => model.JoinDate, new { htmlAttributes = new { @class = "form-control", id = "JoinDate", placeholder = "Joining Date" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.JoinDate, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.LeaveDate, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                @Html.EditorFor(model => model.LeaveDate, new { htmlAttributes = new { @class = "form-control", id = "LeaveDate", placeholder = "Leave Date" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.LeaveDate, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.RefrenceName, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                @Html.EditorFor(model => model.RefrenceName, new { htmlAttributes = new { @class = "form-control", id = "RefrenceName", placeholder = "Refrence Name" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.RefrenceName, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.RefrenceContact, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                                @Html.EditorFor(model => model.RefrenceContact, new { htmlAttributes = new { @class = "form-control", id = "RefrenceContact", placeholder = "Refrence Contact" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.RefrenceContact, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <div class="input-group">
-
-                                @Html.CheckBoxFor(model => model.Active, new { htmlAttributes = new { @class = "form-control", id = "chkActive", placeholder = "Refrence Contact" } })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @if (Model.TeacherId == 0)
-                            {
-                                <div>
-                                    <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
-
+            @using (Html.BeginForm())
+            {
+                <div class="row">
+                    <div class="col-md-8 col-sm-8">
+                        <ol class="breadcrumb">
+                            <li class="active">Teacher</li>
+                        </ol>
+                        <div class="row well">
+                            @Html.AntiForgeryToken()
+                            <div class="form-horizontal">
+                                @if (Model.TeacherId == 0)
+                                {
+                                    <span class="HeadingStyle">Add Teacher</span>
+                                }
+                                else
+                                {
+                                    <span class="HeadingStyle">Update Teacher</span>
+                                }
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.TeacherId)
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", id = "FirstName", placeholder = "First Name" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
-                            }
-                            else
-                            {
-                                <div>
-                                    <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
-
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", id = "LastName", placeholder = "Last Name" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
-                            }
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CNIC, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div id="dvCnic" style="text-align: center; margin-top: -25px; margin-left:67%;">
+                                        <span id="CNICMsg" class="error" style="display:none;"></span>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
+                                            @Html.EditorFor(model => model.CNIC, new { htmlAttributes = new { @class = "form-control", id = "txtCNIC", placeholder = "CNIC Number" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LastQualification, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                            @Html.EditorFor(model => model.LastQualification, new { htmlAttributes = new { @class = "form-control", id = "LastQualification", placeholder = "Last Qualification" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.LastQualification, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.JoinDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            @Html.EditorFor(model => model.JoinDate, new { htmlAttributes = new { @class = "form-control", id = "JoinDate", placeholder = "Joining Date" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.JoinDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LeaveDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            @Html.EditorFor(model => model.LeaveDate, new { htmlAttributes = new { @class = "form-control", id = "LeaveDate", placeholder = "Leave Date" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.LeaveDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.RefrenceName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            @Html.EditorFor(model => model.RefrenceName, new { htmlAttributes = new { @class = "form-control", id = "RefrenceName", placeholder = "Refrence Name" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.RefrenceName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.RefrenceContact, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                                            @Html.EditorFor(model => model.RefrenceContact, new { htmlAttributes = new { @class = "form-control", id = "RefrenceContact", placeholder = "Refrence Contact" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.RefrenceContact, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            @Html.CheckBoxFor(model => model.Active, new { htmlAttributes = new { @class = "form-control", id = "chkActive", placeholder = "Refrence Contact" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        @if (Model.TeacherId == 0)
+                                        {
+                                            <div>
+                                                <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
-}
-            </div>
-        </div>
-    </div>
+</div>
 @section Scripts {
-
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript">
@@ -174,6 +159,34 @@
                     });
                     $("#txtCNIC").keypress(function (e) {
                         ValidateCNIC(e);
+                    });
+                    $("#txtCNIC").change(function () {
+                        $("#CNICMsg").text("");
+                        $("#CNICMsg").hide();
+                        var CNIC = $("#txtCNIC").val();
+                        if (CNIC != "") {
+                            var model = { cnic: $("#txtCNIC").val() };
+                            $.get("/Teacher/IsTeacherExist", model)
+                       .success(function (response) {
+
+                           if (response == "true") {
+                               $("#CNICMsg").text("CNIC already Exist..");
+                               $("#CNICMsg").show();
+
+                           }
+                           else {
+                               $("#CNICMsg").text("");
+                               $("#CNICMsg").hide();
+                           }
+
+                       })
+                       .fail(function (e) {
+
+                           alert("Can't Check City Existance..")
+                       })
+
+                        }
+
                     });
 
                     function ValidateNumeric(e) {
@@ -195,10 +208,10 @@
 
                     }
                     function ValidateCNIC(evt) {
-                      
+
                         var charCode = (evt.which) ? evt.which : event.keyCode;
                         if (charCode != 46 && charCode != 45 && charCode > 31 && (charCode < 48 || charCode > 57))
-                           
+
                             evt.preventDefault();
                     }
 

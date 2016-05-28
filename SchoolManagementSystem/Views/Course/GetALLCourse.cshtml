@@ -79,7 +79,8 @@
                                 @Html.DisplayFor(modelItem => item.IsActive)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                                @*@Html.DisplayFor(modelItem => item.CreatedDate)*@
+                                @Html.DisplayName(item.CreatedDate.ToShortDateString())
                             </td>
                             <td>
                                 <a href="/Course/AddChangesCourse?Id=@item.CourseId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>

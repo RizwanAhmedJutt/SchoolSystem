@@ -15,6 +15,7 @@ using PagedList.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Drawing;
+using System.Web.Script.Serialization;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -339,6 +340,30 @@ namespace SchoolManagementSystem.Controllers
                 Response.End();
 
             }
+
+        }
+        public string IsTeacherExist(string cnic)
+        {
+            var query = repoTeacher.GetAllTeachers().Where(t => t.CNIC == cnic).Select(x => new Teacher { TeacherId=x.TeacherId,FirstName=x.FirstName });
+            
+            if (query.Any())
+                return new JavaScriptSerializer().Serialize(true);// Teacher   already Exist
+            else
+                return new JavaScriptSerializer().Serialize(false);   // Teacher  not already Exist
+
+        } 
+
+        public string IsClassAssigned(int AcadmicClassId,int TeacherId)
+        {
+            List<TeacherAssignClass> lst = repoTeacher.GetAllTeacherAssignClass();
+            var query = (from t in lst
+                         where t.AcadmicClassId == AcadmicClassId && t.TeacherId == TeacherId
+                                       select t);  
+                
+            if(query.Any())
+                return new JavaScriptSerializer().Serialize(true);// Teacher   already Assign That Class
+            else
+                return new JavaScriptSerializer().Serialize(false);   // Teacher  not already Assign That Class
 
         }
     }

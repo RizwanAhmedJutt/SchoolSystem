@@ -30,8 +30,8 @@ namespace SMSBusiness.Repository.Concrete
                     course.CourseName = dr["CourseName"].ToString();
                     course.ClassName = dr["ClassName"].ToString();
                     course.IsActive = Convert.ToBoolean(dr["active"]);
+                    course.ClassId = Convert.ToInt32(dr["ClassId"]);
                     course.CreatedDate = Convert.ToDateTime(dr["CreatedDate"]);
-
                     objCourseList.Add(course);
                 }
 

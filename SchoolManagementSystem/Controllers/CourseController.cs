@@ -13,6 +13,7 @@ using PagedList.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Drawing;
+using System.Web.Script.Serialization;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -361,6 +362,34 @@ namespace SchoolManagementSystem.Controllers
                 Response.End();
 
             }
+
+        } 
+
+        public string IsCourseNameExist(string CName,int AcadmicClassId)
+        {
+            List<Course> lst = courserepositry.GetALLCourse();
+            var query = (from c in lst
+                         where c.CourseName == CName && c.ClassId == AcadmicClassId
+                         select c);
+          
+            if (query.Any())
+                return new JavaScriptSerializer().Serialize(true);// Course   already Assign That Class
+            else
+                return new JavaScriptSerializer().Serialize(false);   // Course  not already Assign That Class
+
+        } 
+        public string IsModifiedCourseNameExist(string CName,int AcadmicClassId,string CourseCode, bool Active)
+        {
+
+            List<Course> lst = courserepositry.GetALLCourse();
+            var query = (from c in lst
+                         where c.CourseName == CName && c.ClassId == AcadmicClassId && CourseCode==c.CourseCode && c.IsActive==Active
+                         select c);
+
+            if (query.Any())
+                return new JavaScriptSerializer().Serialize(true);// Course   already Assign That Class
+            else
+                return new JavaScriptSerializer().Serialize(false);   // Course  not already Assign That Class
 
         }
     }

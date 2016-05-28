@@ -63,18 +63,25 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-9">
-                                        @if (Model.TeacherAssignId == 0)
-                                        {
-                                            <input type="submit" value="Add" id="AddAssignCourse" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                    <div class="col-md-8">
+                                       
+                                        <button id="btnAddEdit" type="submit" style="background-color:#fab625;color:white;" class="btn pull-right">
+                                            @if (Model.TeacherAssignId == 0)
+                                            {
+                                              
+                                               <text> Add</text>
+                                            }
+                                            else
+                                            {
+                                               
+                                                <text>Update</text>
 
-                                        }
-                                        else
-                                        {
-                                            <input type="submit" value="Update" id="UpdateAssignCourse" style="background-color:#fab625; color:white;" class="btn pull-right" />
-
-                                        }
-                                    </div>
+                                            }
+                                            </button>
+                                        <div id="dvTeacherButton" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                                            <span id="validateMsg" class="error" style="display:none;"></span>
+                                        </div>
+</div>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +114,46 @@
                     $('#ddlTeacher option[value=""]').attr("selected", true);
                 }
 
+                $("#btnAddEdit").click(function (e) {
+                    debugger;
+                    $("#validateMsg").text("");
+                    $("#validateMsg").hide();
+                    $("#TeacherMsg").text("");
+                    $("#TeacherMsg").hide();
+                    e.preventDefault();
+                    var acadmicClassId = $("#ddlAcadmicClass").val();
+                    var TeacherId = $("#ddlTeacher").val();
+                    if(acadmicClassId!=''&& TeacherId!='')
+                    {
+                        var URL = "/Teacher/IsClassAssigned";
+                        model = { AcadmicClassId: acadmicClassId, TeacherId: TeacherId };
+                        $.get(URL,model)
+                        .done(function (response) {
+                            if(response=='true')
+                            {
+                                $("#TeacherMsg").text("Teacher already Assigned above Selected Class");
+                                $("#TeacherMsg").show();
+                            }
+                            else
+                            {
+                                $("#TeacherMsg").text("");
+                                $("#TeacherMsg").hide();
+                                $("form").submit();
 
+                            }
+
+                        })
+                        .error(function (e1) {
+                            alert("Can't Check Assign Class.");
+                        })
+                    }
+                    else
+                    {
+                        $("#validateMsg").text("Acadmic Class OR Teacher Selection is Missing");
+                        $("#validateMsg").show();
+                    }
+
+                });
 
             });
 

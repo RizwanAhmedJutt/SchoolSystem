@@ -39,10 +39,14 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.CourseName, htmlAttributes: new { @class = "control-label col-md-4" })
                         <div class="col-md-8">
+                            <div id="dvCourse" style="text-align: center; float:right;  margin-top: 0px;">
+                                <span id="CourseMsg" class="error" style="display:none;"></span>
+                            </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 @Html.EditorFor(model => model.CourseName, new { htmlAttributes = new { @class = "form-control", id = "CourseName", placeholder = "Course Name" } })
                             </div>
+                            
                             @Html.ValidationMessageFor(model => model.CourseName, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -71,10 +75,10 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-10">
                                     @if (Model.CourseId == 0)
                                     {
-                                        <input type="submit" value="Add" id="AddCourse" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                        <input type="submit" value="Add" id="AddCourse" style="background-color:#fab625;color:white;" class="btn  pull-right" />
 
                                     }
                                     else
@@ -82,6 +86,8 @@
                                         <input type="submit" value="Update" id="UpdateCourse" style="background-color:#fab625; color:white;" class="btn pull-right" />
 
                                     }
+                                  
+
                                 </div>
                             </div>
                         </div>
@@ -113,8 +119,6 @@
                 $('#ddlAcadmicClass option[value=""]').attr("selected", true);
             }
             $("#AddCourse").click(function (e) {
-               
-
                 if ($('#ddlAcadmicClass').val() == '') {
 
                     $("#AcadmicMsg").show();
@@ -122,19 +126,72 @@
                     e.preventDefault();
                     return;
                 }
+                var CourseName = $("#CourseName").val();
+                var AcadmicClass = $("#ddlAcadmicClass").val();
+               
+                if(CourseName!="" && AcadmicClass !="")
+                {
+                    e.preventDefault();
+                    var URL = "/Course/IsCourseNameExist";
+                    var model = { CName: CourseName, AcadmicClassId: AcadmicClass };
+                    $.get(URL,model)
+                    .done(function (response) {
+                      
+                        if (response == "true") {
+                            $("#CourseMsg").text("Course Name already Exist for Selected Class");
+                            $("#CourseMsg").show();
+                        }
+                        else {
+                            $("#CourseMsg").text("");
+                            $("#CourseMsg").hide();
+                            $("form").submit();
 
+                        }
+                    })
+                    .fail(function () {
+
+                        alert("Can't Check Course Existance..")
+                    })
+                }
             });
             $("#UpdateCourse").click(function (e) {
-                
+               
                 if ($('#ddlAcadmicClass').val() == '') {
                     $("#AcadmicMsg").show();
                     $("#AcadmicMsg").text("Please Select Class");
                     e.preventDefault();
                     return;
+                }
+                var CourseCode = $("#CourseCode").val();
+                var CourseName = $("#CourseName").val();
+                var AcadmicClass = $("#ddlAcadmicClass").val();
+                var Active = $("#IsActive").prop("checked");
+
+                if (CourseCode!="" && CourseName != "" && AcadmicClass != ""&& Active!="") {
+                    e.preventDefault();
+                    var URL = "/Course/IsModifiedCourseNameExist";
+                    var model = { CName: CourseName, AcadmicClassId: AcadmicClass, CourseCode: CourseCode,Active:Active };
+                    $.get(URL, model)
+                    .done(function (response) {
+                        if (response == "true") {
+                            $("#CourseMsg").text("Course Name already Exist for Selected Class");
+                            $("#CourseMsg").show();
+                        }
+                        else {
+                            $("#CourseMsg").text("");
+                            $("#CourseMsg").hide();
+                            $("form").submit();
+
+                        }
+                    })
+                    .fail(function () {
+
+                        alert("Can't Check Course Existance..")
+                    })
                 }
             });
             $("#ddlAcadmicClass").change(function () {
-                debugger;
+               
                 var selectedClass = $('#ddlAcadmicClass').val();
 
                 if (selectedClass != '' && selectedClass != 'undefined') {
@@ -142,9 +199,13 @@
                 }
 
             });
+            //$("#CourseName").change(function () {
+            //    debugger;
+            //    var cname = $("#CourseName").val();
+            //    var IsMsgVisible = $("#CourseMsg :visible");
+            //});
 
-
-
+         
         });
     </script>
 }
