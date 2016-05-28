@@ -22,6 +22,8 @@
                     }
                     else
                     {
+                        @Html.HiddenFor(model=>model.CourseId)
+                        @Html.HiddenFor(model=>model.CreatedDate)
                         <span class="HeadingStyle">Update Course</span>
                     }
                     <hr />

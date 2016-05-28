@@ -101,7 +101,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@CourseCode", DbType.String, course.CourseCode);
                     gObjDatabase.AddInParameter(objDbCommand, "@CourseName", DbType.String, course.CourseName);
                     gObjDatabase.AddInParameter(objDbCommand, "@ClassId", DbType.Int32, course.ClassId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@Active", DbType.Int32, course.IsActive);
+                    gObjDatabase.AddInParameter(objDbCommand, "@Active", DbType.Boolean, course.IsActive);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, course.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, course.CreatedDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, course.ModifiedById == null ? DBNull.Value : (object)course.ModifiedById);
@@ -129,7 +129,7 @@ namespace SMSDAL.DAL
 
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 throw;
             }
