@@ -208,7 +208,7 @@
                 });
                 // Add btn Click Event
                 $("#AddAssignCourse").click(function (e) {
-                    
+                    e.preventDefault();
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     var getCourse = $("#ddlCourse :selected").val();
                     var getStudent = $("#ddlStudent :selected").val();
@@ -216,50 +216,95 @@
                     {
                         $("#AcadmicclassMsg").show();
                         $("#AcadmicclassMsg").text("Please Select Acadmic Class");
-                        e.preventDefault();
+                       // e.preventDefault();
                         return false;
                     }
                     else if(getCourse=='')
                     {
                         $("#CourseMsg").show();
                         $("#CourseMsg").text("Please Select Course");
-                        e.preventDefault();
+                      //  e.preventDefault();
                         return false;
                     }
                     else if(getStudent=='')
                     {
                         $("#StudentMsg").show();
                         $("#StudentMsg").text("Please Select Student");
-                        e.preventDefault();
+                       // e.preventDefault();
                         return false;
                     }
 
+                    if(getClass!="" && getCourse!="" && getStudent!="")
+                    {
+                        var URL = "/Course/IsCourseAlreadyAssignedToStudent";
+                        var model = { AcadmicClassId: getClass, CourseId: getCourse, StudentId: getStudent };
+                       $.get(URL,model)
+                        .done(function (response) {
+                            debugger;
+                            if(response=="true")
+                            {
+                                $("#StudentMsg").show();
+                                $("#StudentMsg").text("Selected Student already Assigned that Course");
+                            }
+                            else
+                            {
+                                $("#StudentMsg").text("");
+                                $("#StudentMsg").hide();
+                                $("form").submit();
+                            }
 
+                        })
+                        .fail(function () {
+
+                            alert("Can't Check Student Assign Course");
+                        })
+                    }
                 });
-                $("#UpdateAssignCourse").click(function () {
-                   
+                $("#UpdateAssignCourse").click(function (e) {
+                    e.preventDefault();
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     var getCourse = $("#ddlCourse :selected").val();
                     var getStudent = $("#ddlStudent :selected").val();
                     if (getClass == '') {
                         $("#AcadmicclassMsg").show();
                         $("#AcadmicclassMsg").text("Please Select Acadmic Class");
-                        e.preventDefault();
+                       // e.preventDefault();
                         return false;
                     }
                     else if (getCourse == '') {
                         $("#CourseMsg").show();
                         $("#CourseMsg").text("Please Select Course");
-                        e.preventDefault();
+                       // e.preventDefault();
                         return false;
                     }
                     else if (getStudent == '') {
                         $("#StudentMsg").show();
                         $("#StudentMsg").text("Please Select Student");
-                        e.preventDefault();
+                      //  e.preventDefault();
                         return false;
                     }
+                    if (getClass != "" && getCourse != "" && getStudent != "") {
+                        var URL = "/Course/IsCourseAlreadyAssignedToStudent";
+                        var model = { AcadmicClassId: getClass, CourseId: getCourse, StudentId: getStudent };
+                        $.get(URL, model)
+                         .done(function (response) {
+                             debugger;
+                             if (response == "true") {
+                                 $("#StudentMsg").show();
+                                 $("#StudentMsg").text("Selected Student already Assigned that Course");
+                             }
+                             else {
+                                 $("#StudentMsg").text("");
+                                 $("#StudentMsg").hide();
+                                 $("form").submit();
+                             }
 
+                         })
+                         .fail(function () {
+
+                             alert("Can't Check Student Assign Course");
+                         })
+                    }
                 });
             });
 
