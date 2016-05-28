@@ -24,14 +24,17 @@
             <div class="well">
                 @Html.AntiForgeryToken()
 
-                @Html.HiddenFor(x => x.TeacherAssignedCourseId);
+                @Html.HiddenFor(x => x.TeacherAssignedCourseId)
+                @Html.HiddenFor(x => x.CreatedDate)
+                @Html.HiddenFor(x=>x.CreatedById)
                 <div class="row well">
                     @if (Model.TeacherAssignedCourseId == 0)
                     {
                         <span class="HeadingStyle">Add Assign Course</span>
                     }
                     else
-                    {
+                    { 
+                                           
                         <span class="HeadingStyle">Update Assign Course</span>
                     }
                     <div class="form-horizontal">
@@ -187,65 +190,109 @@
                 });
                 //change event of ddlStudent
                 $('body').on("change","#ddlTeacher",function () {
-                    var getStudent = $("#ddlTeacher :selected").val();
-                    if (getStudent != '') {
+                    var getTeacher = $("#ddlTeacher :selected").val();
+                    if (getTeacher != '') {
                         $("#AcadmicclassMsg").hide();
                         $("#CourseMsg").hide();
                         $("#StudentMsg").hide();
                     }
                     else {
                         $("#StudentMsg").show();
-                        $("#AcadmicclassMsg").text("Please Select Student");
+                        $("#AcadmicclassMsg").text("Please Select Teacher");
                     }
                 });
                 // Add btn Click Event
                 $("#AddAssignCourse").click(function (e) {
-                    
-                    var getClass = $("#ddlAcadmicClass :selected").val();
-                    var getCourse = $("#ddlCourse :selected").val();
-                    var getStudent = $("#ddlTeacher :selected").val();
-                    if (getClass == '') {
-                        $("#AcadmicclassMsg").show();
-                        $("#AcadmicclassMsg").text("Please Select Acadmic Class");
-                        e.preventDefault();
-                        return false;
-                    }
-                    else if (getCourse == '') {
-                        $("#CourseMsg").show();
-                        $("#CourseMsg").text("Please Select Course");
-                        e.preventDefault();
-                        return false;
-                    }
-                    else if (getStudent == '') {
-                        $("#StudentMsg").show();
-                        $("#StudentMsg").text("Please Select Teacher");
-                        e.preventDefault();
-                        return false;
-                    }
-
-
-                });
-                $("#UpdateAssignCourse").click(function () {
+                    e.preventDefault();
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     var getCourse = $("#ddlCourse :selected").val();
                     var getTeacher = $("#ddlTeacher :selected").val();
                     if (getClass == '') {
                         $("#AcadmicclassMsg").show();
                         $("#AcadmicclassMsg").text("Please Select Acadmic Class");
-                        e.preventDefault();
+                        //e.preventDefault();
                         return false;
                     }
                     else if (getCourse == '') {
                         $("#CourseMsg").show();
                         $("#CourseMsg").text("Please Select Course");
-                        e.preventDefault();
+                      //  e.preventDefault();
                         return false;
                     }
-                    else if (getStudent == '') {
+                    else if (getTeacher == '') {
                         $("#StudentMsg").show();
                         $("#StudentMsg").text("Please Select Teacher");
-                        e.preventDefault();
+                      //  e.preventDefault();
                         return false;
+                    }
+                    if (getClass != "" && getCourse != "" && getTeacher != "")
+                    {
+                        var model = { AcadmicClassId: getClass, CourseId: getCourse, TeacherId: getTeacher };
+                        var Url = "/Course/IsCourseAlreadyAssignedToTeacher";
+                        $.get(Url, model)
+                        .done(function (response) {
+                            debugger;
+                            if (response == "true") {
+                                $("#StudentMsg").show();
+                                $("#StudentMsg").text("Selected Course Already Assigned to that Teacher");
+                            }
+                            else {
+                                $("#StudentMsg").text("");
+                                $("#StudentMsg").hide();
+                                $("form").submit();
+                            }
+                           
+                        })
+                        .fail(function () {
+                            alert("Can't Check Course Assignment..");
+                        })
+                    }
+
+                });
+                $("#UpdateAssignCourse").click(function (e) {
+                    debugger;
+                    e.preventDefault();
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    var getCourse = $("#ddlCourse :selected").val();
+                    var getTeacher = $("#ddlTeacher :selected").val();
+                    if (getClass == '') {
+                        $("#AcadmicclassMsg").show();
+                        $("#AcadmicclassMsg").text("Please Select Acadmic Class");
+                       // e.preventDefault();
+                        return false;
+                    }
+                    else if (getCourse == '') {
+                        $("#CourseMsg").show();
+                        $("#CourseMsg").text("Please Select Course");
+                      //  e.preventDefault();
+                        return false;
+                    }
+                    else if (getTeacher == '') {
+                        $("#StudentMsg").show();
+                        $("#StudentMsg").text("Please Select Teacher");
+                       // e.preventDefault();
+                        return false;
+                    }
+                    if (getClass != "" && getCourse != "" && getTeacher != "") {
+                        var model = { AcadmicClassId: getClass, CourseId: getCourse, TeacherId: getTeacher };
+                        var Url = "/Course/IsCourseAlreadyAssignedToTeacher";
+                        $.get(Url, model)
+                        .done(function (response) {
+                            debugger;
+                            if (response == "true") {
+                                $("#StudentMsg").show();
+                                $("#StudentMsg").text("Selected Course Already Assigned to that Teacher");
+                            }
+                            else {
+                                $("#StudentMsg").text("");
+                                $("#StudentMsg").hide();
+                                $("form").submit();
+                            }
+
+                        })
+                        .fail(function () {
+                            alert("Can't Check Course Assignment..");
+                        })
                     }
 
                 });

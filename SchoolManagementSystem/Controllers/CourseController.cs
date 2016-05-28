@@ -161,14 +161,18 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult AddChangesTeacherAssignCourse(int Id)
         {
+            var userloggedId = User.Identity.GetUserId();
             TeacherAssignedCourse assignCourse = teacherrepo.GetTeacherAssignedCourseById(Id);
             if (assignCourse.TeacherAssignedCourseId == 0)
             {
                 TeacherAssignedCourse tassignCourse = new TeacherAssignedCourse();
+                tassignCourse.CreatedById = userloggedId;
                 return View(tassignCourse);
             }
             else
             {
+                assignCourse.ModifiedById = userloggedId;
+                assignCourse.ModifiedDate = DateTime.Now;
                 return View(assignCourse);
             }
         } 
@@ -391,6 +395,29 @@ namespace SchoolManagementSystem.Controllers
             else
                 return new JavaScriptSerializer().Serialize(false);   // Course  not already Assign That Class
 
+        } 
+
+        public string IsCourseAlreadyAssignedToTeacher(int AcadmicClassId,int CourseId,int TeacherId)
+        {
+            List<TeacherAssignedCourse> tCourse = teacherrepo.GetTeacherAssignedCourse();
+            var query = (from t in tCourse
+                        where t.CourseId == CourseId && t.TeacherId==TeacherId && t.ClassId== AcadmicClassId
+                         select t).ToList();
+            if(query.Any())
+                return new JavaScriptSerializer().Serialize(true);// Course   already Assign That Teacher
+            else
+                return new JavaScriptSerializer().Serialize(false);   // Course  not already Assign That Teacher
+        }
+        public string IsCourseAlreadyAssignedToStudent(int AcadmicClassId, int CourseId,int StudentId)
+        {
+            List<StudentAssignedCourse> sCourse = stdAssignCourserepo.GetStudentAssignedCourse();
+            var query = (from s in sCourse
+                         where s.CourseId == CourseId && s.StudentId == StudentId && s.AcadmicClassId==AcadmicClassId
+                         select s).ToList();
+            if (query.Any())
+                return new JavaScriptSerializer().Serialize(true);// Course   already Assign That Class
+            else
+                return new JavaScriptSerializer().Serialize(false);   // Course  not already Assign That Class
         }
     }
 }

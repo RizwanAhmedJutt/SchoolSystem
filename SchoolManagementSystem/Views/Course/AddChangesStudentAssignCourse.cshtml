@@ -25,6 +25,7 @@
                 @Html.AntiForgeryToken()
 
                 @Html.HiddenFor(x => x.AssignCourseId);
+                @Html.HiddenFor(x=>x.CreatedDate)
                 <div class="row well">
                     @if (Model.AssignCourseId == 0)
                     {

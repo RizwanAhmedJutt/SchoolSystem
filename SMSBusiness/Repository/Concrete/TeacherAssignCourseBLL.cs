@@ -33,6 +33,8 @@ namespace SMSBusiness.Repository.Concrete
                         Assigncourse.ClassName = item["ClassName"].ToString();
                         Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
                         Assigncourse.ClassId = Convert.ToInt32(item["ClassId"]);
+                        Assigncourse.TeacherId = Convert.ToInt32(item["TeacherId"]);
+                        Assigncourse.CourseId = Convert.ToInt32(item["CourseId"]);
                         objTeacherAssign.Add(Assigncourse);
                       
                     }
