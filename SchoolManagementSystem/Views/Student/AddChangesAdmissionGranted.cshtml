@@ -105,7 +105,7 @@
                         <div class="col-md-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                @Html.EditorFor(model => model.AdmissionGrantedDate, new { htmlAttributes = new { @class = "form-control", type = "datetime", id = "AdmissionGrantedDate", placeholder = "2/27/2016 11:39:57 PM" } })
+                                @Html.EditorFor(model => model.AdmissionGrantedDate, new { htmlAttributes = new { @class = "form-control",id = "AdmissionGrantedDate", placeholder = "2/27/2016 11:39:57 PM" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.AdmissionGrantedDate, "", new { @class = "text-danger" })
                         </div>
@@ -150,11 +150,13 @@
 @section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
     <script type="text/javascript">
         $(document).ready(function () {
             $(function () {
-                $('#AdmissionGrantedDate').datetimepicker();
+                $('#AdmissionGrantedDate').datepicker();
             });
             if ('@Model.AdmissionId' > 0) {
                 $('#ddlAcadmicClass option[value="@Model.AdmissionGrantedForClass"]').attr("selected", true);

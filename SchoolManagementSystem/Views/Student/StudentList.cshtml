@@ -114,10 +114,13 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
 
     <script type="text/javascript">
         $(document).ready(function () {
+           
             $("#btnDelete").click(function () {
 
 

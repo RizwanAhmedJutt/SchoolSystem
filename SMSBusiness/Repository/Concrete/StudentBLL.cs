@@ -206,10 +206,10 @@ namespace SMSBusiness.Repository.Concrete
                         std.DOB = Convert.ToDateTime(item["DOB"].ToString());
                         std.CNIC = item["CNIC"].ToString();
                         std.NoOfSibling = int.Parse(item["NoOfSibling"].ToString());
-                        std.NoOfSiblingCurrentSchool = int.Parse(item["NoOfSiblingCurrentSchool"].ToString());
+                        std.NoOfSiblingCurrentSchool = Convert.ToInt32(item["NoOfSiblingCurrentSchool"]);
                         std.Religion = item["Religion"].ToString();
                         std.AcadmicClassId = int.Parse(item["AcadmicClassId"].ToString());
-                        std.RollNumber = int.Parse(item["RollNumber"].ToString());
+                        std.RollNumber = item.IsNull("RollNumber") ?0: Convert.ToInt32(item["RollNumber"]);
                         std.IsActive = Convert.ToBoolean(item["IsActive"].ToString());
                         std.CreateDate = Convert.ToDateTime(item["CreatedDate"]);
                     }

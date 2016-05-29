@@ -68,7 +68,8 @@
                                     <div class="col-md-9">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", type = "datetime", id = "DateOfBirth", placeholder = "02/09/1992" })
+                                            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control",  id = "DateOfBirth", placeholder = "02/09/1992" }) 
+                                            
                                         </div>
 
                                         @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
@@ -166,12 +167,14 @@
 
                 @section Scripts {
 
-                    @Scripts.Render("~/bundles/jqueryval")
-                    @Scripts.Render("~/bundles/bootstrap")
+                @Scripts.Render("~/bundles/jqueryval")
+                @*@Scripts.Render("~/bundles/bootstrap")*@
+                    @Scripts.Render("~/bundles/jqueryui")
+              @Styles.Render("~/Content/JqueryUicss")
                     <script type="text/javascript">
                         $(document).ready(function () {
                             $(function () {
-                                $('#DateOfBirth').datetimepicker();
+                                $('#DateOfBirth').datepicker();
                             });
                             $("#AddStudent").click(function (e) {
                               
