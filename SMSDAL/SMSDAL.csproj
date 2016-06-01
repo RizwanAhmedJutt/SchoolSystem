@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\ExportFileDAO.cs" />
+    <Compile Include="DAL\PeriodAssignedDAO.cs" />
     <Compile Include="DAL\StudentExpenditureDAO.cs" />
     <Compile Include="DAL\StudentBasicExpenditureDAO.cs" />
     <Compile Include="DAL\AcadmicClassDAO.cs" />
