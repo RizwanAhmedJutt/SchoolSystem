@@ -53,7 +53,7 @@ namespace SMSDAL.DAL
                 throw;
             }
 
-            return 0;  // show Error in inserting or Updating Record
+            //return 0;  // show Error in inserting or Updating Record
         }
 
     }

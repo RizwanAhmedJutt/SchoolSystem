@@ -12,38 +12,37 @@ using System.Threading.Tasks;
 
 namespace SMSBusiness.Repository.Concrete
 {
- public   class CityBLL : ICityBLL
+    public class CityBLL : ICityBLL
     {
 
-        private readonly IDatabase gObjDatabase;
         public List<City> GetALLCities()
-     {
-         var objCityDao = new CityDAO(new SqlDatabase());
-         DataTable dtCity = objCityDao.GetALLCities();
-         List<City> Cities = new List<City>();
-         try
-         {
-             if (dtCity.Rows.Count > 0)
-             {
-                 foreach (DataRow item in dtCity.Rows)
-                 {
-                     City city = new City();
-                     city.CityId = int.Parse(item["CityId"].ToString());
-                     city.CityName = item["CityName"].ToString();
-                     Cities.Add(city);
-                 }
+        {
+            var objCityDao = new CityDAO(new SqlDatabase());
+            DataTable dtCity = objCityDao.GetALLCities();
+            List<City> Cities = new List<City>();
+            try
+            {
+                if (dtCity.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dtCity.Rows)
+                    {
+                        City city = new City();
+                        city.CityId = int.Parse(item["CityId"].ToString());
+                        city.CityName = item["CityName"].ToString();
+                        Cities.Add(city);
+                    }
 
 
-             }
-         }
-         catch (Exception)
-         {
+                }
+            }
+            catch (Exception)
+            {
 
-             throw;
-         }
+                throw;
+            }
 
-         return Cities;
-     }
+            return Cities;
+        }
 
         public int AddChangesCity(City c)
         {

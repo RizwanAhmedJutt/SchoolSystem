@@ -20,8 +20,6 @@ namespace SMSBusiness.Repository.Concrete
             List<AssignRoom> AssignedRooms = new List<AssignRoom>();
             try
             {
-                if (AssignRoom.Rows.Count > 0)
-                {
                     foreach (DataRow item in AssignRoom.Rows)
                     {
                         AssignRoom aroom = new AssignRoom();
@@ -29,14 +27,10 @@ namespace SMSBusiness.Repository.Concrete
                         aroom.RoomName = item["RoomName"].ToString();
                         aroom.ClassName = item["ClassName"].ToString();
                         aroom.DayName = item["DayName"].ToString();
-                        aroom.StartTime = item["StartTime"].ToString();
-                        aroom.EndTime = item["EndTime"].ToString();
+                        aroom.CourseName = item["CourseName"].ToString();
                         aroom.IsAvailable = Convert.ToBoolean(item["IsAvailable"]);
                         AssignedRooms.Add(aroom);
                     }
-
-
-                }
             }
             catch (Exception)
             {
@@ -53,8 +47,6 @@ namespace SMSBusiness.Repository.Concrete
             List<AssignRoom> AssignedRooms = new List<AssignRoom>();
             try
             {
-                if (AssignRoom.Rows.Count > 0)
-                {
                     foreach (DataRow item in AssignRoom.Rows)
                     {
                         AssignRoom aroom = new AssignRoom();
@@ -62,14 +54,10 @@ namespace SMSBusiness.Repository.Concrete
                         aroom.RoomName = item["RoomName"].ToString();
                         aroom.ClassName = item["ClassName"].ToString();
                         aroom.DayName = item["DayName"].ToString();
-                        aroom.StartTime = item["StartTime"].ToString();
-                        aroom.EndTime = item["EndTime"].ToString();
+                        aroom.CourseName = item["CourseName"].ToString();
                         aroom.IsAvailable = Convert.ToBoolean(item["IsAvailable"]);
                         AssignedRooms.Add(aroom);
                     }
-
-
-                }
             }
             catch (Exception)
             {
@@ -103,8 +91,7 @@ namespace SMSBusiness.Repository.Concrete
             try
             {
                 tblRoom = objAssignRoomDao.GetRoomAssignClassDetailByID(rAssignId);
-                if (tblRoom.Rows.Count > 0)
-                {
+                
                     foreach (DataRow item in tblRoom.Rows)
                     {
                         aroom.RAssignId = Convert.ToInt32(item["RAssignId"]);
@@ -114,17 +101,13 @@ namespace SMSBusiness.Repository.Concrete
                         aroom.ClassName = item["ClassName"].ToString();
                         aroom.WeekDayId = Convert.ToInt32(item["DayId"]);
                         aroom.DayName = item["DayName"].ToString();
-                        aroom.StartTime =item["StartTime"].ToString();
-                        aroom.EndTime = item["EndTime"].ToString();
+                        aroom.CourseId = Convert.ToInt32(item["ClassId"]);
                         aroom.IsAvailable = Convert.ToBoolean(item["IsAvailable"]);
                         aroom.CreatedById = item["CreatedById"].ToString();
                         aroom.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
                         aroom.ModifiedById = item.IsNull("ModifiedById") ? null : item["ModifiedById"].ToString();
                         aroom.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?)null : Convert.ToDateTime(item["ModifiedDate"]);
                     }
-                }
-
-
             }
             catch (Exception ex)
             {
@@ -145,18 +128,15 @@ namespace SMSBusiness.Repository.Concrete
             try
             {
                 tblRoom = objAssignRoomDao.GetRoomAssignedClassAvailablity(aroom);
-                if (tblRoom.Rows.Count > 0)
-                {
                     foreach (DataRow item in tblRoom.Rows)
                     {
                         assignroom.RAssignId = Convert.ToInt32(item["RAssignId"]);
                         assignroom.IsAvailable = Convert.ToBoolean(item["IsAvailable"]);
                         assignroom.ClassName = item["ClassName"].ToString();
+                        assignroom.CourseId = Convert.ToInt32(item["CourseId"]);
+                        assignroom.CourseName = item["CourseName"].ToString();
 
                     }
-                }
-
-
             }
             catch (Exception ex)
             {
@@ -164,9 +144,6 @@ namespace SMSBusiness.Repository.Concrete
                 throw ex;
             }
             return assignroom;
-
-
-
         }
 
     }

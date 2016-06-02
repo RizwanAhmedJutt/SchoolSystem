@@ -15,8 +15,6 @@ namespace SMSDataContract.Accounts
             RoomId = 0;
             AcadmicClassId = 0;
             WeekDayId = 0;
-            StartTime = string.Empty;
-            EndTime =string.Empty;
             IsAvailable = false;
             CreatedById = string.Empty;
             CreatedDate = DateTime.Now;
@@ -34,12 +32,11 @@ namespace SMSDataContract.Accounts
         [Display(Name="Week Day")]
         [Required(ErrorMessage="Select Week Day")]
         public int WeekDayId { get; set; }
-        [Display(Name="Start Time")]
-        [Required(ErrorMessage="Start Time Is Required")]
-        public string StartTime { get; set; }
-        [Display(Name="End Time")]
-        [Required(ErrorMessage="End Time Is Required")]
-        public string EndTime { get; set; }
+        public int CourseId { get; set; }
+        [Display(Name ="Course Name")]
+        [Required(ErrorMessage ="Please Select Course")]
+        public string CourseName { get; set; }
+      
         [Display(Name=" Check Available")]
         public bool IsAvailable { get; set; }
         public string CreatedById { get; set; }

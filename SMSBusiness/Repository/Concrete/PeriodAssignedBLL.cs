@@ -14,7 +14,7 @@ namespace SMSBusiness.Repository.Concrete
     public class PeriodAssignedBLL: IPeriodAssigned
     {
 
-        private readonly IDatabase gObjDatabase;
+        
         public List<PeriodAssigned> GetALLAssignedPeriods()
         {
             var objPeriodAssignedDao = new PeriodAssignedDAO(new SqlDatabase());
@@ -166,7 +166,7 @@ namespace SMSBusiness.Repository.Concrete
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
             return period;

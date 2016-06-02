@@ -95,8 +95,7 @@ namespace SchoolManagementSystem.Controllers
                 RoomId = Convert.ToInt32(CheckAttributes[0]),
                 AcadmicClassId = Convert.ToInt32(CheckAttributes[1]),
                 WeekDayId = Convert.ToInt32(CheckAttributes[2]),
-                StartTime = CheckAttributes[3],
-                EndTime = CheckAttributes[4]
+               CourseId=Convert.ToInt32(CheckAttributes[3])
             };
         
             aroom = assignRepo.GetRoomAssignedClassAvailablity(aroom);

@@ -131,7 +131,7 @@ namespace SMSDAL.DAL
             }
             catch(Exception ex)
             {
-                throw;
+                throw ex;
             }
 
             return 0;  // show Error in inserting or Updating Record

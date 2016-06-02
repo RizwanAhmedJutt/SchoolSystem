@@ -63,8 +63,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@RoomId", DbType.Int32, assignRoom.RoomId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AcadmicClassId", DbType.Int32, assignRoom.AcadmicClassId);
                     gObjDatabase.AddInParameter(objDbCommand, "@WeekDayId", DbType.Int32, assignRoom.WeekDayId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@StartTime", DbType.String,assignRoom.StartTime);
-                    gObjDatabase.AddInParameter(objDbCommand, "@EndTime", DbType.String, assignRoom.EndTime);
+                    gObjDatabase.AddInParameter(objDbCommand, "@CourseId", DbType.Int32, assignRoom.CourseId);
                     gObjDatabase.AddInParameter(objDbCommand, "@IsAvailable", DbType.Boolean, assignRoom.IsAvailable);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, assignRoom.CreatedDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, assignRoom.CreatedById);
@@ -130,8 +129,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objCommand, "@RoomId", DbType.Int32, aroom.RoomId);
                     gObjDatabase.AddInParameter(objCommand, "@ClassId", DbType.Int32, aroom.AcadmicClassId);
                     gObjDatabase.AddInParameter(objCommand, "@WeekDayId", DbType.Int32, aroom.WeekDayId);
-                    gObjDatabase.AddInParameter(objCommand, "@StartTime", DbType.String, aroom.StartTime);
-                    gObjDatabase.AddInParameter(objCommand, "@EndTime", DbType.String, aroom.EndTime);
+                    gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.String, aroom.CourseId);
                     dtRoomDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }
