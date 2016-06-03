@@ -33,7 +33,7 @@ namespace SMSDataContract.Accounts
         [Required(ErrorMessage="Select Week Day")]
         public int WeekDayId { get; set; }
         public int CourseId { get; set; }
-        [Display(Name ="Course Name")]
+        [Display(Name ="Course")]
         [Required(ErrorMessage ="Please Select Course")]
         public string CourseName { get; set; }
       
@@ -43,8 +43,11 @@ namespace SMSDataContract.Accounts
         public DateTime CreatedDate { get; set; }
         public string ModifiedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        [Display(Name ="Acadmic Class")]
         public string ClassName { get; set; }
+        [Display(Name ="Week Day")]
         public string DayName { get; set; }
+        [Display(Name ="Room")]
         public string RoomName { get; set; }
 
 

@@ -79,15 +79,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="dvCourse" style="text-align: center; margin-top: 10px; margin-left:29%;">
-                            <span id="CourseMsg" class="error" style="display:none;"></span>
+                        <div id="dvWeek" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                            <span id="weekdayMsg" class="error" style="display:none;"></span>
                         </div>
+                        
                         <div class="form-group">
                             <div class="col-md-3 control-label"><label>Week Day</label> </div>
                             <div class="col-md-9">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                                    <div id="dvDDLCourse">
+                                    <div id="dvDDLWeek">
                                         @Html.DropDownList("WeekDayId", new List<SelectListItem>()
                                         {
                                             new SelectListItem(){ Text= "Monday", Value = "1"},
@@ -104,38 +105,24 @@
                                 @Html.ValidationMessageFor(model => model.WeekDayId, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div id="dvStarttime" style="text-align: center; margin-top: 10px; margin-left:34%;">
-                            <span id="StarttimeMsg" class="error" style="display:none;"></span>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("Check Available", htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    @Html.CheckBoxFor(model => model.IsAvailable, new {@id ="IsAvailable" })
-                                </div>
-                                @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
-                            </div>
-                            <div style="text-align: center;float:left; margin-top: -15px; margin-left:30%;">
-                                <span id="RoomAvailableMsg" class="successmsg" style="display:none;"></span>
-                                <span id="RoomNotAvailableMsg" class="error" style="display:none;"></span>
-                                <span id="fillAllFields" class="error" style="display:none;"></span>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        @if (Model.RAssignId == 0)
-                                        {
-                                        <input type="submit" value="Add" id="AddAssignRoom" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                        <button id="btnAddEdit" type="submit" class="btn btn-primary btn-success pull-right">
+                                            @if (Model.RAssignId == 0)
+                                            { <text>
+                                                Save
+                                            </text>
+                                            }
+                                            else
+                                            {
+                                                <text>
 
-                                        }
-                                        else
-                                        {
-                                        <input type="submit" value="Update" id="UpdateAssignRoom" style="background-color:#fab625; color:white;" class="btn pull-right" />
-
-                                        }
+                                                    Update
+                                                </text>
+                                            }
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -148,77 +135,59 @@
                                                             }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript">
         {
-
             $(document).ready(function () {
+                if ('@Model.RAssignId' > 0) {
+                    debugger;
+                    $('#ddlCourse option[value="@Model.CourseId"]').attr("selected", true);
+                }
+                $("#ddlAcadmicClass").change(function () {
+                    var AcadmicClass = $("#ddlAcadmicClass").val();
+                    if (AcadmicClass != "")
+                    {
+                        var URL = "/Course/DDLCourse";
+                        var model = { AcadmicClassId: AcadmicClass };
+                        $.get(URL, model)
+                        .done(function (gethtml) {
+                            debugger;
+                            $("#dvDDLCourse").html("");
+                            $("#dvDDLCourse").html(gethtml);
+                        })
+                        .fail(function () {
+                            alert("Fail To Load Course..");
+                        })
+                    }
 
-                $("#fillAllFields").hide();
-                var timeFormat = " HH:mm";
-
-                $('#StartTime').datetimepicker({
-                    format: timeFormat
                 });
-                $('#EndTime').datetimepicker({
-                    format: timeFormat
-                })
-                $("#IsAvailable").change(function (e) {
 
+                $("#btnAddEdit").click(function (e) {
+                    e.preventDefault();
                     var AssignRoom = $("#ddlRoom").val();
                     var AcadmicClass = $("#ddlAcadmicClass").val();
                     var weekDay = $("#ddlWeek").val();
-                    var getCurrentDate = new Date().toLocaleDateString();
-                    var StartTime = $("#StartTime").val();
-                    var EndTime = $("#EndTime").val();
+                    var CourseId = $("#ddlCourse").val();
                     var getValues = new Array();
-                    $("#StarttimeMsg").text("");
-                    $("#StarttimeMsg").hide();
-
-                    //convert both time into timestamp
-                    var stt = new Date("'" + getCurrentDate + "'" + StartTime);
-                    stt = stt.getTime();
-
-                    var endt = new Date("'" + getCurrentDate + "'" + EndTime);
-                    endt = endt.getTime();
-                    if (endt < stt) {
-                        $("#StarttimeMsg").text("Start Time Must be Lesser than End Time");
-                        $("#StarttimeMsg").show();
-                        e.preventDefault();
-                        return false;
-                    }
-                    // After Check Time Contstraint insert values into Array
-                    if (AssignRoom == "" || AcadmicClass == "" || weekDay == "" || StartTime == "" || EndTime == "") {
-                        $("#fillAllFields").text("Please fill all the fields");
-                        $("#fillAllFields").show();
-                        $("#IsAvailable").prop('checked', false);
-                    }
-                    else {
-                        getValues.push(AssignRoom, AcadmicClass, weekDay, StartTime, EndTime);
-                        // Go To Action
-
+                    if(AssignRoom!=""&& AcadmicClass!="" && weekDay !="" && CourseId !="")
+                    {
+                        getValues.push(AssignRoom, AcadmicClass, weekDay, CourseId);
                         var URL = "/Room/CheckRoomAvailabilty";
                         $.get(URL, $.param({ CheckAttributes: getValues }, true), function (resp) {
-
-
-                            // var a =  JSON.stringify(resp);
+                       
                             if (resp == "false") {
-                                //$("#RoomAvailableCehck").hide();
-                                $("#IsAvailable").prop('checked', false);
-                                $("#RoomNotAvailableMsg").text("Room is not available");
-                                $("#RoomNotAvailableMsg").show();
-                                $("#RoomAvailableMsg").hide();
-                                $('input[type="submit"]').prop('disabled', true);
+
+                                $("#weekdayMsg").text("Already Assigned Please Select Other Day");
+                                $("#weekdayMsg").show();
                             }
-                            else {
-                                $("#RoomAvailableMsg").text("Room is available");
-                                $("#RoomAvailableMsg").show();
-                                $("#RoomNotAvailableMsg").hide();
-                                $('input[type="submit"]').prop('disabled', false);
+                            else
+                            {
+                                $("form").submit();
                             }
-                        });
+                        })
                     }
+
                 });
+           
 
             });
 

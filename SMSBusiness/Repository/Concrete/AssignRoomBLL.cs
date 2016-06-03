@@ -101,7 +101,7 @@ namespace SMSBusiness.Repository.Concrete
                         aroom.ClassName = item["ClassName"].ToString();
                         aroom.WeekDayId = Convert.ToInt32(item["DayId"]);
                         aroom.DayName = item["DayName"].ToString();
-                        aroom.CourseId = Convert.ToInt32(item["ClassId"]);
+                        aroom.CourseId = Convert.ToInt32(item["CourseId"]);
                         aroom.IsAvailable = Convert.ToBoolean(item["IsAvailable"]);
                         aroom.CreatedById = item["CreatedById"].ToString();
                         aroom.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
@@ -120,7 +120,7 @@ namespace SMSBusiness.Repository.Concrete
 
         }
 
-        public AssignRoom GetRoomAssignedClassAvailablity(AssignRoom aroom)
+        public AssignRoom GetRoomAssignedClassAvailablity(AssignRoom aroom)  
         {
             var objAssignRoomDao = new AssignRoomDAO(new SqlDatabase());
             DataTable tblRoom;
