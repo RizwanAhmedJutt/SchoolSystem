@@ -22,6 +22,7 @@ namespace SchoolManagementSystem.Controllers
         // GET: /Room/
         IRoom roomRepo = new RoomBLL();
         IAssignRoom assignRepo = new AssignRoomBLL();
+        IPeriodAssigned periodRepo = new PeriodAssignedBLL();
         public ActionResult GetALLRoom(string SearchBy, string search, int? page)
         {
 
@@ -45,6 +46,7 @@ namespace SchoolManagementSystem.Controllers
            int getStatus = roomRepo.AddChangesRoom(r);
             return RedirectToAction("GetALLRoom");
         }
+        //Manage Room Assign Class
         [HttpGet]
         public ActionResult GetALLRoomAssignedClass(string SearchBy, string search, int? page)
         {
@@ -87,6 +89,42 @@ namespace SchoolManagementSystem.Controllers
 
             return RedirectToAction("GetALLRoomAssignedClass");
         }
+        //Manage Class Assigned Period
+        public ActionResult GetALLAssignedPeriods(string SearchBy, string search, int? page)
+        {
+            if(SearchBy == "AcadmicClass" && search != "")
+            {
+                List<PeriodAssigned> objAssignPeriod = periodRepo.PeroidAssignedByAcadmicClass(Convert.ToInt32(search));
+                return View(objAssignPeriod.ToList().ToPagedList(page ?? 1, 10));
+            }
+            else
+            {
+                List<PeriodAssigned> objAssignedPeriod = periodRepo.GetALLAssignedPeriods();
+                return View(objAssignedPeriod.ToList().ToPagedList(page ?? 1, 10));
+            }
+         
+        }
+        [HttpGet]
+        public ActionResult AddChangesPeriods(int Id)
+        {
+            if (Id == 0)
+            {
+                PeriodAssigned pAssigned = new PeriodAssigned();
+                return View(pAssigned);
+            }
+            else
+            {
+                PeriodAssigned periodAssigned = periodRepo.GetAssignedPeriodById(Id);
+                return View(periodAssigned);
+            }
+        }
+        [HttpPost]
+        public ActionResult AddChangesPeriods(PeriodAssigned pAssigned)
+        {
+            int getStatus = periodRepo.AddChangesPeriods(pAssigned);
+           return RedirectToAction("GetALLAssignedPeriods");
+        }
+
         [HttpGet]
         public string CheckRoomAvailabilty(string[] CheckAttributes)
         {
@@ -115,7 +153,21 @@ namespace SchoolManagementSystem.Controllers
                 return new JavaScriptSerializer().Serialize(false);   // Room name not already Exist
 
         }
+        public string CheckAlreadyPeriodAssigned(string[] CheckAttributes)
+        {
+            PeriodAssigned pAssigned = new PeriodAssigned
+            {
+                PeriodNumber = Convert.ToInt32(CheckAttributes[0]),
+                AcadmicClassId = Convert.ToInt32(CheckAttributes[1]),
+                CourseId = Convert.ToInt32(CheckAttributes[2])
+            };
+            pAssigned = periodRepo.CheckAlreadyPeriodAssigned(pAssigned.PeriodNumber, pAssigned.AcadmicClassId, pAssigned.CourseId);
+            if (pAssigned.PeriodAssignedId > 0)
+                return new JavaScriptSerializer().Serialize(false);
 
+            else
+                return new JavaScriptSerializer().Serialize(true); 
+        }
     }
 
 }
