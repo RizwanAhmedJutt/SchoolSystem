@@ -12,10 +12,14 @@
             {  <div class="input-group col-md-8">
                 <b>Search By:</b>
                 @Html.RadioButton("SearchBy", "AcadmicClass", true)
-                <text>Acadmic Class</text>
+                <text>Acadmic Class Name</text>
 
                 <br />
-
+                <span style="margin-left:75px;">
+                    @Html.RadioButton("SearchBy", "CourseName", true)
+                    <text>Course Name</text>
+                </span>
+                <br />
 
                 @Html.TextBox("search", null, new { @class = "form-control" })
 
@@ -23,7 +27,9 @@
             </div>
             }
         </div>
+
         <div style="clear:left"></div>
+        <br />
         <div class="well">
             <div class="row">
                 <div class="pull-left">

@@ -82,10 +82,10 @@ namespace SMSBusiness.Repository.Concrete
             return objPeriodAssignedDao.AddChangesPeriods(periodAssigned);
         }
         
-        public List<PeriodAssigned> PeroidAssignedByAcadmicClass(int AcadmicClassId)
+        public List<PeriodAssigned> PeroidAssignedByAcadmicClass(string AcadmicClassName)
         {
             var objPeriodAssignedDao = new PeriodAssignedDAO(new SqlDatabase());
-            DataTable dtPeriods = objPeriodAssignedDao.PeriodAssignedByAcadmicClass(AcadmicClassId);
+            DataTable dtPeriods = objPeriodAssignedDao.PeriodAssignedByAcadmicClass(AcadmicClassName);
             List<PeriodAssigned> periodAssigned = new List<PeriodAssigned>();
             try
             {
@@ -115,11 +115,11 @@ namespace SMSBusiness.Repository.Concrete
 
         }
 
-        public List<PeriodAssigned> PeroidAssignedByCourse(int CourseId)
+        public List<PeriodAssigned> PeroidAssignedByCourse(string CourseName)
         {
 
             var objPeriodAssignedDao = new PeriodAssignedDAO(new SqlDatabase());
-            DataTable dtPeriods = objPeriodAssignedDao.PeriodAssignedByCourse(CourseId);
+            DataTable dtPeriods = objPeriodAssignedDao.PeriodAssignedByCourse(CourseName);
             List<PeriodAssigned> periodAssigned = new List<PeriodAssigned>();
             try
             {

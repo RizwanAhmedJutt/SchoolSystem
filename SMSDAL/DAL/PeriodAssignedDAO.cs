@@ -38,7 +38,7 @@ namespace SMSDAL.DAL
             return dtPeriodDetails;
         } 
 
-        public DataTable PeriodAssignedByAcadmicClass(int AcadmicClassId)
+        public DataTable PeriodAssignedByAcadmicClass(string AcadmicClassName)
         {
 
             DataTable dtPeriodDetails;
@@ -47,7 +47,7 @@ namespace SMSDAL.DAL
 
                 using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Period_PeroidAssignedByAcadmicClass"))
                 {
-                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
+                    gObjDatabase.AddInParameter(objCommand, "@AcadmicClassName", DbType.String, AcadmicClassName);
                     dtPeriodDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }
@@ -57,7 +57,7 @@ namespace SMSDAL.DAL
             }
             return dtPeriodDetails;
         }
-        public DataTable PeriodAssignedByCourse(int CourseId)
+        public DataTable PeriodAssignedByCourse(string  CourseName)
         {
 
             DataTable dtPeriodDetails;
@@ -66,7 +66,7 @@ namespace SMSDAL.DAL
 
                 using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Period_PeriodAssignedByCourse"))
                 {
-                    gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.Int32, CourseId);
+                    gObjDatabase.AddInParameter(objCommand, "@CourseName", DbType.String, CourseName);
                     dtPeriodDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }

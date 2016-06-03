@@ -13,8 +13,8 @@ namespace SMSBusiness.Repository.Abstract
         List<PeriodAssigned> GetALLAssignedPeriods();
         PeriodAssigned GetAssignedPeriodById(int PeriodAssignedId);
         int AddChangesPeriods(PeriodAssigned periodAssigned);
-        List<PeriodAssigned> PeroidAssignedByAcadmicClass(int AcadmicClassId);
-        List<PeriodAssigned> PeroidAssignedByCourse(int CourseId);
+        List<PeriodAssigned> PeroidAssignedByAcadmicClass(string AcadmicClassName);
+        List<PeriodAssigned> PeroidAssignedByCourse(string CourseName);
         PeriodAssigned CheckAlreadyPeriodAssigned(int PeriodNumber, int AcadmicClassId, int CourseId);
     }
 }

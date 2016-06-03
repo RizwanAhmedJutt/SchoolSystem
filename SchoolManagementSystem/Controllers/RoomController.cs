@@ -94,7 +94,12 @@ namespace SchoolManagementSystem.Controllers
         {
             if(SearchBy == "AcadmicClass" && search != "")
             {
-                List<PeriodAssigned> objAssignPeriod = periodRepo.PeroidAssignedByAcadmicClass(Convert.ToInt32(search));
+                List<PeriodAssigned> objAssignPeriod = periodRepo.PeroidAssignedByAcadmicClass(search);
+                return View(objAssignPeriod.ToList().ToPagedList(page ?? 1, 10));
+            }
+            else if(SearchBy=="CourseName" && search!="")
+            {
+                List<PeriodAssigned> objAssignPeriod = periodRepo.PeroidAssignedByCourse(search);
                 return View(objAssignPeriod.ToList().ToPagedList(page ?? 1, 10));
             }
             else
