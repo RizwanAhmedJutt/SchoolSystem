@@ -82,7 +82,7 @@
                                                     @Html.HiddenFor(x => x.ChildAssessments[j].CreateDate)
                                                     @Html.HiddenFor(x=>x.ChildAssessments[j].CreatedById)
                                                     @Html.HiddenFor(x => x.ChildAssessments[j].AssessmentFormat)
-                                                    <label for=" SubAssessmentName">   @Html.DisplayFor(x => x.ChildAssessments[j].AssessmentSubTypeName) </label>
+                                                    <label for="SubAssessmentName">   @Html.DisplayFor(x => x.ChildAssessments[j].AssessmentSubTypeName) </label>
 
                                                 </td>
 
@@ -91,23 +91,23 @@
                                                             <text>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "VeryGood")
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "2")
                                                                     V.Good
 
                                                                 </td>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Good")
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "1")
                                                                     Good
                                                                 </td>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Average")
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "0")
                                                                     Average
                                                                 </td>
                                                                 <td>
 
-                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "Worse")
+                                                                    @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "-2")
                                                                     Worse
                                                                 </td>
 
@@ -124,6 +124,8 @@
                                                                 @Html.RadioButtonFor(x => x.ChildAssessments[j].SelectedEvaluation, "NotImproved")
                                                                 Not-Improved
                                                             </td>
+                                                            <td></td>
+                                                            <td></td>
                                                             }
 
                                                 <td>
@@ -193,7 +195,7 @@
 
                                 var getRadiobuttonvalue = $(this).closest('tr').find('input[type=radio]:checked:first').val();
 
-                                if (getRadiobuttonvalue == "Worse" || getRadiobuttonvalue == "NotImproved") {
+                                if (getRadiobuttonvalue == "-2" || getRadiobuttonvalue == "NotImproved") {
                                     $(this).closest('tr').find('input[type="text"]').attr("disabled", false);
                                 }
                                 else {

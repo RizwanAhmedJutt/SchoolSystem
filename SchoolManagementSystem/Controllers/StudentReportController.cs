@@ -183,7 +183,7 @@ namespace SchoolManagementSystem.Controllers
                     op.ModifiedById = userloggedId;
                     op.ModifiedDate = DateTime.Now;
                 }
-                // int getStatus = repoOperation.AddChangesAssessmentOperation(op);
+                 int getStatus = repoOperation.AddChangesAssessmentOperation(op);
             }
 
             return RedirectToAction("GetALLStudentGeneralAssessment");

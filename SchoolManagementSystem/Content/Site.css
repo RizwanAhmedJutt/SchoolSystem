@@ -25,6 +25,7 @@ textarea {
     font-weight: bold;
     padding: 10px;
     margin-left: 10px;
+    width:500px;
 }
 .HeadingStyle {
     background-color: blue;

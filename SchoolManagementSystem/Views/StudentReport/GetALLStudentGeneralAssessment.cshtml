@@ -11,9 +11,9 @@
         @using (Html.BeginForm("GetALLStudentGeneralAssessment", "StudentReport", FormMethod.Get))
         {
             <div class="input-group col-md-8">
-            
 
-             
+
+
                 <div class="row">
                     <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
 
@@ -24,25 +24,25 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                         @{Html.RenderPartial("../DropDownLists/DDLClass");}
                     </div>
-                    @Html.ValidationMessageFor(x=>x.First().AcadmicClassId)
+                    @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-3 col-md-offset-3"> <b>Student </b> </div>
-                    
-                        <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                            <span id="StudentMsg" class="error" style="display:none;"></span>
+
+                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLStudent">
+
+                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+
+
+
                         </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                            <div id="dvDDLStudent">
-
-                                @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
-
-
-                           
-                        </div>
-                            @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+                        @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
                     </div>
                 </div>
                 <br />
@@ -52,15 +52,15 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                        <input id="setDate" type="date" name="CreateDate" class="form-control" /> 
-                     
+                        <input id="setDate"  name="CreateDate" class="form-control" />
+
                     </div>
                 </div>
 
                 <br />
                 <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
             </div>
-        }
+                                }
 
         <div style="clear:left"></div>
         <div class="well">
@@ -101,8 +101,8 @@
                         </th>
                         <th>
 
-                            @*@Html.DisplayNameFor(model => model.First().CreateDate)*@ 
-                           
+                            @Html.DisplayNameFor(model => model.First().CreateDate)
+
                         </th>
                         <th style="width:90px;"><b>ACTION</b></th>
 
@@ -130,26 +130,27 @@
                             <td>
                                 @if (item.AssessmentFormat == true)
                                 {
-                                <text>
-                                    Consequence
-                                </text>
+                                    <text>
+                                        Consequence
+                                    </text>
                                 }
                                 else
                                 {
-                                <text>
-                                    Non- Consequence
-                                </text>
+                                    <text>
+                                        Non- Consequence
+                                    </text>
                                 }
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem=>item.Concequence)
+                                @Html.DisplayFor(modelItem => item.Concequence)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem=>item.FormateCreateDate)
+                                @*@Html.DisplayFor(modelItem => item.CreateDate)*@ 
+                                @Html.DisplayName(item.CreateDate.ToShortDateString())
                             </td>
                             <td>
                                 <a href="/StudentReport/AddChangesAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CreateDate=@item.FormateCreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-                                 
+
                             </td>
 
                         </tr>
@@ -163,12 +164,13 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
-
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
     <script type="text/javascript">
         $(document).ready(function () {
             // Set Query String Parameter
-            if ('@Request.QueryString["AcadmicClassId"]' !=null) {
+            if ('@Request.QueryString["AcadmicClassId"]' != null) {
 
                 $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
 
@@ -176,7 +178,7 @@
             else {
                 $('#ddlAcadmicClass option[value=""]').attr("selected", true);
             }
-            if ('@Request.QueryString["StudentId"]'!=null) {
+            if ('@Request.QueryString["StudentId"]' != null) {
 
                 $('#ddlStudent option[value="@Request.QueryString["StudentId"]"]').attr("selected", true);
 
@@ -186,7 +188,7 @@
             }
             if ('@Request.QueryString["CreateDate"]' != null) {
                 debugger;
-                $("#setDate").val('@Request.QueryString["CreateDate"]')  ;
+                $("#setDate").val('@Request.QueryString["CreateDate"]');
 
             }
             else {
@@ -198,7 +200,7 @@
                 var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
                 var model = { AcadmicClassId: getAcadmicClass };
                 if (getAcadmicClass != '') {
-                  
+
                     $(this).removeAttr("style");
                     Url = "/Course/DDLStudent";
 
@@ -225,6 +227,7 @@
                 }
 
             });
+            $('#setDate').datepicker();
             $("#setDate").change(function () {
                 $(this).removeAttr("style");
 
@@ -233,20 +236,19 @@
             $("#btnSearch").click(function (e) {
                 debugger;
                 e.preventDefault();
-              
+
                 if ($("#ddlAcadmicClass").val() == '') {
-                   
-                   
+
+
                     $("#ddlAcadmicClass").css("border", "1px solid red");
-                   
+
                 }
                 else if ($("#ddlStudent").val() == '') {
-                   
+
                     $("#ddlStudent").css("border", "1px solid red");
                 }
-                else if( $("#setDate").val()==='')
-                {
-                   
+                else if ($("#setDate").val() === '') {
+
                     $("#setDate").css("border", "1px solid red");
                 }
                 else {

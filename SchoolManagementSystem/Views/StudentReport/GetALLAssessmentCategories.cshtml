@@ -18,9 +18,9 @@
                     <span class="HeadingStyle">List of Assessment Categories</span>
                     <table id="getTable" class="table table-bordered table-striped table-responsive table-hover">
                         <tr class="action info">
-                            <th>
+                            @*<th>
                                 @Html.DisplayNameFor(model => model.First().AssessmentCategoryId)
-                            </th>
+                            </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.First().AssessmentName)
                             </th>
@@ -32,9 +32,9 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>
+                                @*<td>
                                     @Html.DisplayFor(modelItem => item.AssessmentCategoryId)
-                                </td>
+                                </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.AssessmentName)
                                 </td>

@@ -10,75 +10,75 @@
 
         @using (Html.BeginForm("GetALLStudentAcadmicAssessment", "StudentReport", FormMethod.Get))
         {
-            <div class="input-group col-md-8">
+        <div class="input-group col-md-8">
 
 
 
-                <div class="row">
-                    <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
 
-                    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                        @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                    <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                    @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                </div>
+                @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3"> <b>Teacher </b> </div>
+
+                <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                    <span id="StudentMsg" class="error" style="display:none;"></span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                    <div id="dvDDLStudent">
+
+                        @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+
+
+
                     </div>
                     @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
                 </div>
-
-                <div class="row">
-                    <div class="col-md-3 col-md-offset-3"> <b>Teacher </b> </div>
-
-                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                        <span id="StudentMsg" class="error" style="display:none;"></span>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                        <div id="dvDDLStudent">
-
-                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
-
-
-
-                        </div>
-                        @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-3 col-md-offset-3"> <b>Course </b> </div>
-
-                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                        <span id="CourseMsg" class="error" style="display:none;"></span>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                        <div id="dvDDLCourse">
-
-                            @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 0 });}
-
-
-
-                        </div>
-                        @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-3 col-md-offset-3">
-                        <b>Date</b>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                        <input id="setDate" type="date" name="CreateDate" class="form-control" />
-
-                    </div>
-                </div>
-
-                <br />
-                <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
             </div>
+
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3"> <b>Course </b> </div>
+
+                <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                    <span id="CourseMsg" class="error" style="display:none;"></span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                    <div id="dvDDLCourse">
+
+                        @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 0 });}
+
+
+
+                    </div>
+                    @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3">
+                    <b>Date</b>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                    <input id="setDate"  name="CreateDate" class="form-control" />
+
+                </div>
+            </div>
+
+            <br />
+            <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+        </div>
         }
 
         <div style="clear:left"></div>
@@ -154,15 +154,15 @@
                         <td>
                             @if (item.AssessmentFormat == true)
                                 {
-                                <text>
-                                    Consequence
-                                </text>
+                            <text>
+                                Consequence
+                            </text>
                                 }
                                 else
                                 {
-                                <text>
-                                    Non- Consequence
-                                </text>
+                            <text>
+                                Non- Consequence
+                            </text>
                                 }
                         </td>
                         <td>
@@ -190,7 +190,9 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -227,6 +229,7 @@
             else {
                 $("#setDate").val() = "";
             }
+            $('#setDate').datepicker();
             //change event for acadmic class
             $("#ddlAcadmicClass").change(function () {
 
@@ -269,18 +272,17 @@
 
                 if ($("#ddlStudent").val() != "") {
                     $("#ddlStudent").css("border", "");
-                    
+
                 }
 
             });
             $('body').on("change", "#ddlCourse", function () {
 
-                if($("#ddlCourse").val()!='')
-                {
+                if ($("#ddlCourse").val() != '') {
                     $("#ddlCourse").css("border", "");
-                    
+
                 }
-               
+
             });
             $("#setDate").change(function () {
                 $(this).removeAttr("style");
@@ -299,8 +301,7 @@
 
                     $("#ddlStudent").css("border", "1px solid red");
                 }
-                else if($("#ddlCourse").val()=='')
-                {
+                else if ($("#ddlCourse").val() == '') {
                     $("#ddlCourse").css("border", "1px solid red");
                 }
                 else if ($("#setDate").val() === '') {
