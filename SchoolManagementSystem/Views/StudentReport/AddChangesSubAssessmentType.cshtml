@@ -36,7 +36,7 @@
                                 <div class="form-horizontal">
 
                                     @Html.ValidationSummary(true)
-                                    <div class="form-group">
+                                    @*<div class="form-group">
                                         <div class="col-md-5 control-label"><label>Assessment Belong To</label> </div>
                                         <div class="col-md-6">
                                             <div class="input-group">
@@ -44,7 +44,7 @@
                                                 @{Html.RenderPartial("../DropDownLists/DDLCategory");}
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>*@
 
                                     <div id="Assessments" class="form-group">
                                         <div class="col-md-5 control-label"><label>Assessment Types</label> </div>
@@ -72,14 +72,14 @@
                                             @Html.ValidationMessageFor(model => model.AssessmentSubTypeName)
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    @*<div class="form-group">
                                         @Html.LabelFor(model => model.AssessmentFormat, new { @class = "control-label col-md-5" })
                                         <div class="col-md-7">
                                             @Html.RadioButtonFor(x=>x.AssessmentFormat,"true") Concequence
                                             @Html.RadioButtonFor(x => x.AssessmentFormat, "false") Non-Concequence
                                         </div>
 
-                                    </div>
+                                    </div>*@
                                     <div class="row">
                                         <div class="form-group">
                                             <span class="col-md-3 col-md-offset-7">
@@ -119,30 +119,30 @@
 
 <script type="text/javascript">
     //Fill Assessment By Category
-    $("#ddlAssessmentCategory").change(function (e) {
-        debugger;
-        var checkCategory = $("#ddlAssessmentCategory option:selected").val();
+    //$("#ddlAssessmentCategory").change(function (e) {
+    //    debugger;
+    //    var checkCategory = $("#ddlAssessmentCategory option:selected").val();
 
-        if (checkCategory != '') {
-            var model = { AssessmentCategoryId: $("#ddlAssessmentCategory option:selected").val() };
-            var URL = "/StudentReport/DDLAssessment";
-            debugger;
-            $.get(URL, model)
-            .done(function (gethtml) {
-                debugger;
-
-
-                $("#ddAssessmentbycategory").html("");
-                $("#ddAssessmentbycategory").html(gethtml);
-            })
-            .fail(function (ex1, ex2) {
-          alert("Can't get Assessment DDL");
-      })
+    //    if (checkCategory != '') {
+    //        var model = { AssessmentCategoryId: $("#ddlAssessmentCategory option:selected").val() };
+    //        var URL = "/StudentReport/DDLAssessment";
+    //        debugger;
+    //        $.get(URL, model)
+    //        .done(function (gethtml) {
+    //            debugger;
 
 
-        }
+    //            $("#ddAssessmentbycategory").html("");
+    //            $("#ddAssessmentbycategory").html(gethtml);
+    //        })
+    //        .fail(function (ex1, ex2) {
+    //      alert("Can't get Assessment DDL");
+    //  })
 
-    });
+
+    //    }
+
+    //});
    
 
     if ('@Model.AssessmentSubTypeId' > 0) {

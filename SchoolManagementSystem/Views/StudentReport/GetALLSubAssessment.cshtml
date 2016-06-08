@@ -111,40 +111,40 @@
 
             //});
             //Change Event For DDLAssessment. since reload html skip its bind event that's why i place event in ready.
-            $('body').on("change", "#ddlAssessment", function () {
+            //$('body').on("change", "#ddlAssessment", function () {
              
-                var getCategoryId = $("#ddlAssessmentCategory option:selected").val();
-                var getAssessmentTypeId = $("#ddlAssessment option:selected").val();
-                if (getAssessmentTypeId != '') {
+            //    var getCategoryId = $("#ddlAssessmentCategory option:selected").val();
+            //    var getAssessmentTypeId = $("#ddlAssessment option:selected").val();
+            //    if (getAssessmentTypeId != '') {
 
-                    var model = { AssessmentCategoryId: $("#ddlAssessmentCategory option:selected").val(), AssessmentTypeId: $("#ddlAssessment option:selected").val() };
-                    var URL = "/StudentReport/GetAssessmentCriteria";
+            //        var model = { AssessmentCategoryId: $("#ddlAssessmentCategory option:selected").val(), AssessmentTypeId: $("#ddlAssessment option:selected").val() };
+            //        var URL = "/StudentReport/GetAssessmentCriteria";
 
-                    $.get(URL, model)
+            //        $.get(URL, model)
 
-                    .done(function (getResponce) {
+            //        .done(function (getResponce) {
 
-                        $("#lblAssessment").show();
-                        if ($("#lblAssessment").length == 0) {
-                            $("<div id=lblAssessment  style=color:green;><span> Related Assessment Criteria Is " + getResponce + "</span></div>").insertAfter("#ddAssessmentbycategory");
-                        }
-                        else {
-                            $("#lblAssessment").html("");
-                            $("<div id=lblAssessment  style=color:green;><span> Related Assessment Criteria Is " + getResponce + "</span></div>").insertAfter("#ddAssessmentbycategory");
-                        }
+            //            $("#lblAssessment").show();
+            //            if ($("#lblAssessment").length == 0) {
+            //                $("<div id=lblAssessment  style=color:green;><span> Related Assessment Criteria Is " + getResponce + "</span></div>").insertAfter("#ddAssessmentbycategory");
+            //            }
+            //            else {
+            //                $("#lblAssessment").html("");
+            //                $("<div id=lblAssessment  style=color:green;><span> Related Assessment Criteria Is " + getResponce + "</span></div>").insertAfter("#ddAssessmentbycategory");
+            //            }
 
-                    })
-                    .fail(function (e) {
+            //        })
+            //        .fail(function (e) {
 
-                        alert("fail to Get Assessment Criteria.");
-                    })
-                }
-                else {
-                    $("#lblAssessment").toggle();
-                }
+            //            alert("fail to Get Assessment Criteria.");
+            //        })
+            //    }
+            //    else {
+            //        $("#lblAssessment").toggle();
+            //    }
 
 
-            });
+            //});
         });
         function AddEdit(id) {
            

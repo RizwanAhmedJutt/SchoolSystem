@@ -100,6 +100,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentCategoryId", DbType.Int32, dAssessmentType.AssessmentCategoryId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentCriteria", DbType.String, dAssessmentType.AssessmentCriteria);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentName", DbType.String, dAssessmentType.AssessmentName);
+                    gObjDatabase.AddInParameter(objDbCommand, "@AssessmentFormat", DbType.Boolean, dAssessmentType.AssessmentFormat);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, dAssessmentType.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, dAssessmentType.CreateDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, string.IsNullOrEmpty(dAssessmentType.ModifiedById) ? (object)dAssessmentType.ModifiedById : dAssessmentType.ModifiedById);

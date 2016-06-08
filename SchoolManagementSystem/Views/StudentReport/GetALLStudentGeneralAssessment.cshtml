@@ -92,9 +92,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.First().SelectedEvaluation)
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.First().AssessmentFormat)
-                        </th>
+                        </th>*@
 
                         <th>
                             @Html.DisplayNameFor(model => model.First().Concequence)
@@ -127,7 +127,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.SelectedEvaluation)
                             </td>
-                            <td>
+                            @*<td>
                                 @if (item.AssessmentFormat == true)
                                 {
                                     <text>
@@ -140,7 +140,7 @@
                                         Non- Consequence
                                     </text>
                                 }
-                            </td>
+                            </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Concequence)
                             </td>

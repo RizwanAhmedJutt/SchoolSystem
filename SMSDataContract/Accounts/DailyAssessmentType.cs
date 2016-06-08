@@ -31,6 +31,9 @@ namespace SMSDataContract.Accounts
         [Display(Name="Assessment Criteria")]
         [Required(ErrorMessage="Please Select Criteria")]
         public string AssessmentCriteria { get; set; }
+
+        [Display(Name = "Assessment Format")]
+        public bool AssessmentFormat { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreateDate { get; set; }
         public string ModifiedById { get; set; }

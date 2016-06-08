@@ -108,7 +108,7 @@ namespace SchoolManagementSystem.Controllers
             if (Id == 0)
             {
                 DailyAssessmentSubType subassessmen = new DailyAssessmentSubType();
-                return View(subAssessment);
+                return View(subassessmen);
             }
             return View(subAssessment);
         }
@@ -126,7 +126,7 @@ namespace SchoolManagementSystem.Controllers
                 dailyAssementSubType.ModifiedById = userloggedId;
                 dailyAssementSubType.ModifiedDate = DateTime.Now;
             }
-            int getStatus = repoAssessementSubType.AddChangesAssessmentSubType(dailyAssementSubType);
+           int getStatus = repoAssessementSubType.AddChangesAssessmentSubType(dailyAssementSubType);
             return RedirectToAction("GetALLSubAssessment");
         }
         // Student General Assessment
@@ -340,14 +340,17 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult DDLAssessment(int AssessmentCategoryId)
         {
+            var GeneralAssessmentTypes = from c in repoAssessmentType.GetAllAssessmentType()
+                                         where c.AssessmentCriteria == "General"
+                                         select c;
             if (AssessmentCategoryId == 0)
             {
-                ViewData["DDLAssessment"] = new SelectList(repoAssessmentType.GetAllAssessmentType().OrderBy(c => c.AssessmentTypeId).ToList(), "AssessmentTypeId", "AssessmentName");
+                ViewData["DDLAssessment"] = new SelectList(GeneralAssessmentTypes.OrderBy(c => c.AssessmentTypeId).ToList(), "AssessmentTypeId", "AssessmentName");
                 return View("../DropDownLists/DDLAssessments");
             }
             else
             {
-                ViewData["DDLAssessment"] = new SelectList(repoAssessmentType.GetAllAssessmentType().Where(x => x.AssessmentCategoryId == AssessmentCategoryId).OrderBy(c => c.AssessmentTypeId).ToList(), "AssessmentTypeId", "AssessmentName");
+                ViewData["DDLAssessment"] = new SelectList(GeneralAssessmentTypes.Where(x => x.AssessmentCategoryId == AssessmentCategoryId).OrderBy(c => c.AssessmentTypeId).ToList(), "AssessmentTypeId", "AssessmentName");
                 return View("../DropDownLists/DDLAssessments");
             }
 

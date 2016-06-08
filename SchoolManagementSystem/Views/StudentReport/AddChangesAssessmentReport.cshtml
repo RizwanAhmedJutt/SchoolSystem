@@ -61,12 +61,13 @@
                                             <td colspan="5">
                                                 @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentTypeId)
                                                 @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentName)
-                                                @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentTypeId)
+                                              
                                                 <span class="subheader">   @Html.DisplayFor(x => x.ParentAssessments[i].AssessmentName) </span>
 
                                             </td>
                                         </tr>
-                                        @for (int j = 0; j < Model.ChildAssessments.Count; j++)
+                                      
+                                          @for (int j = 0; j < Model.ChildAssessments.Count; j++)
                                         {
                                         <text>
                                             @if (Model.ChildAssessments[j].AssessmentTypeId == Model.ParentAssessments[i].AssessmentTypeId)
