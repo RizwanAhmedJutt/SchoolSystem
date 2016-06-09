@@ -244,12 +244,11 @@ namespace SMSBusiness.Repository.Concrete
                     AssessmentDetails.StudentName = dr["StudentName"].ToString();
                     AssessmentDetails.CourseName = dr["CourseName"].ToString();
                     AssessmentDetails.ParentAssementName = dr["ParentAssessmentName"].ToString();
-                    AssessmentDetails.AssessmentSubTypeName = dr["AssessmentSubTypeName"].ToString();
                     AssessmentDetails.SelectedEvaluation = dr["AssementStatus"].ToString();
                     AssessmentDetails.AssessmentFormat = Convert.ToBoolean(dr["AssessmentFormat"]);
                     AssessmentDetails.AverageConcequence = dr.IsNull("AverageConsequence") ? string.Empty : dr["AverageConsequence"].ToString();
                     AssessmentDetails.Concequence = dr.IsNull("WorseConsequence") ? string.Empty : dr["WorseConsequence"].ToString();
-                    AssessmentDetails.FormateCreateDate = dr["CreatedDate"].ToString();
+                    AssessmentDetails.CreateDate = Convert.ToDateTime(dr["CreatedDate"]);
                     AssessmentDetails.StudentId = Convert.ToInt32(dr["StudentId"]);
                     AssessmentDetails.AcadmicClassId = Convert.ToInt32(dr["AcadmicClassId"]);
                     AssessmentDetails.CourseId = Convert.ToInt32(dr["CourseId"]);
@@ -260,10 +259,10 @@ namespace SMSBusiness.Repository.Concrete
                 return objAssementList;
 
             }
-            catch
+            catch(Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
         public List<DailyAssessmentSubType> GetTeacherGeneralAssessments(int? AcadmicClassId, int? TeacherId, int? CourseId, string CreateDate)

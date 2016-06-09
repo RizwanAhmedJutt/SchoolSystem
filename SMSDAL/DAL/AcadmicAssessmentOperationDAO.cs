@@ -28,7 +28,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.Int32, dAssessmentOpertion.StudentId);
                     gObjDatabase.AddInParameter(objDbCommand, "@CourseId", DbType.Int32, dAssessmentOpertion.CourseId);
                     gObjDatabase.AddInParameter(objDbCommand, "@ParentAssessmentId", DbType.Int32, dAssessmentOpertion.ParentAssessmentId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@AssessmentSubTypeId", DbType.Int32, dAssessmentOpertion.AssessmentSubTypeId);
+                   // gObjDatabase.AddInParameter(objDbCommand, "@AssessmentSubTypeId", DbType.Int32, dAssessmentOpertion.AssessmentSubTypeId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentFormat", DbType.Boolean, dAssessmentOpertion.AssessmentFormat);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssementStatus", DbType.String, dAssessmentOpertion.AssementStatus);
                     gObjDatabase.AddInParameter(objDbCommand, "@AverageConsequence", DbType.String, string.IsNullOrEmpty(dAssessmentOpertion.AverageConsequence) ? (object)dAssessmentOpertion.AverageConsequence : dAssessmentOpertion.AverageConsequence);

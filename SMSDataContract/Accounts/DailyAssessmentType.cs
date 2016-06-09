@@ -20,6 +20,7 @@ namespace SMSDataContract.Accounts
 
 
         }
+        public int OperationalId { get; set; }
         [Display(Name="Assessment Id")]
         public int AssessmentTypeId { get; set; }
         [Display(Name = "Assessment Name")]
@@ -34,6 +35,22 @@ namespace SMSDataContract.Accounts
 
         [Display(Name = "Assessment Format")]
         public bool AssessmentFormat { get; set; }
+
+        [Display(Name = "Evaluation")]
+        public string SelectedEvaluation { get; set; }
+        public int CourseId { get; set; }
+        public string CourseName { get; set; }
+        public string AverageConcequence { get; set; }
+         public int AcadmicClassId { get; set; }
+        [Display(Name = "Acadmic Class")]
+        public string AcadmicClassName { get; set; }
+        public int StudentId { get; set; }
+        [Display(Name = "Student Name")]
+        public string StudentName { get; set; }
+        public int TeacherId { get; set; }
+        [Display(Name="Teacher Name")]
+        public string TeacherName { get; set; }
+        public string Concequence { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreateDate { get; set; }
         public string ModifiedById { get; set; }

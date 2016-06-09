@@ -87,6 +87,7 @@ namespace SMSBusiness.Repository.Concrete
                     var AssessmentDetails = new DailyAssessmentType();
                     AssessmentDetails.AssessmentTypeId = Convert.ToInt32(dr["AssessmentTypeId"]);
                     AssessmentDetails.AssessmentName = dr["AssementName"].ToString();
+                    AssessmentDetails.AssessmentFormat = Convert.ToBoolean(dr["AssessmentFormat"]);
                     objAssementList.Add(AssessmentDetails);
 
                 }

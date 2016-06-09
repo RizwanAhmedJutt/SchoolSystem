@@ -28,7 +28,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-3 col-md-offset-3"> <b>Teacher </b> </div>
+                <div class="col-md-3 col-md-offset-3"> <b>Student </b> </div>
 
                 <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
                     <span id="StudentMsg" class="error" style="display:none;"></span>
@@ -107,9 +107,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.First().ParentAssementName)
                         </th>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.First().AssessmentSubTypeName)
-                        </th>
+                        </th>*@
                         <th>
                             @Html.DisplayNameFor(model => model.First().SelectedEvaluation)
                         </th>
@@ -124,7 +124,8 @@
                         </th>
                         <th>
 
-                            @Html.DisplayNameFor(model => model.First().CreateDate)
+                            @Html.DisplayNameFor(model => model.First().CreateDate) 
+                          
                         </th>
                         <th style="width:90px;"><b>ACTION</b></th>
 
@@ -145,9 +146,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.ParentAssementName)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.AssessmentSubTypeName)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.SelectedEvaluation)
                         </td>
@@ -172,7 +173,8 @@
                             @Html.DisplayFor(modelItem => item.Concequence)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FormateCreateDate)
+                            @*@Html.DisplayFor(modelItem => item.FormateCreateDate)*@ 
+                            @Html.DisplayName(item.CreateDate.ToShortDateString())
                         </td>
                         <td>
                             <a href="/StudentReport/AddChangesAcadmicAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CourseId=@item.CourseId&CreateDate=@item.FormateCreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
