@@ -19,7 +19,7 @@ namespace SMSBusiness.Repository.Abstract
         List<DailyAssessmentSubType> GetStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate);
         List<DailyAssessmentSubType> GetTeacherGeneralAssessments(int? AcadmicClassId, int? TeacherId, int? CourseId, string CreateDate);
         List<DailyAssessmentSubType> GetStudentSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate);
-        List<DailyAssessmentSubType> GetStudentSingleAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate);
+        List<DailyAssessmentType> GetStudentSingleAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate);
         List<DailyAssessmentSubType> GetTeacherSingleGeneralAssessment(int? AcadmicClassId, int? TeacherId, int? CourseId, string CreateDate);
 
     }

@@ -198,20 +198,18 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddChangesAcadmicAssessmentReport(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
         {
             DailyAssessmentHelper myModel = new DailyAssessmentHelper();
-            myModel.ParentAssessments = repoAssessmentType.GetALLAssignedParentAcadmicAssessments();
             if (AcadmicClassId > 0)
             {
-                List<DailyAssessmentSubType> GetALLSubAssessments = repoAssessementSubType.GetStudentSingleAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate).ToList();
+                List<DailyAssessmentType> GetALLSubAssessments = repoAssessementSubType.GetStudentSingleAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate).ToList();
                 if (GetALLSubAssessments[0].OperationalId > 0)
                 {
-                    myModel.ChildAssessments = GetALLSubAssessments;
-
+                    myModel.ParentAssessments = GetALLSubAssessments;
                 }
                 return View(myModel);
             }
             else
             {
-                //myModel.ChildAssessments = repoAssessementSubType.GetALLAcadmicAssessmentSubType();
+                myModel.ParentAssessments = repoAssessmentType.GetALLAssignedParentAcadmicAssessments();
                 return View(myModel);
             }
         }

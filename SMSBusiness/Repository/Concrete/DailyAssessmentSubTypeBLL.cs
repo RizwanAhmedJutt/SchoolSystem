@@ -344,29 +344,28 @@ namespace SMSBusiness.Repository.Concrete
                 throw;
             }
         }
-        public List<DailyAssessmentSubType> GetStudentSingleAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        public List<DailyAssessmentType> GetStudentSingleAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
         {
             var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
             var dtAssement = new DataTable();
             dtAssement = objAssessmentDao.GetStudentSingleAcadmicAssessment(AcadmicClassId, StudentId,CourseId ,CreateDate);
-            List<DailyAssessmentSubType> objAssementList = new List<DailyAssessmentSubType>();
+            List<DailyAssessmentType> objAssementList = new List<DailyAssessmentType>();
 
             try
             {
 
                 foreach (DataRow dr in dtAssement.Rows)
                 {
-                    var AssessmentDetails = new DailyAssessmentSubType();
+                    var AssessmentDetails = new DailyAssessmentType();
                     AssessmentDetails.OperationalId = Convert.ToInt32(dr["AcadmicAssessmentOperationId"]);
                     AssessmentDetails.AcadmicClassId = Convert.ToInt32(dr["AcadmicClassId"]);
                     AssessmentDetails.StudentId = Convert.ToInt32(dr["StudentId"]);
                     AssessmentDetails.CourseId = Convert.ToInt32(dr["CourseId"]);
                     AssessmentDetails.AssessmentTypeId = Convert.ToInt32(dr["ParentAssessmentId"]);
-                    AssessmentDetails.AssessmentSubTypeId = Convert.ToInt32(dr["AssessmentSubTypeId"]);
-                    AssessmentDetails.AssessmentSubTypeName = dr["AssessmentSubTypeName"].ToString();
+                    AssessmentDetails.AssessmentName = dr["AssementName"].ToString();
                     AssessmentDetails.AssessmentFormat = Convert.ToBoolean(dr["AssessmentFormat"]);
                     AssessmentDetails.SelectedEvaluation = dr["AssementStatus"].ToString();
-                    AssessmentDetails.Concequence = dr.IsNull("AverageConsequence") ? string.Empty : dr["AverageConsequence"].ToString();
+                    AssessmentDetails.AverageConcequence = dr.IsNull("AverageConsequence") ? string.Empty : dr["AverageConsequence"].ToString();
                     AssessmentDetails.Concequence = dr.IsNull("WorseConsequenec") ? string.Empty : dr["WorseConsequenec"].ToString();
                     AssessmentDetails.CreateDate = Convert.ToDateTime(dr["CreateDate"]);
                     AssessmentDetails.CreatedById = dr["CreatedById"].ToString();
