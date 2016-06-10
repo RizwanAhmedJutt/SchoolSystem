@@ -78,10 +78,13 @@
                                                 <tr>
 
                                                     <td colspan="5">
-                                                        @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentTypeId)
                                                         @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentName)
-                                                        <span>   @Html.DisplayFor(x => x.ParentAssessments[i].AssessmentName) </span>
-
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentTypeId)
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].OperationalId)
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].CreateDate)
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].CreatedById)
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentFormat)
+                                                        <span>@Html.DisplayFor(x => x.ParentAssessments[i].AssessmentName) </span>
                                                     </td>  
                                                     @if (Model.ParentAssessments[i].AssessmentFormat == false)
                                                     {

@@ -72,13 +72,13 @@ namespace SMSDAL.DAL
             }
             return dtAssessmentDetails;
         }
-        public DataTable GetALLAssignedParentTeacherGeneralAssessments()
+        public DataTable GetALLAssignedParentTeacherAcadmicAssessments()
         {
             DataTable dtAssessmentDetails;
             try
             {
 
-                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_report_GetALLAssignedParentAssessmentsGeneralTeacher"))
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_report_GetALLAssignedParentAssessmentsAcadmicTeacher"))
                 {
 
                     dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);

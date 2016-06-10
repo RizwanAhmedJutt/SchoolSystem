@@ -1,6 +1,6 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
-@model IEnumerable<SMSDataContract.Accounts.DailyAssessmentSubType>
+@model IEnumerable<SMSDataContract.Accounts.DailyAssessmentType>
 @{
 
     Layout = "~/Views/Shared/_NewLayout.cshtml";
@@ -11,9 +11,6 @@
         @using (Html.BeginForm("GetALLTeacherGeneralAssessment", "StudentReport", FormMethod.Get))
         {
             <div class="input-group col-md-8">
-
-
-
                 <div class="row">
                     <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
 
@@ -71,7 +68,7 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                        <input id="setDate" type="date" name="CreateDate" class="form-control" />
+                        <input id="setDate"  name="CreateDate" class="form-control" />
 
                     </div>
                 </div>
@@ -79,7 +76,7 @@
                 <br />
                 <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
             </div>
-        }
+                                }
 
         <div style="clear:left"></div>
         <div class="well">
@@ -102,14 +99,12 @@
                             @Html.DisplayNameFor(model => model.First().TeacherName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.First().CourseName);
+                            @Html.DisplayNameFor(model => model.First().CourseName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.First().ParentAssementName)
+                            @Html.DisplayNameFor(model => model.First().AssessmentName)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().AssessmentSubTypeName)
-                        </th>
+
                         <th>
                             @Html.DisplayNameFor(model => model.First().SelectedEvaluation)
                         </th>
@@ -143,10 +138,7 @@
                                 @Html.DisplayFor(modelItem => item.CourseName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ParentAssementName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AssessmentSubTypeName)
+                                @Html.DisplayFor(modelItem => item.AssessmentName)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.SelectedEvaluation)
@@ -161,7 +153,7 @@
                                 else
                                 {
                                     <text>
-                                        Non- Consequence
+                                        Reward
                                     </text>
                                 }
                             </td>
@@ -172,10 +164,10 @@
                                 @Html.DisplayFor(modelItem => item.Concequence)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem =>(item.FormateCreateDate))
+                                @Html.DisplayName(item.CreateDate.ToShortDateString())
                             </td>
                             <td>
-                                <a href="/StudentReport/AddChangeTeacherGeneralAssessmentReport?AcadmicClassId=@item.AcadmicClassId&TeacherId=@item.TeacherId&CourseId=@item.CourseId&CreateDate=@item.FormateCreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a href="/StudentReport/AddChangeTeacherGeneralAssessmentReport?AcadmicClassId=@item.AcadmicClassId&TeacherId=@item.TeacherId&CourseId=@item.CourseId&CreateDate=@item.CreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
 
                             </td>
 
@@ -190,7 +182,8 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -227,6 +220,7 @@
             else {
                 $("#setDate").val() = "";
             }
+            $('#setDate').datepicker();
             //change event for acadmic class
             $("#ddlAcadmicClass").change(function () {
 

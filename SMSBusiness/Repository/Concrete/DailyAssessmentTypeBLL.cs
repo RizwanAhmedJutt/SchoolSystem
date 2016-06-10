@@ -101,11 +101,11 @@ namespace SMSBusiness.Repository.Concrete
                 throw;
             }
         }
-        public List<DailyAssessmentType> GetALLAssignedParentTeacherGeneralAssessments()
+        public List<DailyAssessmentType> GetALLAssignedParentTeacherAcadmicAssessments()
         {
             var objAssessmentDao = new DailyAssessmentTypeDAO(new SqlDatabase());
             var dtAssement = new DataTable();
-            dtAssement = objAssessmentDao.GetALLAssignedParentTeacherGeneralAssessments();
+            dtAssement = objAssessmentDao.GetALLAssignedParentTeacherAcadmicAssessments();
             List<DailyAssessmentType> objAssementList = new List<DailyAssessmentType>();
 
             try

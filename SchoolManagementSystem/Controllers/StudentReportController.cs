@@ -225,7 +225,6 @@ namespace SchoolManagementSystem.Controllers
                 op.StudentId = StudentId;
                 op.CourseId = CourseId;
                 op.ParentAssessmentId = helpers.ParentAssessments[i].AssessmentTypeId;
-             //   op.AssessmentSubTypeId = helpers.ParentAssessments[i].AssessmentSubTypeId;
                 op.AssementStatus = helpers.ParentAssessments[i].SelectedEvaluation;
                 op.AverageConsequence = helpers.ParentAssessments[i].AverageConcequence;
                 op.WorseConsequence = helpers.ParentAssessments[i].Concequence;
@@ -242,7 +241,7 @@ namespace SchoolManagementSystem.Controllers
                     op.ModifiedById = userloggedId;
                     op.ModifiedDate = DateTime.Now;
                 }
-               int getStatus = repAcOperation.AddChangesAcadmicAssessmentOperation(op);
+              int getStatus = repAcOperation.AddChangesAcadmicAssessmentOperation(op);
             }
 
             return RedirectToAction("GetALLStudentAcadmicAssessment");
@@ -251,27 +250,27 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetALLTeacherGeneralAssessment(int? AcadmicClassId, int? TeacherId, int? CourseId, string CreateDate)
         {
-            return View(repoAssessementSubType.GetTeacherGeneralAssessments(AcadmicClassId, TeacherId, CourseId, CreateDate).ToList());
+            return View(repoAssessementSubType.GetTeacherAcadmicAssessments(AcadmicClassId, TeacherId, CourseId, CreateDate).ToList());
         }
         
         [HttpGet]
         public ActionResult AddChangeTeacherGeneralAssessmentReport(int? AcadmicClassId, int? TeacherId, int? CourseId, string CreateDate)
         {
             DailyAssessmentHelper myModel = new DailyAssessmentHelper();
-            myModel.ParentAssessments = repoAssessmentType.GetALLAssignedParentTeacherGeneralAssessments();
+            
             if (AcadmicClassId > 0)
             {
-                List<DailyAssessmentSubType> GetALLSubAssessments = repoAssessementSubType.GetTeacherSingleGeneralAssessment(AcadmicClassId, TeacherId, CourseId, CreateDate);
+                List<DailyAssessmentType> GetALLSubAssessments = repoAssessementSubType.GetTeacherSingleAcadmicAssessment(AcadmicClassId, TeacherId, CourseId, CreateDate);
                 if (GetALLSubAssessments[0].OperationalId > 0)
                 {
-                    myModel.ChildAssessments = GetALLSubAssessments;
+                    myModel.ParentAssessments = GetALLSubAssessments;
 
                 }
                 return View(myModel);
             }
             else
             {
-                myModel.ChildAssessments = repoAssessementSubType.GetALLTeacherGeneralAssessmentSubType();
+                myModel.ParentAssessments = repoAssessmentType.GetALLAssignedParentTeacherAcadmicAssessments();
                 return View(myModel);
             }
         }
@@ -279,27 +278,26 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddChangeTeacherGeneralAssessmentReport(DailyAssessmentHelper helpers,int AcadmicClassId , int TeacherId, int CourseId )
         {
             var userloggedId = User.Identity.GetUserId();
-            for (int i = 0; i < helpers.ChildAssessments.Count; i++)
+            for (int i = 0; i < helpers.ParentAssessments.Count; i++)
             {
                 TeacherAssessmentOperation op = new TeacherAssessmentOperation();
                 op.AcadmicClassId = AcadmicClassId;
                 op.TeacherId = TeacherId;
                 op.CourseId = CourseId;
-                op.ParentAssessmentId = helpers.ChildAssessments[i].AssessmentTypeId;
-                op.AssessmentSubTypeId = helpers.ChildAssessments[i].AssessmentSubTypeId;
-                op.AssementStatus = helpers.ChildAssessments[i].SelectedEvaluation;
-                op.AverageConsequence = helpers.ChildAssessments[i].AverageConcequence;
-                op.WorseConsequence = helpers.ChildAssessments[i].Concequence;
-                op.AssessmentFormat = helpers.ChildAssessments[i].AssessmentFormat; // Assessment format refer to consequence or non-consequence
-                op.CreateDate = helpers.ChildAssessments[i].CreateDate;
-                op.CreatedById = helpers.ChildAssessments[i].CreatedById;
-                if (helpers.ChildAssessments[i].OperationalId == 0)
+                op.ParentAssessmentId = helpers.ParentAssessments[i].AssessmentTypeId;
+                op.AssementStatus = helpers.ParentAssessments[i].SelectedEvaluation;
+                op.AverageConsequence = helpers.ParentAssessments[i].AverageConcequence;
+                op.WorseConsequence = helpers.ParentAssessments[i].Concequence;
+                op.AssessmentFormat = helpers.ParentAssessments[i].AssessmentFormat; // Assessment format refer to consequence or non-consequence
+                op.CreateDate = helpers.ParentAssessments[i].CreateDate;
+                op.CreatedById = helpers.ParentAssessments[i].CreatedById;
+                if (helpers.ParentAssessments[i].OperationalId == 0)
                 {
                     op.CreatedById = userloggedId;
                 }
                 else
                 {
-                    op.TeacherAssessmentOperationId = helpers.ChildAssessments[i].OperationalId;
+                    op.TeacherAssessmentOperationId = helpers.ParentAssessments[i].OperationalId;
                     op.ModifiedById = userloggedId;
                     op.ModifiedDate = DateTime.Now;
                 }

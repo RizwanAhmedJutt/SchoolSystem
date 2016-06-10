@@ -15,7 +15,7 @@ namespace SMSBusiness.Repository.Abstract
       DailyAssessmentType GetDailyAssessmentTypeByName(string AssessmentName, int AssessmentCategoryId);
       List<DailyAssessmentType> GetALLAssignedParentAssessments();
       List<DailyAssessmentType> GetALLAssignedParentAcadmicAssessments();
-      List<DailyAssessmentType> GetALLAssignedParentTeacherGeneralAssessments();
+      List<DailyAssessmentType> GetALLAssignedParentTeacherAcadmicAssessments();
 
     }
 }
