@@ -306,7 +306,13 @@ namespace SchoolManagementSystem.Controllers
 
             return RedirectToAction("GetALLTeacherGeneralAssessment");
         }
-        
+        // Student Monthly Report
+        public ActionResult GetStudentReport()
+        {
+
+            return View();
+        }
+
         public string CheckAssessmentTypeExist(string AssessmentName, int AssessmentCategoryId)
         {
             DailyAssessmentType assessmenttype = repoAssessmentType.GetDailyAssessmentTypeByName(AssessmentName, AssessmentCategoryId);

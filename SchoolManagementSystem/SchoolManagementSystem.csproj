@@ -466,6 +466,7 @@
     <Content Include="Views\Common\AddChangesAcadmicClass.cshtml" />
     <Content Include="Views\Room\GetALLAssignedPeriods.cshtml" />
     <Content Include="Views\Room\AddChangesPeriods.cshtml" />
+    <Content Include="Views\StudentReport\GetStudentReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

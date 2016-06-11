@@ -31,6 +31,8 @@ namespace SMSDataContract.Accounts
         public int AcadmicClassId { get; set; }
         public int CourseId { get; set; }
         public int ParentAssessmentId { get; set; }
+        public string AssessmentName { get; set; }
+        public string CourseName { get; set; }
         public int AssessmentSubTypeId { get; set; }
         public string AssementStatus { get; set; }
         public string AverageConsequence { get; set; }
