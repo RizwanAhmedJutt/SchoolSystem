@@ -32,7 +32,7 @@ namespace SMSBusiness.Repository.Concrete
             return ReturnValue;
         }
 
-        public List<Course> GetStudentAssessmentCourse(int StudentId, int AcadmicClassId, string Month)
+        public List<Course> GetStudentAssessmentCourse(int? StudentId, int? AcadmicClassId, string Month)
         {
             var objAssessmentDao = new AcadmicAssessmentOperationDAO(new SqlDatabase());
             DataTable dt = objAssessmentDao.GetStudentAssessmentCourse(StudentId, AcadmicClassId, Month);
@@ -55,7 +55,29 @@ namespace SMSBusiness.Repository.Concrete
             }
         }
 
-        public List<AcadmicAssessmentOperation> GetStudentAssessmentByCourses(int StudentId, int AcadmicClassId, string Month, StringBuilder CourseIDs)
+        public StringBuilder StudentAssessmentCourseIDs(int? StudentId, int? AcadmicClassId, string Month)
+        {
+            var objAssessmentDao = new AcadmicAssessmentOperationDAO(new SqlDatabase());
+            DataTable dt = objAssessmentDao.GetStudentAssessmentCourse(StudentId, AcadmicClassId, Month);
+            StringBuilder CourseIDs = new StringBuilder();
+            try
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    var c = new Course();
+                    c.CourseId = item.IsNull("CourseId") ? 0 : Convert.ToInt32(item["CourseId"]);
+                    CourseIDs.AppendLine(c.CourseId.ToString() +",");
+                }
+                return CourseIDs;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public List<AcadmicAssessmentOperation> GetStudentAssessmentByCourses(int? StudentId, int? AcadmicClassId, string Month, StringBuilder CourseIDs)
         {
             var objAssessmentDao = new AcadmicAssessmentOperationDAO(new SqlDatabase());
             DataTable dt = objAssessmentDao.GetStudentAssessmentByCourses(StudentId, AcadmicClassId, Month,CourseIDs);
@@ -70,6 +92,7 @@ namespace SMSBusiness.Repository.Concrete
                     op.AverageConsequence= item.IsNull("AverageConsequence") ? string.Empty : item["AverageConsequence"].ToString();
                     op.WorseConsequence = item.IsNull("WorseConsequenec") ? string.Empty : item["WorseConsequenec"].ToString();
                     op.AssementStatus = item.IsNull("AssementStatus") ? string.Empty : item["AssementStatus"].ToString();
+                    
                     AcadmicAssessment.Add(op);
                 }
                 return AcadmicAssessment;

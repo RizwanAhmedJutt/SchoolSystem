@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using System.Web.Script.Serialization;
 using PagedList;
 using PagedList.Mvc;
+using System.Text;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -307,10 +308,20 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("GetALLTeacherGeneralAssessment");
         }
         // Student Monthly Report
-        public ActionResult GetStudentReport()
+        public ActionResult GetStudentReport(int? StudentId, int? AcadmicClassId, string Month)
         {
-
+            StringBuilder courseIDs = new StringBuilder();
+            if (AcadmicClassId > 0)
+            {
+              //  repAcOperation.GetStudentAssessmentCourse(StudentId, AcadmicClassId, Month);
+                courseIDs = repAcOperation.StudentAssessmentCourseIDs(StudentId, AcadmicClassId, Month);
+                List<AcadmicAssessmentOperation> op = repAcOperation.GetStudentAssessmentByCourses(StudentId, AcadmicClassId, Month, courseIDs);
+                return View();
+            }
+            else
+            { 
             return View();
+            }
         }
 
         public string CheckAssessmentTypeExist(string AssessmentName, int AssessmentCategoryId)

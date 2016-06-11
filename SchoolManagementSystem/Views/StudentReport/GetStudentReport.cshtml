@@ -1,1 +1,191 @@
-﻿
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<SMSDataContract.Accounts.AcadmicAssessmentOperation>
+@{
+
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+
+        @using (Html.BeginForm("GetStudentReport", "StudentReport", FormMethod.Get))
+        {
+            <div class="input-group col-md-8">
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
+                    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                    </div>
+                    @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3"> <b>Student </b> </div>
+
+                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLStudent">
+
+                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+
+
+
+                        </div>
+                        @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    
+                        <div class="col-md-3 col-md-offset-3 control-label"><label>Month</label> </div>
+                       
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                <div id="dvDDLWeek">
+                                   @Html.DropDownList("Month", new List<SelectListItem>()
+                                        {
+                                            new SelectListItem(){ Text= "January", Value = "January"},
+                                            new SelectListItem(){ Text= "February", Value = "February"},
+                                            new SelectListItem(){ Text= "March", Value = "March"},
+                                            new SelectListItem(){ Text= "April", Value = "April"},
+                                            new SelectListItem(){ Text= "May", Value = "May"},
+                                            new SelectListItem(){ Text= "June", Value = "June"},
+                                            new SelectListItem(){ Text= "July", Value = "July"},
+                                            new SelectListItem(){ Text= "August", Value = "August"},
+                                            new SelectListItem(){ Text= "September", Value = "September"},
+                                            new SelectListItem(){ Text= "October", Value = "October"},
+                                            new SelectListItem(){ Text= "November", Value = "November"},
+                                            new SelectListItem(){ Text= "December", Value = "December"},
+                                        }, "Select Month", new { id = "ddlMonth", @class = "form-control" })
+                                </div>
+                           
+                            @*@Html.ValidationMessageFor(model => model.WeekDayId, "", new { @class = "text-danger" })*@
+                        </div>
+                    
+                </div>
+
+                <br />
+                <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+            </div>
+                                }
+
+        <div style="clear:left"></div>
+        <div class="well">
+          
+                <span class="HeadingStyle">Student Monthly Assessment Report</span>
+                <table class="table  table-bordered table-striped table-responsive table-hover">
+                   
+                </table>
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Set Query String Parameter
+            if ('@Request.QueryString["AcadmicClassId"]' != null) {
+
+                $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
+
+            }
+            else {
+                $('#ddlAcadmicClass option[value=""]').attr("selected", true);
+            }
+            if ('@Request.QueryString["StudentId"]' != null) {
+
+                $('#ddlStudent option[value="@Request.QueryString["StudentId"]"]').attr("selected", true);
+
+            }
+            else {
+                $('#ddlStudent option[value=""]').attr("selected", true);
+            }
+            if ('@Request.QueryString["CreateDate"]' != null) {
+                debugger;
+                $("#setDate").val('@Request.QueryString["CreateDate"]');
+
+            }
+            else {
+                $("#setDate").val() = "";
+            }
+            //change event for acadmic class
+            $("#ddlAcadmicClass").change(function () {
+
+                var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: getAcadmicClass };
+                if (getAcadmicClass != '') {
+
+                    $(this).removeAttr("style");
+                    Url = "/Course/DDLStudent";
+
+                    // Fill Student Dropdown
+                    $.get(Url, model)
+                    .done(function (stdhtml) {
+
+                        $("#dvDDLStudent").html(stdhtml);
+
+                    })
+                    .fail(function (ex1, ex2) {
+                        alert("Can't get Student DDL");
+                    })
+                }
+
+            });
+
+
+            $('body').on("change", "#ddlStudent", function () {
+
+                if ($("#ddlStudent").val() != "") {
+                    $("#StudentMsg").text("");
+                    $("#StudentMsg").hide();
+                }
+
+            });
+            $('#setDate').datepicker();
+            $("#setDate").change(function () {
+                $(this).removeAttr("style");
+
+
+            });
+            $("#btnSearch").click(function (e) {
+                debugger;
+                e.preventDefault();
+
+                if ($("#ddlAcadmicClass").val() == '') {
+
+
+                    $("#ddlAcadmicClass").css("border", "1px solid red");
+
+                }
+                else if ($("#ddlStudent").val() == '') {
+
+                    $("#ddlStudent").css("border", "1px solid red");
+                }
+                else if ($("#setDate").val() === '') {
+
+                    $("#setDate").css("border", "1px solid red");
+                }
+                else {
+                    $("form").submit();
+                }
+
+
+            });
+        });
+
+    </script>
+}
+
+
+

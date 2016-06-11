@@ -12,8 +12,9 @@ namespace SMSBusiness.Repository.Abstract
     {
 
       int AddChangesAcadmicAssessmentOperation(AcadmicAssessmentOperation dAssessmentOperation);
-      List<Course> GetStudentAssessmentCourse(int StudentId, int AcadmicClassId, string Month);
-      List<AcadmicAssessmentOperation> GetStudentAssessmentByCourses(int StudentId, int AcadmicClassId, string Month, StringBuilder CourseIDs);
+      List<Course> GetStudentAssessmentCourse(int? StudentId, int? AcadmicClassId, string Month);
+      List<AcadmicAssessmentOperation> GetStudentAssessmentByCourses(int? StudentId, int? AcadmicClassId, string Month, StringBuilder CourseIDs);
       List<DailyAssessmentOperation> GetStudentGeneralAssessmentResult(int StudentId, int AcadmicClassId, string Month);
+      StringBuilder StudentAssessmentCourseIDs(int? StudentId, int? AcadmicClassId, string Month);
     }
 }
