@@ -107,7 +107,7 @@ namespace SMSBusiness.Repository.Concrete
         } 
 
 
-        public List<DailyAssessmentOperation> GetStudentGeneralAssessmentResult(int StudentId, int AcadmicClassId, string Month)
+        public List<DailyAssessmentOperation> GetStudentGeneralAssessmentResult(int? StudentId, int? AcadmicClassId, string Month)
         {
             var objAssessmentDao = new AcadmicAssessmentOperationDAO(new SqlDatabase());
             DataTable dt = objAssessmentDao.GetStudentGeneralAssessmentResult(StudentId, AcadmicClassId, Month);

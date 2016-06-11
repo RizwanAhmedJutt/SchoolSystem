@@ -124,7 +124,7 @@ namespace SMSDAL.DAL
             return course;
         } 
 
-        public DataTable GetStudentGeneralAssessmentResult(int StudentId, int AcadmicClassId, string Month)
+        public DataTable GetStudentGeneralAssessmentResult(int? StudentId, int? AcadmicClassId, string Month)
         {
 
             DataTable course;
