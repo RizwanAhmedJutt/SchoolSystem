@@ -71,6 +71,7 @@
     <Compile Include="DAL\TeacherAssessmentOperationDAO.cs" />
     <Compile Include="DAL\TeacherAssignedCouresDAO.cs" />
     <Compile Include="DAL\TeacherDAO.cs" />
+    <Compile Include="DAL\TeacherLessonPlanDAO.cs" />
     <Compile Include="DbReturnValues.cs" />
     <Compile Include="DBUtility.cs" />
     <Compile Include="IDatabase.cs" />

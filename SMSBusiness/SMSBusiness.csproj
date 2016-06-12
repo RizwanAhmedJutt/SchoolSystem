@@ -64,6 +64,7 @@
     <Compile Include="Repository\Abstract\IST_PreviousAcadmicRecord.cs" />
     <Compile Include="Repository\Abstract\ITeacherAssessmentOperation.cs" />
     <Compile Include="Repository\Abstract\ITeacherAssignedCourse.cs" />
+    <Compile Include="Repository\Abstract\ITeacherLesson.cs" />
     <Compile Include="Repository\Abstract\ITeacherRepositry.cs" />
     <Compile Include="Repository\Concrete\AcadmicClassBLL.cs" />
     <Compile Include="Repository\Concrete\AdmissionGrantedBLL.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Repository\Concrete\ST_PreviousAcadmicDetailBLL.cs" />
     <Compile Include="Repository\Concrete\TeacherAssessmentOperationBLL.cs" />
     <Compile Include="Repository\Concrete\TeacherAssignCourseBLL.cs" />
+    <Compile Include="Repository\Concrete\TeacherLessonBLL.cs" />
     <Compile Include="Repository\Concrete\TeacherRepositry.cs" />
   </ItemGroup>
   <ItemGroup>
