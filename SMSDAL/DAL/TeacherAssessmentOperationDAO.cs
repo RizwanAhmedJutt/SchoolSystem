@@ -92,18 +92,19 @@ namespace SMSDAL.DAL
 
             DataTable assessment;
             StringBuilder query = new StringBuilder();
-            query.AppendLine("Select daType.AssessmentTypeId,");
+            query.AppendLine("Select c.CourseName,");
             query.AppendLine("daType.AssementName,");
-            query.AppendLine("Sum(Convert(int,op.AssementStatus)) as AssementStatus,");
-            query.AppendLine("MAX(op.WorseConsequence) as WorseConsequence");
+            query.AppendLine("Max(op.AssementStatus) as AssementStatus,");
+            query.AppendLine("MAX(op.AverageConsequence) as AverageConsequence,");
+            query.AppendLine("MAX(op.WorseConsequenec) as WorseConsequenec");
             query.AppendLine("from TeacherAssessmentOperation op");
             query.AppendLine("Left   Join DailyAssementType daType on op.ParentAssessmentId=daType.AssessmentTypeId");
+            query.AppendLine("Left Join Courses c on c.CourseId=op.CourseId");
             query.AppendLine("AND    op.AcadmicClassId= " + AcadmicClassId);
             query.AppendLine("WHERE    op.TeacherId= " + TeacherId);
             query.AppendLine("AND    op.CourseId in (" + CourseIDs.Replace(",", "", CourseIDs.ToString().LastIndexOf(","), 1) + ")");
             query.AppendLine("AND    DATENAME(MONTH,op.CreatedDate) + ' ' + DateName( Year, op.CreatedDate )='" + Month + "'");
-            query.AppendLine("Group by  daType.AssessmentTypeId,daType.AssementName");
-            query.AppendLine("order by daType.AssessmentTypeId");
+            query.AppendLine("Group by  c.CourseName,daType.AssementName");
             try
             {
                 using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query.ToString()))

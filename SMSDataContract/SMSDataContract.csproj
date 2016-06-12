@@ -67,6 +67,7 @@
     <Compile Include="Common\DailyAssessmentHelper.cs" />
     <Compile Include="Common\Evaluation.cs" />
     <Compile Include="Common\StudentMonthReportHelpers.cs" />
+    <Compile Include="Common\TeacherMonthReportHelpers.cs" />
     <Compile Include="Enums\MonthAssessmentType.cs" />
     <Compile Include="Enums\ReportType.cs" />
     <Compile Include="Accounts\TeacherReport.cs" />

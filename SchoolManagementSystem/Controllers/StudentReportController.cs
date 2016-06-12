@@ -319,7 +319,7 @@ namespace SchoolManagementSystem.Controllers
                 // Get CourseId to fetch only specific courses data.
                 courseIDs = repAcOperation.StudentAssessmentCourseIDs(StudentId, AcadmicClassId, Month);
                 // confirm course must exist against assessment
-                if (!string.IsNullOrWhiteSpace(courseIDs.ToString()))
+                if (!string.IsNullOrEmpty(courseIDs.ToString()))
                 {
                     smrh.AcadmicAssessment = repAcOperation.GetStudentAssessmentByCourses(StudentId, AcadmicClassId, Month, courseIDs);
                     smrh.GeneralAssessment = repAcOperation.GetStudentGeneralAssessmentResult(StudentId, AcadmicClassId, Month);
@@ -332,9 +332,21 @@ namespace SchoolManagementSystem.Controllers
             }
         }
         // Teacher Monthly Report
-        public ActionResult GetTeacherReport(int? AcadmicClassId,int? TeacherId ,int? CourseId,string Month)
+        public ActionResult GetTeacherReport(int? AcadmicClassId,int? TeacherId ,string Month)
         {
-            return View();
+            StringBuilder courseIDs = new StringBuilder();
+            TeacherMonthReportHelpers tmrh = new TeacherMonthReportHelpers();
+            if(AcadmicClassId>0)
+            {
+                tmrh.Courses = repTAOperation.GetTeacherAssessmentCourse(TeacherId, AcadmicClassId, Month);
+                courseIDs = repTAOperation.TeacherAssessmentCourseIDs(TeacherId, AcadmicClassId, Month);
+                if(!string.IsNullOrEmpty(courseIDs.ToString()))
+                {
+                    tmrh.TeacherAssessment = repTAOperation.GetTeacherMonthAssessmentResult(AcadmicClassId, TeacherId, courseIDs, Month);
+                    return View(tmrh);
+                }
+            }
+            return View(tmrh);
         }
         public string CheckAssessmentTypeExist(string AssessmentName, int AssessmentCategoryId)
         {
