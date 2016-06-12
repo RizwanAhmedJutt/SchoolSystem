@@ -24,6 +24,7 @@ namespace SchoolManagementSystem.Controllers
     {
         ITeacherRepositry repoTeacher = new TeacherRepositry();
         IExport exportfiles=new ExportFileBLL();
+        ITeacherLessonPlan repoTeacherLessonPlan = new TeacherLessonBLL();
 
         // GET: Teacher
         public ActionResult TeacherList(string SearchBy, string search, int? page)

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SMSBusiness.Repository.Concrete
 {
-    public class TeacherLessonBLL: ITeacherLesson
+    public class TeacherLessonBLL: ITeacherLessonPlan
     {
 
 

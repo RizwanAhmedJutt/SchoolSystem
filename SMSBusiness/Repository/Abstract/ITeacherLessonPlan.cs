@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SMSBusiness.Repository.Abstract
 {
-   public interface ITeacherLesson
+   public interface ITeacherLessonPlan
     {
 
         int AddChangesLessonPlan(TeacherLessonPlan LessonPlan);

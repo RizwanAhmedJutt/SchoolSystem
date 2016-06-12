@@ -64,7 +64,7 @@
     <Compile Include="Repository\Abstract\IST_PreviousAcadmicRecord.cs" />
     <Compile Include="Repository\Abstract\ITeacherAssessmentOperation.cs" />
     <Compile Include="Repository\Abstract\ITeacherAssignedCourse.cs" />
-    <Compile Include="Repository\Abstract\ITeacherLesson.cs" />
+    <Compile Include="Repository\Abstract\ITeacherLessonPlan.cs" />
     <Compile Include="Repository\Abstract\ITeacherRepositry.cs" />
     <Compile Include="Repository\Concrete\AcadmicClassBLL.cs" />
     <Compile Include="Repository\Concrete\AdmissionGrantedBLL.cs" />
