@@ -9,6 +9,12 @@ namespace SMSDataContract.Common
 {
   public  class StudentMonthReportHelpers
     {
+        public StudentMonthReportHelpers()
+        {
+            this.Courses = new List<Course>();
+            this.AcadmicAssessment = new List<AcadmicAssessmentOperation>();
+            this.GeneralAssessment = new List<DailyAssessmentOperation>();
+        }
         public List<Course> Courses { get; set; }
         public List<AcadmicAssessmentOperation> AcadmicAssessment { get; set; }
         public List<DailyAssessmentOperation> GeneralAssessment { get; set; }

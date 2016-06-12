@@ -76,7 +76,8 @@ namespace SMSDAL.DAL
             query.AppendLine("Left Join Courses c on c.CourseId=op.CourseId");
             query.AppendLine("WHERE  op.StudentId= "+StudentId);
             query.AppendLine("AND    op.AcadmicClassId= " + AcadmicClassId);
-            query.AppendLine("AND    DATENAME(MONTH,op.CreatedDate)='"+Month+"'");
+            query.AppendLine("AND    DATENAME(MONTH,op.CreatedDate) + ' ' + DateName( Year, op.CreatedDate )='"+Month+"'");
+            
             try
             {
                 using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query.ToString()))
@@ -106,7 +107,7 @@ namespace SMSDAL.DAL
             query.AppendLine("Left Join Courses c on c.CourseId=op.CourseId");
             query.AppendLine("WHERE  op.StudentId=" + StudentId);
             query.AppendLine("AND    op.AcadmicClassId=" +AcadmicClassId);
-            query.AppendLine("AND    DATENAME(MONTH,op.CreatedDate)='" + Month +"'");
+            query.AppendLine("AND    DATENAME(MONTH,op.CreatedDate) + ' ' + DateName( Year, op.CreatedDate )='"+Month+"'");
             query.AppendLine("AND    op.CourseId in (" + CourseIDs.Replace(",", "", CourseIDs.ToString().LastIndexOf(","), 1) + ")");
             query.AppendLine("Group  by daType.AssementName,c.CourseName");
             try
@@ -137,7 +138,7 @@ namespace SMSDAL.DAL
             query.AppendLine("Left   Join DailyAssementType daType on op.ParentAssessmentId=daType.AssessmentTypeId");
             query.AppendLine("WHERE  op.StudentId= " + StudentId);
             query.AppendLine("AND    op.AcadmicClassId= " + AcadmicClassId);
-            query.AppendLine("AND    DATENAME(MONTH,op.CreatedDate)= '"+Month+"'");
+            query.AppendLine("AND    DATENAME(MONTH,op.CreatedDate) + ' ' + DateName( Year, op.CreatedDate )='"+Month+"'");
             query.AppendLine("Group by  daType.AssessmentTypeId,daType.AssementName");
             query.AppendLine("order by daType.AssessmentTypeId");
             try

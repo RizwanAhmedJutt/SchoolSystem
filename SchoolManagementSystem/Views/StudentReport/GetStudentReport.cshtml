@@ -37,7 +37,7 @@
 
 
                         </div>
-                        @*@Html.ValidationMessageFor(x => x.First().AcadmicClassId)*@
+                      
                     </div>
                 </div>
                 <br />
@@ -48,28 +48,13 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                         <div id="dvDDLWeek">
-                            @Html.DropDownList("Month", new List<SelectListItem>()
-                                        {
-                                            new SelectListItem(){ Text= "January", Value = "January"},
-                                            new SelectListItem(){ Text= "February", Value = "February"},
-                                            new SelectListItem(){ Text= "March", Value = "March"},
-                                            new SelectListItem(){ Text= "April", Value = "April"},
-                                            new SelectListItem(){ Text= "May", Value = "May"},
-                                            new SelectListItem(){ Text= "June", Value = "June"},
-                                            new SelectListItem(){ Text= "July", Value = "July"},
-                                            new SelectListItem(){ Text= "August", Value = "August"},
-                                            new SelectListItem(){ Text= "September", Value = "September"},
-                                            new SelectListItem(){ Text= "October", Value = "October"},
-                                            new SelectListItem(){ Text= "November", Value = "November"},
-                                            new SelectListItem(){ Text= "December", Value = "December"},
-                                        }, "Select Month", new { id = "ddlMonth", @class = "form-control" })
+                            <input name="Month" id="AssessmentMonth" class="date-picker form-control" />
                         </div>
 
-                        @*@Html.ValidationMessageFor(model => model.WeekDayId, "", new { @class = "text-danger" })*@
+                         
                     </div>
 
                 </div>
-
                 <br />
                 <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
             </div>
@@ -79,103 +64,114 @@
         <div class="well">
 
             <span class="HeadingStyle">Student Monthly Assessment Report</span>
-           @if (Model.Courses.Count > 0)
-           {
-             <span class="subheader" style="margin-top:10px;margin-bottom:10px;">Acadmic Report</span>
-      
-              <table class="table  table-bordered table-striped table-responsive table-hover">
-                 @for (int i = 0; i < Model.Courses.Count; i++)
+            @if (Model.Courses.Count > 0)
+            {
+                <span class="subheader" style="margin-top:10px;margin-bottom:10px;">Acadmic Report</span>
+
+                <table class="table  table-bordered table-striped table-responsive table-hover">
+                    @for (int i = 0; i < Model.Courses.Count; i++)
                  {
-                    <tr>
-                        <td>
-                            <text> @Model.Courses[i].CourseName</text>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Assessment Name</th>
-                        <th>Reward</th>
-                        <th>Avg.Concequence</th>
-                        <th>Worse Concequence</th>
-                    </tr>
+                <tr>
+                    <td>
+                        <text> @Model.Courses[i].CourseName</text>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Assessment Name</th>
+                    <th>Reward</th>
+                    <th>Avg.Concequence</th>
+                    <th>Worse Concequence</th>
+                </tr>
                      for (int j = 0; j < Model.AcadmicAssessment.Count; j++)
                      {
                          if (Model.AcadmicAssessment[j].CourseName == Model.AcadmicAssessment[i].CourseName)
                          {
-                            <tr>
-                                <td>@Model.AcadmicAssessment[j].AssessmentName</td>
-                                <td>@Model.AcadmicAssessment[j].AssessmentTotal</td>
-                                <td>@Model.AcadmicAssessment[j].AverageConsequence</td>
-                                <td>@Model.AcadmicAssessment[j].WorseConsequence</td>
-                            </tr>
+                <tr>
+                    <td>@Model.AcadmicAssessment[j].AssessmentName</td>
+                    <td>@Model.AcadmicAssessment[j].AssessmentTotal</td>
+                    <td>@Model.AcadmicAssessment[j].AverageConsequence</td>
+                    <td>@Model.AcadmicAssessment[j].WorseConsequence</td>
+                </tr>
                          }
 
 
                      }
 
                  }
-                <tr>
-                    <th>Total Reward:</th>
-                    <td>
-                        @if (Model.AcadmicAssessment.Count > 0)
-                        {
-                            <text>
-                                @Model.AcadmicAssessment.ToList().Sum(x => x.AssessmentTotal)
-                            </text>
-                        }
-                    </td>
-                </tr>
-
-
-            </table>
-          }
-           @if (Model.GeneralAssessment.Count > 0)
-           {
-            <span class="subheader" style="margin-top:10px;margin-bottom:10px;">General Report</span>
-            <table class="table  table-bordered table-striped table-responsive table-hover">
-                <tr>
-                    <th>Assessment Name</th>
-                    <th>Reward</th>
-                    <th>Worse Concequence</th>
-                </tr>
-                @for (int i = 0; i < Model.GeneralAssessment.Count; i++)
-                {
                     <tr>
+                        <th>Total Reward:</th>
                         <td>
-                            @Model.GeneralAssessment[i].AssessmentName
-                        </td>
-                        <td>
-                            @Model.GeneralAssessment[i].AssessmentTotal
-                        </td>
-                        <td>
-                            @Model.GeneralAssessment[i].WorseConsequence
+                            @if (Model.AcadmicAssessment.Count > 0)
+                        {
+                        <text>
+                            @Model.AcadmicAssessment.ToList().Sum(x => x.AssessmentTotal)
+                        </text>
+                        }
                         </td>
                     </tr>
-                   
-                    
 
-                }
+
+                </table>
+            }
+            @if (Model.GeneralAssessment.Count > 0)
+            {
+                <span class="subheader" style="margin-top:10px;margin-bottom:10px;">General Report</span>
+                <table class="table  table-bordered table-striped table-responsive table-hover">
+                    <tr>
+                        <th>Assessment Name</th>
+                        <th>Reward</th>
+                        <th>Worse Concequence</th>
+                    </tr>
+                    @for (int i = 0; i < Model.GeneralAssessment.Count; i++)
+                {
                 <tr>
-                    <th>Total Reward:</th>
                     <td>
-                        @if (Model.GeneralAssessment.Count > 0)
-                        {
-                            <text>
-                                @Model.GeneralAssessment.ToList().Sum(x => x.AssessmentTotal)
-                            </text>
-                        }
+                        @Model.GeneralAssessment[i].AssessmentName
+                    </td>
+                    <td>
+                        @Model.GeneralAssessment[i].AssessmentTotal
+                    </td>
+                    <td>
+                        @Model.GeneralAssessment[i].WorseConsequence
                     </td>
                 </tr>
 
 
-            </table>
-}
+
+                }
+                    <tr>
+                        <th>Total Reward:</th>
+                        <td>
+                            @if (Model.GeneralAssessment.Count > 0)
+                        {
+                        <text>
+                            @Model.GeneralAssessment.ToList().Sum(x => x.AssessmentTotal)
+                        </text>
+                        }
+                        </td>
+                    </tr>
+
+
+                </table>
+            }
         </div>
     </div>
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
     <script type="text/javascript">
         $(document).ready(function () {
+            $('.date-picker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                }
+            });
             // Set Query String Parameter
             if ('@Request.QueryString["AcadmicClassId"]' != null) {
                 $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
@@ -193,11 +189,11 @@
             }
             if ('@Request.QueryString["Month"]' != null) {
 
-                $("#ddlMonth").val('@Request.QueryString["Month"]');
+                $("#AssessmentMonth").val('@Request.QueryString["Month"]');
 
             }
             else {
-                $("#ddlMonth").val() = "";
+                $("#AssessmentMonth").val() = "";
             }
             //change event for acadmic class
             $("#ddlAcadmicClass").change(function () {
@@ -232,9 +228,9 @@
                 }
 
             });
-            $("#ddlMonth").change(function () {
+            $("#AssessmentMonth").change(function () {
 
-                if ($("#ddlMonth").val() != "") {
+                if ($("#AssessmentMonth").val() != "") {
                     $(this).removeAttr("style");
                 }
             })
@@ -253,9 +249,9 @@
 
                     $("#ddlStudent").css("border", "1px solid red");
                 }
-                else if ($("#ddlMonth").val() == '') {
+                else if ($("#AssessmentMonth").val() == '') {
 
-                    $("#ddlMonth").css("border", "1px solid red");
+                    $("#AssessmentMonth").css("border", "1px solid red");
                 }
                 else {
                     $("form").submit();

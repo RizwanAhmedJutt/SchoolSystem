@@ -311,19 +311,24 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult GetStudentReport(int? StudentId, int? AcadmicClassId, string Month)
         {
             StringBuilder courseIDs = new StringBuilder();
+            StudentMonthReportHelpers smrh = new StudentMonthReportHelpers();
             if (AcadmicClassId > 0)
             {
-                StudentMonthReportHelpers smrh = new StudentMonthReportHelpers();
+                
                  smrh.Courses = repAcOperation.GetStudentAssessmentCourse(StudentId, AcadmicClassId, Month);
                 // Get CourseId to fetch only specific courses data.
                 courseIDs = repAcOperation.StudentAssessmentCourseIDs(StudentId, AcadmicClassId, Month);
-                smrh.AcadmicAssessment = repAcOperation.GetStudentAssessmentByCourses(StudentId, AcadmicClassId, Month, courseIDs);
-                smrh.GeneralAssessment = repAcOperation.GetStudentGeneralAssessmentResult(StudentId, AcadmicClassId, Month);
+                // confirm course must exist against assessment
+                if (!string.IsNullOrWhiteSpace(courseIDs.ToString()))
+                {
+                    smrh.AcadmicAssessment = repAcOperation.GetStudentAssessmentByCourses(StudentId, AcadmicClassId, Month, courseIDs);
+                    smrh.GeneralAssessment = repAcOperation.GetStudentGeneralAssessmentResult(StudentId, AcadmicClassId, Month);
+                }
                 return View(smrh);
             }
             else
             {
-                return View();
+                return View(smrh);
             }
         }
 
