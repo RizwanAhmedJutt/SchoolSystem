@@ -331,7 +331,11 @@ namespace SchoolManagementSystem.Controllers
                 return View(smrh);
             }
         }
-
+        // Teacher Monthly Report
+        public ActionResult GetTeacherReport(int? AcadmicClassId,int? TeacherId ,int? CourseId,string Month)
+        {
+            return View();
+        }
         public string CheckAssessmentTypeExist(string AssessmentName, int AssessmentCategoryId)
         {
             DailyAssessmentType assessmenttype = repoAssessmentType.GetDailyAssessmentTypeByName(AssessmentName, AssessmentCategoryId);
