@@ -468,6 +468,8 @@
     <Content Include="Views\Room\AddChangesPeriods.cshtml" />
     <Content Include="Views\StudentReport\GetStudentReport.cshtml" />
     <Content Include="Views\StudentReport\GetTeacherReport.cshtml" />
+    <Content Include="Views\Teacher\GetTeacherLessonPlans.cshtml" />
+    <Content Include="Views\Teacher\AddChangesTeacherLessonPlans.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

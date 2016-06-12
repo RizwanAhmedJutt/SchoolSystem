@@ -213,6 +213,22 @@ namespace SchoolManagementSystem.Controllers
         {
             int getStatus = repoTeacher.InsertUpdateTeacherAssignClass(tassignClass);
             return RedirectToAction("GetALLAssignClass");
+        } 
+        // Teacher Lesson Plan
+        [HttpGet]
+        public ActionResult GetTeacherLessonPlans(int? AcadmicClassId, int? TeacherId, int? CourseId)
+        {
+            return View(repoTeacherLessonPlan.GetTeacherLessons(AcadmicClassId,TeacherId,CourseId));
+        }
+        [HttpGet]
+        public ActionResult AddChangesTeacherLessonPlans(int Id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddChangesTeacherLessonPlans(TeacherLessonPlan lessonPlan)
+        {
+            return RedirectToAction("GetTeacherLessonPlans");
         }
         public ActionResult DeleteTeacher(int Id)
         {
