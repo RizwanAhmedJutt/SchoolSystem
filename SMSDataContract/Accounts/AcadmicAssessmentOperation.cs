@@ -38,6 +38,7 @@ namespace SMSDataContract.Accounts
         public string AverageConsequence { get; set; }
         public string WorseConsequence { get; set; }
         public bool AssessmentFormat { get; set; }
+        public int AssessmentTotal { get; set; }
         public string CreatedById { get; set; }
         public DateTime CreateDate { get; set; }
         public string ModifiedById { get; set; }

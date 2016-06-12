@@ -127,15 +127,15 @@ namespace SchoolManagementSystem.Controllers
                 dailyAssementSubType.ModifiedById = userloggedId;
                 dailyAssementSubType.ModifiedDate = DateTime.Now;
             }
-           int getStatus = repoAssessementSubType.AddChangesAssessmentSubType(dailyAssementSubType);
+            int getStatus = repoAssessementSubType.AddChangesAssessmentSubType(dailyAssementSubType);
             return RedirectToAction("GetALLSubAssessment");
         }
         // Student General Assessment
         [HttpGet]
         public ActionResult GetALLStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
         {
-            
-           return View(repoAssessementSubType.GetStudentGeneralAssessment(AcadmicClassId, StudentId, CreateDate).ToList()); 
+
+            return View(repoAssessementSubType.GetStudentGeneralAssessment(AcadmicClassId, StudentId, CreateDate).ToList());
         }
         [HttpGet]
         public ActionResult AddChangesAssessmentReport(int? AcadmicClassId, int? StudentId, string CreateDate)
@@ -148,7 +148,7 @@ namespace SchoolManagementSystem.Controllers
                 if (GetALLSubAssessments[0].OperationalId > 0)
                 {
                     myModel.ChildAssessments = GetALLSubAssessments;
-                   
+
                 }
                 return View(myModel);
             }
@@ -184,7 +184,7 @@ namespace SchoolManagementSystem.Controllers
                     op.ModifiedById = userloggedId;
                     op.ModifiedDate = DateTime.Now;
                 }
-                 int getStatus = repoOperation.AddChangesAssessmentOperation(op);
+                int getStatus = repoOperation.AddChangesAssessmentOperation(op);
             }
 
             return RedirectToAction("GetALLStudentGeneralAssessment");
@@ -192,7 +192,7 @@ namespace SchoolManagementSystem.Controllers
         // Student Acadmic Assessment
         public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
         {
-            return View(repoAssessementSubType.GetStudentAcadmicAssessment(AcadmicClassId, StudentId,CourseId ,CreateDate).ToList());
+            return View(repoAssessementSubType.GetStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate).ToList());
         }
 
         [HttpGet]
@@ -242,7 +242,7 @@ namespace SchoolManagementSystem.Controllers
                     op.ModifiedById = userloggedId;
                     op.ModifiedDate = DateTime.Now;
                 }
-              int getStatus = repAcOperation.AddChangesAcadmicAssessmentOperation(op);
+                int getStatus = repAcOperation.AddChangesAcadmicAssessmentOperation(op);
             }
 
             return RedirectToAction("GetALLStudentAcadmicAssessment");
@@ -253,12 +253,12 @@ namespace SchoolManagementSystem.Controllers
         {
             return View(repoAssessementSubType.GetTeacherAcadmicAssessments(AcadmicClassId, TeacherId, CourseId, CreateDate).ToList());
         }
-        
+
         [HttpGet]
         public ActionResult AddChangeTeacherGeneralAssessmentReport(int? AcadmicClassId, int? TeacherId, int? CourseId, string CreateDate)
         {
             DailyAssessmentHelper myModel = new DailyAssessmentHelper();
-            
+
             if (AcadmicClassId > 0)
             {
                 List<DailyAssessmentType> GetALLSubAssessments = repoAssessementSubType.GetTeacherSingleAcadmicAssessment(AcadmicClassId, TeacherId, CourseId, CreateDate);
@@ -276,7 +276,7 @@ namespace SchoolManagementSystem.Controllers
             }
         }
         [HttpPost]
-        public ActionResult AddChangeTeacherGeneralAssessmentReport(DailyAssessmentHelper helpers,int AcadmicClassId , int TeacherId, int CourseId )
+        public ActionResult AddChangeTeacherGeneralAssessmentReport(DailyAssessmentHelper helpers, int AcadmicClassId, int TeacherId, int CourseId)
         {
             var userloggedId = User.Identity.GetUserId();
             for (int i = 0; i < helpers.ParentAssessments.Count; i++)
@@ -313,14 +313,17 @@ namespace SchoolManagementSystem.Controllers
             StringBuilder courseIDs = new StringBuilder();
             if (AcadmicClassId > 0)
             {
-              //  repAcOperation.GetStudentAssessmentCourse(StudentId, AcadmicClassId, Month);
+                StudentMonthReportHelpers smrh = new StudentMonthReportHelpers();
+                 smrh.Courses = repAcOperation.GetStudentAssessmentCourse(StudentId, AcadmicClassId, Month);
+                // Get CourseId to fetch only specific courses data.
                 courseIDs = repAcOperation.StudentAssessmentCourseIDs(StudentId, AcadmicClassId, Month);
-                List<AcadmicAssessmentOperation> op = repAcOperation.GetStudentAssessmentByCourses(StudentId, AcadmicClassId, Month, courseIDs);
-                return View();
+                smrh.AcadmicAssessment = repAcOperation.GetStudentAssessmentByCourses(StudentId, AcadmicClassId, Month, courseIDs);
+                smrh.GeneralAssessment = repAcOperation.GetStudentGeneralAssessmentResult(StudentId, AcadmicClassId, Month);
+                return View(smrh);
             }
             else
-            { 
-            return View();
+            {
+                return View();
             }
         }
 

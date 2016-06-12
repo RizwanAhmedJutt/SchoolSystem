@@ -1,4 +1,4 @@
-﻿using SMSBusiness.Repository.Abstract;
+﻿         using SMSBusiness.Repository.Abstract;
 using SMSDAL;
 using SMSDAL.DAL;
 using SMSDataContract.Accounts;
@@ -91,8 +91,8 @@ namespace SMSBusiness.Repository.Concrete
                     op.AssessmentName = item.IsNull("AssementName") ? string.Empty : item["AssementName"].ToString();
                     op.AverageConsequence= item.IsNull("AverageConsequence") ? string.Empty : item["AverageConsequence"].ToString();
                     op.WorseConsequence = item.IsNull("WorseConsequenec") ? string.Empty : item["WorseConsequenec"].ToString();
-                    op.AssementStatus = item.IsNull("AssementStatus") ? string.Empty : item["AssementStatus"].ToString();
-                    
+                    //  op.AssementStatus = item.IsNull("AssementStatus") ? string.Empty : item["AssementStatus"].ToString();
+                    op.AssessmentTotal = item.IsNull("AssementStatus") ? 0 : Convert.ToInt32(item["AssementStatus"]);
                     AcadmicAssessment.Add(op);
                 }
                 return AcadmicAssessment;
@@ -119,7 +119,8 @@ namespace SMSBusiness.Repository.Concrete
                     var op = new DailyAssessmentOperation();
                     op.ParentAssessmentId = item.IsNull("AssessmentTypeId") ? 0 : Convert.ToInt32(item["AssessmentTypeId"]);
                     op.AssessmentName = item.IsNull("AssementName") ? string.Empty : item["AssementName"].ToString();
-                    op.AssementStatus = item.IsNull("AssementStatus") ? string.Empty : item["AssementStatus"].ToString();
+                    // op.AssementStatus = item.IsNull("AssementStatus") ? string.Empty : item["AssementStatus"].ToString();
+                    op.AssessmentTotal = item.IsNull("AssementStatus") ? 0 : Convert.ToInt32(item["AssementStatus"]);
                     op.WorseConsequence = item.IsNull("WorseConsequence") ? string.Empty : item["WorseConsequence"].ToString();
                     GeneralAssessment.Add(op);
                 }
