@@ -1,1 +1,192 @@
-﻿
+﻿@model IEnumerable<SMSDataContract.Accounts.TeacherLessonPlan>
+@{
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+<div id="Loading" class="modal-sm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Loading.....</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress progress-bar-striped action">
+                    <div class="progress-bar" style="width:100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("GetTeacherLessonPlans", "Teacher", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Teacher</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+
+                            <div id="dvDDLTeacher">
+                                @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 1 });}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Course</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            <div id="dvDDLCourse">
+                                @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 1 });}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-offset-6">
+                                <input type="submit" value="Search" id="btnSearch" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+                                    }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        {
+            $(document).ready(function () {
+                $("#Loading").hide();
+                    $('#ddlCourse option[value=""]').attr("selected", true);
+                    $('#ddlTeacher option[value=""]').attr("selected", true);
+
+
+                // change event of ddlAcadmicClass
+                $("#ddlAcadmicClass").change(function () {
+
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    if (getClass != '') {
+                        $(this).removeAttr("style");
+                        $("#Loading").show();
+                        LoadDDLCourseANDStudent();
+                        $("#Loading").hide();
+
+                    }
+                    else {
+                        $("#ddlAcadmicClass").css("border", "1px solid red");
+                    }
+
+
+                });
+                //change event of ddlCourse
+                $('body').on("change", "#ddlCourse", function () {
+                    var getCourse = $("#ddlCourse :selected").val();
+                    if (getCourse != '') {
+                        $(this).removeAttr("style");
+                    }
+                    else {
+                        $("#ddlCourse").css("border", "1px solid red");
+                    }
+
+                });
+                //change event of ddlTeacher
+                $('body').on("change", "#ddlTeacher", function () {
+                    var getTeacher = $("#ddlTeacher :selected").val();
+                    if (getTeacher != '') {
+                        $(this).removeAttr("style");
+                    }
+                    else {
+                        $("#ddlTeacher").css("border", "1px solid red");
+                    }
+                });
+                // Add btn Click Event
+                $("#btnSearch").click(function (e) {
+                    e.preventDefault();
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    var getCourse = $("#ddlCourse :selected").val();
+                    var getTeacher = $("#ddlTeacher :selected").val();
+                    if (getClass == '') {
+                        $("#ddlAcadmicClass").css("border", "1px solid red");
+                        return false;
+                    }
+                    else if (getTeacher == '') {
+                        $("#ddlTeacher").css("border", "1px solid red");
+                        return false;
+                    }
+                    else if (getCourse == '') {
+                        $("#ddlCourse").css("border", "1px solid red");
+                        return false;
+                    }
+                    else
+                    {
+                        $("form").submit();
+                    }
+                });
+
+            });
+
+
+            function LoadDDLCourseANDStudent() {
+
+                var ClassId = $("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: ClassId };
+                var Url = null;
+                var Url = "/Course/DDLCourse";
+                $.get(Url, model)
+                        .done(function (siteHtml) {
+                            $("#dvDDLCourse").html(siteHtml);
+                            Url = "/Teacher/DDLTeacher";
+                            // Fill Teacher Dropdown
+                            $.get(Url, model)
+                            .done(function (stdhtml) {
+                                $("#dvDDLTeacher").html(stdhtml);
+                            })
+                            .fail(function (ex1, ex2) {
+                                alert("Can't get Teacher DDL");
+                            })
+                        })
+                    .fail(function (ex1, ex2, ex3) {
+                        alert("Can't get Course DDL");
+                        $("#loader").hide();
+                    });
+            }
+
+
+        }
+
+
+    </script>
+}
+
+
+
+
