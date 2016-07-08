@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SMSDataContract.Accounts.TeacherLessonPlan>
+﻿@model SMSDataContract.Accounts.TeacherLessonPlan
 @{
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
@@ -58,6 +58,18 @@
                             <div id="dvDDLCourse">
                                 @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 1 });}
                             </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Lesson</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                             @Html.EditorFor(model => model.Lesson, new { htmlAttributes = new { @class = "form-control" } })
 
                         </div>
                     </div>
