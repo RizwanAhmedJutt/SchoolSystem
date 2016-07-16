@@ -17,7 +17,7 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm("GetTeacherLessonPlans", "Teacher",FormMethod.Get))
+@using (Html.BeginForm("GetTeacherLessonPlans", "Teacher", FormMethod.Get))
 {
     <div class="row">
         <div class="col-md-12 col-sm-12">
@@ -42,7 +42,7 @@
 
                             <div id="dvDDLTeacher">
                                 @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 1 });}
-                            </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-offset-6">
-                                    <input type="submit" value="Search" id="btnSearch" class="btn btn-primary" />                          
+                                <input type="submit" value="Search" id="btnSearch" class="btn btn-primary" />
                             </div>
                         </div>
                     </div>
@@ -76,36 +76,32 @@
 }
 <table class="table table-bordered table-hover table-striped">
     <tr class="action info">
-        @*<th>@Html.DisplayNameFor(model => model.AcadmicClassName)</th>
-        <th>@Html.DisplayNameFor(model => model.TeacherName)</th>
-        <th>@Html.DisplayNameFor(model => model.CourseName)</th>*@
+
         <th>@Html.DisplayNameFor(model => model.Lesson)</th>
         <th>@Html.DisplayNameFor(model => model.Topic)</th>
-        <th>@Html.DisplayNameFor(model => model.SubTopic)</th>
+
         <th>@Html.DisplayNameFor(model => model.Objective)</th>
-        <th>@Html.DisplayNameFor(model => model.OutComes)</th>
-        <th>@Html.DisplayNameFor(model => model.TeachingMethodology)</th>
-        <th>@Html.DisplayNameFor(model => model.ResourceRequired)</th>
-        <th>@Html.DisplayNameFor(model => model.CreateDate)</th>
+
+        <th> @Html.DisplayNameFor(model => model.TeachingMethodology)</th>
+        <th> @Html.DisplayNameFor(model => model.ResourceRequired)</th>
+        <th style="width:90px;"><h5>ACTION</h5></th>
     </tr>
-    <tr>
-        @foreach (var item in Model)
-        {
-            @*<td>@Html.DisplayFor(modelItem => item.AcadmicClassName)</td>
-            <td>@Html.DisplayFor(modelItem => item.TeacherName)</td>
-            <td>@Html.DisplayFor(modelItem => item.CourseName)</td>*@
+
+    @foreach (var item in Model)
+    {
+        <tr>
             <td>@Html.DisplayFor(modelItem => item.Lesson)</td>
             <td>@Html.DisplayFor(modelItem => item.Topic)</td>
-            <td>@Html.DisplayFor(modelItem => item.SubTopic)</td>
             <td>@Html.DisplayFor(modelItem => item.Objective)</td>
-            <td>@Html.DisplayFor(modelItem => item.OutComes)</td>
             <td>@Html.DisplayFor(modelItem => item.TeachingMethodology)</td>
             <td>@Html.DisplayFor(modelItem => item.ResourceRequired)</td>
-            <td>@Html.DisplayFor(modelItem => item.CreateDate)</td>
+            <td>
+                <a href="/Teacher/AddChangesTeacherLessonPlans?Id=@item.TeacherLessonPlanId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+            </td>
+        </tr>
 
+    }
 
-        }
-    </tr>
 </table>
 
 @section Scripts {
@@ -115,10 +111,10 @@
         {
             $(document).ready(function () {
                 $("#Loading").hide();
-                    $('#ddlCourse option[value=""]').attr("selected", true);
-                    $('#ddlTeacher option[value=""]').attr("selected", true);
+                $('#ddlCourse option[value=""]').attr("selected", true);
+                $('#ddlTeacher option[value=""]').attr("selected", true);
 
-               
+
                 // change event of ddlAcadmicClass
                 $("#ddlAcadmicClass").change(function () {
 
@@ -128,7 +124,7 @@
                         $("#Loading").show();
                         LoadDDLCourseANDStudent();
                         $("#Loading").hide();
-                       
+
                     }
                     else {
                         $("#ddlAcadmicClass").css("border", "1px solid red");
@@ -175,12 +171,11 @@
                         $("#ddlCourse").css("border", "1px solid red");
                         return false;
                     }
-                    else
-                    {
+                    else {
                         $("form").submit();
                     }
                 });
-               
+
             });
 
 

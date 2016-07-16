@@ -23,7 +23,7 @@ namespace SchoolManagementSystem.Controllers
     public class TeacherController : Controller
     {
         ITeacherRepositry repoTeacher = new TeacherRepositry();
-        IExport exportfiles=new ExportFileBLL();
+        IExport exportfiles = new ExportFileBLL();
         ITeacherLessonPlan repoTeacherLessonPlan = new TeacherLessonBLL();
 
         // GET: Teacher
@@ -35,8 +35,8 @@ namespace SchoolManagementSystem.Controllers
                 return View(objTeacher.ToList().ToPagedList(page ?? 1, 10));
             }
             else
-            
-            return View( repoTeacher.GetAllTeachers().ToList().ToPagedList(page??1,10));
+
+                return View(repoTeacher.GetAllTeachers().ToList().ToPagedList(page ?? 1, 10));
         }
         [HttpPost]
         public ActionResult ExportReport()
@@ -105,7 +105,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddChangesAddress(TeacherAddress teachAdd)
         {
             int teachId;
-         
+
             teachId = repoTeacher.InsertUpdateTAddress(teachAdd);
             return RedirectToAction("AddChangesTeacherContacts", "Teacher", new { Id = teachId });
         }
@@ -131,7 +131,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddChangesTeacherContacts(TeacherContact TContact)
         {
             int teachId;
-            
+
             teachId = repoTeacher.InsertUpdateTContact(TContact);
 
             return RedirectToAction("AddChangesTeacherProfile", "Teacher", new { Id = teachId });
@@ -142,12 +142,12 @@ namespace SchoolManagementSystem.Controllers
         {
             TeacherProfile teacherProfile;
             teacherProfile = repoTeacher.GetTProfileById(Id);
-            if(teacherProfile.TProfileId==0)
-            { 
-            TeacherProfile tProfile = new TeacherProfile();
-            tProfile.TeacherId = Id;
-               
-            return View(tProfile);
+            if (teacherProfile.TProfileId == 0)
+            {
+                TeacherProfile tProfile = new TeacherProfile();
+                tProfile.TeacherId = Id;
+
+                return View(tProfile);
             }
             else
             {
@@ -156,11 +156,11 @@ namespace SchoolManagementSystem.Controllers
                 foreach (string filePath in filePaths)
                 {
                     string fileName = Path.GetFileName(filePath);
-                    if(fileName==teacherProfile.ImagePath)
+                    if (fileName == teacherProfile.ImagePath)
                     {
                         files.Add(new ListItem(filePath));
                     }
-                    
+
                 }
 
                 return View(teacherProfile);
@@ -189,18 +189,18 @@ namespace SchoolManagementSystem.Controllers
             {
                 List<TeacherAssignClass> objTeacher = repoTeacher.GetAllTeacherAssignClassByTeacherName(search);
                 return View(objTeacher.ToList().ToPagedList(page ?? 1, 10));
-            
-            
+
+
             }
             else
-            return View(repoTeacher.GetAllTeacherAssignClass().ToList().ToPagedList(page ?? 1, 10));
+                return View(repoTeacher.GetAllTeacherAssignClass().ToList().ToPagedList(page ?? 1, 10));
         }
 
         [HttpGet]
         public ActionResult AddChangesTeacherAssignedClass(int id)
         {
-            TeacherAssignClass teacherAssignClass=repoTeacher.GetTeacherAssignClassById(id);
-            if (teacherAssignClass.TeacherAssignId== 0)
+            TeacherAssignClass teacherAssignClass = repoTeacher.GetTeacherAssignClassById(id);
+            if (teacherAssignClass.TeacherAssignId == 0)
             {
                 TeacherAssignClass tassignClass = new TeacherAssignClass();
                 return View(tassignClass);
@@ -213,21 +213,44 @@ namespace SchoolManagementSystem.Controllers
         {
             int getStatus = repoTeacher.InsertUpdateTeacherAssignClass(tassignClass);
             return RedirectToAction("GetALLAssignClass");
-        } 
+        }
         // Teacher Lesson Plan
         [HttpGet]
         public ActionResult GetTeacherLessonPlans(int? AcadmicClassId, int? TeacherId, int? CourseId)
         {
-            return View(repoTeacherLessonPlan.GetTeacherLessons(AcadmicClassId,TeacherId,CourseId));
+            return View(repoTeacherLessonPlan.GetTeacherLessons(AcadmicClassId, TeacherId, CourseId));
         }
         [HttpGet]
         public ActionResult AddChangesTeacherLessonPlans(int Id)
         {
-            return View();
+            TeacherLessonPlan tlp = new TeacherLessonPlan();
+            if (Id == 0)
+            {
+                
+                return View(tlp);
+            }
+            else
+            {
+                tlp = repoTeacherLessonPlan.GetTeacherLessonPlan(Id);
+                return View(tlp);
+            }
         }
         [HttpPost]
         public ActionResult AddChangesTeacherLessonPlans(TeacherLessonPlan lessonPlan)
         {
+            var userIdentityId = User.Identity.GetUserId();
+            if (lessonPlan.TeacherLessonPlanId > 0)
+            {
+                lessonPlan.ModifiedById = userIdentityId;
+                lessonPlan.ModifiedDate = DateTime.Now;
+
+            }
+            else
+            {
+                lessonPlan.CreatedById = userIdentityId;
+                lessonPlan.CreateDate = DateTime.Now;
+            }
+            int getStatus = repoTeacherLessonPlan.AddChangesLessonPlan(lessonPlan);
             return RedirectToAction("GetTeacherLessonPlans");
         }
         public ActionResult DeleteTeacher(int Id)
@@ -239,7 +262,7 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("TeacherList", "Teacher");
         }
 
-       
+
         public ActionResult DDLTeacher(int AcadmicClassId)
         {
             try
@@ -262,7 +285,7 @@ namespace SchoolManagementSystem.Controllers
             }
 
         }
-        
+
         public void GetTeacherReport()
         {
             int rowNo = 6;
@@ -279,7 +302,7 @@ namespace SchoolManagementSystem.Controllers
                     ws.Cells[rowNo, 11].Value = "JoinDate";
                     ws.Cells[rowNo, 12].Value = "Refrence Name";
                     ws.Cells[rowNo, 13].Value = "Refrence Contact";
-                   
+
                     rng.Style.Font.Size = 12;
 
                     rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -347,7 +370,7 @@ namespace SchoolManagementSystem.Controllers
                     ws.Cells[rowNo, 8].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     ws.Cells[rowNo, 9].Value = item.ClassName;
                     ws.Cells[rowNo, 9].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                   
+
                 }
                 //Write it back to the client
                 Response.Clear();
@@ -361,23 +384,23 @@ namespace SchoolManagementSystem.Controllers
         }
         public string IsTeacherExist(string cnic)
         {
-            var query = repoTeacher.GetAllTeachers().Where(t => t.CNIC == cnic).Select(x => new Teacher { TeacherId=x.TeacherId,FirstName=x.FirstName });
-            
+            var query = repoTeacher.GetAllTeachers().Where(t => t.CNIC == cnic).Select(x => new Teacher { TeacherId = x.TeacherId, FirstName = x.FirstName });
+
             if (query.Any())
                 return new JavaScriptSerializer().Serialize(true);// Teacher   already Exist
             else
                 return new JavaScriptSerializer().Serialize(false);   // Teacher  not already Exist
 
-        } 
+        }
 
-        public string IsClassAssigned(int AcadmicClassId,int TeacherId)
+        public string IsClassAssigned(int AcadmicClassId, int TeacherId)
         {
             List<TeacherAssignClass> lst = repoTeacher.GetAllTeacherAssignClass();
             var query = (from t in lst
                          where t.AcadmicClassId == AcadmicClassId && t.TeacherId == TeacherId
-                                       select t);  
-                
-            if(query.Any())
+                         select t);
+
+            if (query.Any())
                 return new JavaScriptSerializer().Serialize(true);// Teacher   already Assign That Class
             else
                 return new JavaScriptSerializer().Serialize(false);   // Teacher  not already Assign That Class

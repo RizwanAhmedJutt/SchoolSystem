@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SMSDAL.DAL
 {
-  public  class TeacherLessonPlanDAO
+    public class TeacherLessonPlanDAO
     {
 
         private readonly IDatabase gObjDatabase;
@@ -26,7 +26,7 @@ namespace SMSDAL.DAL
             {
                 using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("sp_TeacherLesson_InsertUpdate"))
                 {
-                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherLessonPlanId", DbType.Int32,LessonPlan.TeacherLessonPlanId );
+                    gObjDatabase.AddInParameter(objDbCommand, "@TeacherLessonPlanId", DbType.Int32, LessonPlan.TeacherLessonPlanId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AcadmicClassId", DbType.Int32, LessonPlan.AcadmicClassId);
                     gObjDatabase.AddInParameter(objDbCommand, "@TeacherId", DbType.Int32, LessonPlan.TeacherId);
                     gObjDatabase.AddInParameter(objDbCommand, "@CourseId", DbType.Int32, LessonPlan.CourseId);
@@ -34,7 +34,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@Topic", DbType.String, LessonPlan.Topic);
                     gObjDatabase.AddInParameter(objDbCommand, "@SubTopic", DbType.String, LessonPlan.SubTopic);
                     gObjDatabase.AddInParameter(objDbCommand, "@Objective", DbType.String, LessonPlan.Objective);
-                    gObjDatabase.AddInParameter(objDbCommand, "@OutComes", DbType.String,LessonPlan.OutComes);
+                    gObjDatabase.AddInParameter(objDbCommand, "@OutComes", DbType.String, LessonPlan.OutComes);
                     gObjDatabase.AddInParameter(objDbCommand, "@TeachingMethodology", DbType.String, LessonPlan.TeachingMethodology);
                     gObjDatabase.AddInParameter(objDbCommand, "@ResourceRequired", DbType.String, LessonPlan.ResourceRequired);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, LessonPlan.CreatedById);
@@ -48,7 +48,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.ExecuteNonQuery(objDbCommand);
                     if (LessonPlan.TeacherLessonPlanId == 0)
                     {
-                        int identity = Convert.ToInt32(objDbCommand.Parameters["@AcadmicAssessmentOperationnewId"].Value);
+                        int identity = Convert.ToInt32(objDbCommand.Parameters["@TeacherLessonPlannewId"].Value);
                         return identity;
                     }
                     else if (LessonPlan.TeacherLessonPlanId > 0)
@@ -59,9 +59,9 @@ namespace SMSDAL.DAL
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
             return 0;  // show Error in inserting or Updating Record
@@ -71,7 +71,7 @@ namespace SMSDAL.DAL
         public DataTable GetTeacherLessons(int? AcadmicClassId, int? TeacherId, int? CourseId)
         {
             DataTable LessonPlan;
-           
+
 
             try
             {
@@ -81,6 +81,23 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objCommand, "@TeacherId", DbType.Int32, TeacherId);
                     gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.Int32, CourseId);
 
+                    LessonPlan = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return LessonPlan;
+        }
+        public DataTable GetTeacherLessonPlan(int LessonPlanId)
+        {
+            DataTable LessonPlan;
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_TeacherLesson_GetTeacherLessonById"))
+                {
+                    gObjDatabase.AddInParameter(objCommand, "@LessonPlanId", DbType.Int32, LessonPlanId);
                     LessonPlan = gObjDatabase.GetDataTable(objCommand);
                 }
             }

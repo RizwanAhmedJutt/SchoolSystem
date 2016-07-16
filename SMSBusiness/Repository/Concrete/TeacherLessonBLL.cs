@@ -34,8 +34,8 @@ namespace SMSBusiness.Repository.Concrete
 
         public List<TeacherLessonPlan> GetTeacherLessons(int? AcadmicClassId, int? TeacherId, int? CourseId)
         {
-            var objAssessmentDao = new TeacherLessonPlanDAO(new SqlDatabase());
-            DataTable dt = objAssessmentDao.GetTeacherLessons(AcadmicClassId, TeacherId, CourseId);
+            var objLessonPlanDao = new TeacherLessonPlanDAO(new SqlDatabase());
+            DataTable dt = objLessonPlanDao.GetTeacherLessons(AcadmicClassId, TeacherId, CourseId);
             List<TeacherLessonPlan> lessons = new List<TeacherLessonPlan>();
             try
             {
@@ -67,6 +67,29 @@ namespace SMSBusiness.Repository.Concrete
 
 
         }
+        public TeacherLessonPlan GetTeacherLessonPlan(int LessonPlanId)
+        {
+            var objLessonPlanDao = new TeacherLessonPlanDAO(new SqlDatabase());
+            DataTable dt = objLessonPlanDao.GetTeacherLessonPlan(LessonPlanId);
+            TeacherLessonPlan tlp = new TeacherLessonPlan();
+            foreach (DataRow item in dt.Rows)
+            {
+                tlp.TeacherLessonPlanId = Convert.ToInt32(item["TeacherLessonPlanId"].ToString());
+                tlp.AcadmicClassId = Convert.ToInt32(item["AcadmicClassId"].ToString());
+                tlp.TeacherId = Convert.ToInt32(item["TeacherId"].ToString());
+                tlp.CourseId = Convert.ToInt32(item["CourseId"].ToString());
+                tlp.Lesson = item["Lesson"].ToString();
+                tlp.Topic = item["Topic"].ToString();
+                tlp.SubTopic = item["SubTopic"].ToString();
+                tlp.Objective = item["Objective"].ToString();
+                tlp.OutComes = item["OutComes"].ToString();
+                tlp.TeachingMethodology = item["TeachingMethodology"].ToString();
+                tlp.ResourceRequired = item["ResourceRequired"].ToString();
+                tlp.CreatedById = item["CreatedById"].ToString();
+                tlp.CreateDate = Convert.ToDateTime(item["CreateDate"].ToString());
+            }
+            return tlp;
 
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace SMSBusiness.Repository.Abstract
 
         int AddChangesLessonPlan(TeacherLessonPlan LessonPlan);
         List<TeacherLessonPlan> GetTeacherLessons(int? AcadmicClassId, int? TeacherId, int? CourseId);
+        TeacherLessonPlan GetTeacherLessonPlan(int LessonPlanId);
     }
 }

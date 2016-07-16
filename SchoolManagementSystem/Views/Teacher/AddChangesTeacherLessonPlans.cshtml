@@ -17,15 +17,27 @@
         </div>
     </div>
 </div>
-@using (Html.BeginForm("GetTeacherLessonPlans", "Teacher", FormMethod.Get))
+@using (Html.BeginForm())
 {
     <div class="row">
         <div class="col-md-12 col-sm-12">
 
             @Html.AntiForgeryToken()
             <div class="form-horizontal">
-                <hr />
+               
                 @Html.ValidationSummary(true)
+                @Html.HiddenFor(x=>x.TeacherLessonPlanId)
+                @Html.HiddenFor(x => x.CreateDate)
+                @Html.HiddenFor(x => x.CreatedById)
+                @if (Model.TeacherLessonPlanId == 0)
+                {
+                    <span class="HeadingStyle">Add Teacher Lesson Plan</span>
+                }
+                else
+                {
+                    <span class="HeadingStyle">Update Teacher Lesson Plan</span>
+                }
+                <hr />
                 <div class="form-group">
                     <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
                     <div class="col-md-9">
@@ -74,7 +86,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Topic</label> </div>
 
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @Html.EditorFor(model => model.Topic, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-md-3 control-label"><label>Sub Topic</label> </div>
 
@@ -134,14 +156,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-offset-6">
-                                <input type="submit" value="Search" id="btnSearch" class="btn btn-primary" />
+                    <div class="col-md-8">
+                        @if (Model.TeacherLessonPlanId == 0)
+                        {
+                            <div>
+                                <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                            </div>
+                        }
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -156,8 +186,8 @@
         {
             $(document).ready(function () {
                 $("#Loading").hide();
-                    $('#ddlCourse option[value=""]').attr("selected", true);
-                    $('#ddlTeacher option[value=""]').attr("selected", true);
+                    //$('#ddlCourse option[value=""]').attr("selected", true);
+                    //$('#ddlTeacher option[value=""]').attr("selected", true);
 
 
                 // change event of ddlAcadmicClass

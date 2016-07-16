@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SMSDataContract.Accounts
 {
-  public  class TeacherLessonPlan
+    public class TeacherLessonPlan
     {
         public TeacherLessonPlan()
         {
@@ -34,10 +35,14 @@ namespace SMSDataContract.Accounts
         public string Lesson { get; set; }
         public string Topic { get; set; }
         public string SubTopic { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Objective { get; set; }
+        [DataType(DataType.MultilineText)]
         public string OutComes { get; set; }
         public string TeachingMethodology { get; set; }
+        [DataType(DataType.MultilineText)]
         public string ResourceRequired { get; set; }
+
         public DateTime CreateDate { get; set; }
         public string CreatedById { get; set; }
         public DateTime? ModifiedDate { get; set; }
