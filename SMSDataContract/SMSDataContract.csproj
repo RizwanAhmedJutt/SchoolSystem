@@ -58,6 +58,9 @@
     <Compile Include="Accounts\PeriodAssigned.cs" />
     <Compile Include="Accounts\StudentDetail.cs" />
     <Compile Include="Accounts\StudentMonthAssessment.cs" />
+    <Compile Include="Accounts\StudentResultSheet.cs" />
+    <Compile Include="Accounts\StudentResultSocialAndPersonalSkill.cs" />
+    <Compile Include="Accounts\StudentResultWorkAndStudySkill.cs" />
     <Compile Include="Accounts\StudentSubjectProgressReport.cs" />
     <Compile Include="Accounts\TeacherAssessmentOperation.cs" />
     <Compile Include="Accounts\TeacherAssignClass.cs" />

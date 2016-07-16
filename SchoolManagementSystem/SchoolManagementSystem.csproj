@@ -192,6 +192,7 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentExpenseController.cs" />
     <Compile Include="Controllers\StudentReportController.cs" />
+    <Compile Include="Controllers\StudentResultController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -480,6 +481,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="FilesUpload\Images\" />
+    <Folder Include="Views\StudentResult\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
