@@ -1,0 +1,163 @@
+﻿@model SMSDataContract.Accounts.StudentResultSheet
+@{
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(x => x.StudentResultId)
+                @Html.HiddenFor(x => x.CreatedDate)
+                @Html.HiddenFor(x => x.CreatedById)
+                @if (Model.StudentResultId == 0)
+                {
+                    <span class="HeadingStyle">Add Student Result</span>
+                }
+                else
+                {
+                    <span class="HeadingStyle">Update Student Result</span>
+                }
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Student</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+
+                            <div id="dvDDLStudent">
+                                @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 1 });}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+                <div id="AddEditResultTemplate" style="display:none">
+                </div>
+                
+                  <div class="form-group">
+                    <div class="col-md-8">
+                        @if (Model.StudentResultId == 0)
+                        {
+                            <div>
+                                <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        {
+            $(document).ready(function () {
+                $("#ddlAcadmicClass").change(function () {
+                    debugger;
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    if (getClass != '') {
+                        LoadDDLStudent();
+                       
+                        
+                    }
+                    else {
+                        $("#AcadmicclassMsg").show();
+                        $("#AcadmicclassMsg").text("Please Select Class");
+                    }
+
+
+                });
+                //change event of ddlStudent
+                $('body').on("change", "#ddlStudent", function () {
+                    debugger;
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    var getStudent = $("#ddlStudent :selected").val();
+                  
+                    if (getStudent != '') {
+                        GetResultTemplate(getClass, getStudent);
+                    }
+                    else {
+                     
+                    }
+                });
+                
+            });
+            function LoadDDLStudent() {
+                debugger;
+                var ClassId = $("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: ClassId };
+                var Url = null;
+                Url = "/Course/DDLStudent";
+                 // Fill Student Dropdown
+                $.get(Url, model)
+                .done(function (stdhtml) {
+                    $("#dvDDLStudent").html(stdhtml);
+                    if ('@Model.StudentId' > 0) {
+                        $('#ddlStudent option[value="@Model.StudentId"]').attr("selected", true);
+                    }
+                    else { $('#ddlStudent option[value=""]').attr("selected", true); }
+                })
+                           .fail(function (ex1, ex2) {
+                               alert("Can't get Student DDL");
+                           });
+                        
+            }
+
+            function GetResultTemplate(ClassId,StudentId)
+            {
+                var model = { AcadmicClassId: ClassId, StudentId: StudentId };
+                $.get("/StudentResult/ResultTemplate", model)
+                .done(function (html) {
+                    debugger
+                    $("#AddEditResultTemplate").show();
+                    $("#AddEditResultTemplate").append(html);
+                })
+                .fail(function (e1) {
+                    alert("fail to get Result Template");
+                })
+
+
+            }
+        }
+
+
+    </script>
+}
+
+
+
+
+
+
+
+

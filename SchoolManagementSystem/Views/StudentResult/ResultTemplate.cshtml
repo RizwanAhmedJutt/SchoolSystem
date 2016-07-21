@@ -1,0 +1,30 @@
+﻿@model SMSDataContract.Common.ResultSheetHelper
+@{
+    Layout = null;
+}
+@Html.BeginForm("ResultTemplate", "StudentResult", FormMethod.Post ,"encrypt/html")
+{
+<table id="ResultSheet">
+    @for (int i = 0; i < Model.Courses.Count; i++)
+    {
+        <tr>
+            <td>@Html.DisplayFor(x => x.Courses[i].CourseName)</td>
+            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].ClassAssessmentPercentage)</td>
+            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].PaperPercentage)</td>
+            @*<td>@Html.DropDownListFor(x => x.StudentResultSheet[i].Grade, new SelectListItem() { Text = "A", Value = "A" }, new { })</td>*@
+            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].Remarks)</td>
+        </tr>
+
+    }
+    
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            <input type="submit" value="Add" class="btn btn-primary" />
+        
+        </td>
+    </tr>
+</table>

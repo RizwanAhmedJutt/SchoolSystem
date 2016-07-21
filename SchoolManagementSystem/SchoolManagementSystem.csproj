@@ -477,11 +477,12 @@
     <Content Include="Views\StudentReport\GetTeacherReport.cshtml" />
     <Content Include="Views\Teacher\GetTeacherLessonPlans.cshtml" />
     <Content Include="Views\Teacher\AddChangesTeacherLessonPlans.cshtml" />
+    <Content Include="Views\StudentResult\AddChangesStudentResult.cshtml" />
+    <Content Include="Views\StudentResult\ResultTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="FilesUpload\Images\" />
-    <Folder Include="Views\StudentResult\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

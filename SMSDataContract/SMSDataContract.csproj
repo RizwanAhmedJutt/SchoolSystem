@@ -56,6 +56,7 @@
     <Compile Include="Accounts\DailyAssessmentOperation.cs" />
     <Compile Include="Accounts\DailyAssessmentSubType.cs" />
     <Compile Include="Accounts\PeriodAssigned.cs" />
+    <Compile Include="Accounts\StudentAttendance.cs" />
     <Compile Include="Accounts\StudentDetail.cs" />
     <Compile Include="Accounts\StudentMonthAssessment.cs" />
     <Compile Include="Accounts\StudentResultSheet.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Common\City.cs" />
     <Compile Include="Common\DailyAssessmentHelper.cs" />
     <Compile Include="Common\Evaluation.cs" />
+    <Compile Include="Common\ResultSheetHelper.cs" />
     <Compile Include="Common\StudentMonthReportHelpers.cs" />
     <Compile Include="Common\TeacherMonthReportHelpers.cs" />
     <Compile Include="Enums\MonthAssessmentType.cs" />

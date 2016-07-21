@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="DAL\ExportFileDAO.cs" />
     <Compile Include="DAL\PeriodAssignedDAO.cs" />
+    <Compile Include="DAL\StudentAttendanceDAO.cs" />
     <Compile Include="DAL\StudentExpenditureDAO.cs" />
     <Compile Include="DAL\StudentBasicExpenditureDAO.cs" />
     <Compile Include="DAL\AcadmicClassDAO.cs" />
@@ -67,6 +68,9 @@
     <Compile Include="DAL\StudentAddressDAO.cs" />
     <Compile Include="DAL\StudentAssignCourseDAO.cs" />
     <Compile Include="DAL\StudentProfileDAO.cs" />
+    <Compile Include="DAL\StudentResultWorkAndSkillDAO.cs" />
+    <Compile Include="DAL\StudentResultSheetDAO.cs" />
+    <Compile Include="DAL\StudentResultSocialAndPersonalSkillDAO.cs" />
     <Compile Include="DAL\ST_PreviousAcadmicDetailDAO.cs" />
     <Compile Include="DAL\TeacherAssessmentOperationDAO.cs" />
     <Compile Include="DAL\TeacherAssignedCouresDAO.cs" />
