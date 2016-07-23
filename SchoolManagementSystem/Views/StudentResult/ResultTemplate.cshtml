@@ -2,29 +2,135 @@
 @{
     Layout = null;
 }
-@Html.BeginForm("ResultTemplate", "StudentResult", FormMethod.Post ,"encrypt/html")
+@if (Model.AssignedCourses.Count > 0)
 {
-<table id="ResultSheet">
-    @for (int i = 0; i < Model.Courses.Count; i++)
-    {
-        <tr>
-            <td>@Html.DisplayFor(x => x.Courses[i].CourseName)</td>
-            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].ClassAssessmentPercentage)</td>
-            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].PaperPercentage)</td>
-            @*<td>@Html.DropDownListFor(x => x.StudentResultSheet[i].Grade, new SelectListItem() { Text = "A", Value = "A" }, new { })</td>*@
-            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].Remarks)</td>
-        </tr>
+    <text>
+        @using (@Html.BeginForm("ResultTemplate", "StudentResult", FormMethod.Post))
+        {
+            <div style="width:100%;">
 
-    }
-    
-    }
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>
-            <input type="submit" value="Add" class="btn btn-primary" />
-        
-        </td>
-    </tr>
-</table>
+                <table id="ResultSheet" class="table table-bordered table-striped table-responsive table-hover">
+                    <tr class="action info">
+                        <th>Subject</th>
+                        <th width="200px;">Class Assessment 40 %</th>
+                        <th>Paper 60 %</th>
+                        <th width="200px">Grade</th>
+                        <th>Remark</th>
+                    </tr>
+                    @for (int i = 0; i < Model.AssignedCourses.Count; i++)
+                    {
+                        <tr>
+                            @Html.HiddenFor(x => x.AssignedCourses[i].AcadmicClassId)
+                            @Html.HiddenFor(x => x.AssignedCourses[i].StudentId)
+                            @Html.HiddenFor(x => x.AssignedCourses[i].CourseId)
+                            @Html.HiddenFor(x => x.AssignedCourses[i].CourseName)
+                            <td>
+                                @Html.DisplayFor(x => x.AssignedCourses[i].CourseName)
+                            </td>
+                            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].ClassAssessmentPercentage, new { @class = "form-control", @Id = "txtClassAssessmentPercentage" + i })</td>
+                            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].PaperPercentage, new { @class = "form-control", @Id = "txtPaperPercentage" + i })</td>
+                            <td>
+                                @Html.DropDownListFor(x => x.StudentResultSheet[i].Grade, new List<SelectListItem>()
+                                        {
+                                            new SelectListItem(){ Text= "A", Value = "A"},
+                                            new SelectListItem(){ Text= "B", Value = "B"},
+                                            new SelectListItem(){ Text= "C", Value = "C"},
+                                            new SelectListItem(){ Text= "D", Value = "D"},
+                                            new SelectListItem(){ Text= "F", Value = "F"}
+
+
+                                        }, "Select Grade", new { id = "ddlGrade", @class = "form-control" })
+                            </td>
+                            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].Remarks, new { @class = "form-control", @Id = "txtRemarks" + i })</td>
+
+                        </tr>
+                    }
+                </table>
+                <span class="subheader">Attendance</span>
+                <table id="StdAttendance" class="table table-bordered table-striped table-responsive table-hover">
+                    <tr class="action info">
+                        <th>Working Day</th>
+                        <th>Leaves</th>
+                        <th>Absents</th>
+                        <th>Percentage</th>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.TextBoxFor(x => x.StudentAttendance.WorkingDays, new { @class = "form-control" })
+                        </td>
+                        <td>@Html.TextBoxFor(x => x.StudentAttendance.Leaves, new { @class = "form-control" })</td>
+                        <td>@Html.TextBoxFor(x => x.StudentAttendance.Absents, new { @class = "form-control" })</td>
+                        <td>@Html.TextBoxFor(x => x.StudentAttendance.TotalPercentage, new { @class = "form-control" })</td>
+
+                    </tr>
+                </table>
+                <span class="subheader">Social And Personal Devlopement</span>
+                <table id="stdSocialActivity" class="table table-bordered table-striped table-responsive table-hover">
+                    <tr class="action info">
+                        <th>Description</th>
+                        <th>Grade</th>
+                    </tr>
+                    @for (int k = 0; k < Model.SrSocialAndPersonalSkill.Count; k++)
+                    {
+                        <text>
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(x => x.SrSocialAndPersonalSkill[k].SocialDescriptionId)
+                                    @Html.DisplayFor(x => x.SrSocialAndPersonalSkill[k].Description)
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(x=>x.SrSocialAndPersonalSkill[k].Grad, new List<SelectListItem>()
+                                        {
+                                            new SelectListItem(){ Text= "A", Value = "A"},
+                                            new SelectListItem(){ Text= "B", Value = "B"},
+                                            new SelectListItem(){ Text= "C", Value = "C"},
+                                            new SelectListItem(){ Text= "D", Value = "D"},
+                                            new SelectListItem(){ Text= "F", Value = "F"}
+
+
+                                        }, "Select Grade", new { id = "ddlGrade", @class = "form-control" })
+                                </td>
+                            </tr>
+                        </text>
+                    }
+                </table>
+                <span class="subheader">Work And Study Devlopement</span>
+                <table id="stdSocialActivity" class="table table-bordered table-striped table-responsive table-hover">
+                    <tr class="action info">
+                        <th>Description</th>
+                        <th>Grade</th>
+                    </tr>
+                    @for (int j = 0; j < Model.SrWorkAndStudySkill.Count; j++)
+                    {
+                        <text>
+                         <tr>
+                        <td>
+                            @Html.HiddenFor(x => x.SrWorkAndStudySkill[j].StudyDescriptionId)
+                            @Html.DisplayFor(x => x.SrWorkAndStudySkill[j].Description)
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(x => x.SrWorkAndStudySkill[j].Grade, new List<SelectListItem>()
+                                        {
+                                            new SelectListItem(){ Text= "A", Value = "A"},
+                                            new SelectListItem(){ Text= "B", Value = "B"},
+                                            new SelectListItem(){ Text= "C", Value = "C"},
+                                            new SelectListItem(){ Text= "D", Value = "D"},
+                                            new SelectListItem(){ Text= "F", Value = "F"}
+
+
+                                        }, "Select Grade", new { id = "ddlGrade", @class = "form-control" })
+                    </td>
+                </tr> 
+                    </text>
+                    }
+            </table>
+
+        </div>
+            <div class="col-md-offset-6 col-md-12">
+                <input type="submit" value="Save" class="btn btn-primary" />
+
+            </div>
+        }
+    </text>
+}

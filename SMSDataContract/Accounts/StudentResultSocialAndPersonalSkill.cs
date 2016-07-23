@@ -13,7 +13,7 @@ namespace SMSDataContract.Accounts
             SocialSkillId = 0;
             AcadmicClassId = 0;
             StudentId = 0;
-            Description = string.Empty;
+            SocialDescriptionId = 0;
             TermType = string.Empty;
             CreatedById = string.Empty;
             CreatedDate = DateTime.Now;
@@ -24,6 +24,7 @@ namespace SMSDataContract.Accounts
         public int SocialSkillId { get; set; }
         public int AcadmicClassId { get; set; }
         public int StudentId { get; set; }
+        public int SocialDescriptionId { get; set; }
         public string Description { get; set; }
         public char Grad { get; set; }
         public string TermType { get; set; }

@@ -68,6 +68,8 @@
     <Compile Include="DAL\StudentAddressDAO.cs" />
     <Compile Include="DAL\StudentAssignCourseDAO.cs" />
     <Compile Include="DAL\StudentProfileDAO.cs" />
+    <Compile Include="DAL\StudentResultSocialDescriptionDAO.cs" />
+    <Compile Include="DAL\StudentResultStudyDescriptionDAO.cs" />
     <Compile Include="DAL\StudentResultWorkAndSkillDAO.cs" />
     <Compile Include="DAL\StudentResultSheetDAO.cs" />
     <Compile Include="DAL\StudentResultSocialAndPersonalSkillDAO.cs" />

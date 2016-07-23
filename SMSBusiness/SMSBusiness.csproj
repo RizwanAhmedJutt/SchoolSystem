@@ -64,6 +64,8 @@
     <Compile Include="Repository\Abstract\IStudentProfile.cs" />
     <Compile Include="Repository\Abstract\IStudentResultSheet.cs" />
     <Compile Include="Repository\Abstract\IStudentResultSocialAndPersonalSkill.cs" />
+    <Compile Include="Repository\Abstract\IStudentResultSocialDescription.cs" />
+    <Compile Include="Repository\Abstract\IStudentResultStudyDescription.cs" />
     <Compile Include="Repository\Abstract\IStudentResultWorkAndSkill.cs" />
     <Compile Include="Repository\Abstract\IST_PreviousAcadmicRecord.cs" />
     <Compile Include="Repository\Abstract\ITeacherAssessmentOperation.cs" />
@@ -94,6 +96,8 @@
     <Compile Include="Repository\Concrete\StudentProfileBLL.cs" />
     <Compile Include="Repository\Concrete\StudentResultSheetBLL.cs" />
     <Compile Include="Repository\Concrete\StudentResultSocialAndPersonalSkillBLL.cs" />
+    <Compile Include="Repository\Concrete\StudentResultSocialDescriptionBLL.cs" />
+    <Compile Include="Repository\Concrete\StudentResultStudyDescriptionBLL.cs" />
     <Compile Include="Repository\Concrete\StudentResultWorkAndSkillBLL.cs" />
     <Compile Include="Repository\Concrete\ST_PreviousAcadmicDetailBLL.cs" />
     <Compile Include="Repository\Concrete\TeacherAssessmentOperationBLL.cs" />

@@ -1,6 +1,7 @@
 ﻿using SMSDataContract.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,9 @@ namespace SMSDataContract.Accounts
         public int AcadmicClassId { get; set; }
         public int StudentId { get; set; }
         public int CourseId { get; set; }
+        [Display(Name="Class Assessment %")]
         public double ClassAssessmentPercentage { get; set; }
+        [Display(Name = "Paper %")]
         public double PaperPercentage { get; set; }
         public char Grade { get; set; }
         public string Remarks { get; set; }

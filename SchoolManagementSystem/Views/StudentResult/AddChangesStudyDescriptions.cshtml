@@ -1,0 +1,138 @@
+﻿@model SMSDataContract.Accounts.StudentResultStudyDescription
+
+@{
+
+    Layout = null;
+}
+
+
+@using (Html.BeginForm("AddChangesStudyDescriptions", "StudentResult", FormMethod.Post))
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="row well">
+                            <div class="form-horizontal">
+                                @Html.HiddenFor(x => x.StudyDescriptionId)
+                                @Html.HiddenFor(x => x.CreatedDate)
+                                @Html.HiddenFor(x => x.CreatedById)
+                                @if (Model.StudyDescriptionId == 0)
+                                {
+                                    <span class="HeadingStyle">Add Study Description </span>
+
+                                }
+                                else
+                                {
+
+                                    <span class="HeadingStyle">Update Study Description</span>
+                                }
+                                <hr />
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="form-horizontal">
+
+                                        @Html.ValidationSummary(true)
+
+                                        <div class="form-group">
+
+                                            @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-3" })
+                                            <div id="dvCourse" style="text-align: center; margin-top: -30px; margin-left:52%;">
+                                                <span id="DescriptionMsg" class="error" style="display:none;"></span>
+                                            </div>
+                                            <div class="col-md-7">
+
+                                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Description)
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <span class="col-md-3 col-md-offset-7">
+
+                                                    <button id="btnAddEdit" type="submit" class="btn btn-primary btn-success pull-right">
+                                                        @if (Model.StudyDescriptionId == 0)
+                                                        { <text>
+                                                            Save
+                                                        </text>
+                                                        }
+                                                        else
+                                                        {
+                                                            <text>
+
+                                                                Update
+                                                            </text>
+                                                        }
+                                                    </button>
+
+                                                </span>
+
+
+                                                <button type="submit" id="btnClosemodel" class="btn btn-primary">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $("#btnClosemodel").click(function (e) {
+        $('#myModal').modal('hide');
+        // $('#modal').modal('toggle');
+        $("#AddEdithtml").empty();
+        $("div").removeClass("modal-backdrop fade in");
+        e.preventDefault();
+
+    });
+    $("#btnAddEdit").click(function (e) {
+        e.preventDefault();
+        var name = $("#Description").val();
+        if (name != "") {
+            var model = { Description: $("#Description").val() };
+            $.get("/StudentResult/CheckStudyDescriptionsExist", model)
+       .success(function (response) {
+
+           if (response == "true") {
+               $("#DescriptionMsg").text("Description Name already Exist..");
+               $("#DescriptionMsg").show();
+
+           }
+           else {
+               $("#DescriptionMsg").text("");
+               $("#DescriptionMsg").hide();
+               $("form").submit();
+
+           }
+
+       })
+       .fail(function (e) {
+
+           alert("Can't Check Description Existance..")
+       })
+
+        }
+        else {
+            $("#DescriptionMsg").text("Enter Description Name");
+            $("#DescriptionMsg").show();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+

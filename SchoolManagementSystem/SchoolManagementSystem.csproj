@@ -479,6 +479,10 @@
     <Content Include="Views\Teacher\AddChangesTeacherLessonPlans.cshtml" />
     <Content Include="Views\StudentResult\AddChangesStudentResult.cshtml" />
     <Content Include="Views\StudentResult\ResultTemplate.cshtml" />
+    <Content Include="Views\StudentResult\GetALLSocailDescriptions.cshtml" />
+    <Content Include="Views\StudentResult\AddChangesSocailDescriptions.cshtml" />
+    <Content Include="Views\StudentResult\GetALLStudyDescriptions.cshtml" />
+    <Content Include="Views\StudentResult\AddChangesStudyDescriptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

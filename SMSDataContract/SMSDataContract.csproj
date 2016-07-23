@@ -61,6 +61,8 @@
     <Compile Include="Accounts\StudentMonthAssessment.cs" />
     <Compile Include="Accounts\StudentResultSheet.cs" />
     <Compile Include="Accounts\StudentResultSocialAndPersonalSkill.cs" />
+    <Compile Include="Accounts\StudentResultSocialDescription.cs" />
+    <Compile Include="Accounts\StudentResultStudyDescription.cs" />
     <Compile Include="Accounts\StudentResultWorkAndStudySkill.cs" />
     <Compile Include="Accounts\StudentSubjectProgressReport.cs" />
     <Compile Include="Accounts\TeacherAssessmentOperation.cs" />

@@ -26,7 +26,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@WorkSkillId", DbType.Int32, srWork.WorkSkillId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AcadmicClassId", DbType.Int32, srWork.AcadmicClassId);
                     gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.Int32, srWork.StudentId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@Description", DbType.String, srWork.Description);
+                    gObjDatabase.AddInParameter(objDbCommand, "@StudyDescriptionId", DbType.Int32, srWork.StudyDescriptionId);
                     gObjDatabase.AddInParameter(objDbCommand, "@Grade", DbType.String,srWork.Grade);
                     gObjDatabase.AddInParameter(objDbCommand, "@TermType", DbType.String, srWork.TermType);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, srWork.CreatedById);

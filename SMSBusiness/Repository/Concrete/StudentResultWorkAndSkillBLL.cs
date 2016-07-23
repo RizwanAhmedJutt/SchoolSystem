@@ -42,7 +42,7 @@ namespace SMSBusiness.Repository.Concrete
                    std.WorkSkillId = Convert.ToInt32(item["WorkSikllid"]);
                    std.AcadmicClassId = Convert.ToInt32(item["AcadmicClassId"].ToString());
                    std.StudentId = Convert.ToInt32(item["StudentId"].ToString());
-                   std.Description = item["Description"].ToString();
+                   std.StudyDescriptionId =Convert.ToInt32( item["Description"].ToString());
                    std.Grade = Convert.ToChar(item["Grade"].ToString());
                    std.TermType =item["TermType"].ToString();
                    std.CreatedById = item["CreatedById"].ToString();
