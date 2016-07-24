@@ -26,6 +26,22 @@
                 }
                 <hr />
                 <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Paper Term</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+
+                            <div id="dvDDLPaperTerm">
+                                @Html.DropDownListFor(x => x.PaperTerm, new List<SelectListItem>(){
+                              new SelectListItem()    { Text = "Mid Term", Value = "MidTerm" },
+                              new SelectListItem()    { Text = "Final Term", Value = "FinalTerm"}
+                              }, "Select Term", new { id = "ddlTerm", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
                     <div class="col-md-9">
                         <div class="input-group">
@@ -48,7 +64,9 @@
                         </div>
                     </div>
                 </div>
-              
+                
+
+
                 <div id="AddEditResultTemplate" style="display:none">
                 </div>
                 
@@ -102,9 +120,9 @@
                     
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     var getStudent = $("#ddlStudent :selected").val();
-                  
-                    if (getStudent != '') {
-                        GetResultTemplate(getClass, getStudent);
+                    var Term = $("#ddlTerm :selected").val();
+                    if (getStudent != '' && Term !='') {
+                        GetResultTemplate(getClass, getStudent, Term);
                     }
                     else {
                      
@@ -133,9 +151,9 @@
                         
             }
 
-            function GetResultTemplate(ClassId,StudentId)
+            function GetResultTemplate(ClassId,StudentId,Term)
             {
-                var model = { AcadmicClassId: ClassId, StudentId: StudentId };
+                var model = { AcadmicClassId: ClassId, StudentId: StudentId,PaperTerm:Term };
                 $.get("/StudentResult/ResultTemplate", model)
                 .done(function (html) {
                   

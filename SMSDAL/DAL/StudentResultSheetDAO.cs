@@ -17,6 +17,23 @@ namespace SMSDAL.DAL
        {
            gObjDatabase = database;
        }
+       public DataTable GetStudentResultSheets()
+       {
+           DataTable dtStudentDetails;
+           try
+           {
+               var query = "Select * From StudentResultSheet";
+               using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+               {
+                   dtStudentDetails = gObjDatabase.GetDataTable(objCommand);
+               }
+           }
+           catch
+           {
+               throw;
+           }
+           return dtStudentDetails;
+       }
        public int InsertUpdateStudentResultSheet(StudentResultSheet srSheet)
        {
            try

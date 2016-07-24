@@ -109,7 +109,7 @@
                         <div class="col-md-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                                @Html.EditorFor(model => model.GuardianMontlyIncome, new { htmlAttributes = new { @class = "form-control", id = "GuardianMontlyIncome", placeholder = "Guardian Montly Income" } })
+                                @Html.EditorFor(model => model.GuardianMontlyIncome, new { htmlAttributes = new { @class = "form-control numbersOnly", id = "GuardianMontlyIncome", placeholder = "Guardian Montly Income" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.GuardianMontlyIncome, "", new { @class = "text-danger" })
                         </div>
@@ -158,4 +158,5 @@
 
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+
 }

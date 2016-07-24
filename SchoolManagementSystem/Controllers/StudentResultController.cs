@@ -17,6 +17,7 @@ namespace SchoolManagementSystem.Controllers
     [Authorize(Roles = "Admin")]
     public class StudentResultController : Controller
     {
+        IStudentResultSheet stdResultSheetRepo = new StudentResultSheetBLL();
         IStudentResultSocialDescription socialDescriptionRepo = new StudentResultSocialDescriptionBLL();
         IStudentResultStudyDescription studyDescriptionRepo = new StudentResultStudyDescriptionBLL();
 
@@ -32,33 +33,77 @@ namespace SchoolManagementSystem.Controllers
             return View(srs);
         }
         [HttpGet]
-        public ActionResult ResultTemplate(int AcadmicClassId, int StudentId)
+        public ActionResult ResultTemplate(int AcadmicClassId, int StudentId, string PaperTerm)
         {
-            IStudentAssignCourse saC = new StudentAssignCourseBLL();
-            var query = (from x in saC.GetStudentAssignedCourse().ToList()
-                         where x.AcadmicClassId == AcadmicClassId
-                         && x.StudentId == StudentId
-                         select new StudentAssignedCourse() { CourseId = x.CourseId, CourseName = x.CourseName, AcadmicClassId=x.AcadmicClassId,StudentId=x.StudentId }).ToList();
-            var SocailSkills = (from x in socialDescriptionRepo.GetALLSocailDescriptions().ToList()
-                                select new StudentResultSocialAndPersonalSkill() { SocialDescriptionId = x.SocialDescriptionId, Description = x.Description }
-                                   ).ToList();
-            var StudySkills = (from x in studyDescriptionRepo.GetALLStudyDescriptions().ToList()
-                                select new StudentResultWorkAndStudySkill() { StudyDescriptionId = x.StudyDescriptionId, Description = x.Description } ).ToList();
+            var ResultQuery = (from x in stdResultSheetRepo.GetStudentResultSheet().ToList()
+                               where x.AcadmicClassId == AcadmicClassId && x.StudentId == StudentId
+                               && x.PaperTerm == PaperTerm
+                               select x).ToList();
+            if (ResultQuery.Count>0)
+            {
+                var ResultSheetCourse = (from x in ResultQuery.ToList()
+                                         select new StudentAssignedCourse() { CourseId = x.CourseId, AcadmicClassId = x.AcadmicClassId, StudentId = x.StudentId }).ToList();
+                ResultSheetHelper rsh = new ResultSheetHelper();
+                rsh.AssignedCourses = ResultSheetCourse;
+                rsh.StudentResultSheet = ResultQuery;
+                return View(rsh);
+            }
+            else
+            {
+                IStudentAssignCourse saC = new StudentAssignCourseBLL();
 
-            ResultSheetHelper rsh = new ResultSheetHelper();
-            rsh.AssignedCourses = query.ToList();
-            rsh.SrSocialAndPersonalSkill = SocailSkills;
-            rsh.SrWorkAndStudySkill = StudySkills;
-            return View(rsh);
+                var query = (from x in saC.GetStudentAssignedCourse().ToList()
+                             where x.AcadmicClassId == AcadmicClassId
+                             && x.StudentId == StudentId
+                             select new StudentAssignedCourse() { CourseId = x.CourseId, CourseName = x.CourseName, AcadmicClassId = x.AcadmicClassId, StudentId = x.StudentId }).ToList();
+
+                var SocailSkills = (from x in socialDescriptionRepo.GetALLSocailDescriptions().ToList()
+                                    select new StudentResultSocialAndPersonalSkill() { SocialDescriptionId = x.SocialDescriptionId, Description = x.Description }
+                                       ).ToList();
+
+                var StudySkills = (from x in studyDescriptionRepo.GetALLStudyDescriptions().ToList()
+                                   select new StudentResultWorkAndStudySkill() { StudyDescriptionId = x.StudyDescriptionId, Description = x.Description }).ToList();
+
+                ResultSheetHelper rsh = new ResultSheetHelper();
+                rsh.AssignedCourses = query.ToList();
+                rsh.SrSocialAndPersonalSkill = SocailSkills;
+                rsh.SrWorkAndStudySkill = StudySkills;
+                rsh.PaperTerm = PaperTerm;
+                return View(rsh);
+            }
         }
         [HttpPost]
         public ActionResult ResultTemplate(ResultSheetHelper rsHelper)
         {
+            var loggedUser = User.Identity.GetUserId();
 
-            return View();
+            for (int i = 0; i < rsHelper.AssignedCourses.Count; i++)
+            {
+                if (rsHelper.StudentResultSheet[i].StudentResultId == 0)
+                {
+                    StudentResultSheet srs = new StudentResultSheet()
+                        {
+
+                            StudentId = rsHelper.AssignedCourses[i].StudentId,
+                            AcadmicClassId = rsHelper.AssignedCourses[i].AcadmicClassId,
+                            CourseId = rsHelper.AssignedCourses[i].CourseId,
+                            ClassAssessmentPercentage = rsHelper.StudentResultSheet[i].ClassAssessmentPercentage,
+                            PaperPercentage = rsHelper.StudentResultSheet[i].PaperPercentage,
+                            Grade = rsHelper.StudentResultSheet[i].Grade,
+                            Remarks = rsHelper.StudentResultSheet[i].Remarks,
+                            CreatedById = loggedUser,
+                            CreatedDate = DateTime.Now,
+                            PaperTerm = rsHelper.PaperTerm
+                        };
+                    StudentResultSheet srs1 = srs;
+                }
+              
+            }
+
+            return RedirectToAction("AddChangesStudentResult");
         }
 
-        
+
         // Student Result Social Description
         public ActionResult GetALLSocailDescriptions(int? page)
         {
@@ -98,7 +143,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddChangesSocailDescriptions(StudentResultSocialDescription socialDescription)
         {
             var userloggedId = User.Identity.GetUserId();
-            if(socialDescription.SocialDescriptionId>0)
+            if (socialDescription.SocialDescriptionId > 0)
             {
                 socialDescription.ModifiedById = userloggedId;
                 socialDescription.ModifiedDate = DateTime.Now;
@@ -131,11 +176,11 @@ namespace SchoolManagementSystem.Controllers
             if (query != null)
             {
                 if (query.SocialDescriptionId > 0)
-                    result = true;  
+                    result = true;
             }
             else
             { result = false; }
-            return new JavaScriptSerializer().Serialize(result); 
+            return new JavaScriptSerializer().Serialize(result);
 
         }
         // Studenet Result Study Description
@@ -177,7 +222,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddChangesStudyDescriptions(StudentResultStudyDescription studyDescription)
         {
             var userloggedId = User.Identity.GetUserId();
-            if (studyDescription.StudyDescriptionId> 0)
+            if (studyDescription.StudyDescriptionId > 0)
             {
                 studyDescription.ModifiedById = userloggedId;
                 studyDescription.ModifiedDate = DateTime.Now;
@@ -212,7 +257,7 @@ namespace SchoolManagementSystem.Controllers
                 if (query.StudyDescriptionId > 0)
                     result = true;
             }
-            
+
             return new JavaScriptSerializer().Serialize(result);
 
         }

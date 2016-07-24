@@ -11,3 +11,4 @@
 /// <reference path="moment.js" />
 /// <reference path="respond.js" />
 /// <reference path="jquery.bootpag.js" />
+/// <reference path="common.js" />

@@ -15,7 +15,7 @@ namespace SMSDataContract.Common
         public StudentAttendance StudentAttendance { get; set; }
         public List<StudentResultSocialAndPersonalSkill> SrSocialAndPersonalSkill { get; set; }
         public List<StudentResultWorkAndStudySkill> SrWorkAndStudySkill { get; set; }
-
+        public string PaperTerm { get; set; }
 
     }
 }

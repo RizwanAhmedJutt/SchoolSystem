@@ -22,8 +22,7 @@ namespace SMSBusiness.Repository.Concrete
             try
             {
                 stdAdmissionDetail = objAdmissionDao.GetAdmissionGrantedInfoByStudentId(StudentId);
-                if (stdAdmissionDetail.Rows.Count > 0)
-                {
+                
                     foreach (DataRow item in stdAdmissionDetail.Rows)
                     {
                         aGranted.AdmissionId = Convert.ToInt32(item["AdmissionId"]);
@@ -35,12 +34,12 @@ namespace SMSBusiness.Repository.Concrete
                         aGranted.Remarks = item["Remarks"].ToString();
                         aGranted.CreatedById = item["CreatedById"].ToString();
                         aGranted.CreatedDate = Convert.ToDateTime(item["CreatedDate"].ToString());
-                        aGranted.ModifiedById = item["ModifiedById"].ToString();
-                       // aGranted.ModifiedDate = Convert.ToDateTime(item["ModifiedDate"].ToString());
+                        aGranted.ModifiedById = item.IsNull("ModifiedById") ? null : item["ModifiedById"].ToString();
+                        aGranted.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?) null : Convert.ToDateTime(item["ModifiedDate"].ToString());
 
 
                     }
-                }
+                
 
 
             }

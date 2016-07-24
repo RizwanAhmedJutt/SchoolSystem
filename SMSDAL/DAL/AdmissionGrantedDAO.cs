@@ -52,7 +52,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@Remarks", DbType.String, admissionGranted.Remarks);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, admissionGranted.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime,admissionGranted.CreatedDate);
-                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.Int32, admissionGranted.ModifiedById);
+                    gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, admissionGranted.ModifiedById);
                     
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedDate", DbType.DateTime, admissionGranted.ModifiedDate);
                     gObjDatabase.AddOutParameter(objDbCommand, "@AdmissionNewId", DbType.Int32, 4);

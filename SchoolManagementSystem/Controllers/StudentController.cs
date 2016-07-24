@@ -99,6 +99,7 @@ namespace SchoolManagementSystem.Controllers
             if (std.StudentId > 0)
             {
                 std.ModifiedById = userloggedId;
+                std.ModifiedDate = DateTime.Now;
                 std.AcadmicClassId = AcadmicClassId;
                 std.NoOfSibling = ddlSibling;
                 std.NoOfSiblingCurrentSchool = ddlCurrentSibling;
@@ -268,8 +269,17 @@ namespace SchoolManagementSystem.Controllers
 
 
             agranted.StudentId = StudentId;
-            agranted.CreatedById = userloggedId.ToString();
             agranted.AdmissionGrantedForClass = AcadmicClassId;
+            if (agranted.AdmissionId == 0)
+            {
+                agranted.CreatedById = userloggedId.ToString();
+                agranted.CreatedDate = DateTime.Now;
+            }
+            else
+            {
+                agranted.ModifiedById = userloggedId.ToString();
+                agranted.ModifiedDate = DateTime.Now;
+            }
             int finalValue = aGrantedrepositry.AdmissionAddChanges(agranted);
 
             return RedirectToAction("StudentList", "Student");

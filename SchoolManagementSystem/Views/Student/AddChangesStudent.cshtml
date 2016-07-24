@@ -35,6 +35,8 @@
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 @Html.HiddenFor(model => model.StudentId)
+                                @Html.HiddenFor(model=>model.CreatedById)
+                                @Html.HiddenFor(model => model.CreateDate)
                                 @Html.HiddenFor(model =>model.IsActive)
                                 @Html.HiddenFor(model=>model.RollNumber)
 
@@ -106,7 +108,7 @@
                                     <div class="col-md-9">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                                            @Html.EditorFor(model => model.CNIC, new { htmlAttributes = new { @class = "form-control", id = "StuCNIC", placeholder = "CNIC Number" } })
+                                            @Html.EditorFor(model => model.CNIC, new { htmlAttributes = new { @class = "form-control numbersOnly", id = "StuCNIC", placeholder = "CNIC Number" } })
                                         </div>
                                         @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
                                     </div>
@@ -239,6 +241,7 @@
                                 $('#ddlSibling option[value=""]').attr("selected", true);
                                 $('#ddlCurrentSibling option[value=""]').attr("selected", true);
                             }
+                           
                         });
 
                     </script>

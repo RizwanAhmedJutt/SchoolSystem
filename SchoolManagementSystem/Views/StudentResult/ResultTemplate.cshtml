@@ -8,7 +8,7 @@
         @using (@Html.BeginForm("ResultTemplate", "StudentResult", FormMethod.Post))
         {
             <div style="width:100%;">
-
+                @Html.HiddenFor(x=>x.PaperTerm)
                 <table id="ResultSheet" class="table table-bordered table-striped table-responsive table-hover">
                     <tr class="action info">
                         <th>Subject</th>
@@ -16,6 +16,7 @@
                         <th>Paper 60 %</th>
                         <th width="200px">Grade</th>
                         <th>Remark</th>
+                        
                     </tr>
                     @for (int i = 0; i < Model.AssignedCourses.Count; i++)
                     {
@@ -28,7 +29,11 @@
                                 @Html.DisplayFor(x => x.AssignedCourses[i].CourseName)
                             </td>
                             <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].ClassAssessmentPercentage, new { @class = "form-control", @Id = "txtClassAssessmentPercentage" + i })</td>
-                            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].PaperPercentage, new { @class = "form-control", @Id = "txtPaperPercentage" + i })</td>
+                            <td>
+                             @Html.HiddenFor(x=>x.StudentResultSheet[i].CreatedById)
+                             @Html.HiddenFor(x => x.StudentResultSheet[i].CreatedDate)
+                            @Html.TextBoxFor(x => x.StudentResultSheet[i].PaperPercentage, new { @class = "form-control", @Id = "txtPaperPercentage" + i })
+                            </td>
                             <td>
                                 @Html.DropDownListFor(x => x.StudentResultSheet[i].Grade, new List<SelectListItem>()
                                         {

@@ -27,6 +27,10 @@
 
                     @Html.HiddenFor(model => model.StudentId)
                     @Html.HiddenFor(model => model.GuardianId)
+                    @Html.HiddenFor(model=>model.CreatedById)
+                    @Html.HiddenFor(model => model.CreatedDate)
+                    @Html.HiddenFor(model => model.AdmissionId)
+
                     @if (Model.AdmissionId == 0)
                     {
                         <span class="HeadingStyle"> Add Admission Granted</span>

@@ -39,7 +39,7 @@
                             <div class="col-md-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                                    @Html.EditorFor(model => model.FirstContact, new { htmlAttributes = new { @class = "form-control", id = "FirstContact", placeholder = "First Contact" } })
+                                    @Html.EditorFor(model => model.FirstContact, new { htmlAttributes = new { @class = "form-control numbersOnly", id = "FirstContact", placeholder = "First Contact" } })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.FirstContact, "", new { @class = "text-danger" })
                             </div>
@@ -49,7 +49,7 @@
                             <div class="col-md-8">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-                                    @Html.EditorFor(model => model.SecondContact, new { htmlAttributes = new { @class = "form-control", id = "SecondContact", placeholder = "Second Contact" } })
+                                    @Html.EditorFor(model => model.SecondContact, new { htmlAttributes = new { @class = "form-control numbersOnly", id = "SecondContact", placeholder = "Second Contact" } })
                                 </div>
                                 @Html.ValidationMessageFor(model => model.SecondContact, "", new { @class = "text-danger" })
                             </div>
@@ -89,4 +89,6 @@
 
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
+
+
 }

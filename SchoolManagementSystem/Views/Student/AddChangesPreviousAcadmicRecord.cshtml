@@ -89,7 +89,7 @@
                         <div class="col-md-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-stop"></i></span>
-                                @Html.EditorFor(model => model.MarksObtained, new { htmlAttributes = new { @class = "form-control", id = "MarksObtained", placeholder = "Marks Obtained" } })
+                                @Html.EditorFor(model => model.MarksObtained, new { htmlAttributes = new { @class = "form-control numbersOnly", id = "MarksObtained", placeholder = "Marks Obtained" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.MarksObtained, "", new { @class = "text-danger" })
                         </div>
@@ -100,7 +100,7 @@
                         <div class="col-md-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-stop"></i></span>
-                                @Html.EditorFor(model => model.TotalMark, new { htmlAttributes = new { @class = "form-control", id = "TotalMark", placeholder = "Total Mark" } })
+                                @Html.EditorFor(model => model.TotalMark, new { htmlAttributes = new { @class = "form-control numbersOnly", id = "TotalMark", placeholder = "Total Mark" } })
                             </div>
                             @Html.ValidationMessageFor(model => model.TotalMark, "", new { @class = "text-danger" })
                         </div>
@@ -171,6 +171,7 @@
                 {
                     $('#AcadmicClassId option[value=""]').attr("selected",true);
                 }
+           
                
             });
 

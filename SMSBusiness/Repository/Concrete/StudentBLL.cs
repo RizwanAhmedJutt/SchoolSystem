@@ -212,6 +212,9 @@ namespace SMSBusiness.Repository.Concrete
                         std.RollNumber = item.IsNull("RollNumber") ?0: Convert.ToInt32(item["RollNumber"]);
                         std.IsActive = Convert.ToBoolean(item["IsActive"].ToString());
                         std.CreateDate = Convert.ToDateTime(item["CreatedDate"]);
+                        std.CreatedById = item["CreatedById"].ToString();
+                        std.ModifiedById = item.IsNull("ModifiedById") ? null : item["ModifiedById"].ToString();
+                        std.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?)null : Convert.ToDateTime(item["ModifiedDate"]);
                     }
                 }
 
