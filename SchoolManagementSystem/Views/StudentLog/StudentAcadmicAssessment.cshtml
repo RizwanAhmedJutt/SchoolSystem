@@ -25,14 +25,12 @@
                             @Html.DisplayNameFor(model => model.First().StudentName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.First().CourseName);
+                            @Html.DisplayNameFor(model => model.First().CourseName)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.First().ParentAssementName)
                         </th>
-                        @*<th>
-                                @Html.DisplayNameFor(model => model.First().AssessmentSubTypeName)
-                            </th>*@
+                  
                         <th>
                             @Html.DisplayNameFor(model => model.First().SelectedEvaluation)
                         </th>
@@ -50,7 +48,7 @@
                             @Html.DisplayNameFor(model => model.First().CreateDate)
 
                         </th>
-                        <th style="width:90px;"><b>ACTION</b></th>
+                      
 
                     </tr>
 
@@ -69,9 +67,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.ParentAssementName)
                             </td>
-                            @*<td>
-                                    @Html.DisplayFor(modelItem => item.AssessmentSubTypeName)
-                                </td>*@
+                          
                             <td>
                                 @Html.DisplayFor(modelItem => item.SelectedEvaluation)
                             </td>
@@ -96,13 +92,10 @@
                                 @Html.DisplayFor(modelItem => item.Concequence)
                             </td>
                             <td>
-                                @*@Html.DisplayFor(modelItem => item.FormateCreateDate)*@
+                               
                                 @Html.DisplayName(item.CreateDate.ToShortDateString())
                             </td>
-                            <td>
-                                <a href="/StudentReport/AddChangesAcadmicAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CourseId=@item.CourseId&CreateDate=@item.CreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-
-                            </td>
+                           
 
                         </tr>
                     }

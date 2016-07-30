@@ -16,9 +16,9 @@ namespace SchoolManagementSystem.Controllers
         IDailyAssessmentOperation repoOperation = new DailyAssessmentOperationBLL();
         IAcadmicAssessmentOperation repAcOperation = new AcadmicAssessmentOperationBLL();
         ITeacherAssessmentOperation repTAOperation = new TeacherAssessmentOperationBLL();
-        public ActionResult StudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
+        public ActionResult StudentGeneralAssessment(int? AcadmicClassId, int? StudentId, DateTime CreateDate)
         {
-
+            
             return View(repoAssessementSubType.GetStudentGeneralAssessment(AcadmicClassId, StudentId, CreateDate).ToList());
         }
         public ActionResult StudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)

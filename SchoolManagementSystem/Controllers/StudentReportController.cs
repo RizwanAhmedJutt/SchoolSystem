@@ -134,8 +134,8 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetALLStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
         {
-
-            return View(repoAssessementSubType.GetStudentGeneralAssessment(AcadmicClassId, StudentId, CreateDate).ToList());
+            CreateDate = string.IsNullOrEmpty(CreateDate) ? DateTime.Now.ToString() : CreateDate;
+            return View(repoAssessementSubType.GetStudentGeneralAssessment(AcadmicClassId, StudentId, Convert.ToDateTime(CreateDate)).ToList());
         }
         [HttpGet]
         public ActionResult AddChangesAssessmentReport(int? AcadmicClassId, int? StudentId, string CreateDate)

@@ -30,7 +30,7 @@ namespace SMSBusiness.Repository.Concrete
                     AssessmentDetails.AssessmentSubTypeName = dr["AssessmentSubTypeName"].ToString();
                     AssessmentDetails.ParentAssementName = dr["AssementName"].ToString();
                     AssessmentDetails.AssessmentFormat = Convert.ToBoolean(dr["AssessmentFormat"]);
-                    AssessmentDetails.AssessmentTypeId=Convert.ToInt32(dr["AssessmentTypeId"]);
+                    AssessmentDetails.AssessmentTypeId = Convert.ToInt32(dr["AssessmentTypeId"]);
                     objAssementList.Add(AssessmentDetails);
 
                 }
@@ -105,7 +105,7 @@ namespace SMSBusiness.Repository.Concrete
 
                 throw;
             }
-        } 
+        }
         public DailyAssessmentSubType GetDailyAssessmentSubTypeById(int AssessmentSubTypeId)
         {
             var objgConatactsDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
@@ -188,11 +188,11 @@ namespace SMSBusiness.Repository.Concrete
 
 
         }
-        public List<DailyAssessmentSubType> GetStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
+        public List<DailyAssessmentSubType> GetStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, DateTime CreateDate)
         {
             var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
             var dtAssement = new DataTable();
-            dtAssement = objAssessmentDao.GetStudentGeneralAssessment(AcadmicClassId,StudentId,CreateDate);
+            dtAssement = objAssessmentDao.GetStudentGeneralAssessment(AcadmicClassId, StudentId, CreateDate);
             List<DailyAssessmentSubType> objAssementList = new List<DailyAssessmentSubType>();
 
             try
@@ -212,7 +212,7 @@ namespace SMSBusiness.Repository.Concrete
                     AssessmentDetails.FormateCreateDate = dr["CreatedDate"].ToString();
                     AssessmentDetails.StudentId = Convert.ToInt32(dr["StudentId"]);
                     AssessmentDetails.AcadmicClassId = Convert.ToInt32(dr["AcadmicClassId"]);
-                    
+
                     objAssementList.Add(AssessmentDetails);
 
                 }
@@ -259,7 +259,7 @@ namespace SMSBusiness.Repository.Concrete
                 return objAssementList;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 throw ex;
@@ -285,7 +285,7 @@ namespace SMSBusiness.Repository.Concrete
                     AssessmentDetails.AssessmentFormat = Convert.ToBoolean(dr["AssessmentFormat"]);
                     AssessmentDetails.AverageConcequence = dr.IsNull("AverageConsequence") ? string.Empty : dr["AverageConsequence"].ToString();
                     AssessmentDetails.Concequence = dr.IsNull("WorseConsequence") ? string.Empty : dr["WorseConsequence"].ToString();
-                    AssessmentDetails.CreateDate =Convert.ToDateTime(dr["CreatedDate"]);
+                    AssessmentDetails.CreateDate = Convert.ToDateTime(dr["CreatedDate"]);
                     AssessmentDetails.TeacherId = Convert.ToInt32(dr["TeacherId"]);
                     AssessmentDetails.AcadmicClassId = Convert.ToInt32(dr["AcadmicClassId"]);
                     AssessmentDetails.CourseId = Convert.ToInt32(dr["CourseId"]);
@@ -301,7 +301,7 @@ namespace SMSBusiness.Repository.Concrete
 
                 throw;
             }
-        } 
+        }
         public List<DailyAssessmentSubType> GetStudentSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
         {
             var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
@@ -316,17 +316,17 @@ namespace SMSBusiness.Repository.Concrete
                 {
                     var AssessmentDetails = new DailyAssessmentSubType();
                     AssessmentDetails.OperationalId = Convert.ToInt32(dr["DailyAssessmentOpertationId"]);
-                    AssessmentDetails.AcadmicClassId = Convert.ToInt32( dr["AcadmicClassId"]);
-                    AssessmentDetails.StudentId =Convert.ToInt32( dr["StudentId"]);
+                    AssessmentDetails.AcadmicClassId = Convert.ToInt32(dr["AcadmicClassId"]);
+                    AssessmentDetails.StudentId = Convert.ToInt32(dr["StudentId"]);
                     AssessmentDetails.AssessmentTypeId = Convert.ToInt32(dr["ParentAssessmentId"]);
                     AssessmentDetails.AssessmentSubTypeId = Convert.ToInt32(dr["AssessmentSubTypeId"]);
                     AssessmentDetails.AssessmentSubTypeName = dr["AssessmentSubTypeName"].ToString();
-                    AssessmentDetails.AssessmentFormat =Convert.ToBoolean(dr["AssessmentFormat"]);
+                    AssessmentDetails.AssessmentFormat = Convert.ToBoolean(dr["AssessmentFormat"]);
                     AssessmentDetails.SelectedEvaluation = dr["AssementStatus"].ToString();
                     AssessmentDetails.Concequence = dr.IsNull("WorseConsequence") ? string.Empty : dr["WorseConsequence"].ToString();
                     AssessmentDetails.CreateDate = Convert.ToDateTime(dr["CreateDate"]);
                     AssessmentDetails.CreatedById = dr["CreatedById"].ToString();
-               
+
 
                     objAssementList.Add(AssessmentDetails);
 
@@ -345,7 +345,7 @@ namespace SMSBusiness.Repository.Concrete
         {
             var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
             var dtAssement = new DataTable();
-            dtAssement = objAssessmentDao.GetStudentSingleAcadmicAssessment(AcadmicClassId, StudentId,CourseId ,CreateDate);
+            dtAssement = objAssessmentDao.GetStudentSingleAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate);
             List<DailyAssessmentType> objAssementList = new List<DailyAssessmentType>();
 
             try
@@ -421,7 +421,25 @@ namespace SMSBusiness.Repository.Concrete
 
                 throw;
             }
-        } 
-
+        }
+        public DateTime GetLastReportCreatedDate(int? AcadmicClassId, int? StudentId)
+        {
+            DateTime reportDate = DateTime.Now;
+            var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
+            var dtAssement = new DataTable();
+            dtAssement = objAssessmentDao.GetLastReportCreatedDate(AcadmicClassId, StudentId);
+            if (dtAssement.Rows.Count > 0)
+            {
+                foreach (DataRow item in dtAssement.Rows)
+                {
+                    reportDate= Convert.ToDateTime(item["CreatedDate"]);
+                }
+            }
+            else
+            {
+                return reportDate;
+            }
+            return reportDate;
+        }
     }
 }

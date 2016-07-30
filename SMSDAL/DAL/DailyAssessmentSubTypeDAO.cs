@@ -155,7 +155,7 @@ namespace SMSDAL.DAL
             }
             return dtAssessmentDetails;
         }
-        public DataTable GetStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
+        public DataTable GetStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, DateTime CreateDate)
         {
             DataTable dtAssessmentDetails;
             try
@@ -165,7 +165,7 @@ namespace SMSDAL.DAL
                 {
                     gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
                     gObjDatabase.AddInParameter(objCommand, "@StudentId", DbType.Int32, StudentId);
-                    gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
+                    gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.DateTime, CreateDate);
                     dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }
@@ -279,6 +279,26 @@ namespace SMSDAL.DAL
                 throw;
             }
             return dtAssessmentDetails;
+        }  
+
+        public DataTable GetLastReportCreatedDate(int? AcadmicClassId, int? StudentId)
+        {
+            DataTable dtDate;
+            try
+            {
+                var query = "Select top 1 CreatedDate From DailyAssementOperation Where  StudentId="+ StudentId +" AND   AcadmicClassId="+AcadmicClassId;
+                using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+                    dtDate = gObjDatabase.GetDataTable(objDbCommand);
+                    
+                }
+                return dtDate;
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+
         }
     }
 }

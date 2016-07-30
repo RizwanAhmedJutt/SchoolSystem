@@ -73,6 +73,7 @@
     <Compile Include="Common\City.cs" />
     <Compile Include="Common\DailyAssessmentHelper.cs" />
     <Compile Include="Common\Evaluation.cs" />
+    <Compile Include="Common\FinalResultHelper.cs" />
     <Compile Include="Common\ResultSheetHelper.cs" />
     <Compile Include="Common\StudentMonthReportHelpers.cs" />
     <Compile Include="Common\TeacherMonthReportHelpers.cs" />
