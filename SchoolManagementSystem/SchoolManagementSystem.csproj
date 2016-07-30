@@ -199,6 +199,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604151825497_InitialCreate.cs" />
+    <Compile Include="Migrations\201604151825497_InitialCreate.Designer.cs">
+      <DependentUpon>201604151825497_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607301725126_Student.cs" />
+    <Compile Include="Migrations\201607301725126_Student.Designer.cs">
+      <DependentUpon>201607301725126_Student.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -508,6 +517,14 @@
       <Project>{49cbb4ab-dccd-4d3d-92c9-7833d6db9b60}</Project>
       <Name>SMSDataContract</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201604151825497_InitialCreate.resx">
+      <DependentUpon>201604151825497_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607301725126_Student.resx">
+      <DependentUpon>201607301725126_Student.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

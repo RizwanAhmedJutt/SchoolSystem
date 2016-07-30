@@ -10,6 +10,8 @@ using System.Web.Mvc;
 
 namespace SchoolManagementSystem.Controllers
 {
+   [Authorize(Roles = "Student")]
+   [Authorize(Roles = "Admin")]
     public class StudentLogController : Controller
     {
         IAssessmentCategories repoAssessmentCategory = new AssessmentCategoriesBLL();
