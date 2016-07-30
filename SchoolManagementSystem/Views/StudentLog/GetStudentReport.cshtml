@@ -1,0 +1,272 @@
+﻿@using System.Collections.Generic
+@model SMSDataContract.Common.StudentMonthReportHelpers
+@{
+
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+
+        @using (Html.BeginForm("GetStudentReport", "StudentReport", FormMethod.Get))
+        {
+            <div class="input-group col-md-8">
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
+                    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                    </div>
+                    @*@Html.ValidationMessageFor(x => x.First().AcadmicClassId)*@
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3"> <b>Student </b> </div>
+
+                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLStudent">
+
+                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-md-3 col-md-offset-3 control-label"><label>Month</label> </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLWeek">
+                            <input name="Month" id="AssessmentMonth" class="date-picker form-control" />
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <br />
+                <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+            </div>
+        }
+
+        <div style="clear:left"></div>
+        <div class="well">
+
+            <span class="HeadingStyle">Student Monthly Assessment Report</span>
+            @if (Model.Courses.Count > 0)
+            {
+                <span class="subheader" style="margin-top:10px;margin-bottom:10px;">Acadmic Report</span>
+
+                <table class="table  table-bordered table-striped table-responsive table-hover">
+                    @for (int i = 0; i < Model.Courses.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <text> @Model.Courses[i].CourseName</text>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Assessment Name</th>
+                            <th>Reward</th>
+                            <th>Avg.Concequence</th>
+                            <th>Worse Concequence</th>
+                        </tr>
+                        for (int j = 0; j < Model.AcadmicAssessment.Count; j++)
+                        {
+                            if (Model.AcadmicAssessment[j].CourseName == Model.AcadmicAssessment[i].CourseName)
+                            {
+                                <tr>
+                                    <td>@Model.AcadmicAssessment[j].AssessmentName</td>
+                                    <td>@Model.AcadmicAssessment[j].AssessmentTotal</td>
+                                    <td>@Model.AcadmicAssessment[j].AverageConsequence</td>
+                                    <td>@Model.AcadmicAssessment[j].WorseConsequence</td>
+                                </tr>
+                            }
+
+
+                        }
+
+                    }
+                    <tr>
+                        <th>Total Reward:</th>
+                        <td>
+                            @if (Model.AcadmicAssessment.Count > 0)
+                            {
+                                <text>
+                                    @Model.AcadmicAssessment.ToList().Sum(x => x.AssessmentTotal)
+                                </text>
+                            }
+                        </td>
+                    </tr>
+
+
+                </table>
+            }
+            @if (Model.GeneralAssessment.Count > 0)
+            {
+                <span class="subheader" style="margin-top:10px;margin-bottom:10px;">General Report</span>
+                <table class="table  table-bordered table-striped table-responsive table-hover">
+                    <tr>
+                        <th>Assessment Name</th>
+                        <th>Reward</th>
+                        <th>Worse Concequence</th>
+                    </tr>
+                    @for (int i = 0; i < Model.GeneralAssessment.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Model.GeneralAssessment[i].AssessmentName
+                            </td>
+                            <td>
+                                @Model.GeneralAssessment[i].AssessmentTotal
+                            </td>
+                            <td>
+                                @Model.GeneralAssessment[i].WorseConsequence
+                            </td>
+                        </tr>
+
+
+
+                    }
+                    <tr>
+                        <th>Total Reward:</th>
+                        <td>
+                            @if (Model.GeneralAssessment.Count > 0)
+                            {
+                                <text>
+                                    @Model.GeneralAssessment.ToList().Sum(x => x.AssessmentTotal)
+                                </text>
+                            }
+                        </td>
+                    </tr>
+
+
+                </table>
+            }
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.date-picker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                }
+            });
+            // Set Query String Parameter
+            if ('@Request.QueryString["AcadmicClassId"]' != null) {
+                $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
+            }
+            else {
+                $('#ddlAcadmicClass option[value=""]').attr("selected", true);
+            }
+            if ('@Request.QueryString["StudentId"]' != null) {
+
+                $('#ddlStudent option[value="@Request.QueryString["StudentId"]"]').attr("selected", true);
+
+            }
+            else {
+                $('#ddlStudent option[value=""]').attr("selected", true);
+            }
+            if ('@Request.QueryString["Month"]' != null) {
+
+                $("#AssessmentMonth").val('@Request.QueryString["Month"]');
+
+            }
+            else {
+                $("#AssessmentMonth").val() = "";
+            }
+            //change event for acadmic class
+            $("#ddlAcadmicClass").change(function () {
+
+                var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: getAcadmicClass };
+                if (getAcadmicClass != '') {
+
+                    $(this).removeAttr("style");
+                    Url = "/Course/DDLStudent";
+
+                    // Fill Student Dropdown
+                    $.get(Url, model)
+                    .done(function (stdhtml) {
+
+                        $("#dvDDLStudent").html(stdhtml);
+
+                    })
+                    .fail(function (ex1, ex2) {
+                        alert("Can't get Student DDL");
+                    })
+                }
+
+            });
+
+
+            $('body').on("change", "#ddlStudent", function () {
+
+                if ($("#ddlStudent").val() != "") {
+
+                    $(this).removeAttr("style");
+                }
+
+            });
+            $("#AssessmentMonth").change(function () {
+
+                if ($("#AssessmentMonth").val() != "") {
+                    $(this).removeAttr("style");
+                }
+            })
+
+            $("#btnSearch").click(function (e) {
+
+                e.preventDefault();
+
+                if ($("#ddlAcadmicClass").val() == '') {
+
+
+                    $("#ddlAcadmicClass").css("border", "1px solid red");
+
+                }
+                else if ($("#ddlStudent").val() == '') {
+
+                    $("#ddlStudent").css("border", "1px solid red");
+                }
+                else if ($("#AssessmentMonth").val() == '') {
+
+                    $("#AssessmentMonth").css("border", "1px solid red");
+                }
+                else {
+                    $("form").submit();
+                }
+
+
+            });
+        });
+
+    </script>
+}
+
+
+
+
+
+
+

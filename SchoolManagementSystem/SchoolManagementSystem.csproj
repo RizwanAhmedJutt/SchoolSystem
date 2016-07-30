@@ -486,8 +486,7 @@
     <Content Include="Views\StudentResult\GetALLStudyDescriptions.cshtml" />
     <Content Include="Views\StudentResult\AddChangesStudyDescriptions.cshtml" />
     <Content Include="Views\Shared\_StudentLayout.cshtml" />
-    <Content Include="Views\StudentLog\StudentGeneralAssessment.cshtml" />
-    <Content Include="Views\StudentLog\StudentAcadmicAssessment.cshtml" />
+    <Content Include="Views\StudentLog\GetStudentReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
