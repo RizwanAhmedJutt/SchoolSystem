@@ -562,7 +562,7 @@ namespace SMSDAL.DAL
         public DataTable GetALLTeacherByName()
         {
             DataTable dtAllTeacher;
-            var query = "Select t.TeacherId, t.FirstName +''+ t.LastName TeacherName from Teacher t";
+            var query = "Select t.TeacherId, t.FirstName +''+ t.LastName TeacherName from Teacher t where t.Active=1";
             using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
             {
                 dtAllTeacher = gObjDatabase.GetDataTable(objCommand);
@@ -648,7 +648,7 @@ namespace SMSDAL.DAL
             DataTable dtTeachers;
             try
             {
-                var query = "Select t.TeacherId,t.FirstName +''+t.LastName as TeacherName from Teacher t Left Join TeacherAssignedClass tClass on tClass.TeacherId=t.TeacherId Where tClass.ClassId=" + AcadmicClassId;
+                var query = "Select t.TeacherId,t.FirstName +''+t.LastName as TeacherName from Teacher t Left Join TeacherAssignedClass tClass on tClass.TeacherId=t.TeacherId Where tClass.ClassId=" + AcadmicClassId + "AND t.Active=1";
                 using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
 

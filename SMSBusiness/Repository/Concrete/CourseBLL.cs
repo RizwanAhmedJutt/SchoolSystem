@@ -128,7 +128,7 @@ namespace SMSBusiness.Repository.Concrete
                         course.CreatedById = item["CreatedById"].ToString();
                         course.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
                         course.ModifiedById = item["ModifiedById"].ToString();
-                        // course.ModifiedDate =string.IsNullOrEmpty(item["ModifiedDate"].ToString())? null: Convert.ToDateTime(item["ModifiedDate"]);
+                        course.ModifiedDate =string.IsNullOrEmpty(item["ModifiedDate"].ToString())? (DateTime?) null: Convert.ToDateTime(item["ModifiedDate"]);
                     }
                 }
 

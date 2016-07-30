@@ -184,7 +184,6 @@
 
     });
     $("#btnAddEdit").click(function (e) {
-        debugger;
          e.preventDefault();
          var AcadmicClass = $("#ddlAcadmicClass").val();
          var StudentId = $("#ddlStudent").val();
@@ -192,22 +191,13 @@
          var SecurityFee = $("#SecurityFee").val();
          var ExaminationFee = $("#ExaminationFee").val();
          var RegistrationFee = $("#RegistrationFee").val();
-        
-        
          if(AcadmicClass!=''&&StudentId!=''&& AdmissionFee!=''&&SecurityFee!=''&&ExaminationFee!=''&&RegistrationFee!='')
          {
              $("form").submit();
          }
-
-
-
-
-
-
     });
     // change event of ddlAcadmicClass
     $("#ddlAcadmicClass").change(function () {
-        debugger;
         var getClass = $("#ddlAcadmicClass :selected").val();
         if (getClass != '') {
 
@@ -238,7 +228,7 @@
         }
     });
     function LoadDDLStudent() {
-        debugger;
+      
         var ClassId=$("#ddlAcadmicClass :selected").val();
         var model = { AcadmicClassId: ClassId };
         var Url = null;

@@ -23,7 +23,7 @@ namespace SMSDAL
             DataTable stdNames;
             try
             {
-                var query = "Select StudentId,std.FirstName,std.LastName ,std.FirstName+''+std.LastName as StudentName  from student std Where std.IsActive=1";
+                var query = "Select StudentId,std.FirstName,std.LastName ,std.FirstName+''+std.LastName as StudentName,std.IsActive from student std Where std.IsActive=1";
                 using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                     stdNames = gObjDatabase.GetDataTable(objCommand);

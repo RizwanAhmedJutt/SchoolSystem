@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <br />
-                  <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+                  <button id="btnSelectedSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
                 </div>
             }
             <div style="clear:left"></div>
@@ -139,10 +139,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            if ('@Request.QueryString["AcadmicClassId"]' != null) {
-
+            if ('@Request.QueryString["AcadmicClassId"]' != null && '@Request.QueryString["AcadmicClassId"]' !="") {
+                debugger
                 $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
-
+                LoadStudents(@Request.QueryString["AcadmicClassId"]);
+               
             }
             else {
                 $('#ddlAcadmicClass option[value=""]').attr("selected", true);
@@ -158,24 +159,29 @@
             //change event for acadmic class
             $("#ddlAcadmicClass").change(function () {
                 var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
-                var model = { AcadmicClassId: getAcadmicClass };
+               
                 if (getAcadmicClass != '') {
-                    Url = "/Course/DDLStudent";
-                    // Fill Student Dropdown
-                    $.get(Url, model)
-                    .done(function (stdhtml) {
-
-                        $("#dvDDLStudent").html(stdhtml);
-
-                    })
-                    .fail(function (ex1, ex2) {
-                        alert("Can't get Student DDL");
-                    });
-                    
+                    LoadStudents(getAcadmicClass);
                 }
 
             });
+            function LoadStudents(acadmicClassId)
+            {
+                var model = { AcadmicClassId: acadmicClassId };
+                var  Url = "/Course/DDLStudent";
+                // Fill Student Dropdown
+                $.get(Url, model)
+                .done(function (stdhtml) {
+                    $("#dvDDLStudent").html("");
+                    $("#dvDDLStudent").html(stdhtml);
 
+                })
+                .fail(function (ex1, ex2) {
+                    alert("Can't get Student DDL");
+                });
+
+
+            }
 
             $("#btnAddEdit").click(function () {
                 AddEdit(0);
@@ -187,7 +193,6 @@
             });
             //submit export file form
             $("#btnSearch").click(function (e) {
-                debugger;
                 e.preventDefault();
                 var startDate = $('input[name="startDate"]').val();
                 var endDate = $('input[name="endDate"]').val();

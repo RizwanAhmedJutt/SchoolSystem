@@ -18,13 +18,30 @@ namespace SMSDAL.DAL
         {
             gObjDatabase = database;
         }
+        public DataTable GetStudentSocialAndPersonalSkill()
+        {
+            DataTable dtAttendanceDetails;
+            try
+            {
+                var query = "Select * From StudentResultSocialAndPersonalSkill";
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+                    dtAttendanceDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAttendanceDetails;
+        }
         public int InsertUpdateStudentSocialAndPersonalSkill(StudentResultSocialAndPersonalSkill srPersonal)
         {
             try
             {
                 using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("sp_Result_InsertUpdateSocialAndPersonalSkill"))
                 {
-                    gObjDatabase.AddInParameter(objDbCommand, "@WorkSkillId", DbType.Int32, srPersonal.SocialSkillId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@SocialSkillId", DbType.Int32, srPersonal.SocialSkillId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AcadmicClassId", DbType.Int32, srPersonal.AcadmicClassId);
                     gObjDatabase.AddInParameter(objDbCommand, "@StudentId", DbType.Int32, srPersonal.StudentId);
                     gObjDatabase.AddInParameter(objDbCommand, "@SocialDescriptionId", DbType.Int32, srPersonal.SocialDescriptionId);
@@ -52,7 +69,7 @@ namespace SMSDAL.DAL
 
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 throw;
             }
@@ -70,7 +87,7 @@ namespace SMSDAL.DAL
                     dtStudentDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 throw;
             }

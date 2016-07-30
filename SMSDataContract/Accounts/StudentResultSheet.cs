@@ -18,6 +18,7 @@ namespace SMSDataContract.Accounts
             CourseId = 0;
             ClassAssessmentPercentage = 0.0;
             PaperPercentage = 0.0;
+            Grade = string.Empty;
             Remarks=string.Empty;
             PaperTerm = string.Empty;
             CreatedById = string.Empty;
@@ -33,7 +34,7 @@ namespace SMSDataContract.Accounts
         public double ClassAssessmentPercentage { get; set; }
         [Display(Name = "Paper %")]
         public double PaperPercentage { get; set; }
-        public char Grade { get; set; }
+        public string Grade { get; set; }
         public string Remarks { get; set; }
         public string PaperTerm { get; set; }
        

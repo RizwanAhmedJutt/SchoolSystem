@@ -13,6 +13,39 @@ namespace SMSBusiness.Repository.Concrete
 {
     public class StudentResultWorkAndSkillBLL : IStudentResultWorkAndSkill
     {
+        public List<StudentResultWorkAndStudySkill> GetStudentWorkAndStudySkill()
+        {
+            var objStudentResultWorkAndSkillDAODao = new StudentResultWorkAndSkillDAO(new SqlDatabase());
+            DataTable stdDetail;
+            List<StudentResultWorkAndStudySkill> stdworkAndStudySkill = new List<StudentResultWorkAndStudySkill>();
+            try
+            {
+                stdDetail = objStudentResultWorkAndSkillDAODao.GetStudentWorkAndStudySkill();
+
+                foreach (DataRow item in stdDetail.Rows)
+                {
+                    StudentResultWorkAndStudySkill std = new StudentResultWorkAndStudySkill();
+                    std.WorkSkillId = Convert.ToInt32(item["WorkSikllid"]);
+                    std.AcadmicClassId = Convert.ToInt32(item["AcadmicClassId"].ToString());
+                    std.StudentId = Convert.ToInt32(item["StudentId"].ToString());
+                    std.StudyDescriptionId = Convert.ToInt32(item["StudyDescriptionId"].ToString());
+                    std.Grade = Convert.ToChar(item["Grade"].ToString().Trim());
+                    std.TermType = item["TermType"].ToString();
+                    std.CreatedById = item["CreatedById"].ToString();
+                    std.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
+                    std.ModifiedById = item.IsNull("ModifiedById") ? null : (item["ModifiedById"].ToString());
+                    std.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?)null : Convert.ToDateTime(item["ModifiedDate"]);
+                    stdworkAndStudySkill.Add(std);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return stdworkAndStudySkill;
+        }
+
         public int AddChangesStudentWorkAndStudySkill(StudentResultWorkAndStudySkill srWorkAndstudy)
         {
             var objWorkAndStudyDao = new StudentResultWorkAndSkillDAO(new SqlDatabase());

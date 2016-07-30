@@ -74,7 +74,7 @@
                                             else
                                             {
                                                 <text>
-                                                    @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = Model.ClassId });}
+                                                    @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = Model.AcadmicClassId });}
                                                 </text>
                                             }
                                         }
@@ -102,7 +102,7 @@
                                          else
                                          {
                                             <text>
-                                                @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = Model.ClassId }); }
+                                                @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = Model.AcadmicClassId }); }
                                             </text>
                                          }
                                         }
@@ -146,7 +146,7 @@
                 $("#Loading").hide();
                 if ('@Model.TeacherAssignedCourseId' > 0) {
                     
-                    $('#ddlAcadmicClass option[value="@Model.ClassId"]').attr("selected", true);
+                    $('#ddlAcadmicClass option[value="@Model.AcadmicClassId"]').attr("selected", true);
                     $('#ddlTeacher option[value="@Model.TeacherId"]').attr("selected", true);
                     $('#ddlCourse option[value="@Model.CourseId"]').attr("selected", true);
                 }

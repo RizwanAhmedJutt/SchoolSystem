@@ -8,7 +8,7 @@
         @using (@Html.BeginForm("ResultTemplate", "StudentResult", FormMethod.Post))
         {
             <div style="width:100%;">
-                @Html.HiddenFor(x=>x.PaperTerm)
+                @Html.HiddenFor(x => x.PaperTerm)
                 <table id="ResultSheet" class="table table-bordered table-striped table-responsive table-hover">
                     <tr class="action info">
                         <th>Subject</th>
@@ -16,7 +16,7 @@
                         <th>Paper 60 %</th>
                         <th width="200px">Grade</th>
                         <th>Remark</th>
-                        
+
                     </tr>
                     @for (int i = 0; i < Model.AssignedCourses.Count; i++)
                     {
@@ -28,11 +28,13 @@
                             <td>
                                 @Html.DisplayFor(x => x.AssignedCourses[i].CourseName)
                             </td>
-                            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].ClassAssessmentPercentage, new { @class = "form-control", @Id = "txtClassAssessmentPercentage" + i })</td>
+                            <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].ClassAssessmentPercentage, new { @class = "form-control numbersOnly", @Id = "txtClassAssessmentPercentage" + i })</td>
                             <td>
-                             @Html.HiddenFor(x=>x.StudentResultSheet[i].CreatedById)
-                             @Html.HiddenFor(x => x.StudentResultSheet[i].CreatedDate)
-                            @Html.TextBoxFor(x => x.StudentResultSheet[i].PaperPercentage, new { @class = "form-control", @Id = "txtPaperPercentage" + i })
+                                @Html.HiddenFor(x => x.StudentResultSheet[i].CreatedById)
+                                @Html.HiddenFor(x => x.StudentResultSheet[i].CreatedDate)
+                                @Html.HiddenFor(x => x.StudentResultSheet[i].StudentResultId)
+
+                                @Html.TextBoxFor(x => x.StudentResultSheet[i].PaperPercentage, new { @class = "form-control numbersOnly", @Id = "txtPaperPercentage" + i })
                             </td>
                             <td>
                                 @Html.DropDownListFor(x => x.StudentResultSheet[i].Grade, new List<SelectListItem>()
@@ -62,11 +64,14 @@
                     </tr>
                     <tr>
                         <td>
-                            @Html.TextBoxFor(x => x.StudentAttendance.WorkingDays, new { @class = "form-control" })
+                            @Html.HiddenFor(x=>x.StudentAttendance.AcadmicClassId)
+                            @Html.HiddenFor(x=>x.StudentAttendance.StudentId)
+                            @Html.HiddenFor(x=>x.StudentAttendance.StudentAttendanceId)
+                            @Html.TextBoxFor(x => x.StudentAttendance.WorkingDays, new { @class = "form-control numbersOnly" })
                         </td>
-                        <td>@Html.TextBoxFor(x => x.StudentAttendance.Leaves, new { @class = "form-control" })</td>
-                        <td>@Html.TextBoxFor(x => x.StudentAttendance.Absents, new { @class = "form-control" })</td>
-                        <td>@Html.TextBoxFor(x => x.StudentAttendance.TotalPercentage, new { @class = "form-control" })</td>
+                        <td>@Html.TextBoxFor(x => x.StudentAttendance.Leaves, new { @class = "form-control numbersOnly" })</td>
+                        <td>@Html.TextBoxFor(x => x.StudentAttendance.Absents, new { @class = "form-control numbersOnly" })</td>
+                        <td>@Html.TextBoxFor(x => x.StudentAttendance.TotalPercentage, new { @class = "form-control numbersOnly", @readOnly="readOnly" })</td>
 
                     </tr>
                 </table>
@@ -81,11 +86,15 @@
                         <text>
                             <tr>
                                 <td>
+                                    @Html.HiddenFor(x => x.SrSocialAndPersonalSkill[k].SocialSkillId)
                                     @Html.HiddenFor(x => x.SrSocialAndPersonalSkill[k].SocialDescriptionId)
+                                    @Html.HiddenFor(x => x.SrSocialAndPersonalSkill[k].CreatedById)
+                                    @Html.HiddenFor(x => x.SrSocialAndPersonalSkill[k].CreatedDate)
                                     @Html.DisplayFor(x => x.SrSocialAndPersonalSkill[k].Description)
                                 </td>
                                 <td>
-                                    @Html.DropDownListFor(x=>x.SrSocialAndPersonalSkill[k].Grad, new List<SelectListItem>()
+
+                                    @Html.DropDownListFor(x => x.SrSocialAndPersonalSkill[k].Grad, new List<SelectListItem>()
                                         {
                                             new SelectListItem(){ Text= "A", Value = "A"},
                                             new SelectListItem(){ Text= "B", Value = "B"},
@@ -109,13 +118,16 @@
                     @for (int j = 0; j < Model.SrWorkAndStudySkill.Count; j++)
                     {
                         <text>
-                         <tr>
-                        <td>
-                            @Html.HiddenFor(x => x.SrWorkAndStudySkill[j].StudyDescriptionId)
-                            @Html.DisplayFor(x => x.SrWorkAndStudySkill[j].Description)
-                    </td>
-                    <td>
-                        @Html.DropDownListFor(x => x.SrWorkAndStudySkill[j].Grade, new List<SelectListItem>()
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(x => x.SrWorkAndStudySkill[j].WorkSkillId)
+                                    @Html.HiddenFor(x => x.SrWorkAndStudySkill[j].CreatedById)
+                                    @Html.HiddenFor(x => x.SrWorkAndStudySkill[j].CreatedDate)
+                                    @Html.HiddenFor(x => x.SrWorkAndStudySkill[j].StudyDescriptionId)
+                                    @Html.DisplayFor(x => x.SrWorkAndStudySkill[j].Description)
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(x => x.SrWorkAndStudySkill[j].Grade, new List<SelectListItem>()
                                         {
                                             new SelectListItem(){ Text= "A", Value = "A"},
                                             new SelectListItem(){ Text= "B", Value = "B"},
@@ -125,13 +137,13 @@
 
 
                                         }, "Select Grade", new { id = "ddlGrade", @class = "form-control" })
-                    </td>
-                </tr> 
-                    </text>
+                                </td>
+                            </tr>
+                        </text>
                     }
-            </table>
+                </table>
 
-        </div>
+            </div>
             <div class="col-md-offset-6 col-md-12">
                 <input type="submit" value="Save" class="btn btn-primary" />
 
@@ -139,3 +151,21 @@
         }
     </text>
 }
+<script type="text/javascript">
+    $("#StudentAttendance_Absents").change(function () {
+        debugger;
+        var workingDays = $("#StudentAttendance_WorkingDays").val();
+        var absents = $("#StudentAttendance_Absents").val();
+        // since working days always greater than absents
+        if (workingDays <= absents) {
+            var presentDays = workingDays - absents;
+            var totalPercentage = (presentDays / workingDays) * 100;
+            $("#StudentAttendance_TotalPercentage").val(totalPercentage);
+        }
+        else {
+            alert("Working Days Must be Greater Than Absents..");
+        }
+
+
+    });
+</script>

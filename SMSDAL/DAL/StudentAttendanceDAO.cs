@@ -18,7 +18,23 @@ namespace SMSDAL.DAL
         {
             gObjDatabase = database;
         }
-
+        public DataTable GetStudentAttendanceSheets()
+        {
+            DataTable dtAttendanceDetails;
+            try
+            {
+                var query = "Select * From StudentAttendanceSheet";
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+                    dtAttendanceDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAttendanceDetails;
+        }
         public int InsertUpdateStudentAttendance(StudentAttendance sAttendance)
         {
             try
@@ -33,6 +49,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@Absentes", DbType.Int32, sAttendance.Absents);
                     gObjDatabase.AddInParameter(objDbCommand, "@TotalPercentage", DbType.Decimal, sAttendance.TotalPercentage);
                     gObjDatabase.AddInParameter(objDbCommand, "@PaperTerm", DbType.String, sAttendance.PaperTerm);
+                    gObjDatabase.AddOutParameter(objDbCommand, "@AttendancenewId", DbType.Int32, 4);
                     SqlParameter returnParameter = new SqlParameter("RetValue", SqlDbType.Int);
                     returnParameter.Direction = ParameterDirection.ReturnValue;
                     objDbCommand.Parameters.Add(returnParameter);

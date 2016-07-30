@@ -26,9 +26,7 @@
                     <span class="HeadingStyle">List of Room</span>
                     <table class="table  table-bordered table-striped table-responsive table-hover">
                         <tr class="action info">
-                            <th>
-                                @Html.DisplayNameFor(model => model.First().RoomId)
-                            </th>
+                           
                             <th>
                                 @Html.DisplayNameFor(model => model.First().RoomName)
                             </th>
@@ -42,9 +40,7 @@
                         @foreach (var item in Model)
                     {
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.RoomId)
-                                </td>
+                                
                                 <td>
                                     @Html.DisplayFor(modelItem => item.RoomName)
                                 </td>

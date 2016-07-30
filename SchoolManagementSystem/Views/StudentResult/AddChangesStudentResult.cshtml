@@ -67,7 +67,7 @@
                 
 
 
-                <div id="AddEditResultTemplate" style="display:none">
+                <div id="AddEditResultTemplate">
                 </div>
                 
                   <div class="form-group">
@@ -95,8 +95,7 @@
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
+   
     <script type="text/javascript">
         {
             $(document).ready(function () {
@@ -156,9 +155,13 @@
                 var model = { AcadmicClassId: ClassId, StudentId: StudentId,PaperTerm:Term };
                 $.get("/StudentResult/ResultTemplate", model)
                 .done(function (html) {
-                  
-                    $("#AddEditResultTemplate").show();
+                    debugger;
+                    $("#AddEditResultTemplate").empty().html();
                     $("#AddEditResultTemplate").append(html);
+                    if ($("#AddEditResultTemplate").has("#ResultSheet").length==0)
+                    {
+                        $("#AddEditResultTemplate").append("<div>No Record Found For Selected Student.</div>");
+                    }
                 })
                 .fail(function (e1) {
                     alert("fail to get Result Template");
@@ -166,6 +169,8 @@
 
 
             }
+            
+
         }
 
 

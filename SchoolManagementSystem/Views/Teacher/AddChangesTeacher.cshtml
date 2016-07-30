@@ -18,6 +18,9 @@
                         <div class="row well">
                             @Html.AntiForgeryToken()
                             <div class="form-horizontal">
+                                @Html.HiddenFor(x=>x.CreatedById)
+                                @Html.HiddenFor(x => x.CreatedDate)
+
                                 @if (Model.TeacherId == 0)
                                 {
                                     <span class="HeadingStyle">Add Teacher</span>

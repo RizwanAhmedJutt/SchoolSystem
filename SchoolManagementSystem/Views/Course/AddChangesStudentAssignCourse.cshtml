@@ -26,6 +26,7 @@
 
                 @Html.HiddenFor(x => x.AssignCourseId);
                 @Html.HiddenFor(x=>x.CreatedDate)
+                @Html.HiddenFor(x => x.CreatedById)
                 <div class="row well">
                     @if (Model.AssignCourseId == 0)
                     {
@@ -155,7 +156,7 @@
                 }
                 // change event of ddlAcadmicClass
                 $("#ddlAcadmicClass").change(function () {
-                    debugger;
+                  
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     if (getClass != '') {
                         $("#Loading").show();
@@ -203,6 +204,7 @@
                     }
                     else {
                         $("#StudentMsg").show();
+                       
                         $("#StudentMsg").text("Please Select Student");
                     }
                 });
@@ -240,7 +242,7 @@
                         var model = { AcadmicClassId: getClass, CourseId: getCourse, StudentId: getStudent };
                        $.get(URL,model)
                         .done(function (response) {
-                            debugger;
+                           
                             if(response=="true")
                             {
                                 $("#StudentMsg").show();
@@ -310,14 +312,14 @@
 
 
             function LoadDDLCourseANDStudent() {
-                debugger;
                 var ClassId=$("#ddlAcadmicClass :selected").val();
                 var model = { AcadmicClassId: ClassId };
                 var Url = null;
                 var Url = "/Course/DDLCourse";
                 $.get(Url, model)
                         .done(function (siteHtml) {
-                          
+
+                            $("#dvDDLCourse").html("");
                             $("#dvDDLCourse").html(siteHtml);
                             if ('@Model.AssignCourseId' > 0) {
                                 $('#ddlCourse option[value="@Model.CourseId"]').attr("selected", true);
@@ -328,7 +330,7 @@
                             // Fill Student Dropdown
                             $.get(Url, model)
                             .done(function (stdhtml) {
-                               
+                                $("#dvDDLStudent").html("");
                                 $("#dvDDLStudent").html(stdhtml);
                                 if ('@Model.StudentId' > 0)
                                 {

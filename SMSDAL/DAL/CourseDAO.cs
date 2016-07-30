@@ -60,7 +60,7 @@ namespace SMSDAL.DAL
             DataTable dtCourseDetails;
             try
             {
-                var query = "Select c.CourseId,c.CourseName from Courses c  Where c.ClassId=" + AcadmicClassId;
+                var query = "Select c.CourseId,c.CourseName from Courses c  Where c.ClassId=" + AcadmicClassId +"AND Active=1";
                 using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
 

@@ -9,7 +9,7 @@ namespace SMSBusiness.Repository.Abstract
 {
   public  interface IStudentResultSocialAndPersonalSkill
     {
-
+      List<StudentResultSocialAndPersonalSkill> GetStudentSocialAndPersonalSkill();
       int AddChangesStudentResultSocialAndPersonalSkill(StudentResultSocialAndPersonalSkill srSocial);
       StudentResultSocialAndPersonalSkill GetStudentSocialAndPersonalSkillById(int Id);
     }

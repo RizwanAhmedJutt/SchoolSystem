@@ -17,6 +17,23 @@ namespace SMSDAL.DAL
         {
             gObjDatabase = database;
         }
+        public DataTable GetStudentWorkAndStudySkill()
+        {
+            DataTable dtAttendanceDetails;
+            try
+            {
+                var query = "Select * From StudentResultWorkAndStudySkill";
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+                    dtAttendanceDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtAttendanceDetails;
+        }
         public int InsertUpdateStudentWorkAndStudySkill(StudentResultWorkAndStudySkill srWork)
         {
             try

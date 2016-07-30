@@ -32,7 +32,7 @@ namespace SMSBusiness.Repository.Concrete
                         Assigncourse.TeacherName = item["TeacherName"].ToString();
                         Assigncourse.ClassName = item["ClassName"].ToString();
                         Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
-                        Assigncourse.ClassId = Convert.ToInt32(item["ClassId"]);
+                        Assigncourse.AcadmicClassId = Convert.ToInt32(item["ClassId"]);
                         Assigncourse.TeacherId = Convert.ToInt32(item["TeacherId"]);
                         Assigncourse.CourseId = Convert.ToInt32(item["CourseId"]);
                         objTeacherAssign.Add(Assigncourse);
@@ -70,7 +70,7 @@ namespace SMSBusiness.Repository.Concrete
                       Assigncourse.TeacherName = item["TeacherName"].ToString();
                       Assigncourse.ClassName = item["ClassName"].ToString();
                       Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
-                      Assigncourse.ClassId = Convert.ToInt32(item["ClassId"]);
+                      Assigncourse.AcadmicClassId = Convert.ToInt32(item["ClassId"]);
                       objTeacherAssign.Add(Assigncourse);
 
                   }
@@ -103,10 +103,13 @@ namespace SMSBusiness.Repository.Concrete
                       Assigncourse.TeacherAssignedCourseId = Convert.ToInt32(item["TeacherAssignedCourseID"]);
                       Assigncourse.CourseName = item["CourseName"].ToString();
                       Assigncourse.TeacherName = item["TeacherName"].ToString();
-                      Assigncourse.ClassId = Convert.ToInt32(item["ClassId"]);
+                      Assigncourse.AcadmicClassId = Convert.ToInt32(item["ClassId"]);
                       Assigncourse.TeacherId = Convert.ToInt32(item["TeacherId"]);
                       Assigncourse.CourseId = Convert.ToInt32(item["CourseId"]);
-
+                      Assigncourse.CreatedById = item["CreatedById"].ToString();
+                      Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
+                      Assigncourse.ModifiedById = item.IsNull("ModifiedById") ? null : item["ModifiedById"].ToString();
+                      Assigncourse.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?)null : Convert.ToDateTime(item["ModifiedDate"]);
                   }
               }
 

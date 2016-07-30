@@ -23,14 +23,29 @@ namespace SchoolManagementSystem.Controllers
         ICourse courserepositry = new CourseBLL();
         IStudentAssignCourse stdAssignCourserepo = new StudentAssignCourseBLL();
         ITeacherAssignedCourse teacherrepo = new TeacherAssignCourseBLL();
-        IExport exportfiles=new ExportFileBLL();
+        IExport exportfiles = new ExportFileBLL();
         [HttpGet]
         public ActionResult GetALLCourse(string SearchBy, string search, int? page)
         {
+            List<Course> objCourses;
             if (SearchBy == "CourseCode" && search != "")
             {
-                List<Course> objCourses = courserepositry.GetALLCourseByCourseCode(search);
+                objCourses = courserepositry.GetALLCourseByCourseCode(search);
                 return View(objCourses.ToList().ToPagedList(page ?? 1, 10));
+            }
+            else if (SearchBy == "NotActive" && search != "")
+            {
+                var query = (from x in courserepositry.GetALLCourse().ToList()
+                             where x.IsActive == false && x.CourseName == search
+                             select x).ToList();
+                return View(query.ToPagedList(page ?? 1, 10));
+            }
+            else if (SearchBy == "NotActive" && string.IsNullOrEmpty(search))
+            {
+                var query = (from x in courserepositry.GetALLCourse().ToList()
+                             where x.IsActive == false
+                             select x).ToList();
+                return View(query.ToPagedList(page ?? 1, 10));
             }
             else
                 return View(courserepositry.GetALLCourse().ToPagedList(page ?? 1, 10));
@@ -102,39 +117,43 @@ namespace SchoolManagementSystem.Controllers
                 return View(stdassignCourse.ToList().ToPagedList(page ?? 1, 10));
             }
 
-        } 
+        }
         [HttpPost]
         public ActionResult GetStudentAssingCourseReport()
         {
             GetALLStudentAssignCourseReport();
             return RedirectToAction("GetALLStudentAssignCourse");
         }
-       
+
         [HttpGet]
         public ActionResult AddChangesStudentAssignCourse(int id)
         {
-            var userloggedId = User.Identity.GetUserId();
-            StudentAssignedCourse stdAssignCourse;
-            stdAssignCourse = stdAssignCourserepo.GetStudentAssignedCourseById(id);
+
+            StudentAssignedCourse stdAssigncourse;
             if (id == 0)
             {
-                StudentAssignedCourse stdAssigncourse = new StudentAssignedCourse();
-                stdAssignCourse.CreatedById = userloggedId;
-
+                stdAssigncourse = new StudentAssignedCourse();
                 return View(stdAssigncourse);
             }
             {
-                stdAssignCourse.ModifiedById = userloggedId;
-                stdAssignCourse.ModifiedDate = DateTime.Now;
-                return View(stdAssignCourse);
+                stdAssigncourse = stdAssignCourserepo.GetStudentAssignedCourseById(id);
+                return View(stdAssigncourse);
             }
         }
         [HttpPost]
-        public ActionResult AddChangesStudentAssignCourse(StudentAssignedCourse stdCourse, int CourseId, int StudentId, int AcadmicClassId)
+        public ActionResult AddChangesStudentAssignCourse(StudentAssignedCourse stdCourse)
         {
-            stdCourse.CourseId = CourseId;
-            stdCourse.StudentId = StudentId;
-            stdCourse.AcadmicClassId = AcadmicClassId;
+            var userloggedId = User.Identity.GetUserId();
+            if (stdCourse.AssignCourseId > 0)
+            {
+                stdCourse.ModifiedById = userloggedId;
+                stdCourse.ModifiedDate = DateTime.Now;
+            }
+            else
+            {
+                stdCourse.CreatedById = userloggedId;
+                stdCourse.CreatedDate = DateTime.Now;
+            }
             int getReturnValue = stdAssignCourserepo.InsertUpdateAssignedCourseAddChanges(stdCourse);
             return RedirectToAction("GetALLStudentAssignCourse", "Course");
         }
@@ -161,30 +180,34 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult AddChangesTeacherAssignCourse(int Id)
         {
-            var userloggedId = User.Identity.GetUserId();
-            TeacherAssignedCourse assignCourse = teacherrepo.GetTeacherAssignedCourseById(Id);
-            if (assignCourse.TeacherAssignedCourseId == 0)
+            TeacherAssignedCourse assignCourse ;
+            if (Id == 0)
             {
-                TeacherAssignedCourse tassignCourse = new TeacherAssignedCourse();
-                tassignCourse.CreatedById = userloggedId;
-                return View(tassignCourse);
+                assignCourse = new TeacherAssignedCourse();
+                return View(assignCourse);
             }
             else
             {
-                assignCourse.ModifiedById = userloggedId;
-                assignCourse.ModifiedDate = DateTime.Now;
+                assignCourse = teacherrepo.GetTeacherAssignedCourseById(Id);
                 return View(assignCourse);
             }
-        } 
+        }
 
         [HttpPost]
-        public ActionResult AddChangesTeacherAssignCourse(TeacherAssignedCourse tAssignCourse, int CourseId, int TeacherId, int AcadmicClassId)
+        public ActionResult AddChangesTeacherAssignCourse(TeacherAssignedCourse tAssignCourse)
         {
             var userloggedId = User.Identity.GetUserId();
-            tAssignCourse.TeacherId = TeacherId;
-            tAssignCourse.CourseId = CourseId;
-            tAssignCourse.ClassId = AcadmicClassId;
-            tAssignCourse.CreatedById = userloggedId;
+            if(tAssignCourse.TeacherAssignedCourseId>0)
+            {
+                tAssignCourse.ModifiedById = userloggedId;
+                tAssignCourse.ModifiedDate = DateTime.Now;
+            }
+            else
+            {
+                tAssignCourse.CreatedById = userloggedId;
+                tAssignCourse.CreatedDate = DateTime.Now;
+            }
+           
             int getStatus = teacherrepo.InsertUpdateAssignedCourseAddChanges(tAssignCourse);
 
             return RedirectToAction("GetALLTeacherAssignCourse", "Course");
@@ -213,7 +236,12 @@ namespace SchoolManagementSystem.Controllers
                 }
                 else
                 {
-                    ViewData["DDLCourse"] = new SelectList(courserepositry.GetALLCourse().OrderBy(c => c.CourseId).ToList(), "CourseId", "CourseName");
+                    List<Course> courses = new List<Course>();
+                    var query = (from x in courserepositry.GetALLCourse().ToList()
+                                 where x.IsActive == true
+                                 select x).FirstOrDefault();
+                    courses.Add(query);
+                    ViewData["DDLCourse"] = new SelectList(courses.ToList(), "CourseId", "CourseName");
                     return View("../DropDownLists/DDLCourse");
                 }
             }
@@ -222,8 +250,6 @@ namespace SchoolManagementSystem.Controllers
 
                 throw;
             }
-
-
         }
         public ActionResult DDLStudent(int AcadmicClassId)
         {
@@ -236,7 +262,10 @@ namespace SchoolManagementSystem.Controllers
             else
             {
                 IStudent std = new StudentBLL();
-                ViewData["DDLStudent"] = new SelectList(std.GetAllStudentByName().OrderBy(c => c.StudentId).ToList(), "StudentId", "StudentName");
+                List<Student> students = new List<Student>();
+                var getStudent = std.GetAllStudentByName().Where(x => x.IsActive == true).FirstOrDefault();
+                students.Add(getStudent);
+                ViewData["DDLStudent"] = new SelectList(students.ToList(), "StudentId", "StudentName");
                 return View("../DropDownLists/DDLStudent");
             }
 
@@ -367,27 +396,27 @@ namespace SchoolManagementSystem.Controllers
 
             }
 
-        } 
+        }
 
-        public string IsCourseNameExist(string CName,int AcadmicClassId)
+        public string IsCourseNameExist(string CName, int AcadmicClassId)
         {
             List<Course> lst = courserepositry.GetALLCourse();
             var query = (from c in lst
                          where c.CourseName == CName && c.ClassId == AcadmicClassId
                          select c);
-          
+
             if (query.Any())
                 return new JavaScriptSerializer().Serialize(true);// Course   already Assign That Class
             else
                 return new JavaScriptSerializer().Serialize(false);   // Course  not already Assign That Class
 
-        } 
-        public string IsModifiedCourseNameExist(string CName,int AcadmicClassId,string CourseCode, bool Active)
+        }
+        public string IsModifiedCourseNameExist(string CName, int AcadmicClassId, string CourseCode, bool Active)
         {
 
             List<Course> lst = courserepositry.GetALLCourse();
             var query = (from c in lst
-                         where c.CourseName == CName && c.ClassId == AcadmicClassId && CourseCode==c.CourseCode && c.IsActive==Active
+                         where c.CourseName == CName && c.ClassId == AcadmicClassId && CourseCode == c.CourseCode && c.IsActive == Active
                          select c);
 
             if (query.Any())
@@ -395,24 +424,24 @@ namespace SchoolManagementSystem.Controllers
             else
                 return new JavaScriptSerializer().Serialize(false);   // Course  not already Assign That Class
 
-        } 
+        }
 
-        public string IsCourseAlreadyAssignedToTeacher(int AcadmicClassId,int CourseId,int TeacherId)
+        public string IsCourseAlreadyAssignedToTeacher(int AcadmicClassId, int CourseId, int TeacherId)
         {
             List<TeacherAssignedCourse> tCourse = teacherrepo.GetTeacherAssignedCourse();
             var query = (from t in tCourse
-                        where t.CourseId == CourseId && t.TeacherId==TeacherId && t.ClassId== AcadmicClassId
+                         where t.CourseId == CourseId && t.TeacherId == TeacherId && t.AcadmicClassId == AcadmicClassId
                          select t).ToList();
-            if(query.Any())
+            if (query.Any())
                 return new JavaScriptSerializer().Serialize(true);// Course   already Assign That Teacher
             else
                 return new JavaScriptSerializer().Serialize(false);   // Course  not already Assign That Teacher
         }
-        public string IsCourseAlreadyAssignedToStudent(int AcadmicClassId, int CourseId,int StudentId)
+        public string IsCourseAlreadyAssignedToStudent(int AcadmicClassId, int CourseId, int StudentId)
         {
             List<StudentAssignedCourse> sCourse = stdAssignCourserepo.GetStudentAssignedCourse();
             var query = (from s in sCourse
-                         where s.CourseId == CourseId && s.StudentId == StudentId && s.AcadmicClassId==AcadmicClassId
+                         where s.CourseId == CourseId && s.StudentId == StudentId && s.AcadmicClassId == AcadmicClassId
                          select s).ToList();
             if (query.Any())
                 return new JavaScriptSerializer().Serialize(true);// Course   already Assign That Class

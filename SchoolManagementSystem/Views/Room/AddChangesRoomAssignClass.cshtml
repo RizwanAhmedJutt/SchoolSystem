@@ -150,7 +150,6 @@
                         var model = { AcadmicClassId: AcadmicClass };
                         $.get(URL, model)
                         .done(function (gethtml) {
-                            debugger;
                             $("#dvDDLCourse").html("");
                             $("#dvDDLCourse").html(gethtml);
                         })

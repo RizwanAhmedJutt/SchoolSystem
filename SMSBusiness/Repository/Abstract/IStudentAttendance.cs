@@ -9,6 +9,7 @@ namespace SMSBusiness.Repository.Abstract
 {
    public interface IStudentAttendance
     {
+       List<StudentAttendance> GetStudentAttendanceSheet();
 
        int AddChangesStudentAttendance(StudentAttendance sAttendance);
        StudentAttendance GetStudentAttendanceById(int Id);

@@ -107,7 +107,10 @@ namespace SMSBusiness.Repository.Concrete
                         Assigncourse.AcadmicClassId = item.IsNull("AcadmicClassId")?0:  Convert.ToInt32(item["AcadmicClassId"]);
                         Assigncourse.StudentId = item.IsNull("StudentId") ? 0 : Convert.ToInt32(item["StudentId"]);
                         Assigncourse.CourseId = item.IsNull("CourseId") ? 0 : Convert.ToInt32(item["CourseId"]);
-
+                        Assigncourse.CreatedById = item["CreatedById"].ToString();
+                        Assigncourse.CreatedDate = Convert.ToDateTime(item["CreatedDate"]);
+                        Assigncourse.ModifiedById = item.IsNull("ModifiedById") ? null : item["ModifiedById"].ToString();
+                        Assigncourse.ModifiedDate = item.IsNull("ModifiedDate") ? (DateTime?)null : Convert.ToDateTime(item["ModifiedDate"]);
 
                     }
                 }

@@ -29,10 +29,18 @@ namespace SchoolManagementSystem.Controllers
         // GET: Teacher
         public ActionResult TeacherList(string SearchBy, string search, int? page)
         {
+            List<Teacher> objTeacher;
             if (SearchBy == "CNIC" && search != "")
             {
-                List<Teacher> objTeacher = repoTeacher.GetAllTeacherByCNIC(search);
+                 objTeacher = repoTeacher.GetAllTeacherByCNIC(search);
                 return View(objTeacher.ToList().ToPagedList(page ?? 1, 10));
+            }
+            if (SearchBy == "NotActiv")
+            {
+                var query = (from x in repoTeacher.GetAllTeachers().ToList()
+                             where x.Active !=true
+                             select x).ToList();
+                return View(query.ToList().ToPagedList(page ?? 1, 10));
             }
             else
 
@@ -226,7 +234,7 @@ namespace SchoolManagementSystem.Controllers
             TeacherLessonPlan tlp = new TeacherLessonPlan();
             if (Id == 0)
             {
-                
+
                 return View(tlp);
             }
             else
@@ -274,6 +282,7 @@ namespace SchoolManagementSystem.Controllers
                 }
                 else
                 {
+                    
                     ViewData["DDLTeacher"] = new SelectList(repoTeacher.GetALLTeacherByName().OrderBy(c => c.TeacherId).ToList(), "TeacherId", "TeacherName");
                     return View("../DropDownLists/DDLTeacher");
                 }

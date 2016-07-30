@@ -31,7 +31,7 @@ namespace SMSBusiness.Repository.Concrete
                     std.CourseId = Convert.ToInt32(item["CourseId"].ToString());
                     std.ClassAssessmentPercentage = Convert.ToDouble(item["ClassAssessmentPercentage"].ToString());
                     std.PaperPercentage = Convert.ToDouble(item["PaperPercentage"].ToString());
-                    std.Grade = Convert.ToChar(item["Grade"]);
+                    std.Grade =item["Grade"].ToString();
                     std.Remarks = item["Remarks"].ToString();
                     std.PaperTerm = item["PaperTerm"].ToString();
                     std.CreatedById = item["CreatedById"].ToString();
@@ -81,7 +81,7 @@ namespace SMSBusiness.Repository.Concrete
                     std.CourseId = Convert.ToInt32(item["CourseId"].ToString());
                     std.ClassAssessmentPercentage = Convert.ToDouble(item["ClassAssessmentPercentage"].ToString());
                     std.PaperPercentage = Convert.ToDouble(item["PaperPercentage"].ToString());
-                    std.Grade = Convert.ToChar(item["Grade"]);
+                    std.Grade =item["Grade"].ToString();
                     std.Remarks = item["Remarks"].ToString();
                     std.PaperTerm = item["PaperTerm"].ToString();
                     std.CreatedById = item["CreatedById"].ToString();
