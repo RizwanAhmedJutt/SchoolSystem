@@ -191,6 +191,7 @@
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\StudentExpenseController.cs" />
+    <Compile Include="Controllers\StudentLogController.cs" />
     <Compile Include="Controllers\StudentReportController.cs" />
     <Compile Include="Controllers\StudentResultController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
@@ -484,6 +485,9 @@
     <Content Include="Views\StudentResult\AddChangesSocailDescriptions.cshtml" />
     <Content Include="Views\StudentResult\GetALLStudyDescriptions.cshtml" />
     <Content Include="Views\StudentResult\AddChangesStudyDescriptions.cshtml" />
+    <Content Include="Views\Shared\_StudentLayout.cshtml" />
+    <Content Include="Views\StudentLog\StudentGeneralAssessment.cshtml" />
+    <Content Include="Views\StudentLog\StudentAcadmicAssessment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
