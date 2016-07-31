@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Collections;
 
 namespace IdentitySample.Controllers
 {
@@ -42,7 +43,7 @@ namespace IdentitySample.Controllers
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
-         {
+        {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -160,18 +161,29 @@ namespace IdentitySample.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, StudentId = StudentId };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var context = new IdentitySample.Models.ApplicationDbContext();
+                var checkStdExist = context.Users.Where(user => user.StudentId == StudentId).FirstOrDefault();
+                if (checkStdExist != null)
                 {
-                    UserManager.AddToRole(user.Id, "Student");
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    ViewBag.Link = callbackUrl;
-                    return View("DisplayEmail");
+
+                    IdentityResult result = new IdentityResult("Student Account already Exist..");
+                    AddErrors(result);
                 }
-                AddErrors(result);
+                else
+                {
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, StudentId = StudentId };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        UserManager.AddToRole(user.Id, "Student");
+                        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                        ViewBag.Link = callbackUrl;
+                        return View("DisplayEmail");
+                    }
+                    AddErrors(result);
+                }
             }
 
             // If we got this far, something failed, redisplay form
