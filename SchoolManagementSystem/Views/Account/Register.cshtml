@@ -3,6 +3,11 @@
 <!-- styles -->
 <link href="~/Content/styles.css" rel="stylesheet" />
 <link href="~/Content/Site.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.2.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/custom.js"></script>
+
 @{
     Layout = "";
 }
@@ -47,7 +52,33 @@
                         @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </center>
+                <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:29%;">
+                    <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                </div>
+                <div class="form-group">
+                   @Html.Label("Acadmic Class")
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                        </div>
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Student")
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <div id="dvDDLStudent">
+                                @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                            </div>
+                            
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+             </center>
             <hr />
             <div class="form-group">
                 <center class="col-md-12">
@@ -62,7 +93,57 @@
     </div>
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
-}
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ddlAcadmicClass").change(function () {
+                var getClass = $("#ddlAcadmicClass :selected").val();
+                if (getClass != '') {
+                    $("#Loading").show();
+                    LoadDDLCourseANDStudent();
+                    $("#Loading").hide();
+                    $("#AcadmicclassMsg").hide();
+                    $("#CourseMsg").hide();
+                    $("#StudentMsg").hide();
+                }
+                else {
+                    $("#AcadmicclassMsg").show();
+                    $("#AcadmicclassMsg").text("Please Select Class");
+                }
+
+
+            });
+            $('body').on("change", "#ddlStudent", function () {
+
+                var getStudent = $("#ddlStudent :selected").val();
+                if (getStudent != '') {
+                    $("#AcadmicclassMsg").hide();
+                    $("#CourseMsg").hide();
+                    $("#StudentMsg").hide();
+                }
+                else {
+                    $("#StudentMsg").show();
+
+                    $("#StudentMsg").text("Please Select Student");
+                }
+            });
+            function LoadDDLCourseANDStudent() {
+                debugger;
+                var ClassId = $("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: ClassId };
+                var Url = null;
+                var Url = "/Course/DDLStudent";
+                $.get(Url, model)
+                            .done(function (stdhtml) {
+                                debugger;
+                                $("#dvDDLStudent").html("");
+                                $("#dvDDLStudent").html(stdhtml);
+                            })
+                            .fail(function (ex1, ex2) {
+                                alert("Can't get Student DDL");
+                            })
+            }
+        });
+    </script>
+

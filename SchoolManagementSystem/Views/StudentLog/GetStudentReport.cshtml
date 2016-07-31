@@ -1,9 +1,13 @@
 ﻿@using System.Collections.Generic
+@using Microsoft.AspNet.Identity;
+@using SMSBusiness.Repository.Abstract;
+@using SMSBusiness.Repository.Concrete;
 @model SMSDataContract.Common.StudentMonthReportHelpers
 @{
 
     Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
+
 <div class="row">
     <div class="col-md-12 col-sm-12">
 
@@ -32,7 +36,7 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                         <div id="dvDDLStudent">
 
-                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                            @{Html.RenderAction("DDLStudent", "StudentLog", new { @AcadmicClassId = Model.AcadmicClassId });}
 
 
 
@@ -172,17 +176,21 @@
                     $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
                 }
             });
+            @{ 
+                ViewBag.AcadmicClass = Model.AcadmicClassId.ToString();
+                ViewBag.StudentId=Model.StudentId.ToString();
+             }
             // Set Query String Parameter
-            if ('@Request.QueryString["AcadmicClassId"]' != null && '@Request.QueryString["AcadmicClassId"]'!= "") {
-                $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
+            if ('@ViewBag.AcadmicClass' != null && '@ViewBag.AcadmicClass'!= "") {
+                $('#ddlAcadmicClass option[value="@ViewBag.AcadmicClass"]').attr("selected", true);
                 $("#ddlAcadmicClass").attr("disabled", true);
             }
             else {
                 $('#ddlAcadmicClass option[value=""]').attr("selected", true);
             }
-            if ('@Request.QueryString["StudentId"]' != null && '@Request.QueryString["StudentId"]'!="") {
+            if ('@ViewBag.StudentId' != null && '@ViewBag.StudentId'!="") {
 
-                $('#ddlStudent option[value="@Request.QueryString["StudentId"]"]').attr("selected", true);
+                $('#ddlStudent option[value="@ViewBag.StudentId"]').attr("selected", true);
                 $('#ddlStudent').attr("disabled", true);
 
             }

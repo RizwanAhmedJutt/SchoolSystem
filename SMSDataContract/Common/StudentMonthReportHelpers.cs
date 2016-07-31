@@ -19,5 +19,8 @@ namespace SMSDataContract.Common
         public List<AcadmicAssessmentOperation> AcadmicAssessment { get; set; }
         public List<DailyAssessmentOperation> GeneralAssessment { get; set; }
 
+        public int? StudentId { get; set; }
+        public int AcadmicClassId { get; set; }
+
     }
 }

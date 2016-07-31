@@ -73,8 +73,7 @@ namespace SMSBusiness.Repository.Concrete
                     StdDetails.LastName = dr.IsNull("LastName") ? string.Empty : Convert.ToString(dr["LastName"]);
                     StdDetails.CNIC = dr.IsNull("CNIC") ? string.Empty : Convert.ToString(dr["CNIC"]);
                     StdDetails.DOB = dr.IsNull("DateOfBirth") ? DateTime.Now : Convert.ToDateTime(dr["DateOfBirth"]);
-
-
+                    StdDetails.AcadmicClassId = dr.IsNull("AcadmicClassId") ? 0 : Convert.ToInt32(dr["AcadmicClassId"]);
                     StdDetails.CreateDate = Convert.ToDateTime(dr["CreatedDate"]);
                     StdDetails.ClassName = dr.IsNull("ClassName") ? string.Empty : dr["ClassName"].ToString();
                     StdDetails.Religion = dr.IsNull("Religion") ? string.Empty : Convert.ToString(dr["Religion"]);
