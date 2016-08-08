@@ -1,0 +1,337 @@
+﻿@using System.Collections.Generic
+@model SMSDataContract.Common.GeneralResultSheetHelper
+@{
+
+    Layout = "~/Views/Shared/_ReportsLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+
+        @using (Html.BeginForm("GetGeneralResultSheet", "StudentResult", FormMethod.Get))
+        {
+            <div class="input-group col-md-8">
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
+                    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                    </div>
+                    @*@Html.ValidationMessageFor(x => x.First().AcadmicClassId)*@
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3"> <b>Student </b> </div>
+
+                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLStudent">
+
+                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+            </div>
+        }
+
+        <div style="clear:left"></div>
+        <div class="well">
+
+            <span class="HeadingStyle">Student General Result Sheet Report</span>
+            @if (Model.StudentResultSheet.Count > 0)
+            {
+                var selectMidTermSheet = Model.StudentResultSheet.Where(x => x.PaperTerm.StartsWith("Mid")).Select(x => x).ToList();
+                var selectMidTermAttendance = Model.StudentAttendance.Where(x => x.PaperTerm.StartsWith("Mid")).Select(x => x).ToList();
+                var selectMidTermSocialDesc = Model.SrSocialAndPersonalSkill.Where(x => x.TermType.StartsWith("Mid")).Select(x => x).ToList();
+                var selectMidTermStudyDesc = Model.SrWorkAndStudySkill.Where(x => x.TermType.StartsWith("Mid")).Select(x => x).ToList();
+                <text>
+                    <span class="subheader" style="margin-top:10px;margin-bottom:10px;">Mid Term</span>
+                </text>
+                <table class="table  table-bordered table-striped table-responsive table-hover">
+                    <tr class="info header">
+                        <th>Class Name</th>
+                        <th>Student Name</th>
+                        <th>Course Name</th>
+                        <th>Class Assessment %</th>
+                        <th>Paper %</th>
+                        <th>Grad</th>
+                        <th>Remarks</th>
+
+                    </tr>
+                    @for (int i = 0; i < selectMidTermSheet.Count; i++)
+                    {
+                    <tr>
+                        <td>@selectMidTermSheet[i].AcadmicClass</td>
+                        <td>@selectMidTermSheet[i].StudentName</td>
+                        <td>@selectMidTermSheet[i].CourseName</td>
+                        <td>@selectMidTermSheet[i].ClassAssessmentPercentage</td>
+                        <td>@selectMidTermSheet[i].PaperPercentage</td>
+                        <td>@selectMidTermSheet[i].Grade</td>
+                        <td>@selectMidTermSheet[i].Remarks</td>
+                    </tr>
+                    }
+                </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table  table-bordered table-striped table-responsive table-hover">
+                            <tr class="info header">
+
+                                <th>Working Days</th>
+                                <th>Leave Days</th>
+                                <th>Absents</th>
+                                <th>Total Percentage</th>
+                            </tr>
+                            <tr>
+                                @for (int k = 0; k < selectMidTermAttendance.Count; k++)
+                                {<text>
+                                    <td>@selectMidTermAttendance[k].WorkingDays</td>
+                                    <td>@selectMidTermAttendance[k].Leaves</td>
+                                    <td>@selectMidTermAttendance[k].Absents</td>
+                                    <td>@selectMidTermAttendance[k].TotalPercentage</td>
+                                </text>
+                                }
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <table class="table  table-bordered table-striped table-responsive table-hover">
+                                <tr class="info header">
+                                    <th>Social And Personal Skill</th>
+                                    <th>Grad</th>
+                                </tr>
+                                <tr>
+                                    @for (int k = 0; k < selectMidTermSocialDesc.Count; k++)
+                                    {<text>
+                                        <td>@selectMidTermSocialDesc[k].Description</td>
+                                        <td>@selectMidTermSocialDesc[k].Grad</td>
+                                    </text>
+                                    }
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table  table-bordered table-striped table-responsive table-hover">
+                                <tr class="info header">
+                                    <th>Work And Study Skill</th>
+                                    <th>Grad</th>
+                                </tr>
+
+                                @for (int k = 0; k < selectMidTermStudyDesc.Count; k++)
+                                {<text>
+                                    <tr>
+                                        <td>@selectMidTermStudyDesc[k].Description</td>
+                                        <td>@selectMidTermStudyDesc[k].Grade</td>
+                                    </tr>
+                                </text>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--Final Term Section-->
+                                var selectFinalTermSheet = Model.StudentResultSheet.Where(x => x.PaperTerm.StartsWith("Final")).Select(x => x).ToList();
+                                var selectFinalTermAttendance = Model.StudentAttendance.Where(x => x.PaperTerm.StartsWith("Final")).Select(x => x).ToList();
+                                var selectFinalTermSocialDesc = Model.SrSocialAndPersonalSkill.Where(x => x.TermType.StartsWith("Final")).Select(x => x).ToList();
+                                var selectFinalTermStudyDesc = Model.SrWorkAndStudySkill.Where(x => x.TermType.StartsWith("Final")).Select(x => x).ToList();
+                                if (selectFinalTermSheet.Count > 0)
+                                {
+                                    <text>
+                                        <span class="subheader" style="margin-top:10px;margin-bottom:10px;">Final Term</span>
+
+                                        <table class="table  table-bordered table-striped table-responsive table-hover">
+                                            <tr class="info header">
+                                                <th>Class Name</th>
+                                                <th>Student Name</th>
+                                                <th>Course Name</th>
+                                                <th>Class Assessment %</th>
+                                                <th>Paper %</th>
+                                                <th>Grad</th>
+                                                <th>Remarks</th>
+
+                                            </tr>
+                                            @for (int i = 0; i < selectFinalTermSheet.Count; i++)
+                                                {
+                                                <tr>
+                                                    <td>@selectFinalTermSheet[i].AcadmicClass</td>
+                                                    <td>@selectFinalTermSheet[i].StudentName</td>
+                                                    <td>@selectFinalTermSheet[i].CourseName</td>
+                                                    <td>@selectFinalTermSheet[i].ClassAssessmentPercentage</td>
+                                                    <td>@selectFinalTermSheet[i].PaperPercentage</td>
+                                                    <td>@selectFinalTermSheet[i].Grade</td>
+                                                    <td>@selectFinalTermSheet[i].Remarks</td>
+                                                </tr>
+                                                }
+                                        </table>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table class="table  table-bordered table-striped table-responsive table-hover">
+                                                    <tr class="info header">
+
+                                                        <th>Working Days</th>
+                                                        <th>Leave Days</th>
+                                                        <th>Absents</th>
+                                                        <th>Total Percentage</th>
+                                                    </tr>
+                                                    <tr>
+                                                        @for (int k = 0; k < selectFinalTermAttendance.Count; k++)
+                                {<text>
+                                    <td>@selectFinalTermAttendance[k].WorkingDays</td>
+                                    <td>@selectFinalTermAttendance[k].Leaves</td>
+                                    <td>@selectFinalTermAttendance[k].Absents</td>
+                                    <td>@selectFinalTermAttendance[k].TotalPercentage</td>
+                                </text>
+                                }
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-6">
+                                                    <table class="table  table-bordered table-striped table-responsive table-hover">
+                                                        <tr class="info header">
+                                                            <th>Social And Personal Skill</th>
+                                                            <th>Grad</th>
+                                                        </tr>
+                                                        <tr>
+                                                            @for (int k = 0; k < selectFinalTermSocialDesc.Count; k++)
+                                    {<text>
+                                        <td>@selectFinalTermSocialDesc[k].Description</td>
+                                        <td>@selectFinalTermSocialDesc[k].Grad</td>
+                                    </text>
+                                    }
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <table class="table  table-bordered table-striped table-responsive table-hover">
+                                                        <tr class="info header">
+                                                            <th>Work And Study Skill</th>
+                                                            <th>Grad</th>
+                                                        </tr>
+
+                                                        @for (int k = 0; k < selectFinalTermStudyDesc.Count; k++)
+                                {<text>
+                                    <tr>
+                                        <td>@selectFinalTermStudyDesc[k].Description</td>
+                                        <td>@selectFinalTermStudyDesc[k].Grade</td>
+                                    </tr>
+                                </text>
+                                }
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </text>
+
+                                }
+
+            }
+
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // Set Query String Parameter
+            if ('@Request.QueryString["AcadmicClassId"]' != null) {
+                $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
+            }
+            else {
+                $('#ddlAcadmicClass option[value=""]').attr("selected", true);
+            }
+            if ('@Request.QueryString["StudentId"]' != null) {
+
+                $('#ddlStudent option[value="@Request.QueryString["StudentId"]"]').attr("selected", true);
+
+            }
+            else {
+                $('#ddlStudent option[value=""]').attr("selected", true);
+            }
+
+            //change event for acadmic class
+            $("#ddlAcadmicClass").change(function () {
+
+                var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: getAcadmicClass };
+                if (getAcadmicClass != '') {
+
+                    $(this).removeAttr("style");
+                    Url = "/Course/DDLStudent";
+
+                    // Fill Student Dropdown
+                    $.get(Url, model)
+                    .done(function (stdhtml) {
+
+                        $("#dvDDLStudent").html(stdhtml);
+
+                    })
+                    .fail(function (ex1, ex2) {
+                        alert("Can't get Student DDL");
+                    })
+                }
+
+            });
+
+
+            $('body').on("change", "#ddlStudent", function () {
+
+                if ($("#ddlStudent").val() != "") {
+
+                    $(this).removeAttr("style");
+                }
+
+            });
+
+            $("#btnSearch").click(function (e) {
+
+                e.preventDefault();
+
+                if ($("#ddlAcadmicClass").val() == '') {
+
+
+                    $("#ddlAcadmicClass").css("border", "1px solid red");
+
+                }
+                else if ($("#ddlStudent").val() == '') {
+
+                    $("#ddlStudent").css("border", "1px solid red");
+                }
+
+                else {
+                    $("form").submit();
+                }
+
+
+            });
+        });
+
+    </script>
+}
+
+
+
+
+

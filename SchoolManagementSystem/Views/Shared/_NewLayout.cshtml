@@ -41,7 +41,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">SB Admin</a>
+                <a class="navbar-brand" href="#">Admin Panel</a>
+                <a href="/Account/Register" class="navbar-brand" style="margin-left:30px;">Student Log</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -124,6 +125,12 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="@Url.Action("GetALLAssessmentCategories", "StudentReport")"><i class="fa fa-fw fa-bar-chart-o"></i>Assessments</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("GetALLSocailDescriptions", "StudentResult")"><i class="fa fa-fw fa-bar-chart-o"></i>Results</a>
+                    </li>
+                    @*<li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#Assessments"><i class="fa fa-fw fa-arrows-v"></i> Assessment Reports <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="Assessments" class="collapse">
                             <li>
@@ -153,7 +160,7 @@
                         </ul>
 
 
-                    </li>
+                    </li>*@
                     @*<li>
                         <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
                     </li>

@@ -28,8 +28,15 @@ namespace SMSDataContract.Accounts
         }
         public int StudentResultId { get; set; }
         public int AcadmicClassId { get; set; }
+        [Display(Name="Acadmic Class")]
+        public string AcadmicClass { get; set; }
         public int StudentId { get; set; }
+        [Display(Name="Student Name")]
+        public string StudentName { get; set; }
         public int CourseId { get; set; }
+        [Display(Name="Course Name")]
+        public string CourseName { get; set; }
+        
         [Display(Name="Class Assessment %")]
         public double ClassAssessmentPercentage { get; set; }
         [Display(Name = "Paper %")]

@@ -1,149 +1,158 @@
 ﻿@model IdentitySample.Models.RegisterViewModel
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
-<!-- styles -->
-<link href="~/Content/styles.css" rel="stylesheet" />
-<link href="~/Content/Site.css" rel="stylesheet" />
-<script src="~/Scripts/jquery-2.2.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script src="~/Scripts/custom.js"></script>
-
 @{
-    Layout = "";
+    ViewBag.Title = "RegisterUser";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    <div class="col-md-4 col-sm-4"></div>
-    <div class="col-md-4 col-sm-4">
+<span class="HeadingStyle"> Add New User</span>
+
+<div class="col-md-12">
+    <div class="row">
         <div class="well">
-            
+
+            @using (Html.BeginForm())
+            {
                 @Html.AntiForgeryToken()
-                <h2 style="text-align:center;">REGISTER USER</h2>
-                <hr />
-            <center>
-                @Html.ValidationSummary("", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-12 control-label", style = "text-align: left;" })
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        </div>
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-12 control-label", style = "text-align: left;" })
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "password" })
-                        </div>
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-12 control-label", style = "text-align: left;" })
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", type = "password" })
-                        </div>
-                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:29%;">
-                    <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
-                </div>
-                <div class="form-group">
-                   @Html.Label("Acadmic Class")
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            @{Html.RenderPartial("../DropDownLists/DDLClass");}
-                        </div>
-                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.Label("Student")
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <div id="dvDDLStudent">
-                                @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                    
+                        <div class="row well">
+                            <div class="form-horizontal">
+                               
+                               
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control"} })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                               
+                                <div id="dvAcadmicClass" style="text-align: center; margin-top: 10px; margin-left:60%;">
+                                    <span id="AcadmicClassMsg" class="error" style="display:none;"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3 col-md-offset-1 control-label"><label> Acadmic Class</label> </div>
+                                    <div class="col-md-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-certificate"></i></span>
+                                            @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3 col-md-offset-1 control-label"><label> Acadmic Class</label> </div>
+                                    <div class="col-md-7">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            <div id="dvDDLStudent">
+                                                @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="col-md-12 col-md-offset-4">
+                                   <input type="submit" class="btn btn-success btnlogin" value="Register" />
+                                    </div>
+                              
                             </div>
-                            
-                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
-            </div>
-             </center>
-            <hr />
-            <div class="form-group">
-                <center class="col-md-12">
-                    <input type="submit" class="btn btn-success btnlogin" value="Register" />
-                </center>
-                <br />
-                <p style="text-align:center;">
-                    @Html.ActionLink("Registered User Click Here", "Login")
-                </p>
-            </div>
+            }
         </div>
     </div>
-}
-
-
-
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#ddlAcadmicClass").change(function () {
-                var getClass = $("#ddlAcadmicClass :selected").val();
-                if (getClass != '') {
-                    $("#Loading").show();
-                    LoadDDLCourseANDStudent();
-                    $("#Loading").hide();
-                    $("#AcadmicclassMsg").hide();
-                    $("#CourseMsg").hide();
-                    $("#StudentMsg").hide();
-                }
-                else {
-                    $("#AcadmicclassMsg").show();
-                    $("#AcadmicclassMsg").text("Please Select Class");
-                }
+    $(document).ready(function () {
+        $("#ddlAcadmicClass").change(function () {
+            var getClass = $("#ddlAcadmicClass :selected").val();
+            if (getClass != '') {
+                
+                LoadDDLCourseANDStudent();
+                $("#Loading").hide();
+                $("#AcadmicclassMsg").hide();
+                $("#StudentMsg").hide();
+            }
+            else {
+                $("#AcadmicclassMsg").show();
+                $("#AcadmicclassMsg").text("Please Select Class");
+            }
 
 
-            });
-            $('body').on("change", "#ddlStudent", function () {
+        });
+        $('body').on("change", "#ddlStudent", function () {
 
-                var getStudent = $("#ddlStudent :selected").val();
-                if (getStudent != '') {
-                    $("#AcadmicclassMsg").hide();
-                    $("#CourseMsg").hide();
-                    $("#StudentMsg").hide();
-                }
-                else {
-                    $("#StudentMsg").show();
+            var getStudent = $("#ddlStudent :selected").val();
+            if (getStudent != '') {
+                $("#AcadmicclassMsg").hide();
+                $("#StudentMsg").hide();
+            }
+            else {
+                $("#StudentMsg").show();
 
-                    $("#StudentMsg").text("Please Select Student");
-                }
-            });
-            function LoadDDLCourseANDStudent() {
-                debugger;
-                var ClassId = $("#ddlAcadmicClass :selected").val();
-                var model = { AcadmicClassId: ClassId };
-                var Url = null;
-                var Url = "/Course/DDLStudent";
-                $.get(Url, model)
-                            .done(function (stdhtml) {
-                                debugger;
-                                $("#dvDDLStudent").html("");
-                                $("#dvDDLStudent").html(stdhtml);
-                            })
-                            .fail(function (ex1, ex2) {
-                                alert("Can't get Student DDL");
-                            })
+                $("#StudentMsg").text("Please Select Student");
             }
         });
-    </script>
+        $("input[type=submit]").click(function (e) {
+            var AcadmicClass = $("#ddlAcadmicClass").val();
+            var StudentId = $("#ddlStudent").val();
+            if(AcadmicClass=='' || StudentId=='')
+            {
+                e.preventDefault();
+            }
+            else
+            {
+                $("form").submit();
+            }
+        });
+        function LoadDDLCourseANDStudent() {
+            debugger;
+            var ClassId = $("#ddlAcadmicClass :selected").val();
+            var model = { AcadmicClassId: ClassId };
+            var Url = null;
+            var Url = "/Course/DDLStudent";
+            $.get(Url, model)
+                        .done(function (stdhtml) {
+                            debugger;
+                            $("#dvDDLStudent").html("");
+                            $("#dvDDLStudent").html(stdhtml);
+                        })
+                        .fail(function (ex1, ex2) {
+                            alert("Can't get Student DDL");
+                        })
+        }
+    });
+</script>
 
+}

@@ -11,6 +11,7 @@ using PagedList;
 using PagedList.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Web.Script.Serialization;
+
 namespace SchoolManagementSystem.Controllers
 {
 
@@ -24,7 +25,7 @@ namespace SchoolManagementSystem.Controllers
         IStudentResultWorkAndSkill studySkillRepo = new StudentResultWorkAndSkillBLL();
         IStudentAttendance stdAttendanceRepo = new StudentAttendanceBLL();
         ICourse courseRepo = new CourseBLL();
-        
+
 
         public ActionResult Index()
         {
@@ -40,6 +41,16 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult ResultTemplate(int AcadmicClassId, int StudentId, string PaperTerm)
         {
+            List<SelectListItem> listItems = new List<SelectListItem>()
+            {
+              new SelectListItem(){ Text= "A", Value = "A"},
+              new SelectListItem(){ Text= "B", Value = "B"},
+              new SelectListItem(){ Text= "C", Value = "C"},
+              new SelectListItem(){ Text= "D", Value = "D"},
+              new SelectListItem(){ Text= "F", Value = "F"}
+            };
+
+            ViewBag.Grades = listItems;
             var ResultQuery = (from x in stdResultSheetRepo.GetStudentResultSheet().ToList()
                                where x.AcadmicClassId == AcadmicClassId && x.StudentId == StudentId
                                && x.PaperTerm == PaperTerm
@@ -48,8 +59,7 @@ namespace SchoolManagementSystem.Controllers
             {
                 var ResultSheetCourse = (from x in courseRepo.GetALLCourse().ToList()
                                          join y in ResultQuery.ToList() on x.CourseId equals y.CourseId
-                                         select new StudentAssignedCourse() 
-                                         { CourseId = x.CourseId, CourseName = x.CourseName, AcadmicClassId = y.AcadmicClassId, StudentId = y.StudentId })
+                                         select new StudentAssignedCourse() { CourseId = x.CourseId, CourseName = x.CourseName, AcadmicClassId = y.AcadmicClassId, StudentId = y.StudentId })
                                          .ToList();
                 var StudentAttendance = (from x in stdAttendanceRepo.GetStudentAttendanceSheet().ToList()
                                          where x.AcadmicClassId == AcadmicClassId && x.StudentId == StudentId
@@ -94,7 +104,7 @@ namespace SchoolManagementSystem.Controllers
                                         ModifiedById = x.ModifiedById,
                                         ModifiedDate = x.ModifiedDate
                                     }
-                                    
+
                                     ).ToList();
                 ResultSheetHelper rsh = new ResultSheetHelper();
                 rsh.AssignedCourses = ResultSheetCourse;
@@ -207,7 +217,44 @@ namespace SchoolManagementSystem.Controllers
 
             return RedirectToAction("AddChangesStudentResult");
         }
+        [HttpGet]
+        public ActionResult GetGeneralResultSheet(int? AcadmicClassId, int? StudentId)
+        {
+            GeneralResultSheetHelper rsh = new GeneralResultSheetHelper();
+            if (AcadmicClassId != null && StudentId != null)
+            {
+                var attendance = stdAttendanceRepo.GetStudentAttendanceSheet().Where(x => x.AcadmicClassId == AcadmicClassId && x.StudentId == StudentId).Select(x => x).ToList();
+                var socialskill = (from x in socialSkillRepo.GetStudentSocialAndPersonalSkill().ToList()
+                                   where x.AcadmicClassId == AcadmicClassId && x.StudentId == StudentId
+                                   join d in socialDescriptionRepo.GetALLSocailDescriptions().ToList() on x.SocialDescriptionId equals d.SocialDescriptionId
+                                   select new StudentResultSocialAndPersonalSkill()
+                                   {
+                                       Description = d.Description,
+                                       Grad = x.Grad,
+                                       TermType = x.TermType
+                                   }).ToList();
+                var workskill = (from x in studySkillRepo.GetStudentWorkAndStudySkill().ToList()
+                                 where x.AcadmicClassId == AcadmicClassId && x.StudentId == StudentId
+                                 join d in studyDescriptionRepo.GetALLStudyDescriptions().ToList() on x.StudyDescriptionId equals d.StudyDescriptionId
+                                 select new StudentResultWorkAndStudySkill()
+                                 {
+                                     Description = d.Description,
+                                     Grade = x.Grade,
+                                     TermType = x.TermType
+                                 }).ToList();
 
+
+                rsh.StudentResultSheet = stdResultSheetRepo.GetGeneralStudentResultSheet(AcadmicClassId, StudentId);
+                rsh.StudentAttendance = attendance;
+                rsh.SrSocialAndPersonalSkill = socialskill;
+                rsh.SrWorkAndStudySkill = workskill;
+                return View(rsh);
+            }
+            else
+            {
+                return View(rsh);
+            }
+        }
 
         // Student Result Social Description
         public ActionResult GetALLSocailDescriptions(int? page)

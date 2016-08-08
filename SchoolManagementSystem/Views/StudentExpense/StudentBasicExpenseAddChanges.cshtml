@@ -6,7 +6,7 @@
 }
 
 
-@using (Html.BeginForm("StudentBasicExpenseAddChanges", "StudentExpense", FormMethod.Post, new { enctype = "multipart/form-data", id = "attachmentForm" }))
+@using (Html.BeginForm("StudentBasicExpenseAddChanges", "StudentExpense", FormMethod.Post, new { enctype = "multipart/form-data", id = "basicExpenseForm" }))
 {  @Html.AntiForgeryToken()
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -193,7 +193,7 @@
          var RegistrationFee = $("#RegistrationFee").val();
          if(AcadmicClass!=''&&StudentId!=''&& AdmissionFee!=''&&SecurityFee!=''&&ExaminationFee!=''&&RegistrationFee!='')
          {
-             $("form").submit();
+             $("#basicExpenseForm").submit();
          }
     });
     // change event of ddlAcadmicClass

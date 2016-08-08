@@ -37,16 +37,8 @@
                                 @Html.TextBoxFor(x => x.StudentResultSheet[i].PaperPercentage, new { @class = "form-control numbersOnly", @Id = "txtPaperPercentage" + i })
                             </td>
                             <td>
-                                @Html.DropDownListFor(x => x.StudentResultSheet[i].Grade, new List<SelectListItem>()
-                                        {
-                                            new SelectListItem(){ Text= "A", Value = "A"},
-                                            new SelectListItem(){ Text= "B", Value = "B"},
-                                            new SelectListItem(){ Text= "C", Value = "C"},
-                                            new SelectListItem(){ Text= "D", Value = "D"},
-                                            new SelectListItem(){ Text= "F", Value = "F"}
-
-
-                                        }, "Select Grade", new { id = "ddlGrade", @class = "form-control" })
+                                @Html.DropDownListFor(x => x.StudentResultSheet[i].Grade,
+                                    @ViewBag.Grades as List<SelectListItem>, "Select Grade", new { id = "ddlGrade", @class = "form-control" })
                             </td>
                             <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].Remarks, new { @class = "form-control", @Id = "txtRemarks" + i })</td>
 
@@ -144,7 +136,7 @@
                 </table>
 
             </div>
-            <div class="col-md-offset-6 col-md-12">
+            <div class="col-md-offset-10 col-md-12">
                 <input type="submit" value="Save" class="btn btn-primary" />
 
             </div>

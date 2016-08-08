@@ -78,16 +78,20 @@ namespace IdentitySample.Controllers
             {
                 case SignInStatus.Success:
                     {
-                        var userId = User.Identity.GetUserId();
-                        //var userName = User.Identity.GetUserName();
-                        //var name = User.Identity.Name;
-                        if (UserManager.IsInRole(userId, "Student"))
-                            return RedirectToAction("GetStudentReport", "StudentLog");
+                        var UserInfo = UserManager.Find(model.Email, model.Password);
+                        if (UserInfo != null)
+                        {
+                            if (UserManager.IsInRole(UserInfo.Id, "Student"))
+                            { return RedirectToAction("GetStudentReport", "StudentLog"); }
+                            else
+                            { return RedirectToAction("StudentList", "Student"); }
+                        }
                         else
-                            return RedirectToAction("StudentList", "Student");
+                        {
+                            return RedirectToAction("Login", "Account");
+                        }
+
                         // return RedirectToLocal(returnUrl);
-
-
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");

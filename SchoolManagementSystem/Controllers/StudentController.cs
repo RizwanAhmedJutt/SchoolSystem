@@ -13,6 +13,7 @@ using PagedList.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Drawing;
+using System.Web.Helpers;
 namespace SchoolManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -401,5 +402,20 @@ namespace SchoolManagementSystem.Controllers
 
             }
         }
+        
+        public JsonResult IsStudentExist(string FName,string LName,DateTime BirthDate)
+        {
+
+            var query = student.GetAllStudents().Where(x => x.FirstName == FName && x.LastName == LName && x.DOB == BirthDate).Select(x => x).FirstOrDefault();
+            if(query!=null)
+            {
+                return Json(new { result = true }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { result = false }, JsonRequestBehavior.AllowGet);
+            }
+        }
+    
     }
 }

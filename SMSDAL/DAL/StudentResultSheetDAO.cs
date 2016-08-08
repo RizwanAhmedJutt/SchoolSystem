@@ -95,5 +95,24 @@ namespace SMSDAL.DAL
            }
            return dtStudentDetails;
        }
+
+       public DataTable GetGeneralStudentResultSheet(int? AcadmicClassId,int? StudentId)
+       {
+           DataTable dtStudentDetails;
+           try
+           {
+               using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Result_GetGeneralResult"))
+               {
+                   gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
+                   gObjDatabase.AddInParameter(objCommand, "@StudentId ", DbType.Int32, StudentId);
+                   dtStudentDetails = gObjDatabase.GetDataTable(objCommand);
+               }
+           }
+           catch
+           {
+               throw;
+           }
+           return dtStudentDetails;
+       } 
     }
 }

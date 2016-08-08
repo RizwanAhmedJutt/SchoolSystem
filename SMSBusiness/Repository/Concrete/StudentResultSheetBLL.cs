@@ -48,6 +48,36 @@ namespace SMSBusiness.Repository.Concrete
             }
             return stdResultSheet;
         }
+        public List<StudentResultSheet> GetGeneralStudentResultSheet(int? AcadmicClassId, int? StudentId)
+        {
+            var objStudentResultSheetDao = new StudentResultSheetDAO(new SqlDatabase());
+            DataTable stdDetail;
+            List<StudentResultSheet> stdResultSheet = new List<StudentResultSheet>();
+            try
+            {
+                stdDetail = objStudentResultSheetDao.GetGeneralStudentResultSheet(AcadmicClassId, StudentId);
+
+                foreach (DataRow item in stdDetail.Rows)
+                {
+                    StudentResultSheet std = new StudentResultSheet();
+                    std.AcadmicClass = item["ClassName"].ToString();
+                    std.StudentName = item["StudentName"].ToString();
+                    std.CourseName = item["CourseName"].ToString();
+                    std.ClassAssessmentPercentage = Convert.ToDouble(item["ClassAssessmentPercentage"].ToString());
+                    std.PaperPercentage = Convert.ToDouble(item["PaperPercentage"].ToString());
+                    std.Grade = item["Grade"].ToString();
+                    std.Remarks = item["Remarks"].ToString();
+                    std.PaperTerm = item["PaperTerm"].ToString();
+                    stdResultSheet.Add(std);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return stdResultSheet;
+        }
         public int AddChangesStudentResultSheet(StudentResultSheet srSheet)
         {
             var objStudentResultSheetDao = new StudentResultSheetDAO(new SqlDatabase());

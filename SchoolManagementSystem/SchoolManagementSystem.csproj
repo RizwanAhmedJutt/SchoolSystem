@@ -496,6 +496,9 @@
     <Content Include="Views\StudentResult\AddChangesStudyDescriptions.cshtml" />
     <Content Include="Views\Shared\_StudentLayout.cshtml" />
     <Content Include="Views\StudentLog\GetStudentReport.cshtml" />
+    <Content Include="Views\Shared\_ReportsLayout.cshtml" />
+    <Content Include="Views\StudentResult\GetGeneralResultSheet.cshtml" />
+    <Content Include="Views\StudentLog\GetGeneralResultSheet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

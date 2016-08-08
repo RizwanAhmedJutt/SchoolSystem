@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using SMSDataContract.Accounts;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -17,12 +18,18 @@ namespace SchoolManagementSystem.Controllers
 
     public class StudentLogController : Controller
     {
-        IAssessmentCategories repoAssessmentCategory = new AssessmentCategoriesBLL();
-        IDailyAssessmentType repoAssessmentType = new DailyAssessmentTypeBLL();
-        IDailyAssessmentSubType repoAssessementSubType = new DailyAssessmentSubTypeBLL();
-        IDailyAssessmentOperation repoOperation = new DailyAssessmentOperationBLL();
-        IAcadmicAssessmentOperation repAcOperation = new AcadmicAssessmentOperationBLL();
-        ITeacherAssessmentOperation repTAOperation = new TeacherAssessmentOperationBLL();
+       
+       
+        
+        
+        IAcadmicAssessmentOperation repAcOperation = new AcadmicAssessmentOperationBLL();        
+        IStudentResultSheet stdResultSheetRepo = new StudentResultSheetBLL();
+        IStudentResultSocialDescription socialDescriptionRepo = new StudentResultSocialDescriptionBLL();
+        IStudentResultStudyDescription studyDescriptionRepo = new StudentResultStudyDescriptionBLL();
+        IStudentResultSocialAndPersonalSkill socialSkillRepo = new StudentResultSocialAndPersonalSkillBLL();
+        IStudentResultWorkAndSkill studySkillRepo = new StudentResultWorkAndSkillBLL();
+        IStudentAttendance stdAttendanceRepo = new StudentAttendanceBLL();
+       
         public ActionResult GetStudentReport(string Month)
         {
             StringBuilder courseIDs = new StringBuilder();
@@ -49,7 +56,50 @@ namespace SchoolManagementSystem.Controllers
                 return View(smrh);
             }
         }
+        [HttpGet]
+        public ActionResult GetGeneralResultSheet(int? AcadmicClassId, int? StudentId)
+        {
+            basicDetail bd = GetStudentDetail();
+            AcadmicClassId = bd.AcadmicClassId;
+            StudentId = bd.StudentId;
+            GeneralResultSheetHelper rsh = new GeneralResultSheetHelper();
+            rsh.AcadmicClassId = bd.AcadmicClassId;
+            rsh.StudentId = bd.StudentId;
+            if (AcadmicClassId != null && StudentId != null)
+            {
+                var attendance = stdAttendanceRepo.GetStudentAttendanceSheet().Where(x => x.AcadmicClassId == AcadmicClassId && x.StudentId == StudentId).Select(x => x).ToList();
+                var socialskill = (from x in socialSkillRepo.GetStudentSocialAndPersonalSkill().ToList()
+                                   where x.AcadmicClassId == AcadmicClassId && x.StudentId == StudentId
+                                   join d in socialDescriptionRepo.GetALLSocailDescriptions().ToList() on x.SocialDescriptionId equals d.SocialDescriptionId
+                                   select new StudentResultSocialAndPersonalSkill()
+                                   {
+                                       Description = d.Description,
+                                       Grad = x.Grad,
+                                       TermType = x.TermType
+                                   }).ToList();
+                var workskill = (from x in studySkillRepo.GetStudentWorkAndStudySkill().ToList()
+                                 where x.AcadmicClassId == AcadmicClassId && x.StudentId == StudentId
+                                 join d in studyDescriptionRepo.GetALLStudyDescriptions().ToList() on x.StudyDescriptionId equals d.StudyDescriptionId
+                                 select new StudentResultWorkAndStudySkill()
+                                 {
+                                     Description = d.Description,
+                                     Grade = x.Grade,
+                                     TermType = x.TermType
+                                 }).ToList();
 
+
+                rsh.StudentResultSheet = stdResultSheetRepo.GetGeneralStudentResultSheet(AcadmicClassId, StudentId);
+                rsh.StudentAttendance = attendance;
+                rsh.SrSocialAndPersonalSkill = socialskill;
+                rsh.SrWorkAndStudySkill = workskill;
+               
+                return View(rsh);
+            }
+            else
+            {
+                return View(rsh);
+            }
+        }
         public ActionResult DDLStudent(int AcadmicClassId)
         {
             if (AcadmicClassId > 0)
