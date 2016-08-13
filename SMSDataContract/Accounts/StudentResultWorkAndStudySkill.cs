@@ -19,6 +19,7 @@ namespace SMSDataContract.Accounts
             CreatedDate = DateTime.Now;
             ModifiedById = null;
             ModifiedDate = null;
+            Grade = 'A';
         }
 
         public int WorkSkillId { get; set; }

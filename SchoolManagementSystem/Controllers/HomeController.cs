@@ -1,13 +1,26 @@
-﻿using System.Web.Mvc;
+﻿using SMSBusiness.Repository.Abstract;
+using SMSBusiness.Repository.Concrete;
+using SMSDataContract.Common;
+using System.Web.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IdentitySample.Controllers
 {
-    [Authorize]
+    [Authorize (Roles="Admin")]
     public class HomeController : Controller
     {
+        IStudent studentRepo = new StudentBLL();
+        IStudentBasicExpenditure stdBasicExpense = new StudentBasicExpenditureBLL();
+        IStudentRegularExpenditure stdRegularExpense = new StudentRegularExpenditureBLL();
         public ActionResult Index()
         {
-            return View();
+            DefaultPageHelper dph = new DefaultPageHelper();
+            dph.TotalStudent =studentRepo.GetAllStudents().ToList().Where(x=>x.IsActive==true).Select(x=>x.StudentId).Count();
+            dph.TotalBasicExpense = stdBasicExpense.GetStudentBasicExpenseTotal();
+            dph.TotalRegularExpense = stdRegularExpense.GetStudentRegularExpenseTotal();
+            dph.TotalFee = dph.TotalBasicExpense + dph.TotalRegularExpense;
+            return View(dph);
         }
 
         

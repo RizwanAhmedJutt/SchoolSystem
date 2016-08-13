@@ -70,7 +70,7 @@
                                     <div class="col-md-9">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control",  id = "DateOfBirth", placeholder = "02/09/1992" }) 
+                                            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", id = "DateOfBirth" }) 
                                             
                                         </div>
 
@@ -179,14 +179,14 @@
                                 $('#DateOfBirth').datepicker();
                             });
                             $("#DateOfBirth").change(function () {
-                                debugger;
+                               
                                 var FirstName = $("#StuFirstName").val();
                                 var LastName = $("#StuLastName").val();
                                 var DateOfBirth = $(this).val();
                                 CheckStudentExist(FirstName, LastName, DateOfBirth);
                             });
                             $("#AddStudent").click(function (e) {
-                              
+                                debugger;
                                 if ($('#ddlSibling').val() == '') {
 
 
@@ -264,12 +264,12 @@
                         });
                         function CheckStudentExist(FirstName,LastName,DateOfBirth)
                         {
-                            debugger;
+                            
                             var model = { FName: FirstName, LName: LastName, BirthDate: DateOfBirth };
                             var path = "/Student/IsStudentExist";
                             $.get(path, model)
                             .done(function (response) {
-                                debugger;
+                                
                                 if(JSON.stringify(response.result)=='true')
                                 {
                                     alert("Student Already Exist..");

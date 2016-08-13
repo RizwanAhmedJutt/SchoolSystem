@@ -1,14 +1,14 @@
-﻿@{
+﻿@*@{
     ViewBag.Title = "Home Page";
-}
+}*@
 
-<div class="jumbotron">
+@*<div class="jumbotron">
     <h1>ASP.NET Identity</h1>
     <p class="lead">Rizwan Ahmed....</p>
     <p><a href="http://www.asp.net/identity" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
+</div>*@
 
-<div class="row">
+@*<div class="row">
     <div class="col-md-4">
         <dl>
             <dt>Initialize</dt>
@@ -228,5 +228,71 @@
                 </ul>
             </dd>
         </dl>
+    </div>
+</div>*@
+@model SMSDataContract.Common.DefaultPageHelper
+@{
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<link href="~/Content/AdminLTE.css" rel="stylesheet" />
+<div class="" style="padding:10px">
+
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>@Model.TotalStudent</h3>
+                    <p>Total Students</p>
+                </div>
+                <div class="icon" style="right:100px;">
+                    <i class="ion ion-bag"></i>
+                </div>
+                <a href="/Student/StudentList" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>@Model.TotalBasicExpense</h3>
+                    <p>Total Basic Expense</p>
+                </div>
+                <div class="icon" style="right:100px;">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>@Model.TotalRegularExpense</h3>
+                    <p>Total Regular Expense</p>
+                </div>
+                <div class="icon" style="right:100px;">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>@Model.TotalFee
+                      </h3>
+                    <p>Total Fee</p>
+                </div>
+                <div class="icon" style="right:100px;">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
     </div>
 </div>

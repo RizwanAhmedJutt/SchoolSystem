@@ -84,7 +84,7 @@ namespace IdentitySample.Controllers
                             if (UserManager.IsInRole(UserInfo.Id, "Student"))
                             { return RedirectToAction("GetStudentReport", "StudentLog"); }
                             else
-                            { return RedirectToAction("StudentList", "Student"); }
+                            { return RedirectToAction("Index", "Home"); }
                         }
                         else
                         {

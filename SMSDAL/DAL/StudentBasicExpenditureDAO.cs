@@ -108,7 +108,23 @@ namespace SMSDAL.DAL
 
            return 0;// show Error in inserting or Updating Record
        }
+       public DataTable GetStudentBasicExpenseTotal()
+       {
+           DataTable dtFeeDetails;
+           try
+           {
 
+               using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Fee_GetGrandTotalBasicExpense"))
+               {
+                   dtFeeDetails = gObjDatabase.GetDataTable(objCommand);
+               }
+           }
+           catch
+           {
+               throw;
+           }
+           return dtFeeDetails;
+       }
 
     }
 }

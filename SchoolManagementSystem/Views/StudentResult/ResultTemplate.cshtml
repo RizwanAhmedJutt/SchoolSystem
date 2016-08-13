@@ -38,7 +38,16 @@
                             </td>
                             <td>
                                 @Html.DropDownListFor(x => x.StudentResultSheet[i].Grade,
-                                    @ViewBag.Grades as List<SelectListItem>, "Select Grade", new { id = "ddlGrade", @class = "form-control" })
+                                   new List<SelectListItem>()
+                                        {
+                                            
+                                            new SelectListItem(){ Text= "A", Value = "A", Selected="A"== Model.StudentResultSheet[i].Grade },
+                                            new SelectListItem(){ Text= "B", Value = "B" , Selected="B"== Model.StudentResultSheet[i].Grade},
+                                            new SelectListItem(){ Text= "C", Value = "C",Selected="C"== Model.StudentResultSheet[i].Grade},
+                                            new SelectListItem(){ Text= "D", Value = "D",Selected="D"== Model.StudentResultSheet[i].Grade},
+                                            new SelectListItem(){ Text= "F", Value = "F",Selected="F"== Model.StudentResultSheet[i].Grade}
+                                        }
+                                  , "Select Grade", new { id = "ddlGrade", @class = "form-control" })
                             </td>
                             <td>@Html.TextBoxFor(x => x.StudentResultSheet[i].Remarks, new { @class = "form-control", @Id = "txtRemarks" + i })</td>
 
@@ -88,11 +97,12 @@
 
                                     @Html.DropDownListFor(x => x.SrSocialAndPersonalSkill[k].Grad, new List<SelectListItem>()
                                         {
-                                            new SelectListItem(){ Text= "A", Value = "A"},
-                                            new SelectListItem(){ Text= "B", Value = "B"},
-                                            new SelectListItem(){ Text= "C", Value = "C"},
-                                            new SelectListItem(){ Text= "D", Value = "D"},
-                                            new SelectListItem(){ Text= "F", Value = "F"}
+                                            
+                                            new SelectListItem(){ Text= "A", Value = "A", Selected='A'== Model.SrSocialAndPersonalSkill[k].Grad },
+                                            new SelectListItem(){ Text= "B", Value = "B" , Selected='B'== Model.SrSocialAndPersonalSkill[k].Grad},
+                                            new SelectListItem(){ Text= "C", Value = "C",Selected='C'== Model.SrSocialAndPersonalSkill[k].Grad},
+                                            new SelectListItem(){ Text= "D", Value = "D",Selected='D'== Model.SrSocialAndPersonalSkill[k].Grad},
+                                            new SelectListItem(){ Text= "F", Value = "F",Selected='F'== Model.SrSocialAndPersonalSkill[k].Grad}
 
 
                                         }, "Select Grade", new { id = "ddlGrade", @class = "form-control" })
@@ -121,11 +131,12 @@
                                 <td>
                                     @Html.DropDownListFor(x => x.SrWorkAndStudySkill[j].Grade, new List<SelectListItem>()
                                         {
-                                            new SelectListItem(){ Text= "A", Value = "A"},
-                                            new SelectListItem(){ Text= "B", Value = "B"},
-                                            new SelectListItem(){ Text= "C", Value = "C"},
-                                            new SelectListItem(){ Text= "D", Value = "D"},
-                                            new SelectListItem(){ Text= "F", Value = "F"}
+                                            
+                                            new SelectListItem(){ Text= "A", Value = "A",Selected='A'== Model.SrWorkAndStudySkill[j].Grade },
+                                            new SelectListItem(){ Text= "B", Value = "B",Selected='B'== Model.SrWorkAndStudySkill[j].Grade},
+                                            new SelectListItem(){ Text= "C", Value = "C",Selected='C'== Model.SrWorkAndStudySkill[j].Grade},
+                                            new SelectListItem(){ Text= "D", Value = "D",Selected='D'== Model.SrWorkAndStudySkill[j].Grade},
+                                            new SelectListItem(){ Text= "F", Value = "F",Selected='F'== Model.SrWorkAndStudySkill[j].Grade}
 
 
                                         }, "Select Grade", new { id = "ddlGrade", @class = "form-control" })

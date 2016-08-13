@@ -91,5 +91,19 @@ namespace SMSBusiness.Repository.Concrete
 
          return ReturnValue;
      }
+
+     public long GetStudentBasicExpenseTotal()
+     {
+         var objStudentBasicExpensDao = new StudentBasicExpenditureDAO(new SqlDatabase());
+         DataTable dtexpense = objStudentBasicExpensDao.GetStudentBasicExpenseTotal();
+         long TotalExpense=0;
+         foreach (DataRow item in dtexpense.Rows)
+         {
+
+             TotalExpense = Convert.ToInt64(item["totalBasicExpense"]);
+
+         }
+         return TotalExpense;
+     }
     }
 }

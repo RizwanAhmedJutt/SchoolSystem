@@ -18,7 +18,7 @@ namespace SMSDataContract.Accounts
             CourseId = 0;
             ClassAssessmentPercentage = 0.0;
             PaperPercentage = 0.0;
-            Grade = string.Empty;
+            Grade = "A";
             Remarks=string.Empty;
             PaperTerm = string.Empty;
             CreatedById = string.Empty;

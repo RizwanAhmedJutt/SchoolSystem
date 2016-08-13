@@ -13,6 +13,6 @@ namespace SMSBusiness.Repository.Abstract
         List<StudentBasicExpenditure> GetStudentBasicExpenditure(int? StudentId, int? AcadmicClassId);
         StudentBasicExpenditure GetBasicExpenditureById(int FeeId);
         int StudentBasicExpenseAddChanges(StudentBasicExpenditure expense);
-
+       long GetStudentBasicExpenseTotal();
     }
 }

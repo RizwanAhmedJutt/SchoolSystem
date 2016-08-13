@@ -39,7 +39,7 @@ namespace SchoolManagementSystem.Controllers
             smrh.StudentId = bd.StudentId;
             if (!string.IsNullOrEmpty(Month))
             {
-
+                smrh.GeneralAssessment = repAcOperation.GetStudentGeneralAssessmentResult(smrh.StudentId, smrh.AcadmicClassId, Month);
                 smrh.Courses = repAcOperation.GetStudentAssessmentCourse(smrh.StudentId, smrh.AcadmicClassId, Month);
                 // Get CourseId to fetch only specific courses data.
                 courseIDs = repAcOperation.StudentAssessmentCourseIDs(smrh.StudentId, smrh.AcadmicClassId, Month);
@@ -47,7 +47,7 @@ namespace SchoolManagementSystem.Controllers
                 if (!string.IsNullOrEmpty(courseIDs.ToString()))
                 {
                     smrh.AcadmicAssessment = repAcOperation.GetStudentAssessmentByCourses(smrh.StudentId, smrh.AcadmicClassId, Month, courseIDs);
-                    smrh.GeneralAssessment = repAcOperation.GetStudentGeneralAssessmentResult(smrh.StudentId, smrh.AcadmicClassId, Month);
+                   
                 }
                 return View(smrh);
             }

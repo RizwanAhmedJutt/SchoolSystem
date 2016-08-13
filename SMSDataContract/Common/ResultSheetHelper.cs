@@ -12,6 +12,7 @@ namespace SMSDataContract.Common
         public ResultSheetHelper()
         {
             this.StudentAttendance = new StudentAttendance();
+            this.StudentResultSheet = new List<StudentResultSheet>();
         }
         public List<StudentAssignedCourse> AssignedCourses { get; set; }
         public List<StudentResultSheet> StudentResultSheet { get; set; }

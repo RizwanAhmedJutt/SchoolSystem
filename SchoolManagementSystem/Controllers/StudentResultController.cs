@@ -41,16 +41,6 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult ResultTemplate(int AcadmicClassId, int StudentId, string PaperTerm)
         {
-            List<SelectListItem> listItems = new List<SelectListItem>()
-            {
-              new SelectListItem(){ Text= "A", Value = "A"},
-              new SelectListItem(){ Text= "B", Value = "B"},
-              new SelectListItem(){ Text= "C", Value = "C"},
-              new SelectListItem(){ Text= "D", Value = "D"},
-              new SelectListItem(){ Text= "F", Value = "F"}
-            };
-
-            ViewBag.Grades = listItems;
             var ResultQuery = (from x in stdResultSheetRepo.GetStudentResultSheet().ToList()
                                where x.AcadmicClassId == AcadmicClassId && x.StudentId == StudentId
                                && x.PaperTerm == PaperTerm
@@ -121,7 +111,7 @@ namespace SchoolManagementSystem.Controllers
                              where x.AcadmicClassId == AcadmicClassId
                              && x.StudentId == StudentId
                              select new StudentAssignedCourse() { CourseId = x.CourseId, CourseName = x.CourseName, AcadmicClassId = x.AcadmicClassId, StudentId = x.StudentId }).ToList();
-
+               
                 var SocailSkills = (from x in socialDescriptionRepo.GetALLSocailDescriptions().ToList()
                                     select new StudentResultSocialAndPersonalSkill() { SocialDescriptionId = x.SocialDescriptionId, Description = x.Description }
                                        ).ToList();
@@ -131,11 +121,15 @@ namespace SchoolManagementSystem.Controllers
 
                 ResultSheetHelper rsh = new ResultSheetHelper();
                 rsh.AssignedCourses = query.ToList();
+                for (int i = 0; i < query.Count; i++)
+                {
+                    StudentResultSheet srsheet = new StudentResultSheet();
+                    rsh.StudentResultSheet.Add(srsheet);
+                }
                 rsh.SrSocialAndPersonalSkill = SocailSkills;
                 rsh.SrWorkAndStudySkill = StudySkills;
                 rsh.StudentAttendance.StudentId = StudentId;
                 rsh.StudentAttendance.AcadmicClassId = AcadmicClassId;
-
                 rsh.PaperTerm = PaperTerm;
                 return View(rsh);
             }
