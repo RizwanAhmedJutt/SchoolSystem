@@ -178,15 +178,9 @@
                             $(function () {
                                 $('#DateOfBirth').datepicker();
                             });
-                            $("#DateOfBirth").change(function () {
-                               
-                                var FirstName = $("#StuFirstName").val();
-                                var LastName = $("#StuLastName").val();
-                                var DateOfBirth = $(this).val();
-                                CheckStudentExist(FirstName, LastName, DateOfBirth);
-                            });
+                            
                             $("#AddStudent").click(function (e) {
-                                debugger;
+                               
                                 if ($('#ddlSibling').val() == '') {
 
 
@@ -201,18 +195,34 @@
                                     e.preventDefault();
                                     return;
                                 }
-                                if($("#StuFirstName").has("style"))
-                                {
-                                    e.preventDefault();
-                                    return;
-                                }
-                                else
-                                {
-                                    $("#StuFirstName").removeAttr("style");
-                                    $("#StuLastName").removeAttr("style");
-                                    $("#DateOfBirth").removeAttr("style");
-                                }
+                                e.preventDefault();
+                                var FirstName = $("#StuFirstName").val();
+                                var LastName = $("#StuLastName").val();
+                                var DateOfBirth = $("#DateOfBirth").val();
+                                var model = { FName: FirstName, LName: LastName, BirthDate: DateOfBirth };
+                                var path = "/Student/IsStudentExist";
+                                $.get(path, model)
+                          .done(function (response) {
+
+                              if (JSON.stringify(response.result) == 'true') {
+                                  alert("Student Already Exist..");
+                                  $("#StuFirstName").css("border", "1px solid red");
+                                  $("#StuLastName").css("border", "1px solid red");
+                                  $("#DateOfBirth").css("border", "1px solid red");
                                
+                              }
+                              else {
+                                  
+                                  $("#StuFirstName").removeAttr("style");
+                                  $("#StuLastName").removeAttr("style");
+                                  $("#DateOfBirth").removeAttr("style");
+                                  $("form").submit();kr 
+                              }
+                          })
+                          .fail(function (e1) {
+
+                              alert("error :" + e1);
+                          }) 
                             });
                             $("#UpdateStudent").click(function (e) {
 
@@ -262,34 +272,7 @@
 
                            
                         });
-                        function CheckStudentExist(FirstName,LastName,DateOfBirth)
-                        {
-                            
-                            var model = { FName: FirstName, LName: LastName, BirthDate: DateOfBirth };
-                            var path = "/Student/IsStudentExist";
-                            $.get(path, model)
-                            .done(function (response) {
-                                
-                                if(JSON.stringify(response.result)=='true')
-                                {
-                                    alert("Student Already Exist..");
-                                    $("#StuFirstName").css("border", "1px solid red");
-                                    $("#StuLastName").css("border", "1px solid red");
-                                    $("#DateOfBirth").css("border", "1px solid red");
-
-                                }
-                                else
-                                {
-                                    $("#StuFirstName").removeAttr("style");
-                                    $("#StuLastName").removeAttr("style");
-                                    $("#DateOfBirth").removeAttr("style");
-                                }
-                            })
-                            .fail(function (e1) {
-
-                                alert("error :" + e1);
-                            })
-                        }
+                     
                     </script>
                 }
             </div>
