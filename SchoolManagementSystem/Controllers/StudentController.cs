@@ -14,6 +14,8 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Drawing;
 using System.Web.Helpers;
+using Rotativa.Core;
+using Rotativa.MVC;
 namespace SchoolManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -67,10 +69,15 @@ namespace SchoolManagementSystem.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ExportReport(DateTime startDate,DateTime endDate, int AcadmicClassId)
+        public ActionResult ExportReport(DateTime startDate,DateTime endDate, int AcadmicClassId,int? page)
         {
-            ExportStudentReport(startDate, endDate, AcadmicClassId);
-            return RedirectToAction("StudentList");
+           // ExportStudentReport(startDate, endDate, AcadmicClassId);
+            List<StudentDetail> studentDetail = exportfiles.GetStudentReport(startDate, endDate, AcadmicClassId);
+            return new PartialViewAsPdf("../Student/_StudentListExport", studentDetail.ToList())
+            {
+                
+                FileName = "StudentDetail.pdf"
+            };
         }
 
         [HttpGet]

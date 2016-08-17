@@ -16,6 +16,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Drawing;
 using System.Web.Script.Serialization;
+using Rotativa.MVC;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -49,8 +50,12 @@ namespace SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult ExportReport()
         {
-            GetTeacherReport();
-            return RedirectToAction("TeacherList");
+            List<Teacher> teacherDetail = exportfiles.GetTeacherReport();
+            return new PartialViewAsPdf("../Student/_StudentListExport", teacherDetail.ToList())
+            {
+
+                FileName = "StudentDetail.pdf"
+            };
         }
         [HttpPost]
         public ActionResult ExportTeacherAssignClassReport()

@@ -107,7 +107,7 @@ namespace SMSBusiness.Repository.Concrete
             foreach (DataRow item in dtexpense.Rows)
             {
 
-               TotalExpense= Convert.ToInt64(item["totalRegularExpense"]);
+                TotalExpense = item.IsNull("totalRegularExpense") ? 0 : Convert.ToInt64(item["totalRegularExpense"]);
 
             }
             return TotalExpense;

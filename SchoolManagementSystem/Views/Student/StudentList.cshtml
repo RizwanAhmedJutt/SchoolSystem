@@ -131,7 +131,7 @@
 
             });
             $("#btnExportFile").click(function () {
-                debugger;
+               
                 GetReport();
 
             });
@@ -154,7 +154,7 @@
             var URL = "/Student/ExportReport";
             $.get(URL)
             .done(function (gethtml) {
-                debugger;
+               
                 $("#AddEdithtml").html("");
                 $("#AddEdithtml").html(gethtml);
                 $('#myModal').modal('show');

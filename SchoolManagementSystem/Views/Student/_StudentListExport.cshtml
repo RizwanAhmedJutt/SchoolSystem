@@ -1,0 +1,110 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<SMSDataContract.Accounts.StudentDetail>
+
+@{
+    Layout = null;//"~/Views/Shared/_NewLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="well">
+            <div class="row">
+                <div style="clear:left"></div>
+                <strong class="HeadingStyle">List of Students</strong>
+                <table class="table table-bordered table-striped table-responsive table-hover">
+                    <tr class="action info">
+                        <th>
+                            @Html.Label("Name")
+                        </th>
+                        <th>
+                            @Html.Label("Father Name")
+                        </th>
+                        <th>
+                            @Html.Label("Class")
+                        </th>
+                        <th>
+                            @Html.Label("Birth Date")
+                        </th>
+                       
+                        <th>
+                            @Html.Label("CNIC")
+                        </th>
+                       
+
+                        <th>
+                            @Html.Label("CityName")
+                        </th>
+                        
+                        <th>
+                            @Html.Label("Address")
+                        </th>
+                        <th>
+                            @Html.Label("GuardianName")
+                        </th>
+                        <th>
+                            @Html.Label("GuardianContacts")
+                        </th>
+                       
+                        
+
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Student.StudentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GuardianDetail.FatherName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AcadmicClass.ClassName)
+                            </td>
+                            <td>
+                                @Html.DisplayName(item.Student.DOB.ToShortDateString())
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Student.CNIC)
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cities.CityName)
+                            </td>
+                            
+                            <td>@Html.DisplayFor(modelItem => item.StudentAddress.PresentAddress)</td>
+                            <td>@Html.DisplayFor(modelItem => item.GuardianDetail.GuardianName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.GuardianContact.FirstContact)</td>
+                           
+                           
+                           
+                        </tr>
+                    }
+
+                </table>
+               
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/JqueryUicss")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+        });
+
+
+    </script>
+}
+
+
