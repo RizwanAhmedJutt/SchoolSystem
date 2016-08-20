@@ -17,6 +17,7 @@
         </div>
     </div>
 </div>
+
 @using (Html.BeginForm("GetTeacherLessonPlans", "Teacher", FormMethod.Get))
 {
     <div class="row">
@@ -74,6 +75,7 @@
         </div>
     </div>
 }
+<a href="~/Teacher/AddChangesTeacherLessonPlans?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add Lesson Plan</a>
 <table class="table table-bordered table-hover table-striped">
     <tr class="action info">
 

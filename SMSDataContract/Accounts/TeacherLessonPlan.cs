@@ -14,6 +14,7 @@ namespace SMSDataContract.Accounts
             TeacherLessonPlanId = 0;
             AcadmicClassId = 0;
             TeacherId = 0;
+            CourseId = 0;
             Lesson = string.Empty;
             Topic = string.Empty;
             SubTopic = string.Empty;
@@ -30,16 +31,23 @@ namespace SMSDataContract.Accounts
         public string AcadmicClassName { get; set; }
         public int TeacherId { get; set; }
         public string TeacherName { get; set; }
+        [Required(ErrorMessage="Please Select Course")]
         public int CourseId { get; set; }
         public string CourseName { get; set; }
+        [Required(ErrorMessage="Please Enter Lesson Name")]
         public string Lesson { get; set; }
+         [Required(ErrorMessage = "Please Enter Topic")]
         public string Topic { get; set; }
         public string SubTopic { get; set; }
         [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = "Please Enter Objective")]
         public string Objective { get; set; }
+         [Required(ErrorMessage = "Please Enter Out Comes")]
         [DataType(DataType.MultilineText)]
         public string OutComes { get; set; }
+         [Required(ErrorMessage = "Please Enter Teach Methodolgy")]
         public string TeachingMethodology { get; set; }
+         [Required(ErrorMessage = "Please Enter Resource")]
         [DataType(DataType.MultilineText)]
         public string ResourceRequired { get; set; }
 

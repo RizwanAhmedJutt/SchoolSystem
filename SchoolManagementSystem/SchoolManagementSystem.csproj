@@ -513,6 +513,8 @@
     <Content Include="Views\Course\CourseListExport.cshtml" />
     <Content Include="Views\Course\TeacherAssignCourseListExport.cshtml" />
     <Content Include="Views\Course\StudentAssignCourseListExport.cshtml" />
+    <Content Include="Views\StudentExpense\StudentBasicExpenseListExport.cshtml" />
+    <Content Include="Views\StudentExpense\StudentRegularExpenseListExport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

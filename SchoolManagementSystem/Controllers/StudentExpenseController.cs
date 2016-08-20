@@ -11,7 +11,8 @@ using PagedList.Mvc;
 using PagedList;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using System.Drawing;    
+using System.Drawing;
+using Rotativa.MVC;    
 namespace SchoolManagementSystem.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -35,8 +36,14 @@ namespace SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult GetStudentBasicExpenditureReport(DateTime startDate, DateTime endDate, int AcadmicClassId)
         {
-            ExportStudentBasicExpense(startDate,endDate,  AcadmicClassId);
-            return RedirectToAction("GetStudentBasicExpenditure");
+            //ExportStudentBasicExpense(startDate,endDate,  AcadmicClassId);
+            List<StudentBasicExpenditure> studentDetail = exportfiles.GetStudentBasicExpense(startDate, endDate, AcadmicClassId);
+            return new PartialViewAsPdf("../StudentExpense/StudentBasicExpenseListExport", studentDetail.ToList())
+            {
+
+                FileName = "ExpenseDetail.pdf"
+            };
+            // return RedirectToAction("GetStudentBasicExpenditure");
         }
         [HttpGet]
         public ActionResult StudentBasicExpenseAddChanges(int Id)
@@ -91,8 +98,14 @@ namespace SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult GetStudentRegularExpenditureReport(DateTime startDate, DateTime endDate, int AcadmicClassId)
         {
-            ExportStudentRegularExpense(startDate, endDate, AcadmicClassId);
-            return RedirectToAction("GetRegularExpenditure");
+            List<StudentExpenditure> studentDetail = exportfiles.GetStudentRegularExpense(startDate, endDate, AcadmicClassId);
+            return new PartialViewAsPdf("../StudentExpense/StudentRegularExpenseListExport", studentDetail.ToList())
+            {
+
+                FileName = "ExpenseDetail.pdf"
+            };
+            //ExportStudentRegularExpense(startDate, endDate, AcadmicClassId);
+            //return RedirectToAction("GetRegularExpenditure");
         }
         [HttpGet]
         public ActionResult StudentRegularExpenseAddChanges(int Id)

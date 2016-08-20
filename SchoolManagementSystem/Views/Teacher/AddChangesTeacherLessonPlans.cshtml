@@ -44,6 +44,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                             @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                            
                         </div>
 
                     </div>
@@ -56,7 +57,17 @@
                             <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
 
                             <div id="dvDDLTeacher">
-                                @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 1 });}
+                              @if(Model.TeacherId==0)
+                              {  <text>
+                                  @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 1 });} 
+                                 </text>
+                              }
+                              else
+                              {  <text>
+                                  @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = Model.AcadmicClassId });} 
+                                </text>
+                              }
+                                @Html.ValidationMessageFor(model => model.TeacherId, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -68,7 +79,11 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                             <div id="dvDDLCourse">
-                                @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 1 });}
+                                 @if(Model.CourseId==0)
+                                 { <text> @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 1 });} </text> }
+                                  else
+                                 { <text> @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = Model.AcadmicClassId });} </text> }                                                                                                                         
+                                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
                             </div>
 
                         </div>
@@ -184,11 +199,12 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript">
         {
+
             $(document).ready(function () {
                 $("#Loading").hide();
-                    //$('#ddlCourse option[value=""]').attr("selected", true);
-                    //$('#ddlTeacher option[value=""]').attr("selected", true);
-
+                $('#ddlTeacher option[value="@Model.TeacherId"]').prop("selected", true);
+                $('#ddlCourse option[value="@Model.CourseId"]').prop("selected", true);
+               
 
                 // change event of ddlAcadmicClass
                 $("#ddlAcadmicClass").change(function () {
@@ -251,12 +267,15 @@
                         $("form").submit();
                     }
                 });
-
+          
             });
-
+           
+               
+          
+              
 
             function LoadDDLCourseANDStudent() {
-
+                 debugger
                 var ClassId = $("#ddlAcadmicClass :selected").val();
                 var model = { AcadmicClassId: ClassId };
                 var Url = null;
