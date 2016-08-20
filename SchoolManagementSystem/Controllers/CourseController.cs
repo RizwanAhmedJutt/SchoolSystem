@@ -14,6 +14,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Drawing;
 using System.Web.Script.Serialization;
+using Rotativa.MVC;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -53,8 +54,14 @@ namespace SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult GetCourseReport()
         {
-            GetAllCourseReport();
-            return RedirectToAction("GetALLCourse");
+            //GetAllCourseReport();
+            List<Course> CourseDetail = exportfiles.GetALLCourse();
+            return new PartialViewAsPdf("../Course/CourseListExport", CourseDetail.ToList())
+            {
+
+                FileName = "CourseDetail.pdf"
+            };
+           
         }
         [HttpGet]
         public ActionResult AddChangesCourse(int Id)
@@ -121,8 +128,13 @@ namespace SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult GetStudentAssingCourseReport()
         {
-            GetALLStudentAssignCourseReport();
-            return RedirectToAction("GetALLStudentAssignCourse");
+            //GetALLStudentAssignCourseReport();
+            List<StudentAssignedCourse> StudentDetail = exportfiles.GetALLStudentAssignCourse();
+            return new PartialViewAsPdf("../Course/StudentAssignCourseListExport", StudentDetail.ToList())
+            {
+
+                FileName = "CourseDetail.pdf"
+            };
         }
 
         [HttpGet]
@@ -174,8 +186,13 @@ namespace SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult GetTeacherAssignCourseReport()
         {
-            GetALLTeacherAssignCourseReport();
-            return RedirectToAction("GetALLTeacherAssignCourse");
+            //GetALLTeacherAssignCourseReport();
+            List<TeacherAssignedCourse> teacherDetail = exportfiles.GetALLTeacherAssignCourse();
+            return new PartialViewAsPdf("../Course/TeacherAssignCourseListExport", teacherDetail.ToList())
+            {
+
+                FileName = "TeacherAssignCourse.pdf"
+            };
         }
         [HttpGet]
         public ActionResult AddChangesTeacherAssignCourse(int Id)
