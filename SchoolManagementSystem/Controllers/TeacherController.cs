@@ -51,10 +51,11 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult ExportReport()
         {
             List<Teacher> teacherDetail = exportfiles.GetTeacherReport();
-            return new PartialViewAsPdf("../Student/_StudentListExport", teacherDetail.ToList())
+            
+            return new PartialViewAsPdf("../Teacher/TeacherListExport", teacherDetail.ToList())
             {
 
-                FileName = "StudentDetail.pdf"
+                FileName = "TeacherDetail.pdf"
             };
         }
         [HttpPost]

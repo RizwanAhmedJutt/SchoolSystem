@@ -1,50 +1,23 @@
-﻿@using PagedList;
+﻿
+@using PagedList;
 @using PagedList.Mvc;
-@model IPagedList<SMSDataContract.Common.Teacher>
+@model List<SMSDataContract.Common.Teacher>
 
 @{
     ViewBag.Title = "TeacherList";
-    Layout = "~/Views/Shared/_NewLayout.cshtml";
+    Layout = null;//"~/Views/Shared/_NewLayout.cshtml";
 }
 
 <div class="row">
     <div class="col-md-12">
         <div class="well">
             <div class="row">
-                <div class="col-md-7 col-md-offset-3">
-                    @using (Html.BeginForm("TeacherList", "Teacher", FormMethod.Get))
-                    {  <div class="input-group col-md-8">
-                        <b>Search By:</b>
-                        @Html.RadioButton("SearchBy", "CNIC", true)
-                        <text>CNIC</text>
-                         @Html.RadioButton("SearchBy", "NotActiv")
-                           <text>Not Active</text>
-                        <br />
-
-
-                        @Html.TextBox("search", null, new { @class = "form-control" })
-
-                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                    </div>
-                    }
-                </div>
-                <div style="clear:left"></div>
-                <div style="display:flex;">
-                    <a href="~/Teacher/AddChangesTeacher?Id=0" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Teacher</a>
-                    <span style="margin-left:20px;">
-                        @using (Html.BeginForm("ExportReport", "Teacher", FormMethod.Post))
-                        { <span style="margin-left:15px;">  <button id="btnExportFile" class="btn btn-primary" type="submit">Export </button></span>}
-                    </span>
-                </div>
-                <br />
+                
                 <span class="HeadingStyle">Teacher List</span>
                 <table class="table table-bordered table-hover table-striped">
                     <tr class="action info">
                         <th>
-                            @Html.DisplayNameFor(model => model.First().FirstName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.First().LastName)
+                            @Html.DisplayNameFor(model => model.First().TeacherName)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.First().CNIC)
@@ -69,17 +42,14 @@
                             @Html.DisplayNameFor(model => model.First().Active)
                         </th>
 
-                        <th style="width:90px;"><h5>ACTION</h5></th>
+                        
                     </tr>
 
                     @foreach (var item in Model)
                 {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.FirstName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LastName)
+                                @Html.DisplayFor(modelItem => item.TeacherName)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.CNIC)
@@ -88,7 +58,6 @@
                                 @Html.DisplayFor(modelItem => item.LastQualification)
                             </td>
                             <td>
-                                @*@Html.DisplayFor(modelItem => item.JoinDate, "{0:dd/MM/yyyy}")*@
                                 @Html.DisplayName(item.JoinDate.ToShortDateString())
                             </td>
                             <td>
@@ -101,24 +70,22 @@
                                 @Html.DisplayFor(modelItem => item.RefrenceContact)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Active)
+                                @if(item.Active)
+                                {
+                                    <text>Yes</text>
+                                }
+                                else
+                                {
+                                    <text>No</text>
+                                }
                             </td>
 
-                            <td>
-                                <a href="/Teacher/AddChangesTeacher?Id=@item.TeacherId" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-                                <a id="btnDelete" href="/Teacher/DeleteTeacher?Id=@item.TeacherId" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-stop"></i></a>
-
-                            </td>
+                            
                         </tr>
                 }
 
                 </table>
-                <div class="col-md-10 col-md-offset-4">
-
-
-                    @Html.PagedListPager(Model, page => Url.Action("TeacherList", new { page, SearchBy = Request.QueryString["SearchBy"], search = Request.QueryString["search"] }))
-
-                </div>
+               
 
             </div>
         </div>
@@ -131,17 +98,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $("#btnDelete").click(function () {
-                
-                if (confirm("Are You Sure you want to delete Teacher?"))
-                    return true;
-                else
-                    return false;
-
-            });
-            //$("#btnExportFile").click(function () {
-            //    $.post("/Teacher/ExportReport");
-            //});
+            
         });
 
     </script>
