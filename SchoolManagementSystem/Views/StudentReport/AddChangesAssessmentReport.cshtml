@@ -174,7 +174,9 @@
                     <script type="text/javascript">
                         $(document).ready(function () {
                             // Dropdown Default Values
-                            if ('@Model.ChildAssessments[0].AcadmicClassId' > 0) {
+                            @if(Model.ChildAssessments.Count>0)
+                            {  <text>
+                                if (Model.ChildAssessments[0].AcadmicClassId > 0) {
 
                                 $('#ddlAcadmicClass option[value="@Model.ChildAssessments[0].AcadmicClassId"]').attr("selected", true);
 
@@ -182,13 +184,15 @@
                             else {
                                 $('#ddlAcadmicClass option[value=""]').attr("selected", true);
                             }
-                            if ('@Model.ChildAssessments[0].StudentId' > 0) {
+                            if (Model.ChildAssessments[0].StudentId > 0) {
 
                                 $('#ddlStudent option[value="@Model.ChildAssessments[0].StudentId"]').attr("selected", true);
 
                             }
                             else {
                                 $('#ddlStudent option[value=""]').attr("selected", true);
+                            }
+                            </text>
                             }
                             // Enable-Disable textbox on basis of Selected Radio button.
                             $('input:radio').click(function () {

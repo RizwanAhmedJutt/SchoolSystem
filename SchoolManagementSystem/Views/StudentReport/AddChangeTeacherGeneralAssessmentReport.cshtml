@@ -180,9 +180,11 @@
                     <script type="text/javascript">
                         $(document).ready(function () {
                             // Dropdown Default Values
-                            if ('@Model.ParentAssessments[0].OperationalId' > 0)
-                            {
-                                if ('@Model.ParentAssessments[0].AcadmicClassId' > 0) {
+                          
+                             @if (Model.ParentAssessments.Count > 0)
+                             { 
+                               <text>  
+                                if (Model.ParentAssessments[0].AcadmicClassId > 0) {
 
                                     $('#ddlAcadmicClass option[value="@Model.ParentAssessments[0].AcadmicClassId"]').attr("selected", true);
 
@@ -190,7 +192,7 @@
                                 else {
                                     $('#ddlAcadmicClass option[value=""]').attr("selected", true);
                                 }
-                                if ('@Model.ParentAssessments[0].TeacherId' > 0) {
+                                if (Model.ParentAssessments[0].TeacherId > 0) {
 
                                     $('#ddlTeacher option[value="@Model.ParentAssessments[0].TeacherId"]').attr("selected", true);
 
@@ -198,7 +200,7 @@
                                 else {
                                     $('#ddlTeacher option[value=""]').attr("selected", true);
                                 }
-                                if ('@Model.ParentAssessments[0].CourseId' > 0) {
+                                if (Model.ParentAssessments[0].CourseId > 0) {
 
                                     $('#ddlCourse option[value="@Model.ParentAssessments[0].CourseId"]').attr("selected", true);
 
@@ -206,7 +208,9 @@
                                 else {
                                     $('#ddlCourse option[value=""]').attr("selected", true);
                                 }
+                            </text>
                             }
+                            
                             // Enable-Disable textbox on basis of Selected Radio button.
                             $('input:radio').click(function () {
                                 var getRadiobuttonvalue = $(this).closest('tr').find('input[type=radio]:checked:first').val();

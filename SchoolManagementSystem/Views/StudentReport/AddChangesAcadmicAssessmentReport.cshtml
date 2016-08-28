@@ -182,7 +182,9 @@
                     <script type="text/javascript">
                         $(document).ready(function () {
                             // Dropdown Default Values
-                            if ('@Model.ParentAssessments[0].AcadmicClassId' > 0) {
+                            @if(Model.ParentAssessments.Count>0)
+                            {  <text>
+                                if (Model.ParentAssessments[0].AcadmicClassId > 0) {
 
                                 $('#ddlAcadmicClass option[value="@Model.ParentAssessments[0].AcadmicClassId"]').attr("selected", true);
 
@@ -190,7 +192,7 @@
                             else {
                                 $('#ddlAcadmicClass option[value=""]').attr("selected", true);
                             }
-                            if ('@Model.ParentAssessments[0].StudentId' > 0) {
+                            if (Model.ParentAssessments[0].StudentId > 0) {
 
                                 $('#ddlStudent option[value="@Model.ParentAssessments[0].StudentId"]').attr("selected", true);
 
@@ -198,13 +200,15 @@
                             else {
                                 $('#ddlStudent option[value=""]').attr("selected", true);
                             }
-                            if ('@Model.ParentAssessments[0].CourseId' > 0) {
+                            if (Model.ParentAssessments[0].CourseId > 0) {
 
                                 $('#ddlCourse option[value="@Model.ParentAssessments[0].CourseId"]').attr("selected", true);
 
                             }
                             else {
                                 $('#ddlCourse option[value=""]').attr("selected", true);
+                            }
+                            </text>
                             }
                             // Enable-Disable textbox on basis of Selected Radio button.
                             $('input:radio').click(function () {
