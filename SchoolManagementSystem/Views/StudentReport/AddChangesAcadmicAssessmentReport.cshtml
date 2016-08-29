@@ -182,7 +182,7 @@
                     <script type="text/javascript">
                         $(document).ready(function () {
                             // Dropdown Default Values
-                            @if(Model.ParentAssessments.Count>0)
+                            @if (Model.ParentAssessments[0].AcadmicClassId > 0)
                             {  <text>
                                 if (Model.ParentAssessments[0].AcadmicClassId > 0) {
 
