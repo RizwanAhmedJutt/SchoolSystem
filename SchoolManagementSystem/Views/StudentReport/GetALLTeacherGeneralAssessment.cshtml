@@ -33,8 +33,18 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                         <div id="dvDDLTeacher">
-
-                            @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 0 });}
+                            @if (Request.QueryString["ddlTeacher"] != null)
+                            {
+                                <text>
+                                 @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = Request.QueryString["AcadmicClassId"] });}
+                            </text>
+                            }
+                            else
+                            {
+                                <text>
+                                 @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 0 });}
+                                </text>
+                            }
 
 
 
@@ -52,8 +62,18 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                         <div id="dvDDLCourse">
-
-                            @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 0 });}
+                            @if(Request.QueryString["CourseId"]!=null)
+                            {  
+                                <text>
+                                 @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = Request.QueryString["AcadmicClassId"] });}
+                               </text>
+                            }
+                            else
+                            {
+                                 <text>
+                                 @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 0 });}
+                                 </text>
+                            }
 
 
 
@@ -68,16 +88,19 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                        <input id="setDate"  name="CreateDate" class="form-control" />
+                        <input id="setDate" name="CreateDate" class="form-control" />
 
                     </div>
                 </div>
 
                 <br />
-                <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+                <div class="row">
+                    <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+                    
+                </div>
             </div>
-                                }
-
+        }
+       
         <div style="clear:left"></div>
         <div class="well">
             <div class="row">
@@ -188,7 +211,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // Set Query String Parameter
-            if ('@Request.QueryString["AcadmicClassId"]' != null) {
+            if ('@Request.QueryString["AcadmicClassId"]' != null)
+            {
 
                 $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
 
@@ -196,13 +220,13 @@
             else {
                 $('#ddlAcadmicClass option[value=""]').attr("selected", true);
             }
-            if ('@Request.QueryString["StudentId"]' != null) {
+            if ('@Request.QueryString["ddlTeacher"]' != null) {
 
-                $('#ddlStudent option[value="@Request.QueryString["StudentId"]"]').attr("selected", true);
+                $('#ddlTeacher option[value="@Request.QueryString["TeacherId"]"]').attr("selected", true);
 
             }
             else {
-                $('#ddlStudent option[value=""]').attr("selected", true);
+                $('#ddlTeacher option[value=""]').attr("selected", true);
             }
             if ('@Request.QueryString["CourseId"]' != null) {
 
@@ -213,7 +237,7 @@
                 $('#ddlCourse option[value=""]').attr("selected", true);
             }
             if ('@Request.QueryString["CreateDate"]' != null) {
-                debugger;
+                
                 $("#setDate").val('@Request.QueryString["CreateDate"]');
 
             }
@@ -281,7 +305,7 @@
 
             });
             $("#btnSearch").click(function (e) {
-                debugger;
+                
                 e.preventDefault();
 
                 if ($("#ddlAcadmicClass").val() == '') {
