@@ -68,10 +68,10 @@
                             @Html.HiddenFor(x=>x.StudentAttendance.AcadmicClassId)
                             @Html.HiddenFor(x=>x.StudentAttendance.StudentId)
                             @Html.HiddenFor(x=>x.StudentAttendance.StudentAttendanceId)
-                            @Html.TextBoxFor(x => x.StudentAttendance.WorkingDays, new { @class = "form-control numbersOnly" })
+                            @Html.TextBoxFor(x => x.StudentAttendance.WorkingDays, new { @class = "form-control numbersOnly Getpercentage" })
                         </td>
-                        <td>@Html.TextBoxFor(x => x.StudentAttendance.Leaves, new { @class = "form-control numbersOnly" })</td>
-                        <td>@Html.TextBoxFor(x => x.StudentAttendance.Absents, new { @class = "form-control numbersOnly" })</td>
+                        <td>@Html.TextBoxFor(x => x.StudentAttendance.Leaves, new { @class = "form-control numbersOnly Getpercentage" })</td>
+                        <td>@Html.TextBoxFor(x => x.StudentAttendance.Absents, new { @class = "form-control numbersOnly Getpercentage" })</td>
                         <td>@Html.TextBoxFor(x => x.StudentAttendance.TotalPercentage, new { @class = "form-control numbersOnly", @readOnly="readOnly" })</td>
 
                     </tr>
@@ -155,13 +155,14 @@
     </text>
 }
 <script type="text/javascript">
-    $("#StudentAttendance_Absents").change(function () {
-        debugger;
-        var workingDays = $("#StudentAttendance_WorkingDays").val();
-        var absents = $("#StudentAttendance_Absents").val();
+    $(".Getpercentage").change(function () {
+        
+        var workingDays = parseInt( $("#StudentAttendance_WorkingDays").val());
+        var absents = parseInt($("#StudentAttendance_Absents").val());
+        var leaves = parseInt($("#StudentAttendance_Leaves").val());
         // since working days always greater than absents
-        if (workingDays <= absents) {
-            var presentDays = workingDays - absents;
+        if (workingDays >=  absents) {
+            var presentDays = workingDays - absents - leaves;
             var totalPercentage = (presentDays / workingDays) * 100;
             $("#StudentAttendance_TotalPercentage").val(totalPercentage);
         }
