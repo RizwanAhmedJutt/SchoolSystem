@@ -31,8 +31,12 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                         <div id="dvDDLStudent">
-
-                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                            @if(Request.QueryString["AcadmicClassId"]!=null)
+                            {Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = Request.QueryString["AcadmicClassId"] });}
+                            else
+                            {
+                                Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });
+                            }
 
 
 
