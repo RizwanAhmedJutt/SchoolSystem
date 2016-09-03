@@ -34,8 +34,13 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                             <div id="dvDDLStudent">
-
-                                @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                                @if (Request.QueryString["StudentId"] != null)
+                                {Html.RenderAction("DDLStudent", "Course", new { AcadmicClassId = Request.QueryString["AcadmicClassId"] });
+                                }
+                                else
+                                {
+                                    Html.RenderAction("DDLStudent", "Course", new { AcadmicClassId = 0 });
+                                }
 
 
 
@@ -140,9 +145,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             if ('@Request.QueryString["AcadmicClassId"]' != null && '@Request.QueryString["AcadmicClassId"]' !="") {
-                debugger
+              
                 $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
-                LoadStudents(@Request.QueryString["AcadmicClassId"]);
                
             }
             else {
@@ -187,7 +191,7 @@
                 AddEdit(0);
             });
             $("#btnExportFile").click(function () {
-                debugger;
+               
                 GetReport();
 
             });
@@ -198,14 +202,14 @@
                 var endDate = $('input[name="endDate"]').val();
                 var acadmicClassId = $("#ddlAcadmicClass").val();
                 if (startDate != "" && endDate != "" && acadmicClassId != "") {
-                    debugger;
+                   
                     $("form").submit();
                 }
             });
         });
 
         function AddEdit(id) {
-            debugger;
+          
             var URL = "/StudentExpense/StudentBasicExpenseAddChanges";
             var model = { Id: id };
             $.get(URL, model)
