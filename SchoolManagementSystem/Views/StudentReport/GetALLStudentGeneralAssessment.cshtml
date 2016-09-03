@@ -36,11 +36,18 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                         <div id="dvDDLStudent">
-
-                            @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
-
-
-
+                            @if(Request.QueryString["StudentId"]!=null)
+                            {
+                                <text>
+                                 @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = Request.QueryString["AcadmicClassId"] });}
+                                </text>
+                            }
+                            else
+                            {
+                                <text>
+                                 @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                               </text>
+                            }
                         </div>
                         @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
                     </div>
@@ -187,7 +194,7 @@
                 $('#ddlStudent option[value=""]').attr("selected", true);
             }
             if ('@Request.QueryString["CreateDate"]' != null) {
-                debugger;
+                
                 $("#setDate").val('@Request.QueryString["CreateDate"]');
 
             }
