@@ -65,17 +65,27 @@
                                        
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-md-3 col-md-offset-1 control-label"><label> Acadmic Class</label> </div>
+                                    <div class="form-group">
+                                    <div class="col-md-3 col-md-offset-1 control-label"><label>@(ViewBag.UserLevel == 0?"Student":"Teacher") </label> </div>
                                     <div class="col-md-7">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                             <div id="dvDDLStudent">
-                                                @{Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });}
+                                                @if (ViewBag.UserLevel == 0)
+                                                { 
+                                                    Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });
+                                                    
+                                                }
+                                                else
+                                                {
+                                                    Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 0 });
+                                                }
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
+                               
                                     <div class="col-md-12 col-md-offset-4">
                                    <input type="submit" class="btn btn-success btnlogin" value="Register" />
                                     </div>
@@ -124,9 +134,32 @@
                 $("#StudentMsg").text("Please Select Student");
             }
         });
+        $('body').on("change", "#ddlTeacher", function () {
+
+            var getStudent = $("#ddlTeacher :selected").val();
+            if (getStudent != '') {
+                $("#AcadmicclassMsg").hide();
+                $("#StudentMsg").hide();
+            }
+            else {
+                $("#StudentMsg").show();
+
+                $("#StudentMsg").text("Please Select Student");
+            }
+        });
         $("input[type=submit]").click(function (e) {
+            debugger
             var AcadmicClass = $("#ddlAcadmicClass").val();
-            var StudentId = $("#ddlStudent").val();
+
+            var StudentId = null;
+            if($("#ddlStudent").length!=0)
+            {
+                StudentId = $("#ddlStudent").val();
+            }
+            else
+            {
+                StudentId = $("#ddlTeacher").val();
+            }
             if(AcadmicClass=='' || StudentId=='')
             {
                 e.preventDefault();
@@ -140,8 +173,8 @@
             debugger;
             var ClassId = $("#ddlAcadmicClass :selected").val();
             var model = { AcadmicClassId: ClassId };
-            var Url = null;
-            var Url = "/Course/DDLStudent";
+            var Url = '@ViewBag.UserLevel' == 0 ? "/Course/DDLStudent" : "/Teacher/DDLTeacher";
+            var Url = URL; //"/Course/DDLStudent";
             $.get(Url, model)
                         .done(function (stdhtml) {
                             debugger;

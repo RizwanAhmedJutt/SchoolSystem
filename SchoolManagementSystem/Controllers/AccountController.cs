@@ -151,8 +151,9 @@ namespace IdentitySample.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(int UserLevel)
         {
+            ViewBag.UserLevel = UserLevel;
             return View();
         }
 
@@ -161,7 +162,7 @@ namespace IdentitySample.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model, int StudentId)
+        public async Task<ActionResult> Register(RegisterViewModel model, int StudentId,int TeacherId)
         {
             if (ModelState.IsValid)
             {
@@ -184,7 +185,7 @@ namespace IdentitySample.Controllers
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                         ViewBag.Link = callbackUrl;
-                       // return View("DisplayEmail");
+                        // return View("DisplayEmail");
                         return RedirectToAction("Index", "UsersAdmin");
                     }
                     AddErrors(result);

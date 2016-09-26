@@ -17,6 +17,7 @@ namespace IdentitySample.Models
             return userIdentity;
         }
         public int? StudentId { get; set; }
+        public int? TeacherId { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
