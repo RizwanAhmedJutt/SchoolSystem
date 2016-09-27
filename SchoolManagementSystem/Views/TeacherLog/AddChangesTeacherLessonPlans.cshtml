@@ -1,8 +1,17 @@
-﻿@model SMSDataContract.Accounts.TeacherLessonPlan
+﻿@using Microsoft.AspNet.Identity;
+@model SMSDataContract.Accounts.TeacherLessonPlan
 @{
     Layout = "~/Views/Shared/_TeacherLayout.cshtml";
 }
-
+@functions{
+    public int GetCurrentLoggedTeacherId()
+    {
+        var context = new IdentitySample.Models.ApplicationDbContext();
+        var userId = User.Identity.GetUserId();
+        var CurrentUserDetail = context.Users.Where(user => user.Id == userId).ToList();
+        return (int)CurrentUserDetail.SingleOrDefault().TeacherId;
+    }
+}
 <div id="Loading" class="modal-sm">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -24,7 +33,7 @@
 
             @Html.AntiForgeryToken()
             <div class="form-horizontal">
-               
+
                 @Html.ValidationSummary(true)
                 @Html.HiddenFor(x=>x.TeacherLessonPlanId)
                 @Html.HiddenFor(x => x.CreateDate)
@@ -43,35 +52,16 @@
                     <div class="col-md-9">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                            @{Html.RenderPartial("../DropDownLists/DDLClass");}
-                            
+                            @if(Model.TeacherId>0)
+                            {Html.RenderAction("DDLTeacherAssignedClass", "TeacherLog", new { @TeacherId = Model.TeacherId });}
+                            else
+                            {Html.RenderAction("DDLTeacherAssignedClass", "TeacherLog", new { @TeacherId = GetCurrentLoggedTeacherId() });}
+
                         </div>
 
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-3 control-label"><label>Teacher</label> </div>
-
-                    <div class="col-md-9">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-
-                            <div id="dvDDLTeacher">
-                              @if(Model.TeacherId==0)
-                              {  <text>
-                                  @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 1 });} 
-                                 </text>
-                              }
-                              else
-                              {  <text>
-                                  @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = Model.AcadmicClassId });} 
-                                </text>
-                              }
-                                @Html.ValidationMessageFor(model => model.TeacherId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <input type="hidden" name="TeacherId" value="@GetCurrentLoggedTeacherId()"/>
                 <div class="form-group">
                     <div class="col-md-3 control-label"><label>Course</label> </div>
 
@@ -79,10 +69,10 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                             <div id="dvDDLCourse">
-                                 @if(Model.CourseId==0)
-                                 { <text> @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 1 });} </text> }
-                                  else
-                                 { <text> @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = Model.AcadmicClassId });} </text> }                                                                                                                         
+                                @if(Model.CourseId>0)
+                                {Html.RenderAction("DDLTeacherAssignedCourse", "TeacherLog", new { @TeacherId = Model.TeacherId, @AcadmicClassId = Model.AcadmicClassId });}
+                                else
+                                { Html.RenderAction("DDLTeacherAssignedCourse", "TeacherLog", new { @TeacherId = 0, @AcadmicClassId = 0 }); }
                                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
                             </div>
 
@@ -96,7 +86,7 @@
                     <div class="col-md-9">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                             @Html.EditorFor(model => model.Lesson, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.Lesson, new { htmlAttributes = new { @class = "form-control" } })
 
                         </div>
                     </div>
@@ -172,18 +162,12 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-8">
-                        @if (Model.TeacherLessonPlanId == 0)
-                        {
+                        
                             <div>
-                                <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                                <input type="submit" id="btnAddUpdate" value="@(Model.TeacherLessonPlanId==0?"Add":"Update")" style="background-color:#fab625;color:white;" class="btn pull-right" />
                             </div>
-                        }
-                        else
-                        {
-                            <div>
-                                <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
-                            </div>
-                        }
+                        
+                        
                     </div>
                 </div>
 
@@ -202,18 +186,20 @@
 
             $(document).ready(function () {
                 $("#Loading").hide();
-                $('#ddlTeacher option[value="@Model.TeacherId"]').prop("selected", true);
-                $('#ddlCourse option[value="@Model.CourseId"]').prop("selected", true);
-               
+                if('@Model.AcadmicClassId'>0)
+                {
+                    $('#ddlAcadmicClass option[value="@Model.AcadmicClassId"]').prop("selected", true);
+                    $('#ddlCourse option[value="@Model.CourseId"]').prop("selected", true);
+                }
+
 
                 // change event of ddlAcadmicClass
                 $("#ddlAcadmicClass").change(function () {
-
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     if (getClass != '') {
                         $(this).removeAttr("style");
                         $("#Loading").show();
-                        LoadDDLCourseANDStudent();
+                        LoadCourse();
                         $("#Loading").hide();
 
                     }
@@ -234,64 +220,35 @@
                     }
 
                 });
-                //change event of ddlTeacher
-                $('body').on("change", "#ddlTeacher", function () {
-                    var getTeacher = $("#ddlTeacher :selected").val();
-                    if (getTeacher != '') {
-                        $(this).removeAttr("style");
-                    }
-                    else {
-                        $("#ddlTeacher").css("border", "1px solid red");
-                    }
-                });
+               
                 // Add btn Click Event
-                $("#btnSearch").click(function (e) {
+                $("#btnAddUpdate").click(function (e) {
                     e.preventDefault();
                     var getClass = $("#ddlAcadmicClass :selected").val();
                     var getCourse = $("#ddlCourse :selected").val();
-                    var getTeacher = $("#ddlTeacher :selected").val();
                     if (getClass == '') {
                         $("#ddlAcadmicClass").css("border", "1px solid red");
-                        return false;
-                    }
-                    else if (getTeacher == '') {
-                        $("#ddlTeacher").css("border", "1px solid red");
                         return false;
                     }
                     else if (getCourse == '') {
                         $("#ddlCourse").css("border", "1px solid red");
                         return false;
                     }
-                    else
-                    {
+                    else {
                         $("form").submit();
                     }
                 });
-          
-            });
-           
-               
-          
-              
 
-            function LoadDDLCourseANDStudent() {
-                 debugger
+            });
+            function LoadCourse() {
                 var ClassId = $("#ddlAcadmicClass :selected").val();
-                var model = { AcadmicClassId: ClassId };
+                var Teacherid = '@GetCurrentLoggedTeacherId()';
+                var model = { TeacherId: Teacherid, AcadmicClassId: ClassId };
                 var Url = null;
-                var Url = "/Course/DDLCourse";
+                var Url = "/TeacherLog/DDLTeacherAssignedCourse";
                 $.get(Url, model)
                         .done(function (siteHtml) {
                             $("#dvDDLCourse").html(siteHtml);
-                            Url = "/Teacher/DDLTeacher";
-                            // Fill Teacher Dropdown
-                            $.get(Url, model)
-                            .done(function (stdhtml) {
-                                $("#dvDDLTeacher").html(stdhtml);
-                            })
-                            .fail(function (ex1, ex2) {
-                                alert("Can't get Teacher DDL");
-                            })
                         })
                     .fail(function (ex1, ex2, ex3) {
                         alert("Can't get Course DDL");
