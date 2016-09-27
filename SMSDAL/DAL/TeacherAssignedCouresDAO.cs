@@ -112,7 +112,24 @@ namespace SMSDAL.DAL
 
             return 0;  // show Error in inserting or Updating Record
         }
+        public DataTable GetTeacherAssignedCourseByAcadmicClass(int TeacherId,int AcadmicClassId)
+        {
+            DataTable dtClassDetails;
+            try
+            {
+                var FormatQuery = "Select c.CourseId, c.CourseName from Courses c Left Join TeacherAssignedCourse tac on c.CourseId=tac.CourseId Where tac.TeacherId=" + TeacherId + " and tac.ClassId=" + AcadmicClassId;
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(FormatQuery))
+                {
 
+                    dtClassDetails = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            return dtClassDetails;
+        }
 
 
     }

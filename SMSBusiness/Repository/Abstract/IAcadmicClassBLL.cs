@@ -11,5 +11,6 @@ namespace SMSBusiness.Repository.Abstract
     {
         List<AcadmicClass> GetALLAcadmicClassies();
         int AddChangesAcadmicClass(AcadmicClass acadmicClass);
+        List<AcadmicClass> GetTeacherAssignedAcadmicClassies(int TeacherId);
     }
 }

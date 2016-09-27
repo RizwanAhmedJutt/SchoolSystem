@@ -2,6 +2,7 @@
 using SMSDAL;
 using SMSDAL.DAL;
 using SMSDataContract.Accounts;
+using SMSDataContract.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -143,7 +144,32 @@ namespace SMSBusiness.Repository.Concrete
             return ReturnValue;
         }
 
+      public List<Course> GetTeacherAssignedCourseByAcadmicClass(int TeacherId, int AcadmicClassId)
+      {
+          var objAssingCourseDao = new TeacherAssignedCouresDAO(new SqlDatabase());
+            DataTable tblCourse;
+            tblCourse = objAssingCourseDao.GetTeacherAssignedCourseByAcadmicClass(TeacherId,AcadmicClassId);
+            List<Course> objCourseList = new List<Course>();
+            try
+            {
 
+                foreach (DataRow dr in tblCourse.Rows)
+                {
+                    Course course = new Course();
+                    course.CourseId = Convert.ToInt32(dr["CourseId"]);
+                    course.CourseName = dr["CourseName"].ToString();
+                    objCourseList.Add(course);
+                }
+
+                return objCourseList;
+
+            }
+            catch
+            {
+
+                throw;
+            }
+      }
 
     }
 }

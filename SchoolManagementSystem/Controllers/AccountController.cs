@@ -82,9 +82,11 @@ namespace IdentitySample.Controllers
                         if (UserInfo != null)
                         {
                             if (UserManager.IsInRole(UserInfo.Id, "Student"))
-                            { return RedirectToAction("GetStudentReport", "StudentLog"); }
+                                return RedirectToAction("GetStudentReport", "StudentLog");
+                            else if (UserManager.IsInRole(UserInfo.Id, "Teacher"))
+                                return RedirectToAction("GetTeacherLessonPlans", "TeacherLog");
                             else
-                            { return RedirectToAction("Index", "Home"); }
+                                return RedirectToAction("Index", "Home");
                         }
                         else
                         {
@@ -169,21 +171,21 @@ namespace IdentitySample.Controllers
             {
                 var context = new IdentitySample.Models.ApplicationDbContext();
                 var checkStdExist = context.Users.Where(user => user.StudentId == model.StudentId)
-                                                 .Where(user=>user.TeacherId==model.TeacherId)
+                                                 .Where(user => user.TeacherId == model.TeacherId)
                                                  .FirstOrDefault();
                 if (checkStdExist != null)
                 {
 
-                    IdentityResult result = new IdentityResult(model.StudentId!=null?"Student ":"Teacher "+"Account already Exist..");
+                    IdentityResult result = new IdentityResult(model.StudentId != null ? "Student " : "Teacher " + "Account already Exist..");
                     AddErrors(result);
                 }
                 else
                 {
-                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, StudentId = model.StudentId ,TeacherId=model.TeacherId};
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, StudentId = model.StudentId, TeacherId = model.TeacherId };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        UserManager.AddToRole(user.Id, model.StudentId==null? "Teacher":"Student");
+                        UserManager.AddToRole(user.Id, model.StudentId == null ? "Teacher" : "Student");
                         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");

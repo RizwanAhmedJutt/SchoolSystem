@@ -201,6 +201,7 @@
     <Compile Include="Controllers\StudentReportController.cs" />
     <Compile Include="Controllers\StudentResultController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\TeacherLogController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -519,6 +520,10 @@
     <Content Include="Views\Course\StudentAssignCourseListExport.cshtml" />
     <Content Include="Views\StudentExpense\StudentBasicExpenseListExport.cshtml" />
     <Content Include="Views\StudentExpense\StudentRegularExpenseListExport.cshtml" />
+    <Content Include="Views\Shared\_TeacherLayout.cshtml" />
+    <Content Include="Views\TeacherLog\GetTeacherLessonPlans.cshtml" />
+    <Content Include="Views\TeacherLog\AddChangesTeacherLessonPlans.cshtml" />
+    <Content Include="Views\DropDownLists\DDLTeacherAssignedClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

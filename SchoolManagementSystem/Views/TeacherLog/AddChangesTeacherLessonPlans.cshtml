@@ -1,0 +1,311 @@
+﻿@model SMSDataContract.Accounts.TeacherLessonPlan
+@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<div id="Loading" class="modal-sm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Loading.....</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress progress-bar-striped action">
+                    <div class="progress-bar" style="width:100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+               
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(x=>x.TeacherLessonPlanId)
+                @Html.HiddenFor(x => x.CreateDate)
+                @Html.HiddenFor(x => x.CreatedById)
+                @if (Model.TeacherLessonPlanId == 0)
+                {
+                    <span class="HeadingStyle">Add Teacher Lesson Plan</span>
+                }
+                else
+                {
+                    <span class="HeadingStyle">Update Teacher Lesson Plan</span>
+                }
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                            
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Teacher</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+
+                            <div id="dvDDLTeacher">
+                              @if(Model.TeacherId==0)
+                              {  <text>
+                                  @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 1 });} 
+                                 </text>
+                              }
+                              else
+                              {  <text>
+                                  @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = Model.AcadmicClassId });} 
+                                </text>
+                              }
+                                @Html.ValidationMessageFor(model => model.TeacherId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Course</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            <div id="dvDDLCourse">
+                                 @if(Model.CourseId==0)
+                                 { <text> @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = 1 });} </text> }
+                                  else
+                                 { <text> @{Html.RenderAction("DDLCourse", "Course", new { @AcadmicClassId = Model.AcadmicClassId });} </text> }                                                                                                                         
+                                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Lesson</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                             @Html.EditorFor(model => model.Lesson, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Topic</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @Html.EditorFor(model => model.Topic, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Sub Topic</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @Html.EditorFor(model => model.SubTopic, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Objective</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @Html.EditorFor(model => model.Objective, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>OutComes</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @Html.EditorFor(model => model.OutComes, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Teaching Methodology</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @Html.EditorFor(model => model.TeachingMethodology, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Resource Required</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @Html.EditorFor(model => model.ResourceRequired, new { htmlAttributes = new { @class = "form-control" } })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-8">
+                        @if (Model.TeacherLessonPlanId == 0)
+                        {
+                            <div>
+                                <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+                                    }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        {
+
+            $(document).ready(function () {
+                $("#Loading").hide();
+                $('#ddlTeacher option[value="@Model.TeacherId"]').prop("selected", true);
+                $('#ddlCourse option[value="@Model.CourseId"]').prop("selected", true);
+               
+
+                // change event of ddlAcadmicClass
+                $("#ddlAcadmicClass").change(function () {
+
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    if (getClass != '') {
+                        $(this).removeAttr("style");
+                        $("#Loading").show();
+                        LoadDDLCourseANDStudent();
+                        $("#Loading").hide();
+
+                    }
+                    else {
+                        $("#ddlAcadmicClass").css("border", "1px solid red");
+                    }
+
+
+                });
+                //change event of ddlCourse
+                $('body').on("change", "#ddlCourse", function () {
+                    var getCourse = $("#ddlCourse :selected").val();
+                    if (getCourse != '') {
+                        $(this).removeAttr("style");
+                    }
+                    else {
+                        $("#ddlCourse").css("border", "1px solid red");
+                    }
+
+                });
+                //change event of ddlTeacher
+                $('body').on("change", "#ddlTeacher", function () {
+                    var getTeacher = $("#ddlTeacher :selected").val();
+                    if (getTeacher != '') {
+                        $(this).removeAttr("style");
+                    }
+                    else {
+                        $("#ddlTeacher").css("border", "1px solid red");
+                    }
+                });
+                // Add btn Click Event
+                $("#btnSearch").click(function (e) {
+                    e.preventDefault();
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    var getCourse = $("#ddlCourse :selected").val();
+                    var getTeacher = $("#ddlTeacher :selected").val();
+                    if (getClass == '') {
+                        $("#ddlAcadmicClass").css("border", "1px solid red");
+                        return false;
+                    }
+                    else if (getTeacher == '') {
+                        $("#ddlTeacher").css("border", "1px solid red");
+                        return false;
+                    }
+                    else if (getCourse == '') {
+                        $("#ddlCourse").css("border", "1px solid red");
+                        return false;
+                    }
+                    else
+                    {
+                        $("form").submit();
+                    }
+                });
+          
+            });
+           
+               
+          
+              
+
+            function LoadDDLCourseANDStudent() {
+                 debugger
+                var ClassId = $("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: ClassId };
+                var Url = null;
+                var Url = "/Course/DDLCourse";
+                $.get(Url, model)
+                        .done(function (siteHtml) {
+                            $("#dvDDLCourse").html(siteHtml);
+                            Url = "/Teacher/DDLTeacher";
+                            // Fill Teacher Dropdown
+                            $.get(Url, model)
+                            .done(function (stdhtml) {
+                                $("#dvDDLTeacher").html(stdhtml);
+                            })
+                            .fail(function (ex1, ex2) {
+                                alert("Can't get Teacher DDL");
+                            })
+                        })
+                    .fail(function (ex1, ex2, ex3) {
+                        alert("Can't get Course DDL");
+                        $("#loader").hide();
+                    });
+            }
+
+
+        }
+
+
+    </script>
+}
+
+
+
+

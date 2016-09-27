@@ -1,4 +1,5 @@
 ﻿using SMSDataContract.Accounts;
+using SMSDataContract.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace SMSBusiness.Repository.Abstract
       List<TeacherAssignedCourse> GetTeacherAssignedCourseByCourseName(string CourseName);
       TeacherAssignedCourse GetTeacherAssignedCourseById(int TSssignCId);
       int InsertUpdateAssignedCourseAddChanges(TeacherAssignedCourse teacherAssigncourese);
-
+      List<Course> GetTeacherAssignedCourseByAcadmicClass(int TeacherId, int AcadmicClassId);
 
     }
 }

@@ -44,6 +44,35 @@ namespace SMSBusiness.Repository.Concrete
             return aClassies;
         }
 
+        public List<AcadmicClass> GetTeacherAssignedAcadmicClassies(int TeacherId)
+        {
+            var objAcadmicClassDao = new AcadmicClassDAO(new SqlDatabase());
+            DataTable dtClass = objAcadmicClassDao.GetTeacherAssignedAcadmicClassies(TeacherId);
+            List<AcadmicClass> aClassies = new List<AcadmicClass>();
+            try
+            {
+                if (dtClass.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dtClass.Rows)
+                    {
+                        AcadmicClass aclass = new AcadmicClass();
+                        aclass.AcadmicClassId = int.Parse(item["AcadmicClassId"].ToString());
+                        aclass.ClassName = item["ClassName"].ToString();
+                        aClassies.Add(aclass);
+                    }
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return aClassies;
+        }
+
         public int AddChangesAcadmicClass(AcadmicClass acadmicClass)
         {
             var objAcadmicClassDao = new AcadmicClassDAO(new SqlDatabase());

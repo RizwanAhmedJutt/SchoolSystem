@@ -59,5 +59,23 @@ namespace SMSDAL.DAL
 
         }
 
+       public DataTable GetTeacherAssignedAcadmicClassies(int TeacherId)
+       {
+           DataTable dtClassDetails;
+           try
+           {
+               var getcategories = "Select ac.AcadmicClassId,ac.ClassName from  AcadmicClass ac Left Join TeacherAssignedClass tac on tac.ClassId=ac.AcadmicClassId where TeacherId="+TeacherId;
+               using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(getcategories))
+               {
+
+                   dtClassDetails = gObjDatabase.GetDataTable(objCommand);
+               }
+           }
+           catch
+           {
+               throw;
+           }
+           return dtClassDetails;
+       }
     }
 }
