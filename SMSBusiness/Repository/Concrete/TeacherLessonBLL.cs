@@ -53,6 +53,7 @@ namespace SMSBusiness.Repository.Concrete
                     lessonPlan.OutComes = item.IsNull("OutComes") ? string.Empty : item["OutComes"].ToString();
                     lessonPlan.TeachingMethodology = item.IsNull("TeachingMethodology") ? string.Empty : item["TeachingMethodology"].ToString();
                     lessonPlan.ResourceRequired = item.IsNull("ResourceRequired") ? string.Empty : item["ResourceRequired"].ToString();
+                    lessonPlan.Activity = item.IsNull("Activity") ? string.Empty : item["Activity"].ToString();
                     lessonPlan.CreateDate = Convert.ToDateTime(item["CreateDate"]);
                     lessons.Add(lessonPlan);
                 }
@@ -85,6 +86,7 @@ namespace SMSBusiness.Repository.Concrete
                 tlp.OutComes = item["OutComes"].ToString();
                 tlp.TeachingMethodology = item["TeachingMethodology"].ToString();
                 tlp.ResourceRequired = item["ResourceRequired"].ToString();
+                tlp.Activity = item["Activity"].ToString();
                 tlp.CreatedById = item["CreatedById"].ToString();
                 tlp.CreateDate = Convert.ToDateTime(item["CreateDate"].ToString());
             }

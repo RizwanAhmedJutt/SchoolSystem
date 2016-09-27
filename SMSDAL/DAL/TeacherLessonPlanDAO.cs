@@ -37,6 +37,7 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objDbCommand, "@OutComes", DbType.String, LessonPlan.OutComes);
                     gObjDatabase.AddInParameter(objDbCommand, "@TeachingMethodology", DbType.String, LessonPlan.TeachingMethodology);
                     gObjDatabase.AddInParameter(objDbCommand, "@ResourceRequired", DbType.String, LessonPlan.ResourceRequired);
+                    gObjDatabase.AddInParameter(objDbCommand, "@Activity", DbType.String, LessonPlan.Activity);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, LessonPlan.CreatedById);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedDate", DbType.DateTime, LessonPlan.CreateDate);
                     gObjDatabase.AddInParameter(objDbCommand, "@ModifiedById", DbType.String, string.IsNullOrEmpty(LessonPlan.ModifiedById) ? DBNull.Value : (object)LessonPlan.ModifiedById);
