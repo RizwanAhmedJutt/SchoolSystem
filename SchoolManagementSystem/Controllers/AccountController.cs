@@ -153,8 +153,9 @@ namespace IdentitySample.Controllers
         [AllowAnonymous]
         public ActionResult Register(int UserLevel)
         {
-            ViewBag.UserLevel = UserLevel;
-            return View();
+            RegisterViewModel rvm = new RegisterViewModel();
+            rvm.UserLevel = UserLevel;
+            return View(rvm);
         }
 
         //
@@ -162,25 +163,27 @@ namespace IdentitySample.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model, int StudentId,int TeacherId)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var context = new IdentitySample.Models.ApplicationDbContext();
-                var checkStdExist = context.Users.Where(user => user.StudentId == StudentId).FirstOrDefault();
+                var checkStdExist = context.Users.Where(user => user.StudentId == model.StudentId)
+                                                 .Where(user=>user.TeacherId==model.TeacherId)
+                                                 .FirstOrDefault();
                 if (checkStdExist != null)
                 {
 
-                    IdentityResult result = new IdentityResult("Student Account already Exist..");
+                    IdentityResult result = new IdentityResult(model.StudentId!=null?"Student ":"Teacher "+"Account already Exist..");
                     AddErrors(result);
                 }
                 else
                 {
-                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, StudentId = StudentId };
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, StudentId = model.StudentId ,TeacherId=model.TeacherId};
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        UserManager.AddToRole(user.Id, "Student");
+                        UserManager.AddToRole(user.Id, model.StudentId==null? "Teacher":"Student");
                         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");

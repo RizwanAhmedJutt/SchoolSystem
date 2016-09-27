@@ -14,11 +14,11 @@
                 @Html.AntiForgeryToken()
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
-                    
+
                         <div class="row well">
                             <div class="form-horizontal">
-                               
-                               
+
+
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
@@ -26,7 +26,7 @@
                                     <div class="col-md-8">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control"} })
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                                         </div>
                                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                     </div>
@@ -51,30 +51,35 @@
                                         @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                               
-                                <div id="dvAcadmicClass" style="text-align: center; margin-top: 10px; margin-left:60%;">
-                                    <span id="AcadmicClassMsg" class="error" style="display:none;"></span>
+                                @if (Model.UserLevel == 0)
+                                {
+                                    <div id="dvAcadmicClass" style="text-align: center; margin-top: 10px; margin-left:60%;">
+                                        <span id="AcadmicClassMsg" class="error" style="display:none;"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3 col-md-offset-1 control-label"><label> Acadmic Class</label> </div>
+                                        <div class="col-md-7">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-certificate"></i></span>
+                                                @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                                <div id="dvTeacherMsg" style="text-align: center; margin-top: 10px; margin-left:60%;">
+                                    <span id="TeacherMsg" class="error" style="display:none;"></span>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-3 col-md-offset-1 control-label"><label> Acadmic Class</label> </div>
-                                    <div class="col-md-7">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-certificate"></i></span>
-                                            @{Html.RenderPartial("../DropDownLists/DDLClass");}
-                                        </div>
-                                       
-                                    </div>
-                                </div>
-                                    <div class="form-group">
-                                    <div class="col-md-3 col-md-offset-1 control-label"><label>@(ViewBag.UserLevel == 0?"Student":"Teacher") </label> </div>
+                                    <div class="col-md-3 col-md-offset-1 control-label"><label>@(Model.UserLevel == 0 ? "Student" : "Teacher") </label> </div>
                                     <div class="col-md-7">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                             <div id="dvDDLStudent">
-                                                @if (ViewBag.UserLevel == 0)
-                                                { 
+                                                @if (Model.UserLevel == 0)
+                                                {
                                                     Html.RenderAction("DDLStudent", "Course", new { @AcadmicClassId = 0 });
-                                                    
+
                                                 }
                                                 else
                                                 {
@@ -84,12 +89,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                               
-                                    <div class="col-md-12 col-md-offset-4">
-                                   <input type="submit" class="btn btn-success btnlogin" value="Register" />
-                                    </div>
-                              
+
+
+                                <div class="col-md-12 col-md-offset-4">
+                                    <input type="submit" class="btn btn-success btnlogin" value="Register" />
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -104,88 +109,95 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/JqueryUicss")
     <script type="text/javascript">
-    $(document).ready(function () {
-        $("#ddlAcadmicClass").change(function () {
-            var getClass = $("#ddlAcadmicClass :selected").val();
-            if (getClass != '') {
-                
-                LoadDDLCourseANDStudent();
-                $("#Loading").hide();
-                $("#AcadmicclassMsg").hide();
-                $("#StudentMsg").hide();
-            }
-            else {
-                $("#AcadmicclassMsg").show();
-                $("#AcadmicclassMsg").text("Please Select Class");
-            }
+        $(document).ready(function () {
+            $("#ddlAcadmicClass").change(function () {
+                var getClass = $("#ddlAcadmicClass :selected").val();
+                if (getClass != '') {
+
+                    LoadDDLCourseANDStudent();
+                    $("#Loading").hide();
+                    $("#AcadmicclassMsg").hide();
+                    $("#StudentMsg").hide();
+                }
+                else {
+                    $("#AcadmicclassMsg").show();
+                    $("#AcadmicclassMsg").text("Please Select Class");
+                }
 
 
+            });
+            $('body').on("change", "#ddlStudent", function () {
+
+                var getStudent = $("#ddlStudent :selected").val();
+                if (getStudent != '') {
+                    $("#AcadmicclassMsg").hide();
+                    $("#StudentMsg").hide();
+                }
+                else {
+                    $("#StudentMsg").show();
+
+                    $("#StudentMsg").text("Please Select Student");
+                }
+            });
+            $('body').on("change", "#ddlTeacher", function () {
+
+                var getTeacher = $("#ddlTeacher :selected").val();
+                if (getTeacher != '') {
+                    $("#TeacherMsg").hide();
+                }
+                else {
+                    $("#TeacherMsg").show();
+                    $("#TeacherMsg").text("Please Select Teacher");
+                }
+            });
+            $("input[type=submit]").click(function (e) {
+                var StudentId = null;
+                var AcadmicClass = null;
+                if ($("#ddlAcadmicClass").length != 0)
+                {
+                 AcadmicClass=$("#ddlAcadmicClass").val();
+                }
+
+             
+                if ($("#ddlStudent").length != 0) {
+                    StudentId = $("#ddlStudent").val();
+                }
+                else {
+                    StudentId = $("#ddlTeacher").val();
+                }
+                if ($("#ddlAcadmicClass").length == 0)
+                {
+                    if(StudentId == '')
+                    {
+                        e.preventDefault();
+                    }
+                    else
+                    {
+                        $("form").submit();
+                    }
+                }
+               else if (AcadmicClass == '' || StudentId == '') {
+                    e.preventDefault();
+                }
+                else {
+                    $("form").submit();
+                }
+            });
+            function LoadDDLCourseANDStudent() {
+                var ClassId = $("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: ClassId };
+                var Url = '@Model.UserLevel' == 0 ? "/Course/DDLStudent" : "/Teacher/DDLTeacher";
+                var Url = Url; //"/Course/DDLStudent";
+                $.get(Url, model)
+                            .done(function (stdhtml) {
+                                debugger;
+                                $("#dvDDLStudent").html("");
+                                $("#dvDDLStudent").html(stdhtml);
+                            })
+                            .fail(function (ex1, ex2) {
+                                alert("Can't get Student DDL");
+                            })
+            }
         });
-        $('body').on("change", "#ddlStudent", function () {
-
-            var getStudent = $("#ddlStudent :selected").val();
-            if (getStudent != '') {
-                $("#AcadmicclassMsg").hide();
-                $("#StudentMsg").hide();
-            }
-            else {
-                $("#StudentMsg").show();
-
-                $("#StudentMsg").text("Please Select Student");
-            }
-        });
-        $('body').on("change", "#ddlTeacher", function () {
-
-            var getStudent = $("#ddlTeacher :selected").val();
-            if (getStudent != '') {
-                $("#AcadmicclassMsg").hide();
-                $("#StudentMsg").hide();
-            }
-            else {
-                $("#StudentMsg").show();
-
-                $("#StudentMsg").text("Please Select Student");
-            }
-        });
-        $("input[type=submit]").click(function (e) {
-            debugger
-            var AcadmicClass = $("#ddlAcadmicClass").val();
-
-            var StudentId = null;
-            if($("#ddlStudent").length!=0)
-            {
-                StudentId = $("#ddlStudent").val();
-            }
-            else
-            {
-                StudentId = $("#ddlTeacher").val();
-            }
-            if(AcadmicClass=='' || StudentId=='')
-            {
-                e.preventDefault();
-            }
-            else
-            {
-                $("form").submit();
-            }
-        });
-        function LoadDDLCourseANDStudent() {
-            debugger;
-            var ClassId = $("#ddlAcadmicClass :selected").val();
-            var model = { AcadmicClassId: ClassId };
-            var Url = '@ViewBag.UserLevel' == 0 ? "/Course/DDLStudent" : "/Teacher/DDLTeacher";
-            var Url = URL; //"/Course/DDLStudent";
-            $.get(Url, model)
-                        .done(function (stdhtml) {
-                            debugger;
-                            $("#dvDDLStudent").html("");
-                            $("#dvDDLStudent").html(stdhtml);
-                        })
-                        .fail(function (ex1, ex2) {
-                            alert("Can't get Student DDL");
-                        })
-        }
-    });
-</script>
-
+    </script>
 }
