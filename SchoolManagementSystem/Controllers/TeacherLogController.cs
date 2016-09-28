@@ -18,6 +18,9 @@ namespace SchoolManagementSystem.Controllers
         ICourse courserepositry = new CourseBLL();
         IAcadmicClassBLL repClass = new AcadmicClassBLL();
         ITeacherAssignedCourse repoTeacherAssignCourse = new TeacherAssignCourseBLL();
+        IDailyAssessmentSubType repoAssessementSubType = new DailyAssessmentSubTypeBLL();
+        IDailyAssessmentType repoAssessmentType = new DailyAssessmentTypeBLL();
+        IDailyAssessmentOperation repoOperation = new DailyAssessmentOperationBLL();
         // GET: TeacherLog
         public ActionResult Index()
         {
@@ -60,8 +63,68 @@ namespace SchoolManagementSystem.Controllers
             }
             int getStatus = repoTeacherLessonPlan.AddChangesLessonPlan(lessonPlan);
             return RedirectToAction("GetTeacherLessonPlans");
-        }
+        }  
 
+        // Reports
+        [HttpGet]
+        public ActionResult GetALLStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
+        {
+            CreateDate = string.IsNullOrEmpty(CreateDate) ? DateTime.Now.ToString() : CreateDate;
+            return View(repoAssessementSubType.GetStudentGeneralAssessment(AcadmicClassId, StudentId, Convert.ToDateTime(CreateDate)).ToList());
+        }
+        [HttpGet]
+        public ActionResult AddChangesAssessmentReport(int? AcadmicClassId, int? StudentId, string CreateDate)
+        {
+            DailyAssessmentHelper myModel = new DailyAssessmentHelper();
+            myModel.ParentAssessments = repoAssessmentType.GetALLAssignedParentAssessments();
+            if (AcadmicClassId > 0)
+            {
+                List<DailyAssessmentSubType> GetALLSubAssessments = repoAssessementSubType.GetStudentSingleGeneralAssessment(AcadmicClassId, StudentId, CreateDate).ToList();
+                if (GetALLSubAssessments[0].OperationalId > 0)
+                {
+                    myModel.ChildAssessments = GetALLSubAssessments;
+
+                }
+                return View(myModel);
+            }
+            else
+            {
+                myModel.ChildAssessments = repoAssessementSubType.GetAllAssessmentSubType();
+                return View(myModel);
+            }
+        }
+        [HttpPost]
+        public ActionResult AddChangesAssessmentReport(DailyAssessmentHelper helper, int AcadmicClassId, int StudentId)
+        {
+            var userloggedId = User.Identity.GetUserId();
+            for (int i = 0; i < helper.ChildAssessments.Count; i++)
+            {
+                DailyAssessmentOperation op = new DailyAssessmentOperation();
+                op.AcadmicClassId = AcadmicClassId;
+                op.StudentId = StudentId;
+                op.ParentAssessmentId = helper.ChildAssessments[i].AssessmentTypeId;
+                op.AssessmentSubTypeId = helper.ChildAssessments[i].AssessmentSubTypeId;
+                op.AssementStatus = helper.ChildAssessments[i].SelectedEvaluation;
+                op.WorseConsequence = helper.ChildAssessments[i].Concequence;
+                op.AssessmentFormat = helper.ChildAssessments[i].AssessmentFormat; // Assessment format refer to consequence or non-consequence
+                op.CreateDate = helper.ChildAssessments[i].CreateDate;
+                op.CreatedById = helper.ChildAssessments[i].CreatedById;
+                if (helper.ChildAssessments[i].OperationalId == 0)
+                {
+                    op.CreatedById = userloggedId;
+                }
+                else
+                {
+                    op.DailyAssessmentOpertationId = helper.ChildAssessments[i].OperationalId;
+                    op.ModifiedById = userloggedId;
+                    op.ModifiedDate = DateTime.Now;
+                }
+                int getStatus = repoOperation.AddChangesAssessmentOperation(op);
+            }
+
+            return RedirectToAction("GetALLStudentGeneralAssessment");
+        }
+        // Dropdowns
         public ActionResult DDLStudent(int AcadmicClassId)
         {
             if (AcadmicClassId > 0)
