@@ -21,6 +21,7 @@ namespace SchoolManagementSystem.Controllers
         IDailyAssessmentSubType repoAssessementSubType = new DailyAssessmentSubTypeBLL();
         IDailyAssessmentType repoAssessmentType = new DailyAssessmentTypeBLL();
         IDailyAssessmentOperation repoOperation = new DailyAssessmentOperationBLL();
+        IAcadmicAssessmentOperation repAcOperation = new AcadmicAssessmentOperationBLL();
         // GET: TeacherLog
         public ActionResult Index()
         {
@@ -66,6 +67,7 @@ namespace SchoolManagementSystem.Controllers
         }  
 
         // Reports
+        // Student General Assessment
         [HttpGet]
         public ActionResult GetALLStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
         {
@@ -123,6 +125,64 @@ namespace SchoolManagementSystem.Controllers
             }
 
             return RedirectToAction("GetALLStudentGeneralAssessment");
+        }
+        // Student Acadmic Assessment
+        public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        {
+            return View(repoAssessementSubType.GetStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate).ToList());
+        }
+
+        [HttpGet]
+        public ActionResult AddChangesAcadmicAssessmentReport(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        {
+            DailyAssessmentHelper myModel = new DailyAssessmentHelper();
+            if (AcadmicClassId > 0)
+            {
+                List<DailyAssessmentType> GetALLSubAssessments = repoAssessementSubType.GetStudentSingleAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate).ToList();
+                if (GetALLSubAssessments[0].OperationalId > 0)
+                {
+                    myModel.ParentAssessments = GetALLSubAssessments;
+                }
+                return View(myModel);
+            }
+            else
+            {
+                myModel.ParentAssessments = repoAssessmentType.GetALLAssignedParentAcadmicAssessments();
+                return View(myModel);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddChangesAcadmicAssessmentReport(DailyAssessmentHelper helpers, int AcadmicClassId, int StudentId, int CourseId)
+        {
+            var userloggedId = User.Identity.GetUserId();
+            for (int i = 0; i < helpers.ParentAssessments.Count; i++)
+            {
+                AcadmicAssessmentOperation op = new AcadmicAssessmentOperation();
+                op.AcadmicClassId = AcadmicClassId;
+                op.StudentId = StudentId;
+                op.CourseId = CourseId;
+                op.ParentAssessmentId = helpers.ParentAssessments[i].AssessmentTypeId;
+                op.AssementStatus = helpers.ParentAssessments[i].SelectedEvaluation;
+                op.AverageConsequence = helpers.ParentAssessments[i].AverageConcequence;
+                op.WorseConsequence = helpers.ParentAssessments[i].Concequence;
+                op.AssessmentFormat = helpers.ParentAssessments[i].AssessmentFormat; // Assessment format refer to consequence or non-consequence
+                op.CreateDate = helpers.ParentAssessments[i].CreateDate;
+                op.CreatedById = helpers.ParentAssessments[i].CreatedById;
+                if (helpers.ParentAssessments[i].OperationalId == 0)
+                {
+                    op.CreatedById = userloggedId;
+                }
+                else
+                {
+                    op.AcadmicAssessmentOperationId = helpers.ParentAssessments[i].OperationalId;
+                    op.ModifiedById = userloggedId;
+                    op.ModifiedDate = DateTime.Now;
+                }
+                int getStatus = repAcOperation.AddChangesAcadmicAssessmentOperation(op);
+            }
+
+            return RedirectToAction("GetALLStudentAcadmicAssessment");
         }
         // Dropdowns
         public ActionResult DDLStudent(int AcadmicClassId)

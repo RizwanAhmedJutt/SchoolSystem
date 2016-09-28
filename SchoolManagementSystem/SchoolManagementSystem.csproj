@@ -526,6 +526,7 @@
     <Content Include="Views\DropDownLists\DDLTeacherAssignedClass.cshtml" />
     <Content Include="Views\TeacherLog\GetALLStudentGeneralAssessment.cshtml" />
     <Content Include="Views\TeacherLog\AddChangesAssessmentReport.cshtml" />
+    <Content Include="Views\TeacherLog\GetALLStudentAcadmicAssessment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
