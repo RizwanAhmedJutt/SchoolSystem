@@ -1,0 +1,396 @@
+﻿@using Microsoft.AspNet.Identity;
+@model SMSDataContract.Common.DailyAssessmentHelper
+@using System.Collections.Generic
+
+@{
+    ViewBag.Title = "AddChangesAssessmentReport";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+@functions{
+    public int GetCurrentLoggedTeacherId()
+    {
+        var context = new IdentitySample.Models.ApplicationDbContext();
+        var userId = User.Identity.GetUserId();
+        var CurrentUserDetail = context.Users.Where(user => user.Id == userId).ToList();
+        return (int)CurrentUserDetail.SingleOrDefault().TeacherId;
+    }
+}
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="well">
+            <div id="stdBasicInfo">
+                @using (Html.BeginForm("AddChangesAcadmicAssessmentReport", "TeacherLog", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <span class="HeadingStyle">Student Acadmic Assessment  </span>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group row">
+                                <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
+                                <div class="col-md-9">
+                                    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                                        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                       @{Html.RenderAction("DDLTeacherAssignedClass", "TeacherLog", new { @TeacherId = GetCurrentLoggedTeacherId() });}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-3"> <b>Student </b> </div>
+                                <div class="col-md-9">
+                                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                        <div id="dvDDLStudent">
+
+                                            @if (Request.QueryString["StudentId"] != null)
+                                            {
+                                                Html.RenderAction("DDLStudent", "TeacherLog", new { AcadmicClassId = Request.QueryString["AcadmicClassId"] });
+                                            }
+                                            else
+                                            {
+                                                Html.RenderAction("DDLStudent", "TeacherLog", new { AcadmicClassId = 0 });
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-3"> <b>Course </b> </div>
+                                <div class="col-md-9">
+                                    <div id="dvCourse" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                                        <span id="CourseMsg" class="error" style="display:none;"></span>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                                        <div id="dvDDLCourse">
+
+                                            @if (Request.QueryString["CourseId"] != null)
+                                            {
+                                                Html.RenderAction("DDLTeacherAssignedCourse", "TeacherLog", new { TeacherId = GetCurrentLoggedTeacherId(), AcadmicClassId = Request.QueryString["AcadmicClassId"] });
+
+                                            }
+                                            else
+                                            {
+                                                Html.RenderAction("DDLTeacherAssignedCourse", "TeacherLog", new { TeacherId = 0, AcadmicClassId = 0 });
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            @if (Model.ParentAssessments.Count > 0)
+                            {
+                                <text>
+                                    @for (int i = 0; i < Model.ParentAssessments.Count; i++)
+
+                                    {
+                                        <text>
+                                            @*id='table@(i)'*@
+                                            <table class="col-md-12 table-condensed table-striped table">
+                                                <tr>
+
+                                                    <td colspan="5">
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentName)
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentTypeId)
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].OperationalId)
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].CreateDate)
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].CreatedById)
+                                                        @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentFormat)
+                                                        <span>@Html.DisplayFor(x => x.ParentAssessments[i].AssessmentName) </span>
+                                                    </td>  
+                                                    @if (Model.ParentAssessments[i].AssessmentFormat == false)
+                                                    {
+                                                        <text>
+                                                            <td>
+
+                                                                @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "2")
+                                                                V.Good
+
+                                                            </td>
+                                                            <td>
+
+                                                                @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "1")
+                                                                Good
+                                                            </td>
+                                                            <td>
+
+                                                                @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "0")
+                                                                Average
+                                                            </td>
+                                                            <td>
+
+                                                                @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "-2")
+                                                                Worse
+                                                            </td>
+                                                            <td>
+                                                                @if (string.IsNullOrEmpty(Model.ParentAssessments[i].AverageConcequence))
+                                                                {  <text>
+                                                                @Html.EditorFor(x => x.ParentAssessments[i].AverageConcequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtAverageConcequence" + i } })
+                                                                </text>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <text>
+                                                                        @Html.EditorFor(x => x.ParentAssessments[i].AverageConcequence, new { htmlAttributes = new { @class = "form-control", @Id = "txtAverageConcequence" + i } })
+                                                                    </text>
+                                                                }
+                                                            </td>
+
+                                                        </text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>
+
+                                                            @Html.RadioButtonFor(x => x.ChildAssessments[i].SelectedEvaluation, "Improved")
+                                                            Improved
+                                                        </td>
+                                                        <td>
+                                                            @Html.RadioButtonFor(x => x.ChildAssessments[i].SelectedEvaluation, "NotImproved")
+                                                            Not-Improved
+                                                        </td>
+                                                    }
+                                                    <td>
+                                                        @if (string.IsNullOrEmpty(Model.ParentAssessments[i].Concequence))
+                                                        {  <text>
+                                                            @Html.EditorFor(x => x.ParentAssessments[i].Concequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtConcequence" + i } })
+                                                        </text>
+                                                        }
+                                                        else
+                                                        {
+                                                            <text>
+                                                                @Html.EditorFor(x => x.ParentAssessments[i].Concequence, new { htmlAttributes = new { @class = "form-control", @Id = "txtConcequence" + i } })
+                                                            </text>
+                                                        }
+                                                    </td>
+
+
+
+                                                </tr>
+                                       
+                                            </table>
+
+                                        </text>
+                                    }
+                                    <div class="col-md-12 col-md-offset-8">
+
+                                        @if (Model.ParentAssessments[0].OperationalId == 0)
+                                        {  <input type="submit" id="btnAddEit" value="Add" class="btn btn-primary" />  }
+                                        else
+                                        {
+                                            <input type="submit" id="btnAddEit" value="Update" class="btn btn-primary" />
+                                        }
+                                    </div>
+
+
+                                </text>
+                            }
+                        </div>
+                    </div>
+                }
+                @section Scripts {
+                    @Scripts.Render("~/bundles/jqueryval")
+                    @Scripts.Render("~/bundles/bootstrap")
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            // Dropdown Default Values
+                           
+                            if ('@Request.QueryString["AcadmicClassId"]' != null)
+                            {
+                                $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
+                            }
+                            else {
+                                $('#ddlAcadmicClass option[value=""]').attr("selected", true);
+                            }
+                            if ('@Request.QueryString["StudentId"]' !=null) {
+
+                                $('#ddlStudent option[value="@Request.QueryString["StudentId"]"]').attr("selected", true);
+
+                            }
+                            else {
+                                $('#ddlStudent option[value=""]').attr("selected", true);
+                            }
+                            if ('@Request.QueryString["CourseId"]' !=null) {
+
+                                $('#ddlCourse option[value="@Request.QueryString["CourseId"]"]').attr("selected", true);
+
+                            }
+                            else {
+                                $('#ddlCourse option[value=""]').attr("selected", true);
+                            }
+                            
+                            // Enable-Disable textbox on basis of Selected Radio button.
+                            $('input:radio').click(function () {
+                                var getRadiobuttonvalue = $(this).closest('tr').find('input[type=radio]:checked:first').val();
+                                if (getRadiobuttonvalue == "0")  // Zero Represent Average
+                                {
+                                    var getAveragetextboxId = $(this).closest('tr').find('td:eq(5)').find('input[type=text]').prop("id");
+                                    $("#" + getAveragetextboxId).attr("disabled", false);
+                                }
+                                else
+                                {
+                                    var getAveragetextboxId = $(this).closest('tr').find('td:eq(5)').find('input[type=text]').prop("id");
+                                    $("#" + getAveragetextboxId).attr("disabled", true);
+                                }
+                                if (getRadiobuttonvalue == "-2") //-2 represent Worse 
+                                {
+                                    var getWorsetextboxId = $(this).closest('tr').find('td:eq(6)').find('input[type=text]').prop("id");
+                                    $("#" + getWorsetextboxId).attr("disabled", false);
+                                }
+                                else
+                                {
+                                    var getWorsetextboxId = $(this).closest('tr').find('td:eq(6)').find('input[type=text]').prop("id");
+                                    $("#" + getWorsetextboxId).attr("disabled", true);
+                                }
+                                if (getRadiobuttonvalue == "NotImproved")
+                                {
+                                    var getNotImprovedtextboxId = $(this).closest('tr').find('td:eq(3)').find('input[type=text]').prop("id");
+                                    $("#" + getNotImprovedtextboxId).attr("disabled", false);
+                                }
+                                else {
+                                    var getNotImprovedtextboxId = $(this).closest('tr').find('td:eq(3)').find('input[type=text]').prop("id");
+                                    $("#" + getNotImprovedtextboxId).attr("disabled", true);
+                                }
+
+
+                            });
+                            $("#btnAddEit").click(function (e) {
+                               
+                                e.preventDefault();
+                                $("#AcadmicclassMsg").text("");
+                                $("#AcadmicclassMsg").hide();
+                                $("#StudentMsg").text("");
+                                $("#StudentMsg").hide();
+                                $("#CourseMsg").text("");
+                                $("#CourseMsg").hide();
+                                if ($("#ddlAcadmicClass").val() == '') {
+                                    $("#AcadmicclassMsg").text("Please Select Acadmic Class");
+                                    $("#AcadmicclassMsg").show();
+                                }    
+                                else if ($("#ddlStudent").val() == '') {
+                                    $("#StudentMsg").text("Please Select Student");
+                                    $("#StudentMsg").show();
+                                }
+                                else if($("#ddlCourse").val()=='')
+                                {
+                                    $("#CourseMsg").text("Please Select Course");
+                                    $("#CourseMsg").show();
+                                }
+                                else {
+
+                                    var getALLgroupName = new Array();
+                                    var validated = false;
+                                    $("table tr td input[type=radio]").each(function (i, value) {    // Get ALL radio button Groups
+                                        var groupname = $(this).attr("name");
+                                        if (jQuery.inArray(groupname, getALLgroupName) == -1) {
+                                            getALLgroupName.push(groupname);
+                                        }
+                                    });
+                                    var getValidationStatus = new Array();
+                                    //Iterate ALL Groupe for Validation
+                                    for (var i = 0; i < getALLgroupName.length; i++) {
+                                        var getGroupValuesStatus = new Array();
+                                        var groupname = $("table tr td input[name='" + getALLgroupName[i] + "']");
+                                        $("table tr td input[name='" + getALLgroupName[i] + "']").each(function (i, value) {
+                                            getGroupValuesStatus.push($(this).is(":checked"));
+
+                                        });
+                                        // Show Validation Error and add bool parameter  for postback
+                                        if (jQuery.inArray(true, getGroupValuesStatus) == -1) {
+                                            $(groupname).closest("tr").css("border", "2px solid red");
+                                            getValidationStatus.push(false);
+                                        }
+                                        else {
+                                            getValidationStatus.push(true);
+                                        }
+                                    }
+                                    //After successfully validation submitt form.
+                                    if ($.inArray(false, getValidationStatus) == -1) {
+                                        $("form").submit();
+                                    }
+                                }
+                            });
+                            //change event for acadmic class
+                            $("#ddlAcadmicClass").change(function () {
+
+                                var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
+                                var model = { AcadmicClassId: getAcadmicClass };
+                                if (getAcadmicClass != '') {
+                                    $("#AcadmicclassMsg").text("");
+                                    $("#AcadmicclassMsg").hide();
+                                    Url = "/TeacherLog/DDLStudent";
+
+                                    // Fill Student Dropdown
+                                    $.get(Url, model)
+                                    .done(function (stdhtml) {
+
+                                        $("#dvDDLStudent").html(stdhtml);
+
+                                    })
+                                    .fail(function (ex1, ex2) {
+                                        alert("Can't get Student DDL");
+                                    })
+                                    //Fill Course Dropdown
+
+                                     Url = null;
+                                     Url = "/TeacherLog/DDLTeacherAssignedCourse";
+                                     model = { TeacherId: '@GetCurrentLoggedTeacherId()', AcadmicClassId: getAcadmicClass };
+                                    $.get(Url, model)
+                               .done(function (siteHtml) {
+                                  
+                                   $("#dvDDLCourse").html(siteHtml);
+                               })
+                              .fail(function (ex1, ex2, ex3) {
+                                  alert("Can't get Course DDL");
+
+                              });
+
+                                }
+
+                            });
+
+
+                            $('body').on("change", "#ddlStudent", function () {
+
+                                if ($("#ddlStudent").val() != "") {
+                                    $("#StudentMsg").text("");
+                                    $("#StudentMsg").hide();
+
+                                }
+                                else {
+                                    $("#StudentMsg").text("Please Select Student");
+                                    $("#StudentMsg").toggle();
+
+                                }
+                                $('body').on("change", "#ddlCourse", function () {
+                                    if ($("#ddlCourse").val() != "") {
+                                        $("#CourseMsg").text("");
+                                        $("#CourseMsg").hide();
+
+                                    }
+                                    else {
+                                        $("#CourseMsg").text("Please Select Course");
+                                        $("#CourseMsg").toggle();
+
+                                    }
+                                });
+
+                            });
+
+                        });
+                    </script>
+                }
+            </div>
+        </div>
+    </div>
+</div>
