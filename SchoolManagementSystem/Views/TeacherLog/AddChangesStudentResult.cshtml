@@ -1,0 +1,194 @@
+﻿@using Microsoft.AspNet.Identity;
+@model SMSDataContract.Accounts.StudentResultSheet
+@{
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+@functions{
+    public int GetCurrentLoggedTeacherId()
+    {
+        var context = new IdentitySample.Models.ApplicationDbContext();
+        var userId = User.Identity.GetUserId();
+        var CurrentUserDetail = context.Users.Where(user => user.Id == userId).ToList();
+        return (int)CurrentUserDetail.SingleOrDefault().TeacherId;
+    }
+}
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(x => x.StudentResultId)
+                @Html.HiddenFor(x => x.CreatedDate)
+                @Html.HiddenFor(x => x.CreatedById)
+                @if (Model.StudentResultId == 0)
+                {
+                    <span class="HeadingStyle">Add Student Result</span>
+                }
+                else
+                {
+                    <span class="HeadingStyle">Update Student Result</span>
+                }
+                <hr />
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Paper Term</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+
+                            <div id="dvDDLPaperTerm">
+                                @Html.DropDownListFor(x => x.PaperTerm, new List<SelectListItem>(){
+                              new SelectListItem()    { Text = "Mid Term", Value = "MidTerm" },
+                              new SelectListItem()    { Text = "Final Term", Value = "FinalTerm"}
+                              }, "Select Term", new { id = "ddlTerm", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Acadmic Class</label> </div>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                            @{Html.RenderAction("DDLTeacherAssignedClass", "TeacherLog", new { @TeacherId = GetCurrentLoggedTeacherId() });}
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 control-label"><label>Student</label> </div>
+
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+
+                            <div id="dvDDLStudent">
+                              @{Html.RenderAction("DDLStudent", "TeacherLog", new { AcadmicClassId = 0 });}
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+                <div id="AddEditResultTemplate">
+                </div>
+                
+                  @*<div class="form-group">
+                    <div class="col-md-8">
+                        @if (Model.StudentResultId == 0)
+                        {
+                            <div>
+                                <input type="submit" value="Add" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <input type="submit" value="Update" style="background-color:#fab625;color:white;" class="btn pull-right" />
+                            </div>
+                        }
+                    </div>
+                </div>*@
+
+            </div>
+
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+   
+    <script type="text/javascript">
+        {
+            $(document).ready(function () {
+                $("#ddlAcadmicClass").change(function () {
+                   
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    if (getClass != '') {
+                        LoadDDLStudent();
+                       
+                        
+                    }
+                    else {
+                        $("#AcadmicclassMsg").show();
+                        $("#AcadmicclassMsg").text("Please Select Class");
+                    }
+
+
+                });
+                //change event of ddlStudent
+                $('body').on("change", "#ddlStudent", function () {
+                    var getClass = $("#ddlAcadmicClass :selected").val();
+                    var getStudent = $("#ddlStudent :selected").val();
+                    var Term = $("#ddlTerm :selected").val();
+                    if (getStudent != '' && Term !='') {
+                        GetResultTemplate(getClass, getStudent, Term);
+                    }
+                    else {
+                     
+                    }
+                });
+                
+            });
+            function LoadDDLStudent() {
+               
+                var ClassId = $("#ddlAcadmicClass :selected").val();
+                var model = { AcadmicClassId: ClassId };
+                var Url = null;
+                Url = "/TeacherLog/DDLStudent";
+                 // Fill Student Dropdown
+                $.get(Url, model)
+                .done(function (stdhtml) {
+                    $("#dvDDLStudent").html(stdhtml);
+                    if ('@Model.StudentId' > 0) {
+                        $('#ddlStudent option[value="@Model.StudentId"]').attr("selected", true);
+                    }
+                    else { $('#ddlStudent option[value=""]').attr("selected", true); }
+                })
+                           .fail(function (ex1, ex2) {
+                               alert("Can't get Student DDL");
+                           });
+                        
+            }
+
+            function GetResultTemplate(ClassId,StudentId,Term)
+            { 
+                var model = { AcadmicClassId: ClassId, StudentId: StudentId,PaperTerm:Term };
+                $.get("/TeacherLog/ResultTemplate", model)
+                .done(function (html) {
+                    $("#AddEditResultTemplate").empty().html();
+                    $("#AddEditResultTemplate").append(html);
+                    if ($("#AddEditResultTemplate").has("#ResultSheet").length==0)
+                    {
+                        $("#AddEditResultTemplate").append("<div>No Record Found For Selected Student.</div>");
+                    }
+                })
+                .fail(function (e1) {
+                    alert("fail to get Result Template");
+                })
+
+
+            }
+            
+
+        }
+
+
+    </script>
+}
+
+
+
+
+
+
+
+
