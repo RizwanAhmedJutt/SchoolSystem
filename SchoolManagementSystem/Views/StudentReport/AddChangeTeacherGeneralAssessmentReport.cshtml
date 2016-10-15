@@ -43,15 +43,15 @@
                                             @if (Request.QueryString["TeacherId"] != null)
                                             {
                                                 <text>
-                                                    @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = Request.QueryString["AcadmicClassId"] });}   
-                                            </text>
+                                                    @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = Request.QueryString["AcadmicClassId"] });}
+                                                </text>
                                             }
                                             else
                                             {
                                                 <text>
-                                                @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 0 });}
-                                               </text>
-                                                
+                                                    @{Html.RenderAction("DDLTeacher", "Teacher", new { @AcadmicClassId = 0 });}
+                                                </text>
+
                                             }
                                         </div>
                                     </div>
@@ -121,6 +121,7 @@
                                                                 @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "1")
                                                                 Good
                                                             </td>
+
                                                             <td>
 
                                                                 @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "0")
@@ -132,9 +133,14 @@
                                                                 Worse
                                                             </td>
                                                             <td>
+
+                                                                @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "-0")
+                                                                N/A
+                                                            </td>
+                                                            <td>
                                                                 @if (string.IsNullOrEmpty(Model.ParentAssessments[i].AverageConcequence))
                                                                 {  <text>
-                                                                                    @Html.EditorFor(x => x.ParentAssessments[i].AverageConcequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtAverageConcequence" + i } })
+                                                                    @Html.EditorFor(x => x.ParentAssessments[i].AverageConcequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtAverageConcequence" + i } })
                                                                 </text>
                                                                 }
                                                                 else
@@ -154,16 +160,16 @@
                                                             @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "Improved")
                                                             Improved
                                                         </td>
-                                                                        <td>
-                                                                            @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "NotImproved")
-                                                                            Not-Improved
-                                                                        </td>
+                                                        <td>
+                                                            @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "NotImproved")
+                                                            Not-Improved
+                                                        </td>
                                                     }
 
                                                     <td>
                                                         @if (string.IsNullOrEmpty(Model.ParentAssessments[i].Concequence))
                                                         {  <text>
-                                                                            @Html.EditorFor(x => x.ParentAssessments[i].Concequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtConcequence" + i } })
+                                                            @Html.EditorFor(x => x.ParentAssessments[i].Concequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtConcequence" + i } })
                                                         </text>
                                                         }
                                                         else
@@ -176,7 +182,7 @@
 
                                                 </tr>
 
-                                               
+
                                             </table>
 
                                         </text>
@@ -203,33 +209,33 @@
                     <script type="text/javascript">
                         $(document).ready(function () {
                             // Dropdown Default Values
-                          
-                              
-                                if ('@Request.QueryString["AcadmicClassId"]'!=null) {
 
-                                    $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
 
-                                }
-                                else {
-                                    $('#ddlAcadmicClass option[value=""]').attr("selected", true);
-                                }
-                               if ('@Request.QueryString["TeacherId"]' != null) {
+                            if ('@Request.QueryString["AcadmicClassId"]' != null) {
 
-                                    $('#ddlTeacher option[value="@Request.QueryString["TeacherId"]"]').attr("selected", true);
+                                $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
 
-                                }
-                                else {
-                                    $('#ddlTeacher option[value=""]').attr("selected", true);
-                                }
-                                if ('@Request.QueryString["CourseId"]' != null) {
+                            }
+                            else {
+                                $('#ddlAcadmicClass option[value=""]').attr("selected", true);
+                            }
+                            if ('@Request.QueryString["TeacherId"]' != null) {
 
-                                    $('#ddlCourse option[value="@Request.QueryString["CourseId"]"]').attr("selected", true);
+                                $('#ddlTeacher option[value="@Request.QueryString["TeacherId"]"]').attr("selected", true);
 
-                                }
-                                else {
-                                    $('#ddlCourse option[value=""]').attr("selected", true);
-                                }
-                           
+                            }
+                            else {
+                                $('#ddlTeacher option[value=""]').attr("selected", true);
+                            }
+                            if ('@Request.QueryString["CourseId"]' != null) {
+
+                                $('#ddlCourse option[value="@Request.QueryString["CourseId"]"]').attr("selected", true);
+
+                            }
+                            else {
+                                $('#ddlCourse option[value=""]').attr("selected", true);
+                            }
+
                             // Enable-Disable textbox on basis of Selected Radio button.
                             $('input:radio').click(function () {
                                 var getRadiobuttonvalue = $(this).closest('tr').find('input[type=radio]:checked:first').val();
