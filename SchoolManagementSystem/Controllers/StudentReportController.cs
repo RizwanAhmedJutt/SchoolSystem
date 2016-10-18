@@ -189,6 +189,14 @@ namespace SchoolManagementSystem.Controllers
 
             return RedirectToAction("GetALLStudentGeneralAssessment");
         }
+
+        public ActionResult DeleteStudentGeneralAssessment(int AcadmicClassId, int StudentId, string CreateDate)
+        {
+            CreateDate = string.IsNullOrEmpty(CreateDate) ? DateTime.Now.ToString() : CreateDate;
+            int DeleteStatus = repoAssessementSubType.DeleteStudentGeneralAssessment(AcadmicClassId, StudentId, Convert.ToDateTime(CreateDate));
+            return RedirectToAction("GetALLStudentGeneralAssessment");
+        }
+
         // Student Acadmic Assessment
         public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
         {
@@ -245,6 +253,11 @@ namespace SchoolManagementSystem.Controllers
                 int getStatus = repAcOperation.AddChangesAcadmicAssessmentOperation(op);
             }
 
+            return RedirectToAction("GetALLStudentAcadmicAssessment");
+        }
+        public ActionResult DeleteStudentAcadmicAssessment(int AcadmicClassId, int StudentId, int CourseId, string CreateDate)
+        {
+            int DeleteStatus = repoAssessementSubType.DeleteStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId,CreateDate);
             return RedirectToAction("GetALLStudentAcadmicAssessment");
         }
         // Teacher General Assessment
@@ -305,6 +318,11 @@ namespace SchoolManagementSystem.Controllers
                 int getStatus = repTAOperation.AddChangesTeacherAssessmentOperation(op);
             }
 
+            return RedirectToAction("GetALLTeacherGeneralAssessment");
+        }
+        public ActionResult DeleteTeacherAssessment(int AcadmicClassId, int TeacherId, int CourseId, string CreateDate)
+        {
+            int DeleteStatus = repoAssessementSubType.DeleteTeacherAssessment(AcadmicClassId, TeacherId, CourseId, CreateDate);
             return RedirectToAction("GetALLTeacherGeneralAssessment");
         }
         // Student Monthly Report

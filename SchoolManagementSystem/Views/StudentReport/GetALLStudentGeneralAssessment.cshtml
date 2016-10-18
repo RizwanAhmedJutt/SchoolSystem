@@ -77,7 +77,7 @@
                 </div>
                 @if (Model.ToList().Count > 0)
                 { <div class="pull-right">
-                    <a href="/StudentReport/AddChangesAssessmentReport?AcadmicClassId=0&StudentId=0&CreateDate=''" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i>Delete Assessment</a>
+                      <a href="/StudentReport/DeleteStudentGeneralAssessment?AcadmicClassId=@Request.QueryString["AcadmicClassId"]&StudentId=@Request.QueryString["StudentId"]&CreateDate=@Request.QueryString["CreateDate"]" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i>Delete Assessment</a>
                 </div>
                 }
             </div>

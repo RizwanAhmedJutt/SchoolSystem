@@ -133,6 +133,12 @@ namespace SchoolManagementSystem.Controllers
 
             return RedirectToAction("GetALLStudentGeneralAssessment");
         }
+        public ActionResult DeleteStudentGeneralAssessment(int AcadmicClassId, int StudentId, string CreateDate)
+        {
+            CreateDate = string.IsNullOrEmpty(CreateDate) ? DateTime.Now.ToString() : CreateDate;
+            int DeleteStatus = repoAssessementSubType.DeleteStudentGeneralAssessment(AcadmicClassId, StudentId, Convert.ToDateTime(CreateDate));
+            return RedirectToAction("GetALLStudentGeneralAssessment");
+        }
         // Student Acadmic Assessment
         public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
         {
@@ -191,7 +197,12 @@ namespace SchoolManagementSystem.Controllers
 
             return RedirectToAction("GetALLStudentAcadmicAssessment");
         }
-         // Student Results
+        public ActionResult DeleteStudentAcadmicAssessment(int AcadmicClassId, int StudentId, int CourseId, string CreateDate)
+        {
+            int DeleteStatus = repoAssessementSubType.DeleteStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate);
+            return RedirectToAction("GetALLStudentAcadmicAssessment");
+        }
+        // Student Results
         public ActionResult AddChangesStudentResult()
         {
             StudentResultSheet srs = new StudentResultSheet();

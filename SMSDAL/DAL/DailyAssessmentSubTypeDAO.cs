@@ -140,8 +140,8 @@ namespace SMSDAL.DAL
             try
             {
                 var query = "DElETE From DailyAssementOperation" +
-                "WHERE DailyAssementOperation.StudentId=" + StudentId + " AND DailyAssementOperation.AcadmicClassId=" + AcadmicClassId
-               + "AND CONVERT(date, DailyAssementOperation.CreatedDate)=" + CreateDate;
+                " WHERE DailyAssementOperation.StudentId=" + StudentId + " AND DailyAssementOperation.AcadmicClassId=" + AcadmicClassId
+               + " AND CONVERT(date, DailyAssementOperation.CreatedDate)=" +"'"+CreateDate +"'";
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                     DeleteStatus = gObjDatabase.ExecuteNonQuery(objDbCommand);
@@ -160,10 +160,10 @@ namespace SMSDAL.DAL
             try
             {
                 var query = "Delete From AcadmicAssessmentOperation" +
-                "WHERE AcadmicAssessmentOperation.StudentId=" + StudentId +
-                "AND AcadmicAssessmentOperation.AcadmicClassId=" + AcadmicClassId +
-                "AND CONVERT(date, AcadmicAssessmentOperation.CreatedDate)=" + CreateDate +
-                "AND CourseId=" + CourseId;
+                " WHERE AcadmicAssessmentOperation.StudentId=" + StudentId +
+                " AND AcadmicAssessmentOperation.AcadmicClassId=" + AcadmicClassId +
+                " AND CONVERT(date, AcadmicAssessmentOperation.CreatedDate)=" +"'"+CreateDate +"'" +
+                " AND CourseId=" + CourseId;
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                     DeleteStatus = gObjDatabase.ExecuteNonQuery(objDbCommand);
@@ -181,15 +181,14 @@ namespace SMSDAL.DAL
             int DeleteStatus = 0;
             try
             {
-                var query = "DELETE FROM TeacherAssessmentOperation" +
-                    "WHERE TeacherAssessmentOperation.AcadmicClassId=" + AcadmicClassId +
-                    "AND TeacherAssessmentOperation.TeacherId=" + TeacherId +
-                    "AND TeacherAssessmentOperation.CourseId=" + CourseId +
-                    "AND  CONVERT(date, TeacherAssessmentOperation.CreatedDate)=" + CreateDate;
+                var query = " DELETE FROM TeacherAssessmentOperation" +
+                    " WHERE TeacherAssessmentOperation.AcadmicClassId=" + AcadmicClassId +
+                    " AND TeacherAssessmentOperation.TeacherId=" + TeacherId +
+                    " AND TeacherAssessmentOperation.CourseId=" + CourseId +
+                    " AND  CONVERT(date, TeacherAssessmentOperation.CreatedDate)=" + "'"+CreateDate+"'";
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                     DeleteStatus = gObjDatabase.ExecuteNonQuery(objDbCommand);
-
                 }
                 return DeleteStatus;
             }
