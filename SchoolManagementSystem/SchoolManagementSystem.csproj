@@ -530,6 +530,8 @@
     <Content Include="Views\TeacherLog\AddChangesAcadmicAssessmentReport.cshtml" />
     <Content Include="Views\TeacherLog\AddChangesStudentResult.cshtml" />
     <Content Include="Views\TeacherLog\ResultTemplate.cshtml" />
+    <Content Include="Views\DropDownLists\DDLMultiSelectClass.cshtml" />
+    <Content Include="Views\StudentReport\GetTeacherReportByClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

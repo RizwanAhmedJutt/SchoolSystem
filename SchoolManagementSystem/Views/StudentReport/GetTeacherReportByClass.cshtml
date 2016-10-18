@@ -1,0 +1,16 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_ReportsLayout.cshtml";
+}
+<h2>GetTeacherReportByClass</h2>
+<div class="row">
+    <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
+    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+        @{Html.RenderPartial("../DropDownLists/DDLMultiSelectClass");}
+    </div>
+    
+</div>

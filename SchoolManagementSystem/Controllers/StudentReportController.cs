@@ -425,6 +425,12 @@ namespace SchoolManagementSystem.Controllers
                 getCriteria = item;
             }
             return getCriteria;
+        }  
+
+        public ActionResult GetTeacherReportByClass()
+        {
+
+            return View();
         }
     }
 }
