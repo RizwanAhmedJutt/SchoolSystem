@@ -83,7 +83,6 @@
                             {
                                 <text>
                                     @for (int i = 0; i < Model.ParentAssessments.Count; i++)
-
                                     {
                                         <text>
                                             @*id='table@(i)'*@
@@ -98,7 +97,7 @@
                                                         @Html.HiddenFor(x => x.ParentAssessments[i].CreatedById)
                                                         @Html.HiddenFor(x => x.ParentAssessments[i].AssessmentFormat)
                                                         <span>@Html.DisplayFor(x => x.ParentAssessments[i].AssessmentName) </span>
-                                                    </td>  
+                                                    </td>
                                                     @if (Model.ParentAssessments[i].AssessmentFormat == false)
                                                     {
                                                         <text>
@@ -124,16 +123,21 @@
                                                                 Worse
                                                             </td>
                                                             <td>
+
+                                                                @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "-0")
+                                                                N/A
+                                                            </td>
+                                                            <td>
                                                                 @if (string.IsNullOrEmpty(Model.ParentAssessments[i].AverageConcequence))
                                                                 {  <text>
-                                                                @Html.EditorFor(x => x.ParentAssessments[i].AverageConcequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtAverageConcequence" + i } })
+                                                                    @Html.EditorFor(x => x.ParentAssessments[i].AverageConcequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtAverageConcequence" + i } })
                                                                 </text>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <text>
-                                                                        @Html.EditorFor(x => x.ParentAssessments[i].AverageConcequence, new { htmlAttributes = new { @class = "form-control", @Id = "txtAverageConcequence" + i } })
-                                                                    </text>
+                                                                <text>
+                                                                    @Html.EditorFor(x => x.ParentAssessments[i].AverageConcequence, new { htmlAttributes = new { @class = "form-control", @Id = "txtAverageConcequence" + i } })
+                                                                </text>
                                                                 }
                                                             </td>
 
@@ -168,7 +172,7 @@
 
 
                                                 </tr>
-                                       
+
                                             </table>
 
                                         </text>
@@ -195,15 +199,14 @@
                     <script type="text/javascript">
                         $(document).ready(function () {
                             // Dropdown Default Values
-                           
-                            if ('@Request.QueryString["AcadmicClassId"]' != null)
-                            {
+
+                            if ('@Request.QueryString["AcadmicClassId"]' != null) {
                                 $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
                             }
                             else {
                                 $('#ddlAcadmicClass option[value=""]').attr("selected", true);
                             }
-                            if ('@Request.QueryString["StudentId"]' !=null) {
+                            if ('@Request.QueryString["StudentId"]' != null) {
 
                                 $('#ddlStudent option[value="@Request.QueryString["StudentId"]"]').attr("selected", true);
 
@@ -211,7 +214,7 @@
                             else {
                                 $('#ddlStudent option[value=""]').attr("selected", true);
                             }
-                            if ('@Request.QueryString["CourseId"]' !=null) {
+                            if ('@Request.QueryString["CourseId"]' != null) {
 
                                 $('#ddlCourse option[value="@Request.QueryString["CourseId"]"]').attr("selected", true);
 
@@ -219,7 +222,7 @@
                             else {
                                 $('#ddlCourse option[value=""]').attr("selected", true);
                             }
-                            
+
                             // Enable-Disable textbox on basis of Selected Radio button.
                             $('input:radio').click(function () {
                                 var getRadiobuttonvalue = $(this).closest('tr').find('input[type=radio]:checked:first').val();
@@ -228,23 +231,20 @@
                                     var getAveragetextboxId = $(this).closest('tr').find('td:eq(5)').find('input[type=text]').prop("id");
                                     $("#" + getAveragetextboxId).attr("disabled", false);
                                 }
-                                else
-                                {
+                                else {
                                     var getAveragetextboxId = $(this).closest('tr').find('td:eq(5)').find('input[type=text]').prop("id");
                                     $("#" + getAveragetextboxId).attr("disabled", true);
                                 }
-                                if (getRadiobuttonvalue == "-2") //-2 represent Worse 
+                                if (getRadiobuttonvalue == "-2") //-2 represent Worse
                                 {
                                     var getWorsetextboxId = $(this).closest('tr').find('td:eq(6)').find('input[type=text]').prop("id");
                                     $("#" + getWorsetextboxId).attr("disabled", false);
                                 }
-                                else
-                                {
+                                else {
                                     var getWorsetextboxId = $(this).closest('tr').find('td:eq(6)').find('input[type=text]').prop("id");
                                     $("#" + getWorsetextboxId).attr("disabled", true);
                                 }
-                                if (getRadiobuttonvalue == "NotImproved")
-                                {
+                                if (getRadiobuttonvalue == "NotImproved") {
                                     var getNotImprovedtextboxId = $(this).closest('tr').find('td:eq(3)').find('input[type=text]').prop("id");
                                     $("#" + getNotImprovedtextboxId).attr("disabled", false);
                                 }
@@ -256,7 +256,7 @@
 
                             });
                             $("#btnAddEit").click(function (e) {
-                               
+
                                 e.preventDefault();
                                 $("#AcadmicclassMsg").text("");
                                 $("#AcadmicclassMsg").hide();
@@ -267,13 +267,12 @@
                                 if ($("#ddlAcadmicClass").val() == '') {
                                     $("#AcadmicclassMsg").text("Please Select Acadmic Class");
                                     $("#AcadmicclassMsg").show();
-                                }    
+                                }
                                 else if ($("#ddlStudent").val() == '') {
                                     $("#StudentMsg").text("Please Select Student");
                                     $("#StudentMsg").show();
                                 }
-                                else if($("#ddlCourse").val()=='')
-                                {
+                                else if ($("#ddlCourse").val() == '') {
                                     $("#CourseMsg").text("Please Select Course");
                                     $("#CourseMsg").show();
                                 }
@@ -333,11 +332,11 @@
                                     })
                                     //Fill Course Dropdown
 
-                                     Url = null;
-                                     Url = "/Course/DDLCourse";
+                                    Url = null;
+                                    Url = "/Course/DDLCourse";
                                     $.get(Url, model)
                                .done(function (siteHtml) {
-                                  
+
                                    $("#dvDDLCourse").html(siteHtml);
                                })
                               .fail(function (ex1, ex2, ex3) {
