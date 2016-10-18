@@ -133,6 +133,11 @@
                                                                 Worse
                                                             </td>
                                                             <td>
+
+                                                            @Html.RadioButtonFor(x => x.ParentAssessments[i].SelectedEvaluation, "-0")
+                                                            N/A
+                                                            </td>
+                                                            <td>
                                                                 @if (string.IsNullOrEmpty(Model.ParentAssessments[i].AverageConcequence))
                                                                 {  <text>
                                                                 @Html.EditorFor(x => x.ParentAssessments[i].AverageConcequence, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @Id = "txtAverageConcequence" + i } })
