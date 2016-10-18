@@ -160,6 +160,54 @@ namespace SMSBusiness.Repository.Concrete
 
             return ReturnValue;
         }
+        public int DeleteStudentGeneralAssessment(int AcadmicClassId, int StudentId, DateTime CreateDate)
+        {
+            var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
+            int ReturnValue = 0;  // Value will be 99 in case of Update
+            try
+            {
+                ReturnValue = objAssessmentDao.DeleteStudentGeneralAssessment(AcadmicClassId, StudentId, CreateDate);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return ReturnValue;
+        }
+        public int DeleteStudentAcadmicAssessment(int AcadmicClassId, int StudentId, int CourseId, string CreateDate)
+        {
+            var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
+            int ReturnValue = 0;  // Value will be 99 in case of Update
+            try
+            {
+                ReturnValue = objAssessmentDao.DeleteStudentAcadmicAssessment(AcadmicClassId, StudentId,CourseId ,CreateDate);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return ReturnValue;
+        }
+        public int  DeleteTeacherAssessment(int AcadmicClassId, int TeacherId, int CourseId, string CreateDate)
+        {
+            var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
+            int ReturnValue = 0;  // Value will be 99 in case of Update
+            try
+            {
+                ReturnValue = objAssessmentDao.DeleteTeacherAssessment(AcadmicClassId, TeacherId, CourseId, CreateDate);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return ReturnValue;
+        }
         public DailyAssessmentSubType CheckSubAssementExist(int ParentAssessmentId, string SubAssessmentName)
         {
             var objgConatactsDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());

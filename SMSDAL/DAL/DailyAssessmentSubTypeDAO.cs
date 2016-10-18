@@ -27,7 +27,7 @@ namespace SMSDAL.DAL
 
                 using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand("sp_Report_GetALLDailyAssessmentSubType "))
                 {
-                   
+
                     dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }
@@ -102,7 +102,7 @@ namespace SMSDAL.DAL
                 using (DbCommand objDbCommand = gObjDatabase.GetStoredProcCommand("sp_Report_DailyAssessmentSubTypeInsertUpdate"))
                 {
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentSubTypeId", DbType.Int32, dAssessmentSubType.AssessmentSubTypeId);
-                    gObjDatabase.AddInParameter(objDbCommand, "@AssessmentTypeId",DbType.Int32 ,dAssessmentSubType.AssessmentTypeId);
+                    gObjDatabase.AddInParameter(objDbCommand, "@AssessmentTypeId", DbType.Int32, dAssessmentSubType.AssessmentTypeId);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentSubTypeName", DbType.String, dAssessmentSubType.AssessmentSubTypeName);
                     gObjDatabase.AddInParameter(objDbCommand, "@AssessmentFormat", DbType.Boolean, dAssessmentSubType.AssessmentFormat);
                     gObjDatabase.AddInParameter(objDbCommand, "@CreatedById", DbType.String, dAssessmentSubType.CreatedById);
@@ -134,7 +134,70 @@ namespace SMSDAL.DAL
 
             return 0;  // show Error in inserting or Updating Record
         }
+        public int DeleteStudentGeneralAssessment(int AcadmicClassId, int StudentId, DateTime CreateDate)
+        {
+            int DeleteStatus = 0;
+            try
+            {
+                var query = "DElETE From DailyAssementOperation" +
+                "WHERE DailyAssementOperation.StudentId=" + StudentId + " AND DailyAssementOperation.AcadmicClassId=" + AcadmicClassId
+               + "AND CONVERT(date, DailyAssementOperation.CreatedDate)=" + CreateDate;
+                using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+                    DeleteStatus = gObjDatabase.ExecuteNonQuery(objDbCommand);
 
+                }
+                return DeleteStatus;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        public int DeleteStudentAcadmicAssessment(int AcadmicClassId, int StudentId, int CourseId, string CreateDate)
+        {
+            int DeleteStatus = 0;
+            try
+            {
+                var query = "Delete From AcadmicAssessmentOperation" +
+                "WHERE AcadmicAssessmentOperation.StudentId=" + StudentId +
+                "AND AcadmicAssessmentOperation.AcadmicClassId=" + AcadmicClassId +
+                "AND CONVERT(date, AcadmicAssessmentOperation.CreatedDate)=" + CreateDate +
+                "AND CourseId=" + CourseId;
+                using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+                    DeleteStatus = gObjDatabase.ExecuteNonQuery(objDbCommand);
+
+                }
+                return DeleteStatus;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        public int DeleteTeacherAssessment(int AcadmicClassId, int TeacherId, int CourseId, string CreateDate)
+        {
+            int DeleteStatus = 0;
+            try
+            {
+                var query = "DELETE FROM TeacherAssessmentOperation" +
+                    "WHERE TeacherAssessmentOperation.AcadmicClassId=" + AcadmicClassId +
+                    "AND TeacherAssessmentOperation.TeacherId=" + TeacherId +
+                    "AND TeacherAssessmentOperation.CourseId=" + CourseId +
+                    "AND  CONVERT(date, TeacherAssessmentOperation.CreatedDate)=" + CreateDate;
+                using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
+                {
+                    DeleteStatus = gObjDatabase.ExecuteNonQuery(objDbCommand);
+
+                }
+                return DeleteStatus;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
         public DataTable CheckSubAssementExist(int ParentAssessmentId, string SubAssessmentName)
         {
             DataTable dtAssessmentDetails;
@@ -144,7 +207,7 @@ namespace SMSDAL.DAL
                 using (DbCommand objCommand = gObjDatabase.GetStoredProcCommand("sp_Report_CheckSubAssessmentType"))
                 {
                     gObjDatabase.AddInParameter(objCommand, "@ParentAssessmentId", DbType.Int32, ParentAssessmentId);
-                    gObjDatabase.AddInParameter(objCommand, "@AssessmentName", DbType.String,SubAssessmentName );
+                    gObjDatabase.AddInParameter(objCommand, "@AssessmentName", DbType.String, SubAssessmentName);
 
                     dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
                 }
@@ -175,6 +238,7 @@ namespace SMSDAL.DAL
             }
             return dtAssessmentDetails;
         }
+
         public DataTable GetStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
         {
             DataTable dtAssessmentDetails;
@@ -216,7 +280,7 @@ namespace SMSDAL.DAL
                 throw;
             }
             return dtAssessmentDetails;
-        } 
+        }
 
         public DataTable GetStudentSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
         {
@@ -279,22 +343,22 @@ namespace SMSDAL.DAL
                 throw;
             }
             return dtAssessmentDetails;
-        }  
+        }
 
         public DataTable GetLastReportCreatedDate(int? AcadmicClassId, int? StudentId)
         {
             DataTable dtDate;
             try
             {
-                var query = "Select top 1 CreatedDate From DailyAssementOperation Where  StudentId="+ StudentId +" AND   AcadmicClassId="+AcadmicClassId;
+                var query = "Select top 1 CreatedDate From DailyAssementOperation Where  StudentId=" + StudentId + " AND   AcadmicClassId=" + AcadmicClassId;
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                     dtDate = gObjDatabase.GetDataTable(objDbCommand);
-                    
+
                 }
                 return dtDate;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }
