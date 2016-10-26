@@ -101,5 +101,32 @@ namespace SMSBusiness.Repository.Concrete
             }
 
         }
+        public List<TeacherAssessmentOperation> GetTeacherMonthAssessmentResultByClass(StringBuilder AcadmicClassIds, int? TeacherId, string Month)
+        {
+            var objAssessmentDao = new TeacherAssessmentOperationDAO(new SqlDatabase());
+            DataTable dt = objAssessmentDao.GetTeacherMonthAssessmentResultByClass(AcadmicClassIds, TeacherId, Month);
+            List<TeacherAssessmentOperation> AcadmicAssessment = new List<TeacherAssessmentOperation>();
+            try
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    var op = new TeacherAssessmentOperation();
+                    op.CourseName = item.IsNull("CourseName") ? string.Empty : item["CourseName"].ToString();
+                    op.AssessmentName = item.IsNull("AssementName") ? string.Empty : item["AssementName"].ToString();
+                    op.AverageConsequence = item.IsNull("AverageConsequence") ? string.Empty : item["AverageConsequence"].ToString();
+                    op.WorseConsequence = item.IsNull("WorseConsequenec") ? string.Empty : item["WorseConsequenec"].ToString();
+                    //  op.AssementStatus = item.IsNull("AssementStatus") ? string.Empty : item["AssementStatus"].ToString();
+                    op.AssessmentTotal = item.IsNull("AssementStatus") ? 0 : Convert.ToInt32(item["AssementStatus"]);
+                    AcadmicAssessment.Add(op);
+                }
+                return AcadmicAssessment;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }

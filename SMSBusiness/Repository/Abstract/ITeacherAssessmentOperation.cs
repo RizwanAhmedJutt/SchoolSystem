@@ -15,5 +15,6 @@ namespace SMSBusiness.Repository.Abstract
         List<Course> GetTeacherAssessmentCourse(int? TeacherId, int? AcadmicClassId, string Month);
         StringBuilder TeacherAssessmentCourseIDs(int? TeacherId, int? AcadmicClassId, string Month);
         List<TeacherAssessmentOperation> GetTeacherMonthAssessmentResult(int? AcadmicClassId, int? TeacherId, StringBuilder CourseIDs, string Month);
+        List<TeacherAssessmentOperation> GetTeacherMonthAssessmentResultByClass(StringBuilder AcadmicClassIds, int? TeacherId, string Month);
     }
 }

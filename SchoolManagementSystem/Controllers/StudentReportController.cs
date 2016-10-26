@@ -426,11 +426,28 @@ namespace SchoolManagementSystem.Controllers
             }
             return getCriteria;
         }  
-
-        public ActionResult GetTeacherReportByClass()
+        [HttpGet]
+        public ActionResult GetTeacherReportByClass(string AcadmicClassIds,string month,int? TeacherId)
         {
 
             return View();
         }
+
+        public JsonResult GetAcadmicClassByTerm(string term)
+        {
+            IAcadmicClassBLL repClass = new AcadmicClassBLL();
+            List<AcadmicClass> ObjClass = new List<AcadmicClass>();
+            ObjClass = repClass.GetALLAcadmicClassies().Where(x=>x.ClassName.Contains(term)).Select(x=>x).ToList();
+            var JqueryUiFormat = (from c in ObjClass
+                                  select new
+                                  {
+                                      label = c.ClassName,
+                                      Value = c.AcadmicClassId
+                                  }
+                                    ).ToList();
+            return Json(JqueryUiFormat, JsonRequestBehavior.AllowGet);
+        }
+        
+        
     }
 }
