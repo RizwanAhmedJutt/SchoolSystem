@@ -427,10 +427,21 @@ namespace SchoolManagementSystem.Controllers
             return getCriteria;
         }  
         [HttpGet]
-        public ActionResult GetTeacherReportByClass(string AcadmicClassIds,string month,int? TeacherId)
+        public ActionResult GetTeacherReportByClass(string[] AcadmicClassIds,string month,int? TeacherId)
         {
-
-            return View();
+            StringBuilder courseIDs = new StringBuilder();
+            TeacherMonthReportHelpers tmrh = new TeacherMonthReportHelpers();
+            //if (AcadmicClassId > 0)
+            //{
+            //    tmrh.Courses = repTAOperation.GetTeacherAssessmentCourse(TeacherId, AcadmicClassId, Month);
+            //    courseIDs = repTAOperation.TeacherAssessmentCourseIDs(TeacherId, AcadmicClassId, Month);
+            //    if (!string.IsNullOrEmpty(courseIDs.ToString()))
+            //    {
+            //        tmrh.TeacherAssessment = repTAOperation.GetTeacherMonthAssessmentResult(AcadmicClassId, TeacherId, courseIDs, Month);
+            //        return View(tmrh);
+            //    }
+            //}
+            return View(tmrh);
         }
 
         public JsonResult GetAcadmicClassByTerm(string term)
@@ -447,7 +458,20 @@ namespace SchoolManagementSystem.Controllers
                                     ).ToList();
             return Json(JqueryUiFormat, JsonRequestBehavior.AllowGet);
         }
-        
-        
+        [HttpGet]
+        public JsonResult GetAcadmicClass()
+        {
+            IAcadmicClassBLL repClass = new AcadmicClassBLL();
+            List<AcadmicClass> ObjClass = new List<AcadmicClass>();
+            ObjClass = repClass.GetALLAcadmicClassies().ToList();
+            var JqueryUiFormat = (from c in ObjClass
+                                  select new
+                                  {
+                                      label = c.ClassName,
+                                      Value = c.AcadmicClassId
+                                  }
+                                    ).ToList();
+            return Json(JqueryUiFormat, JsonRequestBehavior.AllowGet);
+        }
     }
 }

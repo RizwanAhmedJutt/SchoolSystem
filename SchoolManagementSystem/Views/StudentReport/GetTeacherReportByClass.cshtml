@@ -2,98 +2,6 @@
 
     Layout = "~/Views/Shared/_ReportsLayout.cshtml";
 }
-<h2>GetTeacherReportByClass</h2>
-<div class="row">
-    <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
-    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
-        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-      
-        <input type="text" id="txtAcadmicClass" class="form-control ui-autocomplete-input valid" />
-    </div>
-    
-</div>
-@section Scripts {
-    @Styles.Render("~/Content/JqueryUicss")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jqueryui")
-   
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        var availableAcadmicClass = [
-      //"ActionScript",
-      //"AppleScript",
-      //"Asp",
-      //"BASIC",
-      //"C",
-      //"C++",
-      //"Clojure",
-      //"COBOL",
-      //"ColdFusion",
-      //"Erlang",
-      //"Fortran",
-      //"Groovy",
-      //"Haskell",
-      //"Java",
-      //"JavaScript",
-      //"Lisp",
-      //"Perl",
-      //"PHP",
-      //"Python",
-      //"Ruby",
-      //"Scala",
-      //"Scheme"
-        ];
-        $("#txtAcadmicClass")
-       //don't navigate away from the field on tab when selecting an item
-      .on( "keydown", function( event ) {
-          if ( event.keyCode === $.ui.keyCode.TAB &&
-              $( this ).autocomplete( "instance" ).menu.active ) {
-              event.preventDefault();
-          }
-      }).autocomplete({
-          minLength: 0,
-          source: function( request, response ) {
-              // delegate back to autocomplete, but extract the last term
-              response( $.ui.autocomplete.filter(
-                availableAcadmicClass, extractLast(request.term)));
-          },focus: function() {
-              // prevent value inserted on focus
-              return false;
-          },select: function( event, ui ) {
-              var terms = split( this.value );
-              // remove the current input
-              terms.pop();
-              // add the selected item
-              terms.push( ui.item.value );
-              // add placeholder to get the comma-and-space at the end
-              terms.push( "" );
-              this.value = terms.join( ", " );
-              return false;
-          }
-      });
-    });
-    function split( val ) {
-        return val.split( /,\s*/ );
-    }
-    function extractLast( term ) {
-        return split( term ).pop();
-    }
-    @*$("#txtAcadmicClass").autocomplete({
-        source: '@Url.Action("GetAcadmicClassByTerm")',
-        select: function (event, ui) {
-          //  $("#ProductId").val(ui.item.value);
-            debugger;
-            $("#txtAcadmicClass").val(ui.item.label);
-            event.preventDefault();
-        }
-    }).focus();*@
-    </script>
-}
-
 @using System.Collections.Generic
 @model SMSDataContract.Common.TeacherMonthReportHelpers
 @{
@@ -103,7 +11,7 @@
 <div class="row">
     <div class="col-md-12 col-sm-12">
 
-        @using (Html.BeginForm("GetTeacherReport", "StudentReport", FormMethod.Get))
+        @using (Html.BeginForm("GetTeacherReportByClass", "StudentReport", FormMethod.Get))
         {
             <div class="input-group col-md-8">
                 <div class="row">
@@ -113,46 +21,32 @@
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                        @{Html.RenderPartial("../DropDownLists/DDLClass");}
+                        <input type="text" id="txtAcadmicClass" class="form-control" />
+                        <input type="hidden" name="AcadmicClassIds[]" id="AcadmicClassIds">
                     </div>
-                    @*@Html.ValidationMessageFor(x => x.First().AcadmicClassId)*@
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 col-md-offset-3"> <b>Teacher </b> </div>
-
                     <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
                         <span id="StudentMsg" class="error" style="display:none;"></span>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                         <div id="dvDDLTeacher">
-                            @if (Request.QueryString["AcadmicClassId"] != null)
-                            { Html.RenderAction("DDLTeacher", "Teacher", new { AcadmicClassId = Request.QueryString["AcadmicClassId"] }); }
-                            else
-                            {
-                                Html.RenderAction("DDLTeacher", "Teacher", new { AcadmicClassId = 0 });
-                            }
-
-
+                            @{ Html.RenderAction("DDLTeacher", "Teacher", new { AcadmicClassId = 0 });}
                         </div>
-
                     </div>
                 </div>
                 <br />
                 <div class="row">
-
                     <div class="col-md-3 col-md-offset-3 control-label"><label>Month</label> </div>
-
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
                         <div id="dvDDLWeek">
                             <input name="Month" id="AssessmentMonth" class="date-picker form-control" />
                         </div>
-
-
                     </div>
-
                 </div>
                 <br />
                 <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
@@ -232,76 +126,33 @@
                 }
             });
             // Set Query String Parameter
-            if ('@Request.QueryString["AcadmicClassId"]' != null) {
-                $('#ddlAcadmicClass option[value="@Request.QueryString["AcadmicClassId"]"]').attr("selected", true);
-            }
-            else {
-                $('#ddlAcadmicClass option[value=""]').attr("selected", true);
-            }
             if ('@Request.QueryString["TeacherId"]' != null) {
-
                 $('#ddlTeacher option[value="@Request.QueryString["TeacherId"]"]').attr("selected", true);
-
             }
             else {
                 $('#ddlTeacher option[value=""]').attr("selected", true);
             }
             if ('@Request.QueryString["Month"]' != null) {
-
                 $("#AssessmentMonth").val('@Request.QueryString["Month"]');
-
             }
             else {
                 $("#AssessmentMonth").val() = "";
             }
-            //change event for acadmic class
-            $("#ddlAcadmicClass").change(function () {
-
-                var getAcadmicClass = $("#ddlAcadmicClass :selected").val();
-                var model = { AcadmicClassId: getAcadmicClass };
-                if (getAcadmicClass != '') {
-
-                    $(this).removeAttr("style");
-                    Url = "/Teacher/DDLTeacher";
-
-                    // Fill Teacher Dropdown
-                    $.get(Url, model)
-                    .done(function (stdhtml) {
-
-                        $("#dvDDLTeacher").html(stdhtml);
-
-                    })
-                    .fail(function (ex1, ex2) {
-                        alert("Can't get Student DDL");
-                    })
-                }
-
-            });
-
-
-            $('body').on("change", "#ddlTeacher", function () {
-
-                if ($("#ddlTeacher").val() != "") {
-
-                    $(this).removeAttr("style");
-                }
-
-            });
             $("#AssessmentMonth").change(function () {
 
                 if ($("#AssessmentMonth").val() != "") {
                     $(this).removeAttr("style");
                 }
-            })
+            });
 
             $("#btnSearch").click(function (e) {
 
                 e.preventDefault();
 
-                if ($("#ddlAcadmicClass").val() == '') {
+                if ($("#txtAcadmicClass").val() == '') {
 
 
-                    $("#ddlAcadmicClass").css("border", "1px solid red");
+                    $("#txtAcadmicClass").css("border", "1px solid red");
 
                 }
                 else if ($("#ddlTeacher").val() == '') {
@@ -318,8 +169,54 @@
 
 
             });
-        });
+            // auto search script.
 
+            function split(val) {
+                return val.split(/,\s*/);
+            }
+            function extractLast(term) {
+                return split(term).pop();
+            }
+
+            $("#txtAcadmicClass")
+              // don't navigate away from the field on tab when selecting an item
+              .on("keydown", function (event) {
+                  if (event.keyCode === $.ui.keyCode.TAB &&
+                      $(this).autocomplete("instance").menu.active) {
+                      event.preventDefault();
+                  }
+              })
+              .autocomplete({
+                  source: function (request, response) {
+                      $.getJSON('@Url.Action("GetAcadmicClassByTerm")', {
+                          term: extractLast(request.term),
+                      }, response);
+                  },
+                  search: function () {
+                      // custom minLength
+                      var term = extractLast(this.value);
+                      if (term.length < 0) {
+                          return false;
+                      }
+                  },
+                  focus: function () {
+                      // prevent value inserted on focus
+                      return false;
+                  },
+                  select: function (event, ui) {
+                      var terms = split(this.value);
+                      // remove the current input
+                      terms.pop();
+                      // add the selected item
+                      terms.push(ui.item.value);
+                      // add placeholder to get the comma-and-space at the end
+                      terms.push("");
+                      this.value = terms.join(",");
+                      $("#AcadmicClassIds").val(ui.item.Value);
+                      return false;
+                  }
+              });
+        });
     </script>
 }
 
