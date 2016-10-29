@@ -126,7 +126,7 @@ namespace SMSDAL.DAL
             StringBuilder query = new StringBuilder();
             query.AppendLine("Select c.CourseName,");
             query.AppendLine("daType.AssementName,");
-            query.AppendLine("daType.AcadmicClassId,");
+            query.AppendLine("op.AcadmicClassId,");
             query.AppendLine("op.AssementStatus as AssementStatus,");
             query.AppendLine("op.AverageConsequence as AverageConsequence,");
             query.AppendLine("op.WorseConsequenec as WorseConsequenec");

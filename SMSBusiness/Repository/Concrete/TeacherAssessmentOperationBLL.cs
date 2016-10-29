@@ -139,7 +139,7 @@ namespace SMSBusiness.Repository.Concrete
                     op.AssessmentName = item.IsNull("AssementName") ? string.Empty : item["AssementName"].ToString();
                     op.AverageConsequence = item.IsNull("AverageConsequence") ? string.Empty : item["AverageConsequence"].ToString();
                     op.WorseConsequence = item.IsNull("WorseConsequenec") ? string.Empty : item["WorseConsequenec"].ToString();
-                    //  op.AssementStatus = item.IsNull("AssementStatus") ? string.Empty : item["AssementStatus"].ToString();
+                    op.AcadmicClassId = item.IsNull("AcadmicClassId") ? 0 :Convert.ToInt32(item["AcadmicClassId"]);
                     op.AssessmentTotal = item.IsNull("AssementStatus") ? 0 : Convert.ToInt32(item["AssementStatus"]);
                     AcadmicAssessment.Add(op);
                 }
