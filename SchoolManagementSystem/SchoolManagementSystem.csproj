@@ -232,9 +232,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\normalize.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\sb-admin.css" />
+    <Content Include="Content\selectize.default.css" />
     <Content Include="Content\styles.css" />
+    <Content Include="Content\stylesheet.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -366,6 +369,7 @@
     <None Include="Properties\PublishProfiles\shahbaz.pubxml" />
     <Content Include="Scripts\Common.js" />
     <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-2.2.1.js" />
@@ -384,6 +388,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\selectize.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

@@ -119,23 +119,24 @@ namespace SMSDAL.DAL
             }
             return assessment;
         }
-        public DataTable GetTeacherMonthAssessmentResultByClass(StringBuilder AcadmicClassIds, int? TeacherId,string Month)
+        public DataTable GetTeacherMonthAssessmentResultByClass(string AcadmicClassIds, int? TeacherId,string Month)
         {
 
             DataTable assessment;
             StringBuilder query = new StringBuilder();
             query.AppendLine("Select c.CourseName,");
             query.AppendLine("daType.AssementName,");
-            query.AppendLine("Max(op.AssementStatus) as AssementStatus,");
-            query.AppendLine("MAX(op.AverageConsequence) as AverageConsequence,");
-            query.AppendLine("MAX(op.WorseConsequenec) as WorseConsequenec");
+            query.AppendLine("daType.AcadmicClassId,");
+            query.AppendLine("op.AssementStatus as AssementStatus,");
+            query.AppendLine("op.AverageConsequence as AverageConsequence,");
+            query.AppendLine("op.WorseConsequenec as WorseConsequenec");
             query.AppendLine("from TeacherAssessmentOperation op");
             query.AppendLine("Left   Join DailyAssementType daType on op.ParentAssessmentId=daType.AssessmentTypeId");
             query.AppendLine("Left Join Courses c on c.CourseId=op.CourseId");
             query.AppendLine("WHERE    op.TeacherId= " + TeacherId);
-            query.AppendLine("AND      op.AcadmicClassId in (" + AcadmicClassIds.Replace(",", "", AcadmicClassIds.ToString().LastIndexOf(","), 1) + ")");
+            query.AppendLine("AND      op.AcadmicClassId in (" + AcadmicClassIds + ")");
             query.AppendLine("AND    DATENAME(MONTH,op.CreatedDate) + ' ' + DateName( Year, op.CreatedDate )='" + Month + "'");
-            query.AppendLine("Group by  c.CourseName,daType.AssementName");
+            //query.AppendLine("Group by  c.CourseName,daType.AssementName");
             try
             {
                 using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query.ToString()))
@@ -149,6 +150,37 @@ namespace SMSDAL.DAL
                 throw ex;
             }
             return assessment;
+        }
+
+        public DataTable GetTeacherAssessmentCourseByClass(int? TeacherId, string AcadmicClassId, string Month)
+        {
+            DataTable course;
+            StringBuilder query = new StringBuilder();
+            query.AppendLine("Select distinct c.CourseId,");
+            query.AppendLine("c.CourseName,");
+            query.AppendLine("c.ClassId,");
+            query.AppendLine("ac.ClassName");
+            query.AppendLine("from TeacherAssessmentOperation op");
+            query.AppendLine("Left   Join Courses c on c.CourseId=op.CourseId");
+            query.AppendLine("Left   Join AcadmicClass ac on ac.AcadmicClassId=c.ClassId");
+            query.AppendLine("WHERE  op.TeacherId= " + TeacherId);
+            query.AppendLine("AND    op.AcadmicClassId in ( " + AcadmicClassId +" )");
+            query.AppendLine("AND    DATENAME(MONTH,op.CreatedDate) + ' ' + DateName( Year, op.CreatedDate )='" + Month + "'");
+            query.AppendLine("order by c.ClassId");
+
+            try
+            {
+                using (DbCommand objCommand = gObjDatabase.GetSqlStringCommand(query.ToString()))
+                {
+
+                    course = gObjDatabase.GetDataTable(objCommand);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return course;
         }
     }
 }

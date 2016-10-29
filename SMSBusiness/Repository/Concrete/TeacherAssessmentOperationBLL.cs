@@ -74,6 +74,30 @@ namespace SMSBusiness.Repository.Concrete
                 throw ex;
             }
         }
+        public List<Course> GetTeacherAssessmentCourse(int? TeacherId, string AcadmicClassId, string Month)
+        {
+            var objAssessmentDao = new TeacherAssessmentOperationDAO(new SqlDatabase());
+            DataTable dt = objAssessmentDao.GetTeacherAssessmentCourseByClass(TeacherId, AcadmicClassId, Month);
+            List<Course> Course = new List<Course>();
+            try
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    var c = new Course();
+                    c.CourseId = item.IsNull("CourseId") ? 0 : Convert.ToInt32(item["CourseId"]);
+                    c.CourseName = item.IsNull("CourseName") ? string.Empty : item["CourseName"].ToString();
+                    c.ClassId = item.IsNull("ClassId") ? 0 : Convert.ToInt32(item["ClassId"]);
+                    c.ClassName = item.IsNull("ClassName") ? string.Empty : item["ClassName"].ToString();
+                    Course.Add(c);
+                }
+                return Course;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public List<TeacherAssessmentOperation> GetTeacherMonthAssessmentResult(int? AcadmicClassId, int? TeacherId, StringBuilder CourseIDs, string Month)
         {
             var objAssessmentDao = new TeacherAssessmentOperationDAO(new SqlDatabase());
@@ -101,7 +125,7 @@ namespace SMSBusiness.Repository.Concrete
             }
 
         }
-        public List<TeacherAssessmentOperation> GetTeacherMonthAssessmentResultByClass(StringBuilder AcadmicClassIds, int? TeacherId, string Month)
+        public List<TeacherAssessmentOperation> GetTeacherMonthAssessmentResultByClass(string AcadmicClassIds, int? TeacherId, string Month)
         {
             var objAssessmentDao = new TeacherAssessmentOperationDAO(new SqlDatabase());
             DataTable dt = objAssessmentDao.GetTeacherMonthAssessmentResultByClass(AcadmicClassIds, TeacherId, Month);

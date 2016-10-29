@@ -427,20 +427,22 @@ namespace SchoolManagementSystem.Controllers
             return getCriteria;
         }  
         [HttpGet]
-        public ActionResult GetTeacherReportByClass(string[] AcadmicClassIds,string month,int? TeacherId)
+        public ActionResult GetTeacherReportByClass(string AcadmicClassId,string month,int? TeacherId)
         {
             StringBuilder courseIDs = new StringBuilder();
             TeacherMonthReportHelpers tmrh = new TeacherMonthReportHelpers();
-            //if (AcadmicClassId > 0)
-            //{
-            //    tmrh.Courses = repTAOperation.GetTeacherAssessmentCourse(TeacherId, AcadmicClassId, Month);
-            //    courseIDs = repTAOperation.TeacherAssessmentCourseIDs(TeacherId, AcadmicClassId, Month);
-            //    if (!string.IsNullOrEmpty(courseIDs.ToString()))
-            //    {
-            //        tmrh.TeacherAssessment = repTAOperation.GetTeacherMonthAssessmentResult(AcadmicClassId, TeacherId, courseIDs, Month);
-            //        return View(tmrh);
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(AcadmicClassId))
+            {
+                tmrh.Courses = repTAOperation.GetTeacherAssessmentCourse(TeacherId, AcadmicClassId, month);
+               // courseIDs = repTAOperation.TeacherAssessmentCourseIDs(TeacherId, AcadmicClassId, Month);
+                //if (!string.IsNullOrEmpty(courseIDs.ToString()))
+                //{
+                //    tmrh.TeacherAssessment = repTAOperation.GetTeacherMonthAssessmentResult(AcadmicClassId, TeacherId, courseIDs, Month);
+                //    return View(tmrh);
+                //}
+                tmrh.TeacherAssessment = repTAOperation.GetTeacherMonthAssessmentResultByClass(AcadmicClassId, TeacherId, month);
+                return View(tmrh);
+            }
             return View(tmrh);
         }
 
