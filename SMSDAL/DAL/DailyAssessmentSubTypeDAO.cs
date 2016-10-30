@@ -259,7 +259,7 @@ namespace SMSDAL.DAL
             }
             return dtAssessmentDetails;
         }
-        public DataTable GetTeacherAcadmicAssessments(int? AcadmicClassId, int? TeacherId, int? CourseId, string CreateDate)
+        public DataTable GetTeacherAcadmicAssessments(int? AcadmicClassId, int? TeacherId, int? CourseId, DateTime CreateDate)
         {
             DataTable dtAssessmentDetails;
             try

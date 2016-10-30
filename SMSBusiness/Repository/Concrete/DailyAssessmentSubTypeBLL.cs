@@ -313,7 +313,7 @@ namespace SMSBusiness.Repository.Concrete
                 throw ex;
             }
         }
-        public List<DailyAssessmentType> GetTeacherAcadmicAssessments(int? AcadmicClassId, int? TeacherId, int? CourseId, string CreateDate)
+        public List<DailyAssessmentType> GetTeacherAcadmicAssessments(int? AcadmicClassId, int? TeacherId, int? CourseId, DateTime CreateDate)
         {
             var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
             var dtAssement = new DataTable();

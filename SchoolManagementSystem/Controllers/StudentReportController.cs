@@ -264,7 +264,8 @@ namespace SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetALLTeacherGeneralAssessment(int? AcadmicClassId, int? TeacherId, int? CourseId, string CreateDate)
         {
-            return View(repoAssessementSubType.GetTeacherAcadmicAssessments(AcadmicClassId, TeacherId, CourseId, CreateDate).ToList());
+            DateTime createDate = string.IsNullOrEmpty(CreateDate) ? DateTime.Now : DateTime.ParseExact(CreateDate, "MM/dd/yyyy", null);
+            return View(repoAssessementSubType.GetTeacherAcadmicAssessments(AcadmicClassId, TeacherId, CourseId, createDate).ToList());
         }
 
         [HttpGet]

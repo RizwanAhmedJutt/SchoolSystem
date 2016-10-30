@@ -15,44 +15,44 @@
 
         @using (Html.BeginForm("GetTeacherReportByClass", "StudentReport", FormMethod.Get))
         {
-        <div class="input-group col-md-8">
-            <div class="row">
-                <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
-                <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                    <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+            <div class="input-group col-md-8">
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
+                    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        <select id="txtAcadmicClassId" class="col-md-9"></select>
+                        @Html.Hidden("AcadmicClassId")
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                    <select id="txtAcadmicClassId" class="col-md-9"></select>
-                    @Html.Hidden("AcadmicClassId")
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-3 col-md-offset-3"> <b>Teacher </b> </div>
-                <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                    <span id="StudentMsg" class="error" style="display:none;"></span>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                    <div id="dvDDLTeacher">
-                        @{ Html.RenderAction("DDLTeacher", "Teacher", new { AcadmicClassId = 0 });}
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3"> <b>Teacher </b> </div>
+                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="StudentMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLTeacher">
+                            @{ Html.RenderAction("DDLTeacher", "Teacher", new { AcadmicClassId = 0 });}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-3 col-md-offset-3 control-label"><label>Month</label> </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                    <div id="dvDDLWeek">
-                        <input name="Month" id="AssessmentMonth" class="date-picker form-control" />
+                <br />
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3 control-label"><label>Month</label> </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLWeek">
+                            <input name="Month" id="AssessmentMonth" class="date-picker form-control" />
+                        </div>
                     </div>
                 </div>
+                <br />
+                <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
             </div>
-            <br />
-            <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
-        </div>
         }
 
         <div style="clear:left"></div>
@@ -61,52 +61,58 @@
             <span class="HeadingStyle">Teacher Monthly Assessment Report</span>
             @if (Model.Courses.Count > 0)
             {
-            @*<span class="subheader" style="margin-top:10px;margin-bottom:10px;">Acadmic Report</span>*@
+                @*<span class="subheader" style="margin-top:10px;margin-bottom:10px;">Acadmic Report</span>*@
 
-            <table class="table  table-bordered table-striped table-responsive table-hover">
-                @for (int i = 0; i < Model.Courses.Count; i++)
+                <table class="table  table-bordered table-striped table-responsive table-hover">
+
+                    @for (int i = 0; i < Model.Courses.Count; i++)
                     {
-                    <tr>
-                        <td>
-                            <text> @Model.Courses[i].CourseName</text>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Assessment Name</th>
-                        <th>Reward</th>
-                        <th>Avg.Concequence</th>
-                        <th>Worse Concequence</th>
-                    </tr>
+                        <tr>
+                            <td style="background-color:aqua;">
+                                <b> Subject: </b>     @Model.Courses[i].CourseName
+                            </td>
+                            <td colspan="3" style="background-color:aqua;">
+                            <b> Acadmic Class: </b>  @Model.Courses[i].ClassName
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <th>Assessment Name</th>
+                            <th>Reward</th>
+                            <th>Avg.Concequence</th>
+                            <th>Worse Concequence</th>
+                        </tr>
                         for (int j = 0; j < Model.TeacherAssessment.Count; j++)
                         {
-                            if (Model.TeacherAssessment[j].CourseName == Model.Courses[i].CourseName)
+                            if (Model.TeacherAssessment[j].CourseName == Model.Courses[i].CourseName
+                               && Model.TeacherAssessment[j].AcadmicClassId == Model.Courses[i].ClassId)
                             {
-                    <tr>
-                        <td>@Model.TeacherAssessment[j].AssessmentName</td>
-                        <td>@Model.TeacherAssessment[j].AssessmentTotal</td>
-                        <td>@Model.TeacherAssessment[j].AverageConsequence</td>
-                        <td>@Model.TeacherAssessment[j].WorseConsequence</td>
-                    </tr>
+                                <tr>
+                                    <td>@Model.TeacherAssessment[j].AssessmentName</td>
+                                    <td>@Model.TeacherAssessment[j].AssessmentTotal</td>
+                                    <td>@Model.TeacherAssessment[j].AverageConsequence</td>
+                                    <td>@Model.TeacherAssessment[j].WorseConsequence</td>
+                                </tr>
                             }
 
 
                         }
 
                     }
-                <tr>
-                    <th>Total Reward:</th>
-                    <td>
-                        @if (Model.TeacherAssessment.Count > 0)
+                    <tr>
+                        <th>Total Reward:</th>
+                        <td>
+                            @if (Model.TeacherAssessment.Count > 0)
                             {
-                            <text>
-                                @Model.TeacherAssessment.ToList().Sum(x => x.AssessmentTotal)
-                            </text>
+                                <text>
+                                    @Model.TeacherAssessment.ToList().Sum(x => x.AssessmentTotal)
+                                </text>
                             }
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
 
-            </table>
+                </table>
             }
 
         </div>
@@ -193,7 +199,7 @@
                 ],
                 create: false,
             });
-            
+
             // auto search script.
 
             @*function split(val) {
