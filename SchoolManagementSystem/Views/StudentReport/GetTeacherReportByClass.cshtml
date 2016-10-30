@@ -72,7 +72,7 @@
                                 <b> Subject: </b>     @Model.Courses[i].CourseName
                             </td>
                             <td colspan="3" style="background-color:aqua;">
-                            <b> Acadmic Class: </b>  @Model.Courses[i].ClassName
+                            <b> Acadmic Class: </b>  @Model.Courses[i].ClassName.ToUpper()
                             </td>
                             
                         </tr>
@@ -137,7 +137,7 @@
                 }
             });
             // Set Query String Parameter
-            if ('@Request.QueryString["TeacherId"]' != null) {
+            @*if ('@Request.QueryString["TeacherId"]' != null) {
                 $('#ddlTeacher option[value="@Request.QueryString["TeacherId"]"]').attr("selected", true);
             }
             else {
@@ -148,7 +148,7 @@
             }
             else {
                 $("#AssessmentMonth").val() = "";
-            }
+            }*@
             $("#AssessmentMonth").change(function () {
 
                 if ($("#AssessmentMonth").val() != "") {
@@ -160,8 +160,8 @@
                 debugger;
                 e.preventDefault();
 
-                if ($("#txtAcadmicClass").val() == '') {
-                    $("#txtAcadmicClass").css("border", "1px solid red");
+                if ($("#txtAcadmicClassId").val() == '' || $("#txtAcadmicClassId").val()==null) {
+                    $(".selectize-input").css("border", "1px solid red");
 
                 }
                 else if ($("#ddlTeacher").val() == '') {
