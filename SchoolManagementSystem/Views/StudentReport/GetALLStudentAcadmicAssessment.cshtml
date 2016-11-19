@@ -10,88 +10,95 @@
 
         @using (Html.BeginForm("GetALLStudentAcadmicAssessment", "StudentReport", FormMethod.Get))
         {
-        <div class="input-group col-md-8">
+            <div class="input-group col-md-8">
 
 
 
-            <div class="row">
-                <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3 control-label"><label>Acadmic Class</label> </div>
 
-                <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                    <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                    @{Html.RenderPartial("../DropDownLists/DDLClass");}
-                </div>
-                @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
-            </div>
-
-            <div class="row">
-                <div class="col-md-3 col-md-offset-3"> <b>Student </b> </div>
-
-                <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                    <span id="StudentMsg" class="error" style="display:none;"></span>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                    <div id="dvDDLStudent">
-                        @if (Request.QueryString["StudentId"] != null)
-                        {
-                            Html.RenderAction("DDLStudent", "Course", new { AcadmicClassId = Request.QueryString["AcadmicClassId"] });
-                        }
-                        else
-                        {
-                            Html.RenderAction("DDLStudent", "Course", new { AcadmicClassId = 0 });
-                        }
-
-
-
+                    <div id="dvAcadmicclass" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="AcadmicclassMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        @{Html.RenderPartial("../DropDownLists/DDLClass");}
                     </div>
                     @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-3 col-md-offset-3"> <b>Course </b> </div>
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3"> <b>Student </b> </div>
 
-                <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
-                    <span id="CourseMsg" class="error" style="display:none;"></span>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                    <div id="dvDDLCourse">
-                        @if(Request.QueryString["CourseId"]!=null)
-                        {
-                            Html.RenderAction("DDLCourse", "Course", new { AcadmicClassId = Request.QueryString["AcadmicClassId"] });
-                       
-                        }
-                        else
-                        {
-                            Html.RenderAction("DDLCourse", "Course", new { AcadmicClassId = 0 });
-                        }
-
-
-
+                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="StudentMsg" class="error" style="display:none;"></span>
                     </div>
-                    @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-3 col-md-offset-3">
-                    <b>Date</b>
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                    <input id="setDate"  name="CreateDate" class="form-control" />
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLStudent">
+                            @if (Request.QueryString["StudentId"] != null)
+                            {
+                                Html.RenderAction("DDLStudent", "Course", new { AcadmicClassId = Request.QueryString["AcadmicClassId"] });
+                            }
+                            else
+                            {
+                                Html.RenderAction("DDLStudent", "Course", new { AcadmicClassId = 0 });
+                            }
 
-                </div>
-            </div>
 
-            <br />
-            <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
-        </div>
+
+                        </div>
+                        @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3"> <b>Course </b> </div>
+
+                    <div id="dvStudent" style="text-align: center; margin-top: 10px; margin-left:9%;">
+                        <span id="CourseMsg" class="error" style="display:none;"></span>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
+                        <div id="dvDDLCourse">
+                            @if (Request.QueryString["CourseId"] != null)
+                            {
+                                Html.RenderAction("DDLCourse", "Course", new { AcadmicClassId = Request.QueryString["AcadmicClassId"] });
+
+                            }
+                            else
+                            {
+                                Html.RenderAction("DDLCourse", "Course", new { AcadmicClassId = 0 });
+                            }
+
+
+
+                        </div>
+                        @Html.ValidationMessageFor(x => x.First().AcadmicClassId)
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-3 col-md-offset-3">
+                            <b>From</b>
+                        </div>
+
+                        <div class="col-md-3">
+                            <input id="startDate" name="StartDate" class="form-control" />
+                        </div>
+                        <div class="col-md-1">
+                            <b>To </b>
+                        </div>
+                        <div class="col-md-2" style="padding:0px;">
+                            <input id="endDate" name="EndDate" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+                <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+            </div>
         }
 
         <div style="clear:left"></div>
@@ -100,12 +107,6 @@
                 <div class="pull-left">
                     <a href="/StudentReport/AddChangesAcadmicAssessmentReport?AcadmicClassId=0&StudentId=0&CourseId=0&CreateDate=''" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Assessment</a>
                 </div>
-                @if (Model.ToList().Count > 0)
-                { <div class="pull-right">
-                      <a href="/StudentReport/DeleteStudentAcadmicAssessment?AcadmicClassId=@Request.QueryString["AcadmicClassId"]&StudentId=@Request.QueryString["StudentId"]&CourseId=@Request.QueryString["CourseId"]&CreateDate=@Request.QueryString["CreateDate"]" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i>Delete Assessment</a>
-                </div>
-                }
-
             </div>
 
             <br />
@@ -126,8 +127,8 @@
                             @Html.DisplayNameFor(model => model.First().ParentAssementName)
                         </th>
                         @*<th>
-                            @Html.DisplayNameFor(model => model.First().AssessmentSubTypeName)
-                        </th>*@
+                                @Html.DisplayNameFor(model => model.First().AssessmentSubTypeName)
+                            </th>*@
                         <th>
                             @Html.DisplayNameFor(model => model.First().SelectedEvaluation)
                         </th>
@@ -142,8 +143,8 @@
                         </th>
                         <th>
 
-                            @Html.DisplayNameFor(model => model.First().CreateDate) 
-                          
+                            @Html.DisplayNameFor(model => model.First().CreateDate)
+
                         </th>
                         <th style="width:90px;"><b>ACTION</b></th>
 
@@ -165,8 +166,8 @@
                             @Html.DisplayFor(modelItem => item.ParentAssementName)
                         </td>
                         @*<td>
-                            @Html.DisplayFor(modelItem => item.AssessmentSubTypeName)
-                        </td>*@
+                                @Html.DisplayFor(modelItem => item.AssessmentSubTypeName)
+                            </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.SelectedEvaluation)
                         </td>
@@ -180,7 +181,7 @@
                                 else
                                 {
                             <text>
-                               Reward
+                                Reward
                             </text>
                                 }
                         </td>
@@ -191,12 +192,12 @@
                             @Html.DisplayFor(modelItem => item.Concequence)
                         </td>
                         <td>
-                            @*@Html.DisplayFor(modelItem => item.FormateCreateDate)*@ 
+                            @*@Html.DisplayFor(modelItem => item.FormateCreateDate)*@
                             @Html.DisplayName(item.CreateDate.ToShortDateString())
                         </td>
                         <td>
-                            <a href="/StudentReport/AddChangesAcadmicAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CourseId=@item.CourseId&CreateDate=@item.CreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-
+                            <a href="/StudentReport/AddChangesAcadmicAssessmentReport?AcadmicClassId=@item.AcadmicClassId&TeacherId=@item.TeacherId&CourseId=@item.CourseId&CreateDate=@item.CreateDate" class="btn  btn-info" style="padding: 4px 4px;font-size:12px;"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="/StudentReport/DeleteStudentAcadmicAssessment?AcadmicClassId=@item.AcadmicClassId&TeacherId=@item.TeacherId&CourseId=@item.CourseId&CreateDate=@item.CreateDate" class="btn btn-danger" style="padding: 4px 4px;font-size:12px;"><i class=" glyphicon glyphicon-remove"></i></a>
                         </td>
 
                     </tr>
@@ -240,15 +241,24 @@
             else {
                 $('#ddlCourse option[value=""]').attr("selected", true);
             }
-            if ('@Request.QueryString["CreateDate"]' != null) {
-                debugger;
-                $("#setDate").val('@Request.QueryString["CreateDate"]');
+            if ('@Request.QueryString["StartDate"]' != null) {
+
+                $("#startDate").val('@Request.QueryString["StartDate"]');
 
             }
             else {
-                $("#setDate").val() = "";
+                $("#startDate").val() = "";
             }
-            $('#setDate').datepicker();
+            if ('@Request.QueryString["EndDate"]' != null) {
+
+                $("#endDate").val('@Request.QueryString["EndDate"]');
+
+            }
+            else {
+                $("#endDate").val() = "";
+            }
+            $('#startDate').datepicker();
+            $('#endDate').datepicker();
             //change event for acadmic class
             $("#ddlAcadmicClass").change(function () {
 
@@ -303,13 +313,15 @@
                 }
 
             });
-            $("#setDate").change(function () {
+            $("#startDate").change(function () {
                 $(this).removeAttr("style");
-
-
+            });
+            $("#endDate").change(function () {
+                $(this).removeAttr("style");
             });
             $("#btnSearch").click(function (e) {
-                debugger;
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
                 e.preventDefault();
 
                 if ($("#ddlAcadmicClass").val() == '') {
@@ -323,9 +335,17 @@
                 else if ($("#ddlCourse").val() == '') {
                     $("#ddlCourse").css("border", "1px solid red");
                 }
-                else if ($("#setDate").val() === '') {
+                else if ($("#startDate").val() === '') {
 
-                    $("#setDate").css("border", "1px solid red");
+                    $("#startDate").css("border", "1px solid red");
+
+                }
+                else if ($("#endDate").val() === '') {
+
+                    $("#endDate").css("border", "1px solid red");
+                }
+                else if (new Date(startDate) > new Date(endDate)) {
+                    alert("Start Date must Less than End Date.");
                 }
                 else {
                     $("form").submit();

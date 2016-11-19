@@ -274,11 +274,11 @@ namespace SMSBusiness.Repository.Concrete
                 throw;
             }
         }
-        public List<DailyAssessmentSubType> GetStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        public List<DailyAssessmentSubType> GetStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, DateTime StartDate, DateTime EndDate)
         {
             var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
             var dtAssement = new DataTable();
-            dtAssement = objAssessmentDao.GetStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate);
+            dtAssement = objAssessmentDao.GetStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, StartDate,EndDate);
             List<DailyAssessmentSubType> objAssementList = new List<DailyAssessmentSubType>();
 
             try

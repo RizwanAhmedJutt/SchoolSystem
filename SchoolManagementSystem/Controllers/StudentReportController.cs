@@ -198,9 +198,11 @@ namespace SchoolManagementSystem.Controllers
         }
 
         // Student Acadmic Assessment
-        public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, DateTime? StartDate, DateTime? EndDate)
         {
-            return View(repoAssessementSubType.GetStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate).ToList());
+            StartDate = StartDate == null ? DateTime.Now : (DateTime)StartDate;
+            EndDate = EndDate == null ? DateTime.Now : (DateTime)EndDate;
+            return View(repoAssessementSubType.GetStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId,(DateTime) StartDate,(DateTime)EndDate).ToList());
         }
 
         [HttpGet]
@@ -262,9 +264,11 @@ namespace SchoolManagementSystem.Controllers
         }
         // Teacher General Assessment
         [HttpGet]
-        public ActionResult GetALLTeacherGeneralAssessment(int? AcadmicClassId, int? TeacherId, int? CourseId, DateTime StartDate, DateTime EndDate)
+        public ActionResult GetALLTeacherGeneralAssessment(int? AcadmicClassId, int? TeacherId, int? CourseId, DateTime? StartDate, DateTime? EndDate)
         {
-            return View(repoAssessementSubType.GetTeacherAcadmicAssessments(AcadmicClassId, TeacherId, CourseId, StartDate, EndDate).ToList());
+            StartDate = StartDate == null ? DateTime.Now : (DateTime)StartDate;
+            EndDate = EndDate == null ? DateTime.Now : (DateTime)EndDate;
+            return View(repoAssessementSubType.GetTeacherAcadmicAssessments(AcadmicClassId, TeacherId, CourseId,(DateTime) StartDate,(DateTime) EndDate).ToList());
         }
 
         [HttpGet]

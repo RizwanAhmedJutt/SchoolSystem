@@ -140,9 +140,9 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("GetALLStudentGeneralAssessment");
         }
         // Student Acadmic Assessment
-        public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, string CreateDate)
+        public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, DateTime StartDate,DateTime EndDate)
         {
-            return View(repoAssessementSubType.GetStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate).ToList());
+            return View(repoAssessementSubType.GetStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, StartDate,EndDate).ToList());
         }
 
         [HttpGet]
