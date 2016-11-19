@@ -162,7 +162,7 @@ namespace SMSDAL.DAL
                 var query = "Delete From AcadmicAssessmentOperation" +
                 " WHERE AcadmicAssessmentOperation.StudentId=" + StudentId +
                 " AND AcadmicAssessmentOperation.AcadmicClassId=" + AcadmicClassId +
-                " AND CONVERT(date, AcadmicAssessmentOperation.CreatedDate)=" +"'"+CreateDate +"'" +
+                " AND CONVERT(date, AcadmicAssessmentOperation.CreatedDate,103)=" +"Convert(date,'"+CreateDate +"'" +",103)"+
                 " AND CourseId=" + CourseId;
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
