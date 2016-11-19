@@ -132,10 +132,11 @@ namespace SchoolManagementSystem.Controllers
         }
         // Student General Assessment
         [HttpGet]
-        public ActionResult GetALLStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate)
+        public ActionResult GetALLStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, DateTime? StartDate, DateTime? EndDate)
         {
-            CreateDate = string.IsNullOrEmpty(CreateDate) ? DateTime.Now.ToString() : CreateDate;
-            return View(repoAssessementSubType.GetStudentGeneralAssessment(AcadmicClassId, StudentId, Convert.ToDateTime(CreateDate)).ToList());
+            StartDate = StartDate == null ? DateTime.Now : (DateTime)StartDate;
+            EndDate = EndDate == null ? DateTime.Now : (DateTime)EndDate;
+            return View(repoAssessementSubType.GetStudentGeneralAssessment(AcadmicClassId, StudentId,(DateTime)StartDate,(DateTime)EndDate).ToList());
         }
         [HttpGet]
         public ActionResult AddChangesAssessmentReport(int? AcadmicClassId, int? StudentId, string CreateDate)

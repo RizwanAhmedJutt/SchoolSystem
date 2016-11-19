@@ -18,7 +18,7 @@ namespace SMSBusiness.Repository.Abstract
         int DeleteStudentAcadmicAssessment(int AcadmicClassId, int StudentId, int CourseId, string CreateDate);
         int DeleteTeacherAssessment(int AcadmicClassId, int TeacherId, int CourseId, string CreateDate);
         DailyAssessmentSubType CheckSubAssementExist(int ParentAssessmentId, string SubAssessmentName);
-        List<DailyAssessmentSubType> GetStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, DateTime CreateDate);
+        List<DailyAssessmentSubType> GetStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, DateTime StartDate,DateTime EndDate);
         List<DailyAssessmentSubType> GetStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId,DateTime StartDate,DateTime EndDate);
         List<DailyAssessmentType> GetTeacherAcadmicAssessments(int? AcadmicClassId, int? TeacherId, int? CourseId, DateTime StartDate,DateTime EndDate);
         List<DailyAssessmentSubType> GetStudentSingleGeneralAssessment(int? AcadmicClassId, int? StudentId, string CreateDate);
