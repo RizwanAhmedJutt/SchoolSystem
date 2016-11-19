@@ -259,7 +259,7 @@ namespace SMSDAL.DAL
             }
             return dtAssessmentDetails;
         }
-        public DataTable GetTeacherAcadmicAssessments(int? AcadmicClassId, int? TeacherId, int? CourseId, DateTime CreateDate)
+        public DataTable GetTeacherAcadmicAssessments(int? AcadmicClassId, int? TeacherId, int? CourseId, DateTime StartDate,DateTime EndDate)
         {
             DataTable dtAssessmentDetails;
             try
@@ -270,7 +270,8 @@ namespace SMSDAL.DAL
                     gObjDatabase.AddInParameter(objCommand, "@AcadmicClassId", DbType.Int32, AcadmicClassId);
                     gObjDatabase.AddInParameter(objCommand, "@TeacherId", DbType.Int32, TeacherId);
                     gObjDatabase.AddInParameter(objCommand, "@CourseId", DbType.Int32, CourseId);
-                    gObjDatabase.AddInParameter(objCommand, "@CreatDate", DbType.Date, CreateDate);
+                    gObjDatabase.AddInParameter(objCommand, "@StartDate", DbType.Date, StartDate);
+                    gObjDatabase.AddInParameter(objCommand, "@EndDate", DbType.Date, EndDate);
                     dtAssessmentDetails = gObjDatabase.GetDataTable(objCommand);
                 }
             }
