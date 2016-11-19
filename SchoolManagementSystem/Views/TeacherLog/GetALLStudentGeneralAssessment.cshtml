@@ -64,13 +64,21 @@
                 </div>
                 <br />
                 <div class="row">
-                    <div class="col-md-3 col-md-offset-3">
-                        <b>Date</b>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-level-up"></i></span>
-                        <input id="setDate" name="CreateDate" class="form-control" />
+                    <div class="col-md-12">
+                        <div class="col-md-3 col-md-offset-3">
+                            <b>From</b>
+                        </div>
 
+                        <div class="col-md-3">
+                            <input id="startDate" name="StartDate" class="form-control" />
+                        </div>
+                        <div class="col-md-1">
+                            <b>To </b>
+                        </div>
+                        <div class="col-md-2" style="padding:0px;">
+
+                            <input id="endDate" name="EndDate" class="form-control" />
+                        </div>
                     </div>
                 </div>
 
@@ -85,11 +93,6 @@
                 <div class="pull-left">
                     <a href="/TeacherLog/AddChangesAssessmentReport?AcadmicClassId=0&StudentId=0&CreateDate=''" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-user"></i>Add new Assessment</a>
                 </div>
-                @if (Model.ToList().Count > 0)
-                { <div class="pull-right">
-                      <a href="/TeacherLog/DeleteStudentGeneralAssessment?AcadmicClassId=@Request.QueryString["AcadmicClassId"]&StudentId=@Request.QueryString["StudentId"]&CreateDate=@Request.QueryString["CreateDate"]" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i>Delete Assessment</a>
-                </div>
-                }
             </div>
 
             <br />
@@ -113,10 +116,6 @@
                         <th>
                             @Html.DisplayNameFor(model => model.First().SelectedEvaluation)
                         </th>
-                        @*<th>
-                                @Html.DisplayNameFor(model => model.First().AssessmentFormat)
-                            </th>*@
-
                         <th>
                             @Html.DisplayNameFor(model => model.First().Concequence)
                         </th>
@@ -148,30 +147,15 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.SelectedEvaluation)
                             </td>
-                            @*<td>
-                                    @if (item.AssessmentFormat == true)
-                                    {
-                                        <text>
-                                            Consequence
-                                        </text>
-                                    }
-                                    else
-                                    {
-                                        <text>
-                                            Non- Consequence
-                                        </text>
-                                    }
-                                </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Concequence)
                             </td>
                             <td>
-                                @*@Html.DisplayFor(modelItem => item.CreateDate)*@
                                 @Html.DisplayName(item.CreateDate.ToShortDateString())
                             </td>
                             <td>
-                                <a href="/TeacherLog/AddChangesAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CreateDate=@item.FormateCreateDate" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-
+                                <a href="/TeacherLog/AddChangesAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CreateDate=@item.FormateCreateDate" class="btn  btn-info" style="padding: 4px 4px;font-size:12px;"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a href="/TeacherLog/DeleteStudentGeneralAssessment?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CreateDate=@item.CreateDate" class="btn btn-danger" style="padding: 4px 4px;font-size:12px;"><i class="glyphicon glyphicon-remove"></i></a>
                             </td>
 
                         </tr>
@@ -207,14 +191,24 @@
             else {
                 $('#ddlStudent option[value=""]').attr("selected", true);
             }
-            if ('@Request.QueryString["CreateDate"]' != null) {
+            if ('@Request.QueryString["StartDate"]' != null) {
 
-                $("#setDate").val('@Request.QueryString["CreateDate"]');
+                $("#startDate").val('@Request.QueryString["StartDate"]');
 
             }
             else {
-                $("#setDate").val() = "";
+                $("#startDate").val() = "";
             }
+            if ('@Request.QueryString["EndDate"]' != null) {
+
+                $("#endDate").val('@Request.QueryString["EndDate"]');
+
+            }
+            else {
+                $("#endDate").val() = "";
+            }
+            $('#startDate').datepicker();
+            $('#endDate').datepicker();
             //change event for acadmic class
             $("#ddlAcadmicClass").change(function () {
 
@@ -248,29 +242,37 @@
                 }
 
             });
-            $('#setDate').datepicker();
-            $("#setDate").change(function () {
+            $("#startDate").change(function () {
                 $(this).removeAttr("style");
 
 
             });
+            $("#endDate").change(function () {
+                $(this).removeAttr("style");
+            });
             $("#btnSearch").click(function (e) {
                 debugger;
                 e.preventDefault();
-
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
                 if ($("#ddlAcadmicClass").val() == '') {
-
-
                     $("#ddlAcadmicClass").css("border", "1px solid red");
-
                 }
                 else if ($("#ddlStudent").val() == '') {
 
                     $("#ddlStudent").css("border", "1px solid red");
                 }
-                else if ($("#setDate").val() === '') {
+                else if ($("#startDate").val() === '') {
 
-                    $("#setDate").css("border", "1px solid red");
+                    $("#startDate").css("border", "1px solid red");
+
+                }
+                else if ($("#endDate").val() === '') {
+
+                    $("#endDate").css("border", "1px solid red");
+                }
+                else if (new Date(startDate) > new Date(endDate)) {
+                    alert("Start Date must Less than End Date.");
                 }
                 else {
                     $("form").submit();

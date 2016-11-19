@@ -76,7 +76,7 @@ namespace SchoolManagementSystem.Controllers
         // Reports
         // Student General Assessment
         [HttpGet]
-        public ActionResult GetALLStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, DateTime StartDate,DateTime EndDate)
+        public ActionResult GetALLStudentGeneralAssessment(int? AcadmicClassId, int? StudentId, DateTime? StartDate,DateTime? EndDate)
         {
             StartDate = StartDate == null ? DateTime.Now : (DateTime)StartDate;
             EndDate = EndDate == null ? DateTime.Now : (DateTime)EndDate;
@@ -141,9 +141,12 @@ namespace SchoolManagementSystem.Controllers
             return RedirectToAction("GetALLStudentGeneralAssessment");
         }
         // Student Acadmic Assessment
-        public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, DateTime StartDate,DateTime EndDate)
+        public ActionResult GetALLStudentAcadmicAssessment(int? AcadmicClassId, int? StudentId, int? CourseId, DateTime? StartDate,DateTime? EndDate)
         {
-            return View(repoAssessementSubType.GetStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, StartDate,EndDate).ToList());
+            StartDate = StartDate == null ? DateTime.Now : (DateTime)StartDate;
+            EndDate = EndDate == null ? DateTime.Now : (DateTime)EndDate;
+           
+            return View(repoAssessementSubType.GetStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, (DateTime)StartDate,(DateTime)EndDate).ToList());
         }
 
         [HttpGet]
