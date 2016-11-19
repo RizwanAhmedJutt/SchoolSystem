@@ -141,7 +141,7 @@ namespace SMSDAL.DAL
             {
                 var query = "DElETE From DailyAssementOperation" +
                 " WHERE DailyAssementOperation.StudentId=" + StudentId + " AND DailyAssementOperation.AcadmicClassId=" + AcadmicClassId
-               + " AND CONVERT(date, DailyAssementOperation.CreatedDate)=" +"'"+CreateDate +"'";
+               + " AND CONVERT(date, DailyAssementOperation.CreatedDate,103)=" +"Convert(date,'"+CreateDate +"'"+",103)";
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                     DeleteStatus = gObjDatabase.ExecuteNonQuery(objDbCommand);
@@ -185,7 +185,7 @@ namespace SMSDAL.DAL
                     " WHERE TeacherAssessmentOperation.AcadmicClassId=" + AcadmicClassId +
                     " AND TeacherAssessmentOperation.TeacherId=" + TeacherId +
                     " AND TeacherAssessmentOperation.CourseId=" + CourseId +
-                    " AND  CONVERT(date, TeacherAssessmentOperation.CreatedDate)=" + "'"+CreateDate+"'";
+                    " AND  CONVERT(date, TeacherAssessmentOperation.CreatedDate,103)=" + "Convert(date,'"+CreateDate+"'"+",103)";
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                     DeleteStatus = gObjDatabase.ExecuteNonQuery(objDbCommand);
