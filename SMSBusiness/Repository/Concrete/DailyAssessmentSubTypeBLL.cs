@@ -192,7 +192,7 @@ namespace SMSBusiness.Repository.Concrete
 
             return ReturnValue;
         }
-        public int  DeleteTeacherAssessment(int AcadmicClassId, int TeacherId, int CourseId, string CreateDate)
+        public int  DeleteTeacherAssessment(int AcadmicClassId, int TeacherId, int CourseId, DateTime CreateDate)
         {
             var objAssessmentDao = new DailyAssessmentSubTypeDAO(new SqlDatabase());
             int ReturnValue = 0;  // Value will be 99 in case of Update
