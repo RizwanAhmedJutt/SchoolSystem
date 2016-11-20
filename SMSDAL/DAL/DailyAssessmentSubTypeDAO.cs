@@ -141,7 +141,7 @@ namespace SMSDAL.DAL
             {
                 var query = "DELETE From DailyAssementOperation" +
                 " WHERE DailyAssementOperation.StudentId=" + StudentId + " AND DailyAssementOperation.AcadmicClassId=" + AcadmicClassId
-               + " AND CONVERT(date, DailyAssementOperation.CreatedDate,103)=" +"Convert(date,'"+CreateDate +"'"+",103)";
+               + " AND CONVERT(date, DailyAssementOperation.CreatedDate)=" +"Convert(date,'"+CreateDate +"'"+")";
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                     DeleteStatus = gObjDatabase.ExecuteNonQuery(objDbCommand);
@@ -162,7 +162,7 @@ namespace SMSDAL.DAL
                 var query = "Delete From AcadmicAssessmentOperation" +
                 " WHERE AcadmicAssessmentOperation.StudentId=" + StudentId +
                 " AND AcadmicAssessmentOperation.AcadmicClassId=" + AcadmicClassId +
-                " AND CONVERT(date, AcadmicAssessmentOperation.CreatedDate,103)=" +"Convert(date,'"+CreateDate +"'" +",103)"+
+                " AND CONVERT(date, AcadmicAssessmentOperation.CreatedDate)=" +"Convert(date,'"+CreateDate +"'" +")"+
                 " AND CourseId=" + CourseId;
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
@@ -185,7 +185,7 @@ namespace SMSDAL.DAL
                     " WHERE TeacherAssessmentOperation.AcadmicClassId=" + AcadmicClassId +
                     " AND TeacherAssessmentOperation.TeacherId=" + TeacherId +
                     " AND TeacherAssessmentOperation.CourseId=" + CourseId +
-                    " AND  CONVERT(date, TeacherAssessmentOperation.CreatedDate,103)=" + "Convert(date,'"+CreateDate+"'"+",103)";
+                    " AND  CONVERT(date, TeacherAssessmentOperation.CreatedDate)=" + "Convert(date,'"+CreateDate+"'"+")";
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))
                 {
                     DeleteStatus = gObjDatabase.ExecuteNonQuery(objDbCommand);
