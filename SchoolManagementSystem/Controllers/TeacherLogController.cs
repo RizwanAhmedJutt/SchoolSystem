@@ -134,10 +134,9 @@ namespace SchoolManagementSystem.Controllers
 
             return RedirectToAction("GetALLStudentGeneralAssessment");
         }
-        public ActionResult DeleteStudentGeneralAssessment(int AcadmicClassId, int StudentId, string CreateDate)
+        public ActionResult DeleteStudentGeneralAssessment(int AcadmicClassId, int StudentId, DateTime CreateDate)
         {
-            CreateDate = string.IsNullOrEmpty(CreateDate) ? DateTime.Now.ToString() : CreateDate;
-            int DeleteStatus = repoAssessementSubType.DeleteStudentGeneralAssessment(AcadmicClassId, StudentId, Convert.ToDateTime(CreateDate));
+            int DeleteStatus = repoAssessementSubType.DeleteStudentGeneralAssessment(AcadmicClassId, StudentId, CreateDate);
             return RedirectToAction("GetALLStudentGeneralAssessment");
         }
         // Student Acadmic Assessment
