@@ -4,6 +4,24 @@
 
     Layout = "~/Views/Shared/_ReportsLayout.cshtml";
 }
+
+<style type="text/css">
+    @@media print {
+        #btnPrint {
+            background-color: white;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 15px;
+            font-size: 14px;
+            line-height: 18px;
+        }
+    }
+
+</style>
 <div class="row">
     <div class="col-md-12 col-sm-12">
 
@@ -61,103 +79,111 @@
                 </div>
                 <br />
                 <button id="btnSearch" class="btn btn-primary col-md-offset-11 " type="submit">Search</button>
+               
             </div>
                                 }
 
+        
+     
         <div style="clear:left"></div>
+        
         <div class="well">
+            @*<div style="float:right;">
+                <button id="btnPrint" class="btn btn-primary btn-lg" type="submit" onclick="javascript: PrintElem('printreport')">Print</button>
+            </div>*@
+            <div id="printreport">
+                <span class="HeadingStyle">Student Monthly Assessment Report</span>
+                @if (Model.Courses.Count > 0)
+                {
+                    <span class="subheader" style="margin-top:10px;margin-bottom:10px;">Acadmic Report</span>
 
-            <span class="HeadingStyle">Student Monthly Assessment Report</span>
-            @if (Model.Courses.Count > 0)
-            {
-                <span class="subheader" style="margin-top:10px;margin-bottom:10px;">Acadmic Report</span>
-
-                <table class="table  table-bordered table-striped table-responsive table-hover">
-                    @for (int i = 0; i < Model.Courses.Count; i++)
+                    <table class="table  table-bordered table-striped table-responsive table-hover">
+                        @for (int i = 0; i < Model.Courses.Count; i++)
                  {
-                <tr>
-                    <td>
-                        <text> @Model.Courses[i].CourseName</text>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Assessment Name</th>
-                    <th>Reward</th>
-                    <th>Avg.Concequence</th>
-                    <th>Worse Concequence</th>
-                </tr>
+                    <tr>
+                        <td>
+                            <text> @Model.Courses[i].CourseName</text>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Assessment Name</th>
+                        <th>Reward</th>
+                        <th>Avg.Concequence</th>
+                        <th>Worse Concequence</th>
+                    </tr>
                      for (int j = 0; j < Model.AcadmicAssessment.Count; j++)
                      {
                          if (Model.AcadmicAssessment[j].CourseName == Model.AcadmicAssessment[i].CourseName)
                          {
-                <tr>
-                    <td>@Model.AcadmicAssessment[j].AssessmentName</td>
-                    <td>@Model.AcadmicAssessment[j].AssessmentTotal</td>
-                    <td>@Model.AcadmicAssessment[j].AverageConsequence</td>
-                    <td>@Model.AcadmicAssessment[j].WorseConsequence</td>
-                </tr>
+                    <tr>
+                        <td>@Model.AcadmicAssessment[j].AssessmentName</td>
+                        <td>@Model.AcadmicAssessment[j].AssessmentTotal</td>
+                        <td>@Model.AcadmicAssessment[j].AverageConsequence</td>
+                        <td>@Model.AcadmicAssessment[j].WorseConsequence</td>
+                    </tr>
                          }
 
 
                      }
 
                  }
-                    <tr>
-                        <th>Total Reward:</th>
-                        <td>
-                            @if (Model.AcadmicAssessment.Count > 0)
+                        <tr>
+                            <th>Total Reward:</th>
+                            <td>
+                                @if (Model.AcadmicAssessment.Count > 0)
                         {
-                        <text>
-                            @Model.AcadmicAssessment.ToList().Sum(x => x.AssessmentTotal)
-                        </text>
+                            <text>
+                                @Model.AcadmicAssessment.ToList().Sum(x => x.AssessmentTotal)
+                            </text>
                         }
+                            </td>
+                        </tr>
+
+
+                    </table>
+                }
+                @if (Model.GeneralAssessment.Count > 0)
+                {
+                    <span class="subheader" style="margin-top:10px;margin-bottom:10px;">General Report</span>
+                    <table class="table  table-bordered table-striped table-responsive table-hover">
+                        <tr>
+                            <th>Assessment Name</th>
+                            <th>Reward</th>
+                            <th>Worse Concequence</th>
+                        </tr>
+                        @for (int i = 0; i < Model.GeneralAssessment.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Model.GeneralAssessment[i].AssessmentName
+                        </td>
+                        <td>
+                            @Model.GeneralAssessment[i].AssessmentTotal
+                        </td>
+                        <td>
+                            @Model.GeneralAssessment[i].WorseConsequence
                         </td>
                     </tr>
-
-
-                </table>
-            }
-            @if (Model.GeneralAssessment.Count > 0)
-            {
-                <span class="subheader" style="margin-top:10px;margin-bottom:10px;">General Report</span>
-                <table class="table  table-bordered table-striped table-responsive table-hover">
-                    <tr>
-                        <th>Assessment Name</th>
-                        <th>Reward</th>
-                        <th>Worse Concequence</th>
-                    </tr>
-                    @for (int i = 0; i < Model.GeneralAssessment.Count; i++)
-                {
-                <tr>
-                    <td>
-                        @Model.GeneralAssessment[i].AssessmentName
-                    </td>
-                    <td>
-                        @Model.GeneralAssessment[i].AssessmentTotal
-                    </td>
-                    <td>
-                        @Model.GeneralAssessment[i].WorseConsequence
-                    </td>
-                </tr>
 
 
 
                 }
-                    <tr>
-                        <th>Total Reward:</th>
-                        <td>
-                            @if (Model.GeneralAssessment.Count > 0)
+                        <tr>
+                            <th>Total Reward:</th>
+                            <td>
+                                @if (Model.GeneralAssessment.Count > 0)
                         {
-                        <text>
-                            @Model.GeneralAssessment.ToList().Sum(x => x.AssessmentTotal)
-                        </text>
+                            <text>
+                                @Model.GeneralAssessment.ToList().Sum(x => x.AssessmentTotal)
+                            </text>
                         }
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
 
 
-                </table>
-            }
+                    </table>
+                }
+            </div>
         </div>
     </div>
 </div>
@@ -264,6 +290,27 @@
 
             });
         });
+        function PrintElem(elem) {
+            debugger;
+            var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+
+            mywindow.document.write('<html><head><title>' + document.title + '</title>');
+
+            mywindow.document.write('</head><body >');
+            mywindow.document.write('<h1>' + document.title + '</h1>');
+            mywindow.document.write(document.getElementById(elem).innerHTML);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+
+            mywindow.print();
+            mywindow.close();
+
+            return true;
+
+        }
 
     </script>
 }
