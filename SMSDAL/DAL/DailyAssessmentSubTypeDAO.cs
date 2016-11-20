@@ -154,7 +154,7 @@ namespace SMSDAL.DAL
                 throw;
             }
         }
-        public int DeleteStudentAcadmicAssessment(int AcadmicClassId, int StudentId, int CourseId, string CreateDate)
+        public int DeleteStudentAcadmicAssessment(int AcadmicClassId, int StudentId, int CourseId, DateTime CreateDate)
         {
             int DeleteStatus = 0;
             try

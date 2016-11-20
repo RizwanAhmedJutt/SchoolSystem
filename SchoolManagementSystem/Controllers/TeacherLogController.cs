@@ -200,7 +200,7 @@ namespace SchoolManagementSystem.Controllers
 
             return RedirectToAction("GetALLStudentAcadmicAssessment");
         }
-        public ActionResult DeleteStudentAcadmicAssessment(int AcadmicClassId, int StudentId, int CourseId, string CreateDate)
+        public ActionResult DeleteStudentAcadmicAssessment(int AcadmicClassId, int StudentId, int CourseId, DateTime CreateDate)
         {
             int DeleteStatus = repoAssessementSubType.DeleteStudentAcadmicAssessment(AcadmicClassId, StudentId, CourseId, CreateDate);
             return RedirectToAction("GetALLStudentAcadmicAssessment");

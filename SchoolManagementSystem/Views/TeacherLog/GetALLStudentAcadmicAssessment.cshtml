@@ -208,8 +208,10 @@
                         </td>
                         <td>
                             <a href="/TeacherLog/AddChangesAcadmicAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CourseId=@item.CourseId&CreateDate=@item.CreateDate" class="btn btn-info" style="padding: 4px 4px;font-size:12px;"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="/TeacherLog/DeleteStudentAcadmicAssessment?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CourseId=@item.CourseId&CreateDate=@item.CreateDate.ToShortDateString()" class="btn btn-danger" style="padding: 4px 4px;font-size:12px;"><i class="glyphicon glyphicon-remove"></i></a>
-                        </td>
+                            <a href="@Url.Action("DeleteStudentAcadmicAssessment", "TeacherLog", new { AcadmicClassId = item.AcadmicClassId, StudentId = item.StudentId, CourseId = item.CourseId, CreateDate = item.CreateDate })" class="btn btn-danger" style="padding: 4px 4px;font-size:12px;">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </a>
+                         </td>
 
                     </tr>
                     }
