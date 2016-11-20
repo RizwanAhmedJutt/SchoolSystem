@@ -139,7 +139,7 @@ namespace SMSDAL.DAL
             int DeleteStatus = 0;
             try
             {
-                var query = "DElETE From DailyAssementOperation" +
+                var query = "DELETE From DailyAssementOperation" +
                 " WHERE DailyAssementOperation.StudentId=" + StudentId + " AND DailyAssementOperation.AcadmicClassId=" + AcadmicClassId
                + " AND CONVERT(date, DailyAssementOperation.CreatedDate,103)=" +"Convert(date,'"+CreateDate +"'"+",103)";
                 using (DbCommand objDbCommand = gObjDatabase.GetSqlStringCommand(query))

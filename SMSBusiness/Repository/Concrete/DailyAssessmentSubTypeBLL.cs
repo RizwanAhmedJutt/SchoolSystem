@@ -166,7 +166,7 @@ namespace SMSBusiness.Repository.Concrete
             int ReturnValue = 0;  // Value will be 99 in case of Update
             try
             {
-                ReturnValue = objAssessmentDao.DeleteStudentGeneralAssessment(AcadmicClassId, StudentId, CreateDate);
+                ReturnValue = objAssessmentDao.DeleteStudentGeneralAssessment(AcadmicClassId, StudentId,CreateDate);
             }
             catch (Exception)
             {
@@ -258,6 +258,7 @@ namespace SMSBusiness.Repository.Concrete
                     AssessmentDetails.AssessmentFormat = Convert.ToBoolean(dr["AssessmentFormat"]);
                     AssessmentDetails.Concequence = dr.IsNull("WorseConsequence") ? string.Empty : dr["WorseConsequence"].ToString();
                     AssessmentDetails.FormateCreateDate = dr["CreatedDate"].ToString();
+                    AssessmentDetails.CreateDate =Convert.ToDateTime (dr["CreatedDate"]);
                     AssessmentDetails.StudentId = Convert.ToInt32(dr["StudentId"]);
                     AssessmentDetails.AcadmicClassId = Convert.ToInt32(dr["AcadmicClassId"]);
 

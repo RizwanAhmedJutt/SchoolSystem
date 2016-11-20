@@ -164,8 +164,10 @@
                             </td>
                             <td>
                                 <a href="/StudentReport/AddChangesAssessmentReport?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CreateDate=@item.FormateCreateDate" class="btn  btn-info" style="padding: 4px 4px;font-size:12px;"><i class="glyphicon glyphicon-edit"></i></a>
-                                <a href="/StudentReport/DeleteStudentGeneralAssessment?AcadmicClassId=@item.AcadmicClassId&StudentId=@item.StudentId&CreateDate=@item.CreateDate" class="btn btn-danger" style="padding: 4px 4px;font-size:12px;"><i class="glyphicon glyphicon-remove"></i></a>
-                            </td>
+                                <a href="@Url.Action("DeleteStudentGeneralAssessment", "StudentReport", new { AcadmicClassId = item.AcadmicClassId, StudentId = item.StudentId, CreatedDate = item.CreateDate })" class="btn btn-danger" style="padding: 4px 4px;font-size:12px;">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </a>
+                             </td>
 
                         </tr>
                     }
